@@ -13,8 +13,17 @@ dependencies {
 
 }
 
-task deployToJboss(type: Copy) {
+task copyToJboss(type: Copy) {
     from 'build/libs/'
     into  jbossHome + '/standalone/deployments/'
 
 }
+
+task clean(type: Delete) {
+    delete 'build'
+}
+
+//task deploy(dependsOn: clean,build){
+//
+//print("fs")
+//}
