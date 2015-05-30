@@ -1,2 +1,7 @@
 dfm-manager.iml
 /.idea
+/.gradle
+/gradle
+/out
+/build
+

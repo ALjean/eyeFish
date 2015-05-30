@@ -1,7 +1,25 @@
 package com.jean.controller;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 /**
  * Created by stas on 30.05.15.
  */
+@RestController
 public class MainController {
+
+//    private static final Logger log = LogManager.getLogger(MainController.class);
+
+
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public Object testMethod(){
+
+        return "Hello Controller";
+    }
 }
+

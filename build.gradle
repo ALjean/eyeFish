@@ -1,0 +1,20 @@
+apply plugin: 'java'
+apply plugin: 'war'
+
+repositories {
+    mavenCentral()
+}
+
+//noinspection GroovyAssignabilityCheck
+dependencies {
+    compile group: 'org.springframework', name: 'spring-webmvc', version: '4.1.6.RELEASE'
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.3'
+
+}
+
+task deployToJboss(type: Copy) {
+    from 'build/libs/'
+    into  jbossHome + '/standalone/deployments/'
+
+}
