@@ -9,12 +9,13 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 
+
 /**
  * Created by stas on 30.05.15.
  */
 @Configuration
 @Profile("test")
-//@ComponentScan("com.jean")
+@ComponentScan("com.jean.*")
 //@PropertySource("classpath:application.properties")
 public class TestConfiguration {
 
