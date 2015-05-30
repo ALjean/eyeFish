@@ -4,11 +4,14 @@ import com.jean.entry.Task;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import runner.BaseTest;
+import org.springframework.stereotype.Component;
+import com.jean.BaseTest;
 
 /**
  * Created by stas on 30.05.15.
  */
+
+@Component
 public class TaskDaoTest extends BaseTest {
 
     private Task task;
@@ -32,11 +35,13 @@ public class TaskDaoTest extends BaseTest {
     @Test
     public void createTest(){
         taskDao.create(task);
+        System.out.println("Test 1");
     }
 
     @Test
     public void readTest(){
         Task t= taskDao.read(id);
         assertEquals(t.getName(), "TestTaskName");
+        System.out.println("Test 2");
     }
 }

@@ -9,8 +9,11 @@ public interface TaskDao {
 
 
     void create(Task task);
+
     Task read(int id);
+
     Task update(Task task);
+
     boolean delete(int id);
 
 }

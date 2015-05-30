@@ -18,7 +18,7 @@ public class TaskDaoImpl extends BaseDaoImpl implements TaskDao {
 
     @Override
     public void create(Task task) {
-        String sql = "INSERT INTO (name, description) VALUES (?, ?)";
+        String sql = "INSERT INTO Task (name, description) VALUES (?, ?)";
         int result = jdbcTemplate.update(sql, task.getName(), task.getDescription());
 
         if (result != 0) {

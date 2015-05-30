@@ -13,7 +13,7 @@ import org.apache.logging.log4j.LogManager;
 @RestController
 public class MainController {
 
-//    private static final Logger log = LogManager.getLogger(MainController.class);
+//    private static final Logger log = LogManager.getLogger(MainController.class); todo
 
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
