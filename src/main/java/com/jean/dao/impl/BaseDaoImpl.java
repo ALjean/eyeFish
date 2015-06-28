@@ -1,8 +1,12 @@
 package com.jean.dao.impl;
 
+import com.jean.config.PoolConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * Created by stas on 30.05.15.
@@ -10,8 +14,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class BaseDaoImpl {
 
+    @Qualifier("getConnectionFactory")
     @Autowired
-    protected JdbcTemplate jdbcTemplate;
+    private PoolConnectionFactory connectionFactory;
+
+    protected Connection getConnection() throws SQLException {
+        return connectionFactory.getBds().getConnection();
+    }
+
 
 
 }
