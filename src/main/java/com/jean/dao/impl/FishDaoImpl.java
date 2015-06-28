@@ -3,12 +3,15 @@ package com.jean.dao.impl;
 import com.jean.CustomDfmException;
 import com.jean.dao.FishDao;
 import com.jean.entity.Fish;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 
 /**
  * Created by stas on 30.05.15.
@@ -17,6 +20,7 @@ import java.sql.SQLException;
 @Component
 public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
+    private static final Logger log = LoggerFactory.getLogger(FishDaoImpl.class);
 
 
 
@@ -24,9 +28,9 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
     public void create(Fish fish) throws CustomDfmException {
 
         String sql = "INSERT INTO fish (name, description, temp_min, temp_max, pressure_min, pressure_max) VALUES (?, ?, ?, ?, ?, ?)";
+        int result;
 
-            try (Connection connection = getConnection()) {
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
                 preparedStatement.setString(1, fish.getName());
                 preparedStatement.setString(2, fish.getDescription());
                 preparedStatement.setFloat(3, fish.getTempMin());
@@ -34,21 +38,15 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
                 preparedStatement.setInt(5, fish.getPressureMin());
                 preparedStatement.setInt(6, fish.getPressureMax());
 
-                int result = preparedStatement.executeUpdate();
+                result = preparedStatement.executeUpdate();
             }catch (SQLException e){
                 throw  new CustomDfmException(e, "some problem with save fish");
             }
 
 
-
-        int result = 1;
-
         if (result != 0) {
-            System.out.println("save fish" + fish.getName());
-        } else {
-            System.out.println("failed save" + fish.getName());
+            log.info("Fish model save with name: " + fish.getName());
         }
-
 
     }
 
