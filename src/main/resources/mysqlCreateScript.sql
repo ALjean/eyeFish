@@ -4,10 +4,6 @@ CREATE TABLE fish(
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(30) NOT NULL,
   description VARCHAR(400),
-  temp_min FLOAT NOT NULL,
-  temp_max FLOAT NOT NULL,
-  pressure_min INT NOT NULL,
-  pressure_max INT NOT NULL,
   PRIMARY KEY (id)
 );
 
@@ -31,4 +27,16 @@ CREATE TABLE weather(
   wind_deg INT NOT NULL,
   clouds INT NOT NULL,
   PRIMARY KEY (id)
+);
+
+CREATE TABLE parameters(
+  id INT NOT NULL AUTO_INCREMENT,
+  id_fish INT NOT NULL,
+  type_data_weather VARCHAR(30) NOT NULL,
+  type_behavior VARCHAR(40) NOT NULL,
+  type_key VARCHAR(30) NOT NULL,
+  range_min INT NOT NULL,
+  range_max INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (id_fish) REFERENCES fish(id)
 );
