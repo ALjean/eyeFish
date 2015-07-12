@@ -1,4 +1,4 @@
-CREATE DATABASE `dmf-manager`;
+# CREATE DATABASE `eyeFishBase`;
 
 CREATE TABLE fish(
   id INT NOT NULL AUTO_INCREMENT,
