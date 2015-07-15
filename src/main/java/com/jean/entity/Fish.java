@@ -11,14 +11,6 @@ public class Fish {
 
     private String description;
 
-    private float tempMin;
-
-    private float tempMax;
-
-    private int pressureMin;
-
-    private int pressureMax;
-
     public int getId() {
         return id;
     }
@@ -41,37 +33,5 @@ public class Fish {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public float getTempMin() {
-        return tempMin;
-    }
-
-    public void setTempMin(float tempMin) {
-        this.tempMin = tempMin;
-    }
-
-    public float getTempMax() {
-        return tempMax;
-    }
-
-    public void setTempMax(float tempMax) {
-        this.tempMax = tempMax;
-    }
-
-    public int getPressureMin() {
-        return pressureMin;
-    }
-
-    public void setPressureMin(int pressureMin) {
-        this.pressureMin = pressureMin;
-    }
-
-    public int getPressureMax() {
-        return pressureMax;
-    }
-
-    public void setPressureMax(int pressureMax) {
-        this.pressureMax = pressureMax;
     }
 }

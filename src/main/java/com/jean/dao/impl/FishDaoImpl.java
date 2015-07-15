@@ -27,17 +27,12 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
     @Override
     public void create(Fish fish) throws CustomDfmException {
 
-        String sql = "INSERT INTO fish (name, description, temp_min, temp_max, pressure_min, pressure_max) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO fish (name, description) VALUES (?, ?)";
         int result;
 
             try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
                 preparedStatement.setString(1, fish.getName());
                 preparedStatement.setString(2, fish.getDescription());
-                preparedStatement.setFloat(3, fish.getTempMin());
-                preparedStatement.setFloat(4, fish.getTempMax());
-                preparedStatement.setInt(5, fish.getPressureMin());
-                preparedStatement.setInt(6, fish.getPressureMax());
-
                 result = preparedStatement.executeUpdate();
             }catch (SQLException e){
                 throw  new CustomDfmException(e, "some problem with save fish");

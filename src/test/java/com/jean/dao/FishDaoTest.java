@@ -25,10 +25,6 @@ public class FishDaoTest extends BaseTest {
         fish = new Fish();
         fish.setName("TestTaskName");
         fish.setDescription("Test Description JUNIT");
-        fish.setTempMin(234.32f);
-        fish.setTempMax(444.22f);
-        fish.setPressureMin(500);
-        fish.setPressureMax(550);
         id = 1;
     }
 
@@ -38,7 +34,7 @@ public class FishDaoTest extends BaseTest {
 //    boolean delete(int id);
 
     @Test
-//    @Ignore
+    @Ignore
     public void createTest() throws CustomDfmException {
         fishDao.create(fish);
         System.out.println("Test 1");
