@@ -33,6 +33,4 @@ task deploy(type: Copy, dependsOn: build) {
     into jbossHome + '/standalone/deployments/'
 }
 
-task clean(type: Delete) {
-    delete 'build'
-}
+

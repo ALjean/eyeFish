@@ -48,10 +48,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
     @Override
     public Fish read(int id) {
         String sql = "SELECT * FROM Task WHERE id = ?";
-
-        Fish fish = new Fish();
-
-        return fish;
+        return new Fish();
     }
 
     @Override
