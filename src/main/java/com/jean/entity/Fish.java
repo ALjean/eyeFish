@@ -1,77 +1,72 @@
 package com.jean.entity;
 
+import java.util.Map;
+
 /**
- * Created by stas on 30.05.15.
+ * Created by Stas Patek and Aleksey Gloliev and Some Guy With Big Head on 30.05.15.
  */
 public class Fish {
 
-    private int id;
+	private long id;
+	
+	private Map<String, WeatherState> hungry;
+	
+	private Map<String, WeatherState> location;
+	
+	private String description;
 
-    private String name;
+	public long getId() {
+		return id;
+	}
 
-    private String description;
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    private float tempMin;
+	public Map<String, WeatherState> getHungry() {
+		return hungry;
+	}
 
-    private float tempMax;
+	public void setHungry(Map<String, WeatherState> hungry) {
+		this.hungry = hungry;
+	}
 
-    private int pressureMin;
+	public Map<String, WeatherState> getLocation() {
+		return location;
+	}
 
-    private int pressureMax;
+	public void setLocation(Map<String, WeatherState> location) {
+		this.location = location;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return "Fish [id=" + id + ", hungry=" + hungry + ", location="
+				+ location + ", description=" + description + "]";
+	}
 
-    public String getName() {
-        return name;
-    }
+	public Fish(long id, Map<String, WeatherState> hungry,
+			Map<String, WeatherState> location, String description) {
+		super();
+		this.id = id;
+		this.hungry = hungry;
+		this.location = location;
+		this.description = description;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public float getTempMin() {
-        return tempMin;
-    }
-
-    public void setTempMin(float tempMin) {
-        this.tempMin = tempMin;
-    }
-
-    public float getTempMax() {
-        return tempMax;
-    }
-
-    public void setTempMax(float tempMax) {
-        this.tempMax = tempMax;
-    }
-
-    public int getPressureMin() {
-        return pressureMin;
-    }
-
-    public void setPressureMin(int pressureMin) {
-        this.pressureMin = pressureMin;
-    }
-
-    public int getPressureMax() {
-        return pressureMax;
-    }
-
-    public void setPressureMax(int pressureMax) {
-        this.pressureMax = pressureMax;
-    }
+	public Fish() {
+		super();
+	}
+	
+	
+ 
 }
