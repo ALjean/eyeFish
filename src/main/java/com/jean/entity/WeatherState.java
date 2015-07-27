@@ -1,7 +1,7 @@
 package com.jean.entity;
 
 /**
- * Created by Stas Patek and Aleksey Gloliev and Some Guy With Big Head.
+ * Created by Stas Patek and Aleksey Gloliev and Some Guy 26.08.15.
  */
 
 public class WeatherState {
