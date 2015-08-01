@@ -4,6 +4,7 @@ package com.jean;
 import com.jean.config.AppConfiguration;
 import com.jean.dao.FishDao;
 import com.jean.dao.WeatherDao;
+import com.jean.service.WeatherService;
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class BaseTest  {
 
     @Autowired
     protected WeatherDao weatherDao;
+
+    @Autowired
+    protected WeatherService weatherService;
 
 
 }

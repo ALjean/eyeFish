@@ -8,6 +8,8 @@ import java.util.Map;
 public class Fish {
 
 	private long id;
+
+	private String name;
 	
 	private Map<String, WeatherState> hungry;
 	
@@ -46,27 +48,29 @@ public class Fish {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	@Override
 	public String toString() {
 		return "Fish [id=" + id + ", hungry=" + hungry + ", location="
 				+ location + ", description=" + description + "]";
 	}
 
-	public Fish(long id, Map<String, WeatherState> hungry,
-			Map<String, WeatherState> location, String description) {
-		super();
-		this.id = id;
-		this.hungry = hungry;
-		this.location = location;
-		this.description = description;
-	}
+//	public Fish(long id, Map<String, WeatherState> hungry,
+//			Map<String, WeatherState> location, String description) {
+//		super();
+//		this.id = id;
+//		this.hungry = hungry;
+//		this.location = location;
+//		this.description = description;
+//	}
 
-	public Fish() {
-		super();
-	}
-	
-	
  
 }

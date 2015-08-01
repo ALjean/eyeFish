@@ -31,7 +31,7 @@ public class WeatherDaoImpl extends BaseDaoImpl implements WeatherDao {
             preparedStatement.setFloat(7, weather.getWindSpeed());
             preparedStatement.setFloat(8, weather.getWindDeg());
             preparedStatement.setInt(9, weather.getClouds());
-            int result = preparedStatement.executeUpdate();
+            int result = preparedStatement.executeUpdate(); //todo
         } catch (SQLException e) {
             throw new CustomDfmException(e, "some problem with save weather");
         }
