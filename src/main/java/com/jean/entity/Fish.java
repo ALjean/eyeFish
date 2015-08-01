@@ -1,37 +1,72 @@
 package com.jean.entity;
 
+import java.util.Map;
+
 /**
- * Created by stas on 30.05.15.
+ * Created by Stas Patek and Aleksey Gloliev and Some Guy With Big Head on 30.05.15.
  */
 public class Fish {
 
-    private int id;
+	private long id;
+	
+	private Map<String, WeatherState> hungry;
+	
+	private Map<String, WeatherState> location;
+	
+	private String description;
 
-    private String name;
+	public long getId() {
+		return id;
+	}
 
-    private String description;
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public Map<String, WeatherState> getHungry() {
+		return hungry;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setHungry(Map<String, WeatherState> hungry) {
+		this.hungry = hungry;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public Map<String, WeatherState> getLocation() {
+		return location;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setLocation(Map<String, WeatherState> location) {
+		this.location = location;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return "Fish [id=" + id + ", hungry=" + hungry + ", location="
+				+ location + ", description=" + description + "]";
+	}
+
+	public Fish(long id, Map<String, WeatherState> hungry,
+			Map<String, WeatherState> location, String description) {
+		super();
+		this.id = id;
+		this.hungry = hungry;
+		this.location = location;
+		this.description = description;
+	}
+
+	public Fish() {
+		super();
+	}
+	
+	
+ 
 }
