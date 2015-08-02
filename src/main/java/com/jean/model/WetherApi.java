@@ -10,6 +10,7 @@ import java.util.List;
 public class WetherApi {
 
     private City city;
+    private String cod;
     private List<Weather> weathers;
 
     public City getCity() {
@@ -26,5 +27,13 @@ public class WetherApi {
 
     public void setWeathers(List<Weather> weathers) {
         this.weathers = weathers;
+    }
+
+    public String getCod() {
+        return cod;
+    }
+
+    public void setCod(String cod) {
+        this.cod = cod;
     }
 }
