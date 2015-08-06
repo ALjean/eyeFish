@@ -1,6 +1,7 @@
 package com.jean.config;
 
 
+import com.jean.config.property.DataBaseProperties;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +23,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class AppConfiguration {
 
     @Autowired
-    private Environment env;
+    DataBaseProperties dataBaseProperties;
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
@@ -32,10 +33,10 @@ public class AppConfiguration {
     @Bean
     public BasicDataSource getBasicDataSource(){
         BasicDataSource basicDataSource = new BasicDataSource();
-        basicDataSource.setDriverClassName(env.getProperty("mysql.driver"));
-        basicDataSource.setUrl(env.getProperty("mysql.url"));
-        basicDataSource.setUsername(env.getProperty("mysql.username"));
-        basicDataSource.setPassword(env.getProperty("mysql.password"));
+        basicDataSource.setDriverClassName(dataBaseProperties.getDriver());
+        basicDataSource.setUrl(dataBaseProperties.getUrl());
+        basicDataSource.setUsername(dataBaseProperties.getUserName());
+        basicDataSource.setPassword(dataBaseProperties.getPassword());
         basicDataSource.setInitialSize(10); //todo check prop
         return basicDataSource;
     }
