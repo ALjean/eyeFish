@@ -1,21 +1,17 @@
 package com.jean.service.impl;
 
 
-import com.jean.model.WetherApi;
+import com.jean.model.owm.DayWeatherDataOWM;
+import com.jean.model.owm.GeneralWeatherStateOWM;
+import com.jean.model.owm.HoursWeatherDataOWM;
 import com.jean.service.WeatherService;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.GenericType;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.config.ClientConfig;
-import com.sun.jersey.api.client.config.DefaultClientConfig;
-import com.sun.jersey.api.json.JSONConfiguration;
-import org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider;
+import com.jean.util.Constants;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
+import java.net.URI;
 
-import javax.ws.rs.core.MediaType;
-import java.util.List;
 
 /**
  * Created by stas on 18.07.15.
@@ -32,22 +28,23 @@ public class WeatherServiceImpl implements WeatherService{
     @Value("${weather.id.app}")
     private String appId;
 
-    public String getWeatherData(){
+    @Override
+    @SuppressWarnings("unchecked")
+    public  GeneralWeatherStateOWM<HoursWeatherDataOWM> getHoursWeatherState() {
+        return  new RestTemplate().getForObject(urlBuilder(Constants.CITY_PATH), GeneralWeatherStateOWM.class);
+    }
 
-        ClientConfig config = new DefaultClientConfig();
-        config.getClasses().add(JacksonJaxbJsonProvider.class);
-        config.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
+    @Override
+    @SuppressWarnings("unchecked")
+    public GeneralWeatherStateOWM<DayWeatherDataOWM> getDayWeatherState() {
+        return  new RestTemplate().getForObject(urlBuilder(Constants.DAILY_PATH), GeneralWeatherStateOWM.class);
+    }
 
 
-        Client client = Client.create();
-        WebResource webResource = client.resource(weatherUrl)
-                .queryParam("id", cityId).queryParam("APPID", appId);
-
-        ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON)
-                .get(ClientResponse.class);
-
-//        List<WetherApi> accounts = response.getEntity(new GenericType<List<WetherApi>>(){});
-        String result = response.getEntity(String.class);
-        return result;
+    private URI urlBuilder(String type){
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(weatherUrl + "/" + type)
+                .queryParam(Constants.ID, cityId)
+                .queryParam(Constants.APPID, appId);
+        return builder.build().encode().toUri();
     }
 }

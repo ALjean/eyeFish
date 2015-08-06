@@ -6,4 +6,10 @@ package com.jean.util;
 public interface Constants {
 
     float KELVIN_VALUE = 273.15f;
+
+    String ID = "id";
+    String APPID = "APPID";
+
+    String CITY_PATH =  "city";
+    String DAILY_PATH =  "daily";
 }

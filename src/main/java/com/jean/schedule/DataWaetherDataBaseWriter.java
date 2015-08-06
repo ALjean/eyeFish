@@ -1,5 +1,7 @@
 package com.jean.schedule;
 
+import com.jean.dao.WeatherDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +13,9 @@ import java.util.Date;
  */
 @Component
 public class DataWaetherDataBaseWriter {
+
+    @Autowired
+    private WeatherDao weatherDao;
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 

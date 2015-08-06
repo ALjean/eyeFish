@@ -41,17 +41,4 @@ public class WeatherState {
 		return "WeatherState [min=" + min + ", max=" + max
 				+ ", typeDataWeather=" + typeDataWeather + "]";
 	}
-
-	public WeatherState(float min, float max, String typeDataWeather) {
-		super();
-		this.min = min;
-		this.max = max;
-		this.typeDataWeather = typeDataWeather;
-	}
-
-	public WeatherState() {
-		super();
-	}
-	
-	
 }

@@ -2,6 +2,7 @@ package com.jean.service;
 
 import com.jean.BaseTest;
 
+import com.jean.model.owm.GeneralWeatherStateOWM;
 import org.junit.Test;
 
 /**
@@ -11,8 +12,16 @@ public class WeatherServiceTest extends BaseTest {
 
 
     @Test
-    public void getWeatherDataTest(){
-        String weatherData = weatherService.getWeatherData();
-        System.out.println(weatherData);
+    public void getHoursWeatherStateTest(){
+        GeneralWeatherStateOWM generalWeatherStateOWM = weatherService.getHoursWeatherState();
+        System.out.println(generalWeatherStateOWM);
     }
+
+    @Test
+    public void getDayWeatherStateTest(){
+        GeneralWeatherStateOWM generalWeatherStateOWM = weatherService.getDayWeatherState();
+        System.out.println(generalWeatherStateOWM);
+    }
+
+
 }
