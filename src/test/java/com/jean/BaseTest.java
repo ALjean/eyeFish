@@ -4,6 +4,7 @@ package com.jean;
 import com.jean.config.AppConfiguration;
 import com.jean.dao.FishDao;
 import com.jean.dao.WeatherDao;
+import com.jean.schedule.DataWeatherDataBaseWriter;
 import com.jean.service.WeatherService;
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
@@ -31,6 +32,9 @@ public class BaseTest  {
 
     @Autowired
     protected WeatherService weatherService;
+
+    @Autowired
+    protected DataWeatherDataBaseWriter dataWeatherDataBaseWriter;
 
 
 }

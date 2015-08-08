@@ -1,5 +1,7 @@
 package com.jean.model.owm;
 
+import java.util.List;
+
 /**
  * Created by Alex on 06.08.15.
  */
@@ -17,7 +19,11 @@ public class DayWeatherDataOWM {
 
     private int clouds;
 
-    private AverageWeatherParamsOWM weather;
+    private TempOWM temp;
+
+//    private List<AverageWeatherParamsOWM> weather;
+
+
 
     public long getDt() {
         return dt;
@@ -67,17 +73,35 @@ public class DayWeatherDataOWM {
         this.clouds = clouds;
     }
 
-    public AverageWeatherParamsOWM getWeather() {
-        return weather;
+//    public AverageWeatherParamsOWM getWeather() {
+//        return weather;
+//    }
+//
+//    public void setWeather(AverageWeatherParamsOWM weather) {
+//        this.weather = weather;
+//    }
+
+
+//    public List<AverageWeatherParamsOWM> getWeather() {
+//        return weather;
+//    }
+//
+//    public void setWeather(List<AverageWeatherParamsOWM> weather) {
+//        this.weather = weather;
+//    }
+
+
+    public TempOWM getTemp() {
+        return temp;
     }
 
-    public void setWeather(AverageWeatherParamsOWM weather) {
-        this.weather = weather;
+    public void setTemp(TempOWM temp) {
+        this.temp = temp;
     }
 
     @Override
     public String toString() {
         return "DayWeatherDataOWM [dt=" + dt + ", pressure=" + pressure + ", humidity=" + humidity + ", speed=" + speed + ", deg=" + deg
-                + ", clouds=" + clouds + ", weather=" + weather + "]";
+                + ", clouds=" + ", weather="  + "]";
     }
 }

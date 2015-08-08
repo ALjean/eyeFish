@@ -26,21 +26,22 @@ public class WeatherServiceImpl implements WeatherService {
 
     @Override
     @SuppressWarnings("unchecked")
-    public GeneralWeatherStateOWM<HoursWeatherDataOWM> getHoursWeatherState() {
+    public GeneralWeatherStateOWM getHoursWeatherState() {
         return new RestTemplate().getForObject(urlBuilder(Constants.CITY_PATH), GeneralWeatherStateOWM.class);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public GeneralWeatherStateOWM<DayWeatherDataOWM> getDayWeatherState() {
+    public GeneralWeatherStateOWM getDayWeatherState() {
         return new RestTemplate().getForObject(urlBuilder(Constants.DAILY_PATH), GeneralWeatherStateOWM.class);
     }
 
 
     private URI urlBuilder(String type) {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(weatherApiProperties.getWeatherUrl() + "/" + type)
-                .queryParam(Constants.ID, weatherApiProperties.getCityId())
-                .queryParam(Constants.APPID, weatherApiProperties.getAppId());
+//                .queryParam(Constants.APPID, weatherApiProperties.getAppId())
+                .queryParam(Constants.ID, weatherApiProperties.getCityId());
+
         return builder.build().encode().toUri();
     }
 }

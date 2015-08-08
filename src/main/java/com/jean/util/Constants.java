@@ -12,4 +12,7 @@ public interface Constants {
 
     String CITY_PATH =  "city";
     String DAILY_PATH =  "daily";
+
+    int MULTIPLIER = 1000;
+
 }

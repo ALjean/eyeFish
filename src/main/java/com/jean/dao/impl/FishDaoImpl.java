@@ -25,7 +25,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
 
     @Override
-    public void create(Fish fish) throws CustomDfmException {
+    public void save(Fish fish) throws CustomDfmException {
 
         String sql = "INSERT INTO fish (name, description) VALUES (?, ?)";
         int result;

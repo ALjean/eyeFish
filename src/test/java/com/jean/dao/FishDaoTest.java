@@ -36,7 +36,7 @@ public class FishDaoTest extends BaseTest {
     @Test
     @Ignore
     public void createTest() throws CustomDfmException {
-        fishDao.create(fish);
+        fishDao.save(fish);
         System.out.println("Test 1");
     }
 

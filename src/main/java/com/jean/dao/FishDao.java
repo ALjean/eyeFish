@@ -9,7 +9,7 @@ import com.jean.entity.Fish;
 public interface FishDao {
 
 
-    void create(Fish fish) throws CustomDfmException;
+    void save(Fish fish) throws CustomDfmException;
 
     Fish read(int id);
 

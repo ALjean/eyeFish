@@ -19,12 +19,14 @@ CREATE TABLE weather(
   id INT NOT NULL AUTO_INCREMENT,
   city VARCHAR(30) NOT NULL,
   date TIMESTAMP,
-  temp FLOAT NOT NULL,
-  temp_min FLOAT NOT NULL,
-  temp_max FLOAT NOT NULL,
-  pressure INT NOT NULL,
+  temp_day FLOAT NOT NULL,
+  temp_night FLOAT NOT NULL,
+  temp_even FLOAT NOT NULL,
+  temp_morn FLOAT NOT NULL,
+  pressure FLOAT NOT NULL,
   wind_speed FLOAT NOT NULL,
   wind_deg INT NOT NULL,
+  humidity INT NOT NULL,
   clouds INT NOT NULL,
   PRIMARY KEY (id)
 );

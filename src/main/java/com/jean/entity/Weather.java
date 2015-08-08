@@ -11,12 +11,14 @@ public class Weather {
     private int id;
     private String city;
     private Date date;
-    private float temperature;
-    private float minTemperature;
-    private float maxTemperature;
-    private int pressure;
+    private float tempDay;
+    private float tempNight;
+    private float tempEven;
+    private float tempMorn;
+    private float pressure;
     private float windSpeed;
     private float windDeg;
+    private int humidity;
     private int clouds;
 
 
@@ -44,35 +46,43 @@ public class Weather {
         this.date = date;
     }
 
-    public float getTemperature() {
-        return temperature;
+    public float getTempDay() {
+        return tempDay;
     }
 
-    public void setTemperature(float temperature) {
-        this.temperature = temperature;
+    public void setTempDay(float tempDay) {
+        this.tempDay = tempDay;
     }
 
-    public float getMinTemperature() {
-        return minTemperature;
+    public float getTempNight() {
+        return tempNight;
     }
 
-    public void setMinTemperature(float minTemperature) {
-        this.minTemperature = minTemperature;
+    public void setTempNight(float tempNight) {
+        this.tempNight = tempNight;
     }
 
-    public float getMaxTemperature() {
-        return maxTemperature;
+    public float getTempEven() {
+        return tempEven;
     }
 
-    public void setMaxTemperature(float maxTemperature) {
-        this.maxTemperature = maxTemperature;
+    public void setTempEven(float tempEven) {
+        this.tempEven = tempEven;
     }
 
-    public int getPressure() {
+    public float getTempMorn() {
+        return tempMorn;
+    }
+
+    public void setTempMorn(float tempMorn) {
+        this.tempMorn = tempMorn;
+    }
+
+    public float getPressure() {
         return pressure;
     }
 
-    public void setPressure(int pressure) {
+    public void setPressure(float pressure) {
         this.pressure = pressure;
     }
 
@@ -98,5 +108,13 @@ public class Weather {
 
     public void setClouds(int clouds) {
         this.clouds = clouds;
+    }
+
+    public int getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(int humidity) {
+        this.humidity = humidity;
     }
 }
