@@ -3,8 +3,10 @@ package com.jean.dao;
 import com.jean.BaseTest;
 import com.jean.CustomDfmException;
 import com.jean.entity.Weather;
+
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Date;
@@ -37,13 +39,14 @@ public class WeatherDaoTest extends BaseTest {
     }
 
     @Test
-//    @Ignore
+    @Ignore
     public void saveTest() throws CustomDfmException {
         weatherDao.save(weather);
         System.out.println("Test weather save");
     }
 
     @Test
+    @Ignore
     public void getAllWeatherTest() throws CustomDfmException {
         List<Weather> weathers = weatherDao.getAllWeather();
         Assert.assertTrue(weathers.size() > 0);
