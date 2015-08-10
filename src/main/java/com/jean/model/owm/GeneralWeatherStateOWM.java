@@ -2,7 +2,7 @@ package com.jean.model.owm;
 
 import java.util.List;
 
-public class GeneralWeatherStateOWM {
+public class GeneralWeatherStateOWM<T> {
 
     private CityOWM city;
 
@@ -10,7 +10,7 @@ public class GeneralWeatherStateOWM {
 
     private int cnt;
 
-    private List<DayWeatherDataOWM> list;
+    private List<T> list;
 
     public CityOWM getCity() {
         return city;
@@ -36,11 +36,11 @@ public class GeneralWeatherStateOWM {
         this.cnt = cnt;
     }
 
-    public List<DayWeatherDataOWM> getList() {
+    public List<T> getList() {
         return list;
     }
 
-    public void setList(List<DayWeatherDataOWM> list) {
+    public void setList(List<T> list) {
         this.list = list;
     }
 
