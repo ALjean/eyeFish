@@ -9,8 +9,6 @@ import org.junit.Test;
 
 
 public class WeatherServiceTest extends BaseTest {
-
-
     
     @Test
     public void testGetHoursWeatherStateForCheckListGenericType(){
