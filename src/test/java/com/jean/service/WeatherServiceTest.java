@@ -7,9 +7,7 @@ import com.jean.model.owm.HoursWeatherDataOWM;
 
 import org.junit.Test;
 
-/**
- * Created by root on 01.08.15.
- */
+
 public class WeatherServiceTest extends BaseTest {
 
 
