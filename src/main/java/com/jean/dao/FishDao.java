@@ -11,7 +11,7 @@ public interface FishDao {
 
     void save(Fish fish) throws CustomDfmException;
 
-    Fish read(int id);
+    Fish read(int id) throws CustomDfmException;
 
     Fish update(Fish fish);
 

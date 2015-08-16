@@ -6,6 +6,8 @@ package com.jean.entity;
 
 public class WeatherState {
 
+	private int id;
+
 	private float min;
 	
 	private float max;
@@ -34,6 +36,14 @@ public class WeatherState {
 
 	public void setTypeDataWeather(String typeDataWeather) {
 		this.typeDataWeather = typeDataWeather;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	@Override

@@ -30,31 +30,27 @@ public class WeatherServiceImpl implements WeatherService {
     @SuppressWarnings("unchecked")
     public GeneralWeatherStateOWM<HoursWeatherDataOWM> getHoursWeatherState() {
 
-	ResponseEntity<GeneralWeatherStateOWM<HoursWeatherDataOWM>> response = new RestTemplate().exchange(urlBuilder(Constants.CITY_PATH),
-		HttpMethod.GET, null, new ParameterizedTypeReference<GeneralWeatherStateOWM<HoursWeatherDataOWM>>() {
-		});
-
-	GeneralWeatherStateOWM<HoursWeatherDataOWM> result = response.getBody();
-	return result;
+        ResponseEntity<GeneralWeatherStateOWM<HoursWeatherDataOWM>> response = new RestTemplate().exchange(urlBuilder(Constants.CITY_PATH),
+                HttpMethod.GET, null, new ParameterizedTypeReference<GeneralWeatherStateOWM<HoursWeatherDataOWM>>() {
+        });
+        return response.getBody();
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public GeneralWeatherStateOWM<DayWeatherDataOWM> getDayWeatherState() {
 
-	ResponseEntity<GeneralWeatherStateOWM<DayWeatherDataOWM>> response = new RestTemplate().exchange(urlBuilder(Constants.DAILY_PATH),
-		HttpMethod.GET, null, new ParameterizedTypeReference<GeneralWeatherStateOWM<DayWeatherDataOWM>>() {
-		});
-
-	GeneralWeatherStateOWM<DayWeatherDataOWM> result = response.getBody();
-	return result;
+        ResponseEntity<GeneralWeatherStateOWM<DayWeatherDataOWM>> response = new RestTemplate().exchange(urlBuilder(Constants.DAILY_PATH),
+                HttpMethod.GET, null, new ParameterizedTypeReference<GeneralWeatherStateOWM<DayWeatherDataOWM>>() {
+                });
+        return response.getBody();
     }
 
     private URI urlBuilder(String type) {
-	UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(weatherApiProperties.getWeatherUrl() + "/" + type)
-	// .queryParam(Constants.APPID, weatherApiProperties.getAppId())
-		.queryParam(Constants.ID, weatherApiProperties.getCityId());
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(weatherApiProperties.getWeatherUrl() + "/" + type)
+                // .queryParam(Constants.APPID, weatherApiProperties.getAppId())
+                .queryParam(Constants.ID, weatherApiProperties.getCityId());
 
-	return builder.build().encode().toUri();
+        return builder.build().encode().toUri();
     }
 }
