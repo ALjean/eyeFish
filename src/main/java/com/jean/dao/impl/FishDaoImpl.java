@@ -25,9 +25,9 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
     private static final Logger log = LoggerFactory.getLogger(FishDaoImpl.class);
 
-    enum Location {UP, MIDDLE, DIP}
+    private enum Location {UP, MIDDLE, DIP}
 
-    enum Hungry {ACTIVE, NO_ACTIVE, HUNGRY}
+    private enum Hungry {ACTIVE, NOACTIVE, HUNGRY}
 
 
     @Override
@@ -78,7 +78,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
                 String key = rs.getString("mark");
 
                 if (key.equals(Hungry.ACTIVE.toString()) || key.equals(Hungry.HUNGRY.toString()) ||
-                        key.equals(Hungry.NO_ACTIVE.toString())) {
+                        key.equals(Hungry.NOACTIVE.toString())) {
                     hungry.put(key, weatherState);
                 }
 
