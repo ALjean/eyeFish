@@ -14,6 +14,10 @@ public class Fish {
 	private Map<String, WeatherState> hungry;
 	
 	private Map<String, WeatherState> location;
+
+	private Map<String, WeatherState> wind;
+
+	private Spawning spawning;
 	
 	private String description;
 
@@ -23,6 +27,22 @@ public class Fish {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public Map<String, WeatherState> getWind() {
+		return wind;
+	}
+
+	public void setWind(Map<String, WeatherState> wind) {
+		this.wind = wind;
+	}
+
+	public Spawning getSpawning() {
+		return spawning;
+	}
+
+	public void setSpawning(Spawning spawning) {
+		this.spawning = spawning;
 	}
 
 	public Map<String, WeatherState> getHungry() {
@@ -63,14 +83,4 @@ public class Fish {
 				+ location + ", description=" + description + "]";
 	}
 
-//	public Fish(long id, Map<String, WeatherState> hungry,
-//			Map<String, WeatherState> location, String description) {
-//		super();
-//		this.id = id;
-//		this.hungry = hungry;
-//		this.location = location;
-//		this.description = description;
-//	}
-
- 
 }

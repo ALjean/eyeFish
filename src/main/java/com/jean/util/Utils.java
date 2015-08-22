@@ -1,5 +1,9 @@
 package com.jean.util;
 
+import com.jean.entity.WeatherState;
+
+import java.util.Map;
+
 /**
  * Created by stas on 18.07.15.
  */
@@ -9,6 +13,8 @@ public class Utils {
 
         return round(c);
     }
+
+
 
     private static float round(float number) {
         float tmp = number * 100;

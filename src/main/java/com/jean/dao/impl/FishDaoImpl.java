@@ -3,12 +3,12 @@ package com.jean.dao.impl;
 import com.jean.CustomDfmException;
 import com.jean.dao.FishDao;
 import com.jean.entity.Fish;
+import com.jean.entity.Spawning;
 import com.jean.entity.WeatherState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,6 +28,8 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
     private enum Location {UP, MIDDLE, DIP}
 
     private enum Hungry {ACTIVE, NOACTIVE, HUNGRY}
+
+//    private enum Wind {}
 
 
     @Override
@@ -53,7 +55,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
     @Override
     public Fish read(int id) throws CustomDfmException {
-        String sql = "SELECT f.name, f.description, ws.id type_data_id, ws.type_data_weather, ws.mark, ws.min, ws.max, ws.fish_id  FROM fish f INNER JOIN  weather_state ws ON f.id = ws.fish_id WHERE f.id = ?";
+        String sql = "SELECT f.name, f.description, ws.id type_data_id, ws.type_data_weather, ws.mark, ws.min, ws.max, ws.fish_id, s.id spawn_id, s.spawning, s.gluttony, s.sick FROM fish f INNER JOIN  weather_state ws ON f.id = ws.fish_id INNER JOIN spawning s ON f.id = s.fish_id WHERE f.id = ?";
         Fish fish = new Fish();
 
 
@@ -63,6 +65,9 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
             Map<String, WeatherState> hungry = new HashMap<>();
             Map<String, WeatherState> location = new HashMap<>();
+            Map<String, WeatherState> wind = new HashMap<>();
+
+            Spawning spawning = new Spawning();
 
 
             while (rs.next()) {
@@ -77,6 +82,11 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
                 weatherState.setMax(rs.getLong("max"));
                 String key = rs.getString("mark");
 
+                spawning.setId(rs.getInt("spawn_id"));
+                spawning.setSpawning(rs.getDate("spawning"));
+                spawning.setGluttony(rs.getDate("gluttony"));
+                spawning.setSick(rs.getDate("sick"));
+
                 if (key.equals(Hungry.ACTIVE.toString()) || key.equals(Hungry.HUNGRY.toString()) ||
                         key.equals(Hungry.NOACTIVE.toString())) {
                     hungry.put(key, weatherState);
@@ -90,6 +100,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
             }
 
+            fish.setSpawning(spawning);
             fish.setHungry(hungry);
             fish.setLocation(location);
 

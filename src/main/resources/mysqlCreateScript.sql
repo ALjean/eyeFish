@@ -7,6 +7,16 @@ CREATE TABLE fish(
   PRIMARY KEY (id)
 );
 
+CREATE TABLE spawning(
+  id INT NOT NULL AUTO_INCREMENT,
+  fish_id INT NOT NULL,
+  spawning TIMESTAMP,
+  gluttony TIMESTAMP,
+  sick TIMESTAMP,
+  PRIMARY KEY (id),
+  FOREIGN KEY (fish_id) REFERENCES fish(id)
+);
+
 CREATE TABLE weather_state(
   id INT NOT NULL AUTO_INCREMENT,
   type_data_weather VARCHAR(20) NOT NULL,
