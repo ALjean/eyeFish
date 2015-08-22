@@ -65,7 +65,6 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
             Map<String, WeatherState> hungry = new HashMap<>();
             Map<String, WeatherState> location = new HashMap<>();
-            Map<String, WeatherState> wind = new HashMap<>();
 
             Spawning spawning = new Spawning();
 

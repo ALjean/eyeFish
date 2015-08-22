@@ -15,8 +15,6 @@ public class Fish {
 	
 	private Map<String, WeatherState> location;
 
-	private Map<String, WeatherState> wind;
-
 	private Spawning spawning;
 	
 	private String description;
@@ -27,14 +25,6 @@ public class Fish {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public Map<String, WeatherState> getWind() {
-		return wind;
-	}
-
-	public void setWind(Map<String, WeatherState> wind) {
-		this.wind = wind;
 	}
 
 	public Spawning getSpawning() {

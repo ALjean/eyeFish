@@ -41,7 +41,6 @@ public class FishDaoTest extends BaseTest {
     }
 
     @Test
-
     public void readTest() throws CustomDfmException {
         Fish t= fishDao.read(id);
 //        assertEquals(t.getName(), "TestTaskName");
