@@ -15,7 +15,7 @@ public class Utils {
     }
 
     public static int millibarToMmHg(float millibar) {
-	int mmHg = (int) (Constants.MILLIBAR_VALUE * millibar);
+	int mmHg = (int) (millibar/Constants.MILLIBAR_VALUE );
 	return mmHg;
     }
 

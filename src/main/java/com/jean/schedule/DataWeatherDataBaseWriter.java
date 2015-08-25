@@ -32,13 +32,13 @@ public class DataWeatherDataBaseWriter {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
-    @Scheduled(fixedRate = 20000)
+    
     public void weatherWriter() {
         System.out.println("The time is now " + dateFormat.format(new Date()));
     }
 
 
-    //public for test only
+    @Scheduled(fixedRate = 10800000)
     public void parseOwnWeather() throws CustomDfmException {
         GeneralWeatherStateOWM weatherOwm = weatherService.getDayWeatherState();
 
@@ -58,7 +58,7 @@ public class DataWeatherDataBaseWriter {
         for (DayWeatherDataOWM weatherDataOWM : weatherDataOWMs) {
             Weather weather = new Weather();
             weather.setCity(weatherOwm.getCity().getName());
-            weather.setPressure(weatherDataOWM.getPressure());
+            weather.setPressure(Utils.millibarToMmHg(weatherDataOWM.getPressure()));
             weather.setDate(new Date(weatherDataOWM.getDt() * Constants.MULTIPLIER));
 
             weather.setTempNight(Utils.kelvinToCelsius(weatherDataOWM.getTemp().getNight())); //todo refactoring
