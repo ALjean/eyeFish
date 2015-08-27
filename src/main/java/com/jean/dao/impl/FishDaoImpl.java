@@ -27,7 +27,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
     private enum Location {UP, MIDDLE, DIP}
 
-    private enum Hungry {ACTIVE, NOACTIVE, HUNGRY}
+    private enum Hungry {ACTIVE, MODESTLY, WEAKLY}
 
 //    private enum Wind {}
 
@@ -82,17 +82,17 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
                 String key = rs.getString("mark");
 
                 spawning.setId(rs.getInt("spawn_id"));
-                spawning.setSpawning(rs.getDate("spawning"));
-                spawning.setGluttony(rs.getDate("gluttony"));
-                spawning.setSick(rs.getDate("sick"));
+                //spawning.setSpawning(rs.getDate("spawning"));
+                //spawning.setGluttony(rs.getDate("gluttony"));
+                //spawning.setSick(rs.getDate("sick"));
 
-                if (key.equals(Hungry.ACTIVE.toString()) || key.equals(Hungry.HUNGRY.toString()) ||
-                        key.equals(Hungry.NOACTIVE.toString())) {
+                if (key.equalsIgnoreCase(Hungry.ACTIVE.toString()) || key.equalsIgnoreCase(Hungry.MODESTLY.toString()) ||
+                        key.equalsIgnoreCase(Hungry.WEAKLY.toString())) {
                     hungry.put(key, weatherState);
                 }
 
-                if (key.equals(Location.DIP.toString()) || key.equals(Location.MIDDLE.toString()) ||
-                        key.equals(Location.UP.toString())) {
+                if (key.equalsIgnoreCase(Location.DIP.toString()) || key.equalsIgnoreCase(Location.MIDDLE.toString()) ||
+                        key.equalsIgnoreCase(Location.UP.toString())) {
                     location.put(key, weatherState);
                 }
 
