@@ -43,7 +43,7 @@ public class WeatherDaoImpl extends BaseDaoImpl implements WeatherDao {
     }
 
     public List<Weather> getAllWeather() throws CustomDfmException {
-	String sql = "SELECT city, date, temp_day, temp_night, temp_even, temp_morn, pressure, wind_speed, wind_deg, humidity, clouds FROM weather";
+	String sql = "SELECT id, city, date, temp_day, temp_night, temp_even, temp_morn, pressure, wind_speed, wind_deg, humidity, clouds FROM weather";
 	List<Weather> weathers = new ArrayList<>();
 
 	try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
@@ -75,8 +75,8 @@ public class WeatherDaoImpl extends BaseDaoImpl implements WeatherDao {
     }
 
     @Override
-    public List<Weather> getLimitWeatherByDate(java.util.Date date) throws CustomDfmException {
-	String sql = "SELECT city, date, temp_day, temp_night, temp_even, temp_morn, pressure, wind_speed, wind_deg, humidity, clouds FROM weather where date <= ? limit 4";
+    public List<Weather> getLimitWeatherByDate() throws CustomDfmException {
+	String sql = "SELECT id, city, date, temp_day, temp_night, temp_even, temp_morn, pressure, wind_speed, wind_deg, humidity, clouds FROM weather where date < '2015-08-29 00:00:00' limit 4";
 
 	List<Weather> weathers = new ArrayList<>();
 
