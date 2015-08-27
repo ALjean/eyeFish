@@ -16,5 +16,5 @@ public interface WeatherDao {
 
     List<Weather> getAllWeather() throws CustomDfmException;
     
-    List<Weather> getLimitWeatherByDate(Date date)throws CustomDfmException;
+    List<Weather> getLimitWeatherByDate()throws CustomDfmException;
 }
