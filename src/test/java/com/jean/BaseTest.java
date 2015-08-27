@@ -6,6 +6,8 @@ import com.jean.dao.FishDao;
 import com.jean.dao.WeatherDao;
 import com.jean.schedule.DataWeatherDataBaseWriter;
 import com.jean.service.WeatherService;
+import com.jean.util.FishAnalyzer;
+
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,8 @@ public class BaseTest  {
 
     @Autowired
     protected DataWeatherDataBaseWriter dataWeatherDataBaseWriter;
-
+    
+    @Autowired
+    protected FishAnalyzer fishAnalyzer;
 
 }
