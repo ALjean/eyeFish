@@ -15,5 +15,13 @@ public interface Constants {
     String DAILY_PATH =  "daily";
 
     int MULTIPLIER = 1000;
+    
+    enum StateMarkLocation {
+	UP, MIDDLE, DIP
+    }
+
+    enum StateMarkHungry {
+	NOTEAT, WEAKLY, MODESTLY, ACTIVE
+    }
 
 }
