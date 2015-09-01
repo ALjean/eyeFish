@@ -1,6 +1,6 @@
 package com.jean.util;
 
-import com.jean.entity.WeatherState;
+import com.jean.entity.RangeWeatherParameters;
 
 import java.util.Map;
 
