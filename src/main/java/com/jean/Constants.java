@@ -1,4 +1,4 @@
-package com.jean.util;
+package com.jean;
 
 /**
  * Created by stas on 18.07.15.
@@ -15,13 +15,19 @@ public interface Constants {
     String DAILY_PATH =  "daily";
 
     int MULTIPLIER = 1000;
-    
-    enum StateMarkLocation {
-	UP, MIDDLE, DIP
-    }
 
-    enum StateMarkHungry {
-	NOTEAT, WEAKLY, MODESTLY, ACTIVE
-    }
+    enum Location {UP, MIDDLE, DIP}
+    enum Hungry {NOTEAT, WEAKLY, MODESTLY, ACTIVE} //new vers.
+//    enum Hungry {ACTIVE, NOACTIVE, HUNGRY} //old vers.
+    
+//    enum StateMarkLocation {
+//	UP, MIDDLE, DIP
+//    }
+//
+//    enum StateMarkHungry {
+//
+//    }
+
+
 
 }

@@ -1,8 +1,6 @@
 package com.jean.util;
 
-import com.jean.entity.RangeWeatherParameters;
-
-import java.util.Map;
+import com.jean.Constants;
 
 /**
  * Created by stas on 18.07.15.

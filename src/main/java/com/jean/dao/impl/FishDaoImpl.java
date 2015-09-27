@@ -5,6 +5,7 @@ import com.jean.dao.FishDao;
 import com.jean.entity.Fish;
 import com.jean.entity.Spawning;
 import com.jean.entity.WeatherState;
+import com.jean.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -24,10 +25,6 @@ import java.util.Map;
 public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
     private static final Logger log = LoggerFactory.getLogger(FishDaoImpl.class);
-
-    private enum Location {UP, MIDDLE, DIP}
-    private enum Hungry {ACTIVE, NOACTIVE, HUNGRY}
-
 
 
     @Override
@@ -84,16 +81,15 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
                 spawning.setGluttony(rs.getDate("gluttony"));
                 spawning.setSick(rs.getDate("sick"));
 
-                if (key.equals(Hungry.ACTIVE.toString()) || key.equals(Hungry.HUNGRY.toString()) ||
-                        key.equals(Hungry.NOACTIVE.toString())) {
+                if (key.equals(Constants.Hungry.NOTEAT.toString()) || key.equals(Constants.Hungry.WEAKLY.toString()) ||
+                        key.equals(Constants.Hungry.MODESTLY.toString()) || key.equals(Constants.Hungry.ACTIVE.toString())) {
                     hungry.put(key, weatherState);
                 }
 
-                if (key.equals(Location.DIP.toString()) || key.equals(Location.MIDDLE.toString()) ||
-                        key.equals(Location.UP.toString())) {
+                if (key.equals(Constants.Location.DIP.toString()) || key.equals(Constants.Location.MIDDLE.toString()) ||
+                        key.equals(Constants.Location.UP.toString())) {
                     location.put(key, weatherState);
                 }
-
 
             }
 

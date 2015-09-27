@@ -1,7 +1,8 @@
 package com.jean.service.impl;
 
-import com.jean.entity.FishDTO;
+
 import com.jean.entity.Weather;
+import com.jean.model.FishDTO;
 import com.jean.service.FishService;
 
 public class FishServiceImpl implements FishService {

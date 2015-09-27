@@ -5,7 +5,7 @@ import com.jean.model.owm.DayWeatherDataOWM;
 import com.jean.model.owm.GeneralWeatherStateOWM;
 import com.jean.model.owm.HoursWeatherDataOWM;
 import com.jean.service.WeatherService;
-import com.jean.util.Constants;
+import com.jean.Constants;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -48,7 +48,7 @@ public class WeatherServiceImpl implements WeatherService {
 
     private URI urlBuilder(String type) {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(weatherApiProperties.getWeatherUrl() + "/" + type)
-                // .queryParam(Constants.APPID, weatherApiProperties.getAppId())
+                // .queryParam(Constants.APPID, weatherApiProperties.getAppId()) //todo connect with auth
                 .queryParam(Constants.ID, weatherApiProperties.getCityId());
 
         return builder.build().encode().toUri();

@@ -6,7 +6,7 @@ import com.jean.entity.Weather;
 import com.jean.model.owm.DayWeatherDataOWM;
 import com.jean.model.owm.GeneralWeatherStateOWM;
 import com.jean.service.WeatherService;
-import com.jean.util.Constants;
+import com.jean.Constants;
 import com.jean.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -32,13 +32,13 @@ public class DataWeatherDataBaseWriter {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
-    
+    @Scheduled(fixedRate = 10800000)
     public void weatherWriter() {
         System.out.println("The time is now " + dateFormat.format(new Date()));
     }
 
 
-    @Scheduled(fixedRate = 10800000)
+
     public void parseOwnWeather() throws CustomDfmException {
         GeneralWeatherStateOWM weatherOwm = weatherService.getDayWeatherState();
 
