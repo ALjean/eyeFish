@@ -5,6 +5,7 @@ import com.jean.config.AppConfiguration;
 import com.jean.dao.FishDao;
 import com.jean.dao.WeatherDao;
 import com.jean.schedule.DataWeatherDataBaseWriter;
+import com.jean.service.FishService;
 import com.jean.service.WeatherService;
 import com.jean.util.FishAnalyzer;
 
@@ -34,6 +35,9 @@ public class BaseTest  {
 
     @Autowired
     protected WeatherService weatherService;
+
+    @Autowired
+    protected FishService fishService;
 
     @Autowired
     protected DataWeatherDataBaseWriter dataWeatherDataBaseWriter;

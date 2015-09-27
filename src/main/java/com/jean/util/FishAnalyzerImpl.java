@@ -1,9 +1,6 @@
 package com.jean.util;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.jean.Constants;
 import com.jean.entity.WeatherState;
@@ -25,7 +22,7 @@ public class FishAnalyzerImpl implements FishAnalyzer {
 
     public List<String> getHungryRating(Fish fish) throws CustomDfmException {
 
-        List<Weather> listWeather = weatherDao.getLimitWeatherByDate();
+        List<Weather> listWeather = weatherDao.getLimitWeatherByDate(new Date());
 
         Map<String, WeatherState> hungry = fish.getHungry();
 

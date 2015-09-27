@@ -33,7 +33,7 @@ public class DataWeatherDataBaseWriter {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
     @Scheduled(fixedRate = 10800000)
-    public void weatherWriter() {
+    public void weatherWriter() throws CustomDfmException {
         System.out.println("The time is now " + dateFormat.format(new Date()));
     }
 
