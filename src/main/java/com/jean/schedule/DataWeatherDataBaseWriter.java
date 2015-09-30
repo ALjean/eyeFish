@@ -34,7 +34,8 @@ public class DataWeatherDataBaseWriter {
 
     @Scheduled(fixedRate = 10800000)
     public void weatherWriter() throws CustomDfmException {
-        System.out.println("The time is now " + dateFormat.format(new Date()));
+
+        System.out.println("The time is now 1" + dateFormat.format(new Date())) ;
     }
 
 
