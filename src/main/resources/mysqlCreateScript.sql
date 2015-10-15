@@ -52,14 +52,14 @@ CREATE TABLE weather(
   PRIMARY KEY (id)
 );
 
-CREATE TABLE parameters(
-  id INT NOT NULL AUTO_INCREMENT,
-  id_fish INT NOT NULL,
-  type_data_weather VARCHAR(30) NOT NULL,
-  type_behavior VARCHAR(40) NOT NULL,
-  type_key VARCHAR(30) NOT NULL,
-  range_min INT NOT NULL,
-  range_max INT NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (id_fish) REFERENCES fish(id)
-);
+# CREATE TABLE parameters(
+#   id INT NOT NULL AUTO_INCREMENT,
+#   id_fish INT NOT NULL,
+#   type_data_weather VARCHAR(30) NOT NULL,
+#   type_behavior VARCHAR(40) NOT NULL,
+#   type_key VARCHAR(30) NOT NULL,
+#   range_min INT NOT NULL,
+#   range_max INT NOT NULL,
+#   PRIMARY KEY (id),
+#   FOREIGN KEY (id_fish) REFERENCES fish(id)
+# );
