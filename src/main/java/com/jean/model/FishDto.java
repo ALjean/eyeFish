@@ -6,7 +6,7 @@ import com.jean.entity.RangeWeatherParameters;
 import java.util.List;
 import java.util.Map;
 
-public class FishDTO {
+public class FishDto {
     
     private int id;
     
@@ -51,7 +51,20 @@ public class FishDTO {
     public void setMessage(Message message) {
         this.message = message;
     }
-    
-    
-    
+
+    public Map<String, List<RangeWeatherParameters>> getHungry() {
+        return hungry;
+    }
+
+    public void setHungry(Map<String, List<RangeWeatherParameters>> hungry) {
+        this.hungry = hungry;
+    }
+
+    public Map<String, List<RangeWeatherParameters>> getLocation() {
+        return location;
+    }
+
+    public void setLocation(Map<String, List<RangeWeatherParameters>> location) {
+        this.location = location;
+    }
 }

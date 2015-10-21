@@ -4,6 +4,7 @@ import com.jean.BaseTest;
 import com.jean.CustomDfmException;
 import com.jean.entity.Fish;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.text.ParseException;
@@ -29,6 +30,7 @@ public class FishServiceTest extends BaseTest {
     }
 
     @Test
+    @Ignore
     public void getBehaviorFishByDayTest() throws CustomDfmException {
         fishService.getBehaviorFishByDay(fish, date);
         System.out.println("-------------");

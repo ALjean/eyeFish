@@ -5,12 +5,14 @@ import com.jean.model.owm.DayWeatherDataOWM;
 import com.jean.model.owm.GeneralWeatherStateOWM;
 import com.jean.model.owm.HoursWeatherDataOWM;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 
 public class WeatherServiceTest extends BaseTest {
     
     @Test
+    @Ignore
     public void testGetHoursWeatherStateForCheckListGenericType(){
         
 	GeneralWeatherStateOWM<HoursWeatherDataOWM> hoursWeatherStateOWM = weatherService.getHoursWeatherState();
@@ -18,6 +20,7 @@ public class WeatherServiceTest extends BaseTest {
     }
 
     @Test
+    @Ignore
     public void testGetDayWeatherStateForListCheckListGenericType(){
        
 	GeneralWeatherStateOWM<DayWeatherDataOWM> dayWeatherStateOWM = weatherService.getDayWeatherState();

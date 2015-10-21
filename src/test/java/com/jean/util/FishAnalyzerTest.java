@@ -30,6 +30,7 @@ public class FishAnalyzerTest extends BaseTest {
     }
     
     @Test
+    @Ignore
     public void getHungryRatingTest() throws CustomDfmException{
 	List<String> list = fishAnalyzer.getHungryRating(fish);
 	System.out.println(list);
