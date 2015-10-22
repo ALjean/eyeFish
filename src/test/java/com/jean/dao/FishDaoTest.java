@@ -2,7 +2,6 @@ package com.jean.dao;
 
 import com.jean.CustomDfmException;
 import com.jean.entity.Fish;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;

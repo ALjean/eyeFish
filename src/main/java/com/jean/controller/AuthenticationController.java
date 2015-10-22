@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@RestController
+@RestController("/security")
 public class AuthenticationController {
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by stas on 30.05.15.
  */
 @RestController
+@RequestMapping("/service")
 public class MainController {
 
 //    private static final Logger log = LogManager.getLogger(MainController.class); todo

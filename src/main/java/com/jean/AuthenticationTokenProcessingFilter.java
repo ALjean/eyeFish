@@ -15,12 +15,12 @@ public class AuthenticationTokenProcessingFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if(request.getHeader("fish-authenticate-id") == null){
+        if (request.getHeader("fish-authenticate-id") == null) {
             response.sendError(HttpServletResponse.SC_FORBIDDEN);
+        } else {
+            filterChain.doFilter(request, response);
         }
 
 
-
-        filterChain.doFilter(request, response);
     }
 }
