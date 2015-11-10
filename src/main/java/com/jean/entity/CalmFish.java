@@ -1,19 +1,19 @@
 package com.jean.entity;
 
-import com.jean.analyzers.AnalizationResultObject;
+import com.jean.analyzers.AnalyzerResultObject;
 
 
 
-public class CalmFish extends Fish {
+public class CalmFish extends AbstractFish {
 
 	@Override
-	public double hungryAnalyzator(AnalizationResultObject resultObject) {
+	public double hungryAnalyzer(AnalyzerResultObject resultObject) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public String locationAnalyzator(AnalizationResultObject resultObject) {
+	public String locationAnalyzer(AnalyzerResultObject resultObject) {
 		// TODO Auto-generated method stub
 		return null;
 	}

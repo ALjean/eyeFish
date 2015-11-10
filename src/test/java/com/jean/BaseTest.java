@@ -2,6 +2,7 @@ package com.jean;
 
 
 import com.jean.config.AppConfiguration;
+import com.jean.controller.AuthenticationController;
 import com.jean.dao.FishDao;
 import com.jean.dao.WeatherDao;
 import com.jean.schedule.DataWeatherDataBaseWriter;
@@ -44,5 +45,8 @@ public class BaseTest  {
     
     @Autowired
     protected FishAnalyzer fishAnalyzer;
+
+    @Autowired
+    protected AuthenticationController authenticationController;
 
 }

@@ -1,7 +1,7 @@
 package com.jean.service;
 
 import com.jean.CustomDfmException;
-import com.jean.entity.Fish;
+import com.jean.entity.AbstractFish;
 import com.jean.entity.Weather;
 import com.jean.model.FishDto;
 
@@ -11,6 +11,6 @@ public interface FishService {
     
     FishDto getCurrentFishState(Weather weather);
 
-    int getBehaviorFishByDay(Fish fish, Date date) throws CustomDfmException;
+    int getBehaviorFishByDay(AbstractFish fish, Date date) throws CustomDfmException;
     
 }

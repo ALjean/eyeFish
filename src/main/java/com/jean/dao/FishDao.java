@@ -1,7 +1,7 @@
 package com.jean.dao;
 
 import com.jean.CustomDfmException;
-import com.jean.entity.Fish;
+import com.jean.entity.AbstractFish;
 
 /**
  * Created by stas on 30.05.15.
@@ -9,11 +9,11 @@ import com.jean.entity.Fish;
 public interface FishDao {
 
 
-    void save(Fish fish) throws CustomDfmException;
+    void save(AbstractFish fish) throws CustomDfmException;
 
-    Fish read(int id) throws CustomDfmException;
+    AbstractFish read(int id) throws CustomDfmException;
 
-    Fish update(Fish fish);
+    AbstractFish update(AbstractFish fish);
 
     boolean delete(int id);
 

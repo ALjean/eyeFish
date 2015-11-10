@@ -2,7 +2,8 @@ package com.jean.dao.impl;
 
 import com.jean.CustomDfmException;
 import com.jean.dao.FishDao;
-import com.jean.entity.Fish;
+import com.jean.entity.AbstractFish;
+import com.jean.entity.FactoryProduser;
 import com.jean.entity.Spawning;
 import com.jean.entity.WeatherState;
 import com.jean.Constants;
@@ -28,7 +29,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
 
     @Override
-    public void save(Fish fish) throws CustomDfmException {
+    public void save(AbstractFish fish) throws CustomDfmException {
 
         String sql = "INSERT INTO fish (name, description) VALUES (?, ?)";
         int result;
@@ -49,9 +50,9 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
     }
 
     @Override
-    public Fish read(int id) throws CustomDfmException {
+    public AbstractFish read(int id) throws CustomDfmException {
         String sql = "SELECT f.name, f.description, ws.id type_data_id, ws.type_data_weather, ws.mark, ws.min, ws.max, ws.fish_id, s.id spawn_id, s.spawning, s.gluttony, s.sick FROM fish f INNER JOIN  weather_state ws ON f.id = ws.fish_id INNER JOIN spawning s ON f.id = s.fish_id WHERE f.id = ?";
-        Fish fish = new Fish();
+        AbstractFish fish = null;
 
 
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
@@ -65,6 +66,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
 
             while (rs.next()) {
+                fish = FactoryProduser.createFish(rs.getString("type"));
                 fish.setId(rs.getInt("fish_id"));
                 fish.setDescription(rs.getString("description"));
                 fish.setName(rs.getString("name"));
@@ -93,7 +95,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
             }
 
-            fish.setSpawning(spawning);
+//            fish.setSpawning(spawning);
             fish.setHungry(hungry);
             fish.setLocation(location);
 
@@ -106,7 +108,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
     }
 
     @Override
-    public Fish update(Fish fish) {
+    public AbstractFish update(AbstractFish fish) {
         String sql = "";
 
         return null;

@@ -18,15 +18,10 @@ public interface Constants {
 
     enum Location {UP, MIDDLE, DIP}
     enum Hungry {NOTEAT, WEAKLY, MODESTLY, ACTIVE} //new vers.
-//    enum Hungry {ACTIVE, NOACTIVE, HUNGRY} //old vers.
-    
-//    enum StateMarkLocation {
-//	UP, MIDDLE, DIP
-//    }
-//
-//    enum StateMarkHungry {
-//
-//    }
+
+
+    String FISH_TYPE_PREDATOR = "PREDATOR";
+    String FISH_TYPE_CALM = "CALM";
 
 
 

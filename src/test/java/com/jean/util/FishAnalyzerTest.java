@@ -15,11 +15,11 @@ import org.junit.Test;
 
 import com.jean.BaseTest;
 import com.jean.CustomDfmException;
-import com.jean.entity.Fish;
+import com.jean.entity.AbstractFish;
 
 public class FishAnalyzerTest extends BaseTest {
   
-    Fish fish = null;
+    AbstractFish fish = null;
     Date date = null;
     
     @Before

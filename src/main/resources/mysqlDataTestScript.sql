@@ -1,5 +1,5 @@
-INSERT INTO fish (name, description) VALUES ("Akula", "This very nice fish");
-INSERT INTO fish (name, description) VALUES ("Akula1", "This very nice fish");
+INSERT INTO fish (name, description, type) VALUES ("Akula", "This very nice fish", "predator");
+INSERT INTO fish (name, description, type) VALUES ("Akula1", "This very nice fish", "calm");
 INSERT INTO weather_state (type_data_weather, min, max , mark, fish_id) VALUES ("tempDataType", 7, 27, "ACTIVE", 1);
 INSERT INTO weather_state (type_data_weather, min, max, mark, fish_id) VALUES ("pressDataType", 5, 21, "ACTIVE", 3);
 INSERT INTO weather_state (type_data_weather, min, max, mark, fish_id) VALUES ("pressDataType", 5, 21, "UP", 3);

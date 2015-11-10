@@ -1,7 +1,9 @@
 package com.jean.dao;
 
+import com.jean.Constants;
 import com.jean.CustomDfmException;
-import com.jean.entity.Fish;
+import com.jean.entity.AbstractFish;
+import com.jean.entity.FactoryProduser;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -15,13 +17,13 @@ import com.jean.BaseTest;
 @Component
 public class FishDaoTest extends BaseTest {
 
-    private Fish fish;
+    private AbstractFish fish;
 
     private int id;
 
     @Before
-    public void init(){
-        fish = new Fish();
+    public void init() throws CustomDfmException {
+        fish = new FactoryProduser().createFish(Constants.FISH_TYPE_CALM);
         fish.setName("TestTaskName");
         fish.setDescription("Test Description JUNIT");
         id = 3;
@@ -42,7 +44,7 @@ public class FishDaoTest extends BaseTest {
     @Test
     @Ignore
     public void readTest() throws CustomDfmException {
-        Fish t= fishDao.read(id);
+        AbstractFish t= fishDao.read(id);
 //        assertEquals(t.getName(), "TestTaskName");
         System.out.println("Test 2");
     }

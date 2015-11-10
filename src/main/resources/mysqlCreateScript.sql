@@ -4,6 +4,7 @@ CREATE TABLE fish(
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(30) NOT NULL,
   description VARCHAR(400),
+  type VARCHAR(10),
   PRIMARY KEY (id)
 );
 
