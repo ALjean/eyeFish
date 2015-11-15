@@ -3,7 +3,6 @@ package com.jean.util;
 import java.util.*;
 
 import com.jean.Constants;
-import com.jean.entity.WeatherState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +23,7 @@ public class FishAnalyzerImpl implements FishAnalyzer {
 
         List<Weather> listWeather = weatherDao.getLimitWeatherByDate(new Date());
 
-        Map<String, WeatherState> hungry = fish.getHungry();
+//        Map<String, WeatherState> hungry = fish.getHungry();
 
 
 
@@ -33,13 +32,13 @@ public class FishAnalyzerImpl implements FishAnalyzer {
 
         for (Weather weather : listWeather) {
 
-            for (Map.Entry<String, WeatherState> entry : hungry.entrySet()) {
-                WeatherState param = entry.getValue();
-                    if (param.getMin() < weather.getTempDay() || param.getMax() < weather.getTempDay()) {
-                        //raiting.put(entry.getKey(), new Integer(value));
-                    }
-
-            }
+//            for (Map.Entry<String, WeatherState> entry : hungry.entrySet()) {
+//                WeatherState param = entry.getValue();
+//                    if (param.getMin() < weather.getTempDay() || param.getMax() < weather.getTempDay()) {
+//                        //raiting.put(entry.getKey(), new Integer(value));
+//                    }
+//
+//            }
 
         }
 

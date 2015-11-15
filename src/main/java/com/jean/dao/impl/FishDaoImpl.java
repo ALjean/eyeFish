@@ -5,7 +5,7 @@ import com.jean.dao.FishDao;
 import com.jean.entity.AbstractFish;
 import com.jean.entity.FactoryProduser;
 import com.jean.entity.Spawning;
-import com.jean.entity.WeatherState;
+import com.jean.entity.Temperature;
 import com.jean.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -51,7 +51,9 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
     @Override
     public AbstractFish read(int id) throws CustomDfmException {
-        String sql = "SELECT f.name, f.description, ws.id type_data_id, ws.type_data_weather, ws.mark, ws.min, ws.max, ws.fish_id, s.id spawn_id, s.spawning, s.gluttony, s.sick FROM fish f INNER JOIN  weather_state ws ON f.id = ws.fish_id INNER JOIN spawning s ON f.id = s.fish_id WHERE f.id = ?";
+        String sql = "SELECT f.name, f.description, ws.id type_data_id, ws.type_data_weather, ws.nibble, ws.min, ws.max, ws.fish_id, s.id spawn_id, s.spawning, s.gluttony, s.sick " +
+                "FROM fish f INNER JOIN  weather_state ws ON f.id = ws.fish_id " +
+                "INNER JOIN spawning s ON f.id = s.fish_id WHERE f.id = ?";
         AbstractFish fish = null;
 
 
@@ -59,8 +61,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
             preparedStatement.setLong(1, id);
             ResultSet rs = preparedStatement.executeQuery();
 
-            Map<String, WeatherState> hungry = new HashMap<>();
-            Map<String, WeatherState> location = new HashMap<>();
+            List<Temperature> temperatures = new ArrayList<>();
 
             Spawning spawning = new Spawning();
 
@@ -71,33 +72,27 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
                 fish.setDescription(rs.getString("description"));
                 fish.setName(rs.getString("name"));
 
-                WeatherState weatherState = new WeatherState();
-                weatherState.setId(rs.getInt("type_data_id"));
-                weatherState.setTypeDataWeather(rs.getString("type_data_weather"));
-                weatherState.setMin(rs.getLong("min"));
-                weatherState.setMax(rs.getLong("max"));
-                String key = rs.getString("mark");
+                Temperature temperature = new Temperature();
+                temperature.setId(rs.getInt("type_data_id"));
+                temperature.setMinValue(rs.getInt("min"));
+                temperature.setMaxValue(rs.getInt("max"));
+                temperature.setNibble(rs.getLong("nibble"));
+                String key = rs.getString("type_data_weather");
 
                 spawning.setId(rs.getInt("spawn_id"));
                 spawning.setSpawning(rs.getDate("spawning"));
                 spawning.setGluttony(rs.getDate("gluttony"));
                 spawning.setSick(rs.getDate("sick"));
 
-                if (key.equals(Constants.Hungry.NOTEAT.toString()) || key.equals(Constants.Hungry.WEAKLY.toString()) ||
-                        key.equals(Constants.Hungry.MODESTLY.toString()) || key.equals(Constants.Hungry.ACTIVE.toString())) {
-                    hungry.put(key, weatherState);
+                if (key.equals(Constants.tempDataType)) {
+                    temperatures.add(temperature);
                 }
 
-                if (key.equals(Constants.Location.DIP.toString()) || key.equals(Constants.Location.MIDDLE.toString()) ||
-                        key.equals(Constants.Location.UP.toString())) {
-                    location.put(key, weatherState);
-                }
 
             }
 
 //            fish.setSpawning(spawning);
-            fish.setHungry(hungry);
-            fish.setLocation(location);
+            fish.setTemperatures(temperatures);
 
 
         } catch (SQLException e) {
@@ -117,5 +112,9 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
     @Override
     public boolean delete(int id) {
         return false;
+    }
+
+    public int getFishByTempRange(int min, int max){
+       return 0;
     }
 }

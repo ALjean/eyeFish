@@ -17,4 +17,6 @@ public interface FishDao {
 
     boolean delete(int id);
 
+    int getFishByTempRange(int min, int max);
+
 }

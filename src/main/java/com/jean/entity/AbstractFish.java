@@ -1,5 +1,6 @@
 package com.jean.entity;
 
+import java.util.List;
 import java.util.Map;
 
 import com.jean.analyzers.AnalyzerResultObject;
@@ -12,10 +13,8 @@ public abstract class AbstractFish {
 	private int id;
 	private String name;
 	private String description;
-
+	private List<Temperature> temperatures;
 	private Map<Double, RangeTempParam> temperatureRange;
-	private Map<String, WeatherState> hungry; //todo?
-	private Map<String, WeatherState> location;
 
 	public int getId() {
 		return id;
@@ -45,20 +44,12 @@ public abstract class AbstractFish {
 		return temperatureRange;
 	}
 
-	public Map<String, WeatherState> getHungry() {
-		return hungry;
+	public List<Temperature> getTemperatures() {
+		return temperatures;
 	}
 
-	public void setHungry(Map<String, WeatherState> hungry) {
-		this.hungry = hungry;
-	}
-
-	public Map<String, WeatherState> getLocation() {
-		return location;
-	}
-
-	public void setLocation(Map<String, WeatherState> location) {
-		this.location = location;
+	public void setTemperatures(List<Temperature> temperatures) {
+		this.temperatures = temperatures;
 	}
 
 	public void setTemperatureRange(Map<Double, RangeTempParam> temperatureRange) {
