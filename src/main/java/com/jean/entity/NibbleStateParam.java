@@ -3,7 +3,7 @@ package com.jean.entity;
 /**
  * Created by Stas on 15.11.2015.
  */
-public class Temperature {
+public class NibbleStateParam {
 
     private int id;
     private int minValue;

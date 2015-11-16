@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 
 /**
- * Created by root on 28.06.15.
+ * Created by Stas on 28.06.15.
  */
 @Component
 @Scope("singleton")

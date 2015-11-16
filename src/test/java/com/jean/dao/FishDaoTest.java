@@ -20,19 +20,17 @@ public class FishDaoTest extends BaseTest {
     private AbstractFish fish;
 
     private int id;
+    private int temp;
 
     @Before
     public void init() throws CustomDfmException {
-        fish = new FactoryProduser().createFish(Constants.FISH_TYPE_CALM);
+        fish = FactoryProduser.createFish(Constants.FISH_TYPE_CALM);
         fish.setName("TestTaskName");
         fish.setDescription("Test Description JUNIT");
         id = 3;
-    }
+        temp = 20;
 
-//    void create(Fish fish);
-//    Fish read(int id);
-//    Fish update(Fish fish);
-//    boolean delete(int id);
+    }
 
     @Test
     @Ignore
@@ -47,5 +45,11 @@ public class FishDaoTest extends BaseTest {
         AbstractFish t= fishDao.read(id);
 //        assertEquals(t.getName(), "TestTaskName");
         System.out.println("Test 2");
+    }
+
+    @Test
+    public void getFishByTempForNibbleTest() throws CustomDfmException {
+        AbstractFish fish = fishDao.getFishByTempForNibble(temp, id);
+        System.out.println("Test 3");
     }
 }

@@ -1,4 +1,4 @@
-package com.jean.analyzers;
+package com.jean.analyzers.weather;
 
 import java.util.Date;
 import java.util.HashMap;

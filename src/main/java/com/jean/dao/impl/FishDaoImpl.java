@@ -5,11 +5,11 @@ import com.jean.dao.FishDao;
 import com.jean.entity.AbstractFish;
 import com.jean.entity.FactoryProduser;
 import com.jean.entity.Spawning;
-import com.jean.entity.Temperature;
+import com.jean.entity.NibbleStateParam;
 import com.jean.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +22,7 @@ import java.util.List;
  * Created by stas on 30.05.15.
  */
 
-@Component
+@Repository
 public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
     private static final Logger log = LoggerFactory.getLogger(FishDaoImpl.class);
@@ -51,17 +51,18 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
     @Override
     public AbstractFish read(int id) throws CustomDfmException {
-        String sql = "SELECT f.name, f.description, ws.id type_data_id, ws.type_data_weather, ws.nibble, ws.min, ws.max, ws.fish_id, s.id spawn_id, s.spawning, s.gluttony, s.sick " +
+        String sql = "SELECT f.name, f.description, ws.id type_data_id, ws.type_data_weather, ws.nibble, ws.min, ws.max, ws.fish_id, " +
+                "s.id spawn_id, s.spawning, s.gluttony, s.sick " +
                 "FROM fish f INNER JOIN  weather_state ws ON f.id = ws.fish_id " +
                 "INNER JOIN spawning s ON f.id = s.fish_id WHERE f.id = ?";
         AbstractFish fish = null;
 
 
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
-            preparedStatement.setLong(1, id);
+            preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
 
-            List<Temperature> temperatures = new ArrayList<>();
+            List<NibbleStateParam> nibbleStateParams = new ArrayList<>();
 
             Spawning spawning = new Spawning();
 
@@ -72,11 +73,11 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
                 fish.setDescription(rs.getString("description"));
                 fish.setName(rs.getString("name"));
 
-                Temperature temperature = new Temperature();
-                temperature.setId(rs.getInt("type_data_id"));
-                temperature.setMinValue(rs.getInt("min"));
-                temperature.setMaxValue(rs.getInt("max"));
-                temperature.setNibble(rs.getLong("nibble"));
+                NibbleStateParam nibbleStateParam = new NibbleStateParam();
+                nibbleStateParam.setId(rs.getInt("type_data_id"));
+                nibbleStateParam.setMinValue(rs.getInt("min"));
+                nibbleStateParam.setMaxValue(rs.getInt("max"));
+                nibbleStateParam.setNibble(rs.getLong("nibble"));
                 String key = rs.getString("type_data_weather");
 
                 spawning.setId(rs.getInt("spawn_id"));
@@ -84,15 +85,14 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
                 spawning.setGluttony(rs.getDate("gluttony"));
                 spawning.setSick(rs.getDate("sick"));
 
-                if (key.equals(Constants.tempDataType)) {
-                    temperatures.add(temperature);
-                }
+                if (key.equals(Constants.NIBBLE_DATA_TYPE)) {nibbleStateParams.add(nibbleStateParam);}
 
 
             }
 
 //            fish.setSpawning(spawning);
-            fish.setTemperatures(temperatures);
+                fish.setNibbleStateParams(nibbleStateParams);
+
 
 
         } catch (SQLException e) {
@@ -104,8 +104,6 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
     @Override
     public AbstractFish update(AbstractFish fish) {
-        String sql = "";
-
         return null;
     }
 
@@ -114,7 +112,32 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
         return false;
     }
 
-    public int getFishByTempRange(int min, int max){
-       return 0;
+    public AbstractFish getFishByTempForNibble(int temp, int fishId)  throws CustomDfmException{
+        String sql =
+                "SELECT f.name, f.description, ws.id type_data_id, ws.type_data_weather, ws.nibble, ws.min, ws.max, ws.fish_id, s.id spawn_id, s.spawning, s.gluttony, s.sickFROM " +
+                        "FROM fish f INNER JOIN  weather_state ws ON f.id = ws.fish_id INNER JOIN spawning s ON f.id = s.fish_id WHERE ws.type_data_weather = 'nibbleDataType' " +
+                        "and (ws.min >= ? and ws.max <= ? ) and(f.id = ?)";
+
+        AbstractFish fish = null;
+
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
+            preparedStatement.setInt(1, temp);
+            preparedStatement.setInt(2, temp);
+            preparedStatement.setInt(3, fishId);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()){
+                fish = FactoryProduser.createFish(rs.getString("type"));
+                fish.setId(rs.getInt("fish_id")); //TODO
+
+
+            }
+
+        } catch (SQLException e){
+            throw new CustomDfmException(e, "can't get fish by Temp");
+        }
+
+       return fish;
     }
 }

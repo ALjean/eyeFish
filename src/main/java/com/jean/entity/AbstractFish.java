@@ -1,10 +1,7 @@
 package com.jean.entity;
 
 import java.util.List;
-import java.util.Map;
-
-import com.jean.analyzers.AnalyzerResultObject;
-import com.jean.analyzers.RangeTempParam;
+import com.jean.analyzers.weather.AnalyzerResultObject;
 
 
 
@@ -13,8 +10,7 @@ public abstract class AbstractFish {
 	private int id;
 	private String name;
 	private String description;
-	private List<Temperature> temperatures;
-	private Map<Double, RangeTempParam> temperatureRange;
+	private List<NibbleStateParam> nibbleStateParams;
 
 	public int getId() {
 		return id;
@@ -40,20 +36,12 @@ public abstract class AbstractFish {
 		this.description = description;
 	}
 
-	public Map<Double, RangeTempParam> getTemperatureRange() {
-		return temperatureRange;
+	public List<NibbleStateParam> getNibbleStateParams() {
+		return nibbleStateParams;
 	}
 
-	public List<Temperature> getTemperatures() {
-		return temperatures;
-	}
-
-	public void setTemperatures(List<Temperature> temperatures) {
-		this.temperatures = temperatures;
-	}
-
-	public void setTemperatureRange(Map<Double, RangeTempParam> temperatureRange) {
-		this.temperatureRange = temperatureRange;
+	public void setNibbleStateParams(List<NibbleStateParam> nibbleStateParams) {
+		this.nibbleStateParams = nibbleStateParams;
 	}
 
 	public abstract double hungryAnalyzer(AnalyzerResultObject resultObject);

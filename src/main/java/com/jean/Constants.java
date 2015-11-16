@@ -18,7 +18,7 @@ public interface Constants {
 
     enum Location {UP, MIDDLE, DIP}
     enum Hungry {NOTEAT, WEAKLY, MODESTLY, ACTIVE} //new vers.
-    String tempDataType = "tempDataType";
+    String NIBBLE_DATA_TYPE = "nibbleDataType";
 
 
     String FISH_TYPE_PREDATOR = "PREDATOR";

@@ -8,7 +8,7 @@ import com.jean.dao.WeatherDao;
 import com.jean.schedule.DataWeatherDataBaseWriter;
 import com.jean.service.FishService;
 import com.jean.service.WeatherService;
-import com.jean.util.FishAnalyzer;
+import com.jean.analyzers.fish.FishAnalyzer;
 
 import org.junit.Ignore;
 import org.junit.runner.RunWith;

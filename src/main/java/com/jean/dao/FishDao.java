@@ -17,6 +17,6 @@ public interface FishDao {
 
     boolean delete(int id);
 
-    int getFishByTempRange(int min, int max);
+    AbstractFish getFishByTempForNibble(int temp, int fishId) throws CustomDfmException;
 
 }

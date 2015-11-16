@@ -1,6 +1,6 @@
 package com.jean.entity;
 
-import com.jean.analyzers.AnalyzerResultObject;
+import com.jean.analyzers.weather.AnalyzerResultObject;
 
 
 

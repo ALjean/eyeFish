@@ -1,7 +1,6 @@
 package com.jean.model;
 
 import com.jean.entity.Message;
-import com.jean.entity.RangeWeatherParameters;
 
 import java.util.List;
 import java.util.Map;
@@ -16,9 +15,9 @@ public class FishDto {
     
     private Message message;
 
-    private Map<String, List<RangeWeatherParameters>> hungry;
+    private Map<String, List<RangeWeatherParametersDto>> hungry;
 
-    private Map<String, List<RangeWeatherParameters>> location;
+    private Map<String, List<RangeWeatherParametersDto>> location;
 
     public int getId() {
         return id;
@@ -52,19 +51,19 @@ public class FishDto {
         this.message = message;
     }
 
-    public Map<String, List<RangeWeatherParameters>> getHungry() {
+    public Map<String, List<RangeWeatherParametersDto>> getHungry() {
         return hungry;
     }
 
-    public void setHungry(Map<String, List<RangeWeatherParameters>> hungry) {
+    public void setHungry(Map<String, List<RangeWeatherParametersDto>> hungry) {
         this.hungry = hungry;
     }
 
-    public Map<String, List<RangeWeatherParameters>> getLocation() {
+    public Map<String, List<RangeWeatherParametersDto>> getLocation() {
         return location;
     }
 
-    public void setLocation(Map<String, List<RangeWeatherParameters>> location) {
+    public void setLocation(Map<String, List<RangeWeatherParametersDto>> location) {
         this.location = location;
     }
 }
