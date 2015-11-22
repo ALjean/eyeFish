@@ -3,6 +3,8 @@ package com.jean.dao.impl;
 import com.jean.CustomDfmException;
 import com.jean.dao.WeatherDao;
 import com.jean.entity.Weather;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
@@ -17,6 +19,8 @@ import java.util.List;
  */
 @Repository
 public class WeatherDaoImpl extends BaseDaoImpl implements WeatherDao {
+
+    private static final Logger log = LoggerFactory.getLogger(FishDaoImpl.class);
 
     @Override
     public void save(Weather weather) throws CustomDfmException {
@@ -36,6 +40,9 @@ public class WeatherDaoImpl extends BaseDaoImpl implements WeatherDao {
             preparedStatement.setInt(10, weather.getHumidity());
             preparedStatement.setInt(11, weather.getClouds());
             int result = preparedStatement.executeUpdate(); // todo
+
+            log.info(result != 0 ? "Weather saved" : "Weather didn't save");
+
         } catch (SQLException e) {
             throw new CustomDfmException(e, "some problem with save weather");
         }
@@ -47,11 +54,14 @@ public class WeatherDaoImpl extends BaseDaoImpl implements WeatherDao {
         List<Weather> weathers = new ArrayList<>();
 
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
+
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
-                weathers.add(setWeatherValues(rs));
+                weathers.add(getWeatherFromRs(rs));
             }
+
+            log.info(weathers.size() > 0 ? "Weather list: " + weathers.size() : "Weather result is zero");
 
         } catch (SQLException e) {
             throw new CustomDfmException(e, "some problem when get List Weather");
@@ -71,7 +81,7 @@ public class WeatherDaoImpl extends BaseDaoImpl implements WeatherDao {
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
-                weathers.add(setWeatherValues(rs));
+                weathers.add(getWeatherFromRs(rs));
             }
 
         } catch (SQLException e) {
@@ -81,7 +91,7 @@ public class WeatherDaoImpl extends BaseDaoImpl implements WeatherDao {
         return weathers;
     }
 
-    private Weather setWeatherValues(ResultSet rs) throws SQLException {
+    private Weather getWeatherFromRs(ResultSet rs) throws SQLException {
         Weather weather = new Weather();
         weather.setId(rs.getInt("id"));
         weather.setCity(rs.getString("city"));

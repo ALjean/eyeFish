@@ -1,4 +1,4 @@
-# CREATE DATABASE `eyeFishBase`;
+# CREATE DATABASE `eyeFish`;
 
 CREATE TABLE fish(
   id INT NOT NULL AUTO_INCREMENT,
@@ -21,7 +21,7 @@ CREATE TABLE spawning(
 CREATE TABLE weather_state(
   id INT NOT NULL AUTO_INCREMENT,
   type_data_weather VARCHAR(20) NOT NULL,
-  nibble DOUBLE NOT NULL,
+  nibble FLOAT NOT NULL,
   min FLOAT NOT NULL,
   max FLOAT NOT NULL,
   fish_id INT NOT NULL,

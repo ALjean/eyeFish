@@ -28,7 +28,7 @@ public class FishDaoTest extends BaseTest {
         fish.setName("TestTaskName");
         fish.setDescription("Test Description JUNIT");
         id = 3;
-        temp = 20;
+        temp = 10;
 
     }
 
