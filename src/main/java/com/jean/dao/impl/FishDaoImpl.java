@@ -54,10 +54,8 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
     @Override
     public AbstractFish read(int id) throws CustomDfmException {
 
-        String sql = "SELECT f.name, f.description, f.type, ws.id type_data_id, ws.type_data_weather, ws.nibble, ws.min, ws.max, ws.fish_id, " +
-                "s.id spawn_id, s.spawning, s.gluttony, s.sick " +
-                "FROM fish f INNER JOIN  weather_state ws ON f.id = ws.fish_id " +
-                "INNER JOIN spawning s ON f.id = s.fish_id WHERE f.id = ?";
+        String sql = "SELECT f.name, f.description, f.type, ws.id type_data_id, ws.type_data_weather, ws.nibble, ws.min, ws.max, ws.fish_id\n" +
+                "FROM fish f INNER JOIN  weather_state ws ON f.id = ws.fish_id WHERE f.id = ?";
 
         AbstractFish fish = null;
 
@@ -123,8 +121,8 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
     public AbstractFish getFishByTempForNibble(int temp, int fishId)  throws CustomDfmException{
 
         String sql =
-                "SELECT f.name, f.description, f.type ,ws.id type_data_id, ws.type_data_weather, ws.nibble, ws.min, ws.max, ws.fish_id, s.id spawn_id, s.spawning, s.gluttony, s.sick " +
-                        "FROM fish f INNER JOIN  weather_state ws ON f.id = ws.fish_id INNER JOIN spawning s ON f.id = s.fish_id " +
+                "SELECT f.name, f.description, f.type ,ws.id type_data_id, ws.type_data_weather, ws.nibble, ws.min, ws.max, ws.fish_id " +
+                        "FROM fish f INNER JOIN  weather_state ws ON f.id = ws.fish_id " +
                         "WHERE ws.type_data_weather = 'nibbleDataType' " +
                         "and ws.min <= ? and ws.max >= ? and (f.id = ?)";
 
