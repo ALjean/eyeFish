@@ -7,6 +7,9 @@ public interface Constants {
 
     float KELVIN_VALUE = 273.15f;
     float MILLIBAR_VALUE = 1.33322368f;
+    float CRITICAL_CHANGES = 3.1f;
+    float MAX_TEMP_CHANGES = 11.5f;
+    double PERCENT_CHANGES = 32.25f;
 
     String ID = "id";
     String APPID = "APPID";
@@ -23,7 +26,7 @@ public interface Constants {
 
     String FISH_TYPE_PREDATOR = "PREDATOR";
     String FISH_TYPE_CALM = "CALM";
-
+    
 
 
 }
