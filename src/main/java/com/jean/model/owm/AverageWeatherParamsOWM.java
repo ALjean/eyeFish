@@ -18,6 +18,16 @@ public class AverageWeatherParamsOWM {
     private int humidity;
 
     private float temp_kf;
+    
+    
+    public AverageWeatherParamsOWM() {
+	super();
+    }
+
+    public AverageWeatherParamsOWM(float temp) {
+	super();
+	this.temp = temp;
+    }
 
     public float getTemp() {
         return temp;
