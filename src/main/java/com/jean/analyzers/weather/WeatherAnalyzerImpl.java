@@ -22,8 +22,8 @@ public class WeatherAnalyzerImpl implements WeatherAnalyzer {
 
 	for (int i = 0; i < temperatureParams.length - 1; i++) {
 
-	    if (generalChange > Constants.MAX_GENERAL_CHANGES) {
-		return result = Constants.PERCENT_CHANGES / 2;
+	    if (generalChange > Constants.MAX_GENERAL_TEMPERATURE_CHANGES) {
+		return result = Constants.PERCENT_TEMPERATURE_CHANGES / 2;
 	    }
 
 	    /*
@@ -37,7 +37,7 @@ public class WeatherAnalyzerImpl implements WeatherAnalyzer {
 	     * analyze next part of data - after critical point. We reset amount
 	     * of day and finally result, and try compute again.
 	     */
-	    if (dayChange > Constants.CRITICAL_CHANGES) {
+	    if (dayChange > Constants.CRITICAL_TEMPERATURE_CHANGES) {
 		result = 0;
 		countDay = 0;
 	    }
@@ -55,18 +55,18 @@ public class WeatherAnalyzerImpl implements WeatherAnalyzer {
 
 		// In other case we compute result use usually methods.
 	    } else {
-		result += dayChange * Constants.PERCENT_CHANGES;
+		result += dayChange * Constants.PERCENT_TEMPERATURE_CHANGES;
 		countDay++;
 	    }
 	}
-	
+
 	/*
 	 * Check result, if we have all period horrible changes, we return
 	 * minimal value.
 	 */
 	if (result == 0) {
-	    return result = Constants.PERCENT_CHANGES / 2;
-	    
+	    return result = Constants.PERCENT_TEMPERATURE_CHANGES / 2;
+
 	    /*
 	     * Return finally result. It's mean value for all compute period -
 	     * that's why we reseted count of day. And finally we subtracted 100
@@ -85,9 +85,23 @@ public class WeatherAnalyzerImpl implements WeatherAnalyzer {
     }
 
     @Override
-    public double pressureAnalyzer(int[] pressures, double temperature) {
-	// TODO Auto-generated method stub
-	return 0;
+    public double pressureChecker(float[] pressureParams) {
+
+	double result = 0;
+
+	float generalChange = pressureParams[pressureParams.length - 1] - pressureParams[0];
+
+	if (Math.abs(generalChange) > Constants.CRITICAL_PRESSURE_CHANGES) {
+	    return result = Constants.CRITICAL_PRESSURE_CHANGES / 2;
+	}
+	if (generalChange == 0 || generalChange > 0) {
+	    return Constants.PERCENT_PRESSURE_CHANGES * Constants.CRITICAL_PRESSURE_CHANGES;
+	}
+	if (generalChange < 0) {
+	    return Math.abs(Math.abs(generalChange) * Constants.PERCENT_PRESSURE_CHANGES/pressureParams.length - 100);
+	}
+
+	return result;
     }
 
     @Override
@@ -100,28 +114,13 @@ public class WeatherAnalyzerImpl implements WeatherAnalyzer {
 
 	WeatherAnalyzer analyzer = new WeatherAnalyzerImpl();
 
-	List<AverageWeatherParamsOWM> weatherState = new ArrayList<AverageWeatherParamsOWM>();
+	float[] temperatureParams = { 32.5f, 32.8f, 33f, 33.5f, 31.2f };
 
-	weatherState.add(new AverageWeatherParamsOWM(32.3f));
-	weatherState.add(new AverageWeatherParamsOWM(32.3f));
-	weatherState.add(new AverageWeatherParamsOWM(32.3f));
-	weatherState.add(new AverageWeatherParamsOWM(37f));
-	weatherState.add(new AverageWeatherParamsOWM(35f));
-	weatherState.add(new AverageWeatherParamsOWM(35f));
-	weatherState.add(new AverageWeatherParamsOWM(36f));
-	weatherState.add(new AverageWeatherParamsOWM(36f));
-	weatherState.add(new AverageWeatherParamsOWM(36f));
-	weatherState.add(new AverageWeatherParamsOWM(38f));
+	float[] pressureParams = { 740.25f, 742.3f, 743f, 743.4f, 736f };
 
-	float[] params = new float[weatherState.size()];
-	int i = 0;
+	System.out.println("Stability of weather are: " + analyzer.StabilityChecker(temperatureParams));
 
-	for (AverageWeatherParamsOWM param : weatherState) {
-	    params[i] = param.getTemp();
-	    i++;
-	}
-
-	System.out.println(analyzer.StabilityChecker(params));
+	System.out.println("Pressure activity are: " + analyzer.pressureChecker(pressureParams));
 
     }
 
