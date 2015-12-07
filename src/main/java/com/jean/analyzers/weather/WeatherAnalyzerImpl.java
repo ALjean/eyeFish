@@ -9,37 +9,70 @@ import com.jean.model.owm.AverageWeatherParamsOWM;
 public class WeatherAnalyzerImpl implements WeatherAnalyzer {
 
     @Override
-    public double weatherStateAnalyzer(List<AverageWeatherParamsOWM> weatherState) {
+    public double StabilityChecker(float[] temperatureParams) {
 
+	// Result should be represented in percent.
 	double result = 0;
+
+	// Amount of day which take part in analyze process.
 	int countDay = 1;
 
-	float mainChange = Math.abs((weatherState.get(weatherState.size() - 1).getTemp() - weatherState.get(0).getTemp()));
+	// General temperature changes during period of compute.
+	float generalChange = Math.abs((temperatureParams[temperatureParams.length - 1] - temperatureParams[0]));
 
-	if (mainChange > Constants.MAX_TEMP_CHANGES) {
-	    return result = Constants.PERCENT_CHANGES / 2;
-	}
+	for (int i = 0; i < temperatureParams.length - 1; i++) {
 
-	for (int i = 0; i < weatherState.size() - 1; i++) {
+	    if (generalChange > Constants.MAX_GENERAL_CHANGES) {
+		return result = Constants.PERCENT_CHANGES / 2;
+	    }
 
-	    float changesTemp = Math.abs(weatherState.get(i + 1).getTemp() - weatherState.get(i).getTemp());
-	    System.out.println(changesTemp);
+	    /*
+	     * Changes which had happened between different days (for example)
+	     * or two different values of temperature.
+	     */
+	    float dayChange = Math.abs(temperatureParams[i + 1] - temperatureParams[i]);
 
-	    if (changesTemp > Constants.CRITICAL_CHANGES) {
+	    /*
+	     * If changes during the day have critical character, we must
+	     * analyze next part of data - after critical point. We reset amount
+	     * of day and finally result, and try compute again.
+	     */
+	    if (dayChange > Constants.CRITICAL_CHANGES) {
 		result = 0;
 		countDay = 0;
+	    }
+
+	    /*
+	     * If we didn't have any changes, we have added to the result 0.01
+	     * "percent changes" (it's like "badly percent" - the more the
+	     * worse). Also we have increment count of day, because it,s
+	     * "normal day" and he should take part in finally compute of
+	     * result.
+	     */
+	    if (dayChange == 0) {
+		result += 0.01;
+		countDay++;
+
+		// In other case we compute result use usually methods.
 	    } else {
-		if (changesTemp == 0) {
-		    result += 0.01;
-		    countDay++;
-		} else {
-		    result += changesTemp * Constants.PERCENT_CHANGES;
-		    countDay++;
-		}
+		result += dayChange * Constants.PERCENT_CHANGES;
+		countDay++;
 	    }
 	}
+	
+	/*
+	 * Check result, if we have all period horrible changes, we return
+	 * minimal value.
+	 */
 	if (result == 0) {
 	    return result = Constants.PERCENT_CHANGES / 2;
+	    
+	    /*
+	     * Return finally result. It's mean value for all compute period -
+	     * that's why we reseted count of day. And finally we subtracted 100
+	     * from result, because we have "badly percent", but we need
+	     * "percent of activity"
+	     */
 	} else {
 	    return Math.abs((result / countDay) - 100);
 	}
@@ -74,8 +107,21 @@ public class WeatherAnalyzerImpl implements WeatherAnalyzer {
 	weatherState.add(new AverageWeatherParamsOWM(32.3f));
 	weatherState.add(new AverageWeatherParamsOWM(37f));
 	weatherState.add(new AverageWeatherParamsOWM(35f));
+	weatherState.add(new AverageWeatherParamsOWM(35f));
+	weatherState.add(new AverageWeatherParamsOWM(36f));
+	weatherState.add(new AverageWeatherParamsOWM(36f));
+	weatherState.add(new AverageWeatherParamsOWM(36f));
+	weatherState.add(new AverageWeatherParamsOWM(38f));
 
-	System.out.println(analyzer.weatherStateAnalyzer(weatherState));
+	float[] params = new float[weatherState.size()];
+	int i = 0;
+
+	for (AverageWeatherParamsOWM param : weatherState) {
+	    params[i] = param.getTemp();
+	    i++;
+	}
+
+	System.out.println(analyzer.StabilityChecker(params));
 
     }
 
