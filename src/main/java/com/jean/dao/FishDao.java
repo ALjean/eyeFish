@@ -3,6 +3,7 @@ package com.jean.dao;
 import com.jean.CustomDfmException;
 import com.jean.entity.AbstractFish;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ import java.util.List;
 public interface FishDao {
 
 
-    void save(AbstractFish fish) throws CustomDfmException;
+    void save(AbstractFish fish) throws CustomDfmException, SQLException;
 
     AbstractFish read(int id) throws CustomDfmException;
 

@@ -8,13 +8,6 @@ public interface Constants {
     float KELVIN_VALUE = 273.15f;
     float MILLIBAR_VALUE = 1.33322368f;
     
-    float CRITICAL_PRESSURE_CHANGES = 4.57f;
-    double PERCENT_PRESSURE_CHANGES = 44.22;
-    
-    float CRITICAL_TEMPERATURE_CHANGES = 4.5f;
-    float MAX_GENERAL_TEMPERATURE_CHANGES = 11.5f;
-    double PERCENT_TEMPERATURE_CHANGES = 32.25;
-    
     String ID = "id";
     String APPID = "APPID";
 

@@ -8,7 +8,7 @@ public class NibbleStateParam {
     private int id;
     private int minValue;
     private int maxValue;
-    private double nibble;
+    private float nibble;
 
     public int getMinValue() {
         return minValue;
@@ -26,11 +26,11 @@ public class NibbleStateParam {
         this.maxValue = maxValue;
     }
 
-    public double getNibble() {
+    public float getNibble() {
         return nibble;
     }
 
-    public void setNibble(double nibble) {
+    public void setNibble(float nibble) {
         this.nibble = nibble;
     }
 

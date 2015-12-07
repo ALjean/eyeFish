@@ -22,8 +22,8 @@ CREATE TABLE weather_state(
   id INT NOT NULL AUTO_INCREMENT,
   type_data_weather VARCHAR(20) NOT NULL,
   nibble FLOAT NOT NULL,
-  min FLOAT NOT NULL,
-  max FLOAT NOT NULL,
+  min INTEGER NOT NULL,
+  max INTEGER NOT NULL,
   fish_id INT NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (fish_id) REFERENCES fish(id)
