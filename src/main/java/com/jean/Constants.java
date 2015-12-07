@@ -8,7 +8,7 @@ public interface Constants {
     float KELVIN_VALUE = 273.15f;
     float MILLIBAR_VALUE = 1.33322368f;
     
-    float CRITICAL_PRESSURE_CHANGES = 4.56f;
+    float CRITICAL_PRESSURE_CHANGES = 4.57f;
     double PERCENT_PRESSURE_CHANGES = 44.22;
     
     float CRITICAL_TEMPERATURE_CHANGES = 4.5f;
