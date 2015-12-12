@@ -52,18 +52,23 @@ public class FishDaoTest extends BaseTest {
     }
 
     @Test
-
-    public void createTest() throws CustomDfmException, SQLException {
+    public void createFishTest() throws CustomDfmException, SQLException {
         fishDao.save(fish);
         System.out.println("Test 1");
     }
 
     @Test
     @Ignore
-    public void readTest() throws CustomDfmException {
+    public void readFishTest() throws CustomDfmException {
         AbstractFish t= fishDao.read(id);
 //        assertEquals(t.getName(), "TestTaskName");
         System.out.println("Test 2");
+    }
+
+    @Test
+    public void deleteFishTest() throws SQLException, CustomDfmException {
+        fishDao.delete(15);
+        System.out.println("---------------");
     }
 
     @Test

@@ -69,11 +69,9 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
             connection.rollback();
             throw new CustomDfmException(e, "some problem with save fish");
         } finally {
-
             if(connection != null){
                 connection.close();
             }
-
         }
 
         log.info("Fish model save with id: " + idFish);
@@ -118,13 +116,64 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
     @Override
     public AbstractFish update(AbstractFish fish) {
+        //TODO field type FK
+        String sql = "UPDATE fish f INNER JOIN weather_state ws ON f.id = ws.fish_id " +
+                "SET f.name = ?, f.description = ?, f.type = ?, ws.max = ?, ws.min = ?, ws.nibble = ?, ws.type_data_weather = ?";
         return null;
     }
 
     @Override
-    public boolean delete(int id) {
-        String sql = "";
-        return false;
+    public void delete(int id) throws CustomDfmException, SQLException {
+        List<Integer> typesFish = new ArrayList<>();
+        Connection connection = getConnection();
+
+        String sqlSelectTypes = "SELECT id FROM weather_state WHERE fish_id = ?";
+        String sqlRemoveFishType = "DELETE FROM weather_state WHERE id = ?";
+        String sqlRemoveFish = "DELETE FROM fish WHERE id = ?";
+
+
+        try{
+            connection.setAutoCommit(false);
+
+            //get fish's types
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlSelectTypes);
+            preparedStatement.setInt(1, id);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()){
+                typesFish.add(rs.getInt(1));
+            }
+
+            preparedStatement = connection.prepareStatement(sqlRemoveFishType);
+
+            //create butch for remove types
+            for (Integer typeId : typesFish) {
+                preparedStatement.setInt(1, typeId);
+                preparedStatement.addBatch();
+            }
+
+            int[] affectedRecords = preparedStatement.executeBatch();
+
+            log.info("Remove Fish_Type rows: " + affectedRecords.length);
+
+            //remove fish model
+            preparedStatement = connection.prepareStatement(sqlRemoveFish);
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+
+            connection.commit();
+
+            log.info("Removed Fish with id: " + id);
+
+        }catch(SQLException e){
+            connection.rollback();
+            throw new CustomDfmException(e, "Fish remove error");
+        }finally {
+            if(connection != null){
+                connection.close();
+            }
+        }
     }
 
     @Override
