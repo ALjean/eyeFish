@@ -20,9 +20,11 @@ dependencies {
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.6.0'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.6.0'
 
-
-//    apache
+    //apache
     compile group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.1'
+    // doc parse
+    compile group: 'org.apache.poi', name: 'poi', version: '3.13'
+
 
     compile group: 'junit', name: 'junit', version: '4.12'
 
