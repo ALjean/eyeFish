@@ -31,7 +31,7 @@ public class FishController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable int id){
+    public void delete(@PathVariable int id) throws SQLException, CustomDfmException {
         fishService.remove(id);
     }
 

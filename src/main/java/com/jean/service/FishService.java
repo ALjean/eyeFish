@@ -11,7 +11,7 @@ public interface FishService {
     AbstractFish get(int id) throws CustomDfmException;
     boolean create(AbstractFish fish) throws SQLException, CustomDfmException;
     void update(AbstractFish fish);
-    boolean remove(int id);
+    void remove(int id) throws SQLException, CustomDfmException;
     List<AbstractFish> getAll();
 
 

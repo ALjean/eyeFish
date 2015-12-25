@@ -34,8 +34,8 @@ public class FishServiceImpl implements FishService {
     }
 
     @Override
-    public boolean remove(int id) {
-        return fishDao.delete(id);
+    public void remove(int id) throws SQLException, CustomDfmException {
+        fishDao.delete(id);
     }
 
     @Override

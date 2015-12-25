@@ -55,7 +55,6 @@ public class FishDaoTest extends BaseTest {
 
     @Test
     @Ignore
-    public void createTest() throws CustomDfmException, SQLException {
     public void createFishTest() throws CustomDfmException, SQLException {
         fishDao.save(fish);
         System.out.println("Test 1");
