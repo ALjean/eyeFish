@@ -18,7 +18,7 @@ public interface FishDao {
 
     AbstractFish update(AbstractFish fish);
 
-    boolean delete(int id);
+    void delete(int id) throws CustomDfmException, SQLException;
 
     List<AbstractFish> getAllWeather() throws CustomDfmException;
 

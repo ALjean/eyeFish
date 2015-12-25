@@ -8,10 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,25 +28,17 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
         String sqlFish = "INSERT INTO fish (name, description, type) VALUES (?, ?, ?)";
         String sqlWeatherStateParam = "INSERT INTO weather_state (type_data_weather, nibble, min, max, fish_id) VALUES (?, ?, ?, ?, ?)";
+        Connection connection = getConnection();
         int idFish = -1;
-
         int rowInsert;
 
 
         try {
-            getConnection().setAutoCommit(false);
-            PreparedStatement preparedStatement = getConnection().prepareStatement(sqlFish, Statement.RETURN_GENERATED_KEYS);
 
+            connection.setAutoCommit(false);
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlFish, Statement.RETURN_GENERATED_KEYS);
 
-            preparedStatement.setString(1, fish.getName());
-            preparedStatement.setString(2, fish.getDescription());
-
-            if (fish instanceof CalmFish) {
-                preparedStatement.setString(3, Constants.FISH_TYPE_CALM);
-            }
-            if (fish instanceof PredatorFish) {
-                preparedStatement.setString(3, Constants.FISH_TYPE_PREDATOR);
-            }
+            setNibbleStateParamToPs(preparedStatement, fish);
 
             rowInsert = preparedStatement.executeUpdate();
 
@@ -62,14 +51,10 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
                     idFish = generatedKeys.getInt(1);
                 }
 
+            preparedStatement = connection.prepareStatement(sqlWeatherStateParam);
 
-            preparedStatement = getConnection().prepareStatement(sqlWeatherStateParam);
             for(NibbleStateParam stateParam : fish.getNibbleStateParams()){
-                preparedStatement.setString(1, Constants.NIBBLE_DATA_TYPE);
-                preparedStatement.setFloat(2, stateParam.getNibble());
-                preparedStatement.setInt(3, stateParam.getMinValue());
-                preparedStatement.setInt(4, stateParam.getMaxValue());
-                preparedStatement.setInt(5, idFish);
+                setNibbleStateParamToPs(preparedStatement, stateParam, idFish);
             }
 
             rowInsert = preparedStatement.executeUpdate();
@@ -78,17 +63,15 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
                 throw new SQLException("Creating Weather State failed, no rows affected.");
             }
 
-            getConnection().commit();
+            connection.commit();
 
         } catch (SQLException e) {
-            getConnection().rollback();
+            connection.rollback();
             throw new CustomDfmException(e, "some problem with save fish");
-        }finally {
-
-            if(getConnection() != null){
-                getConnection().close();
+        } finally {
+            if(connection != null){
+                connection.close();
             }
-
         }
 
         log.info("Fish model save with id: " + idFish);
@@ -133,12 +116,64 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
     @Override
     public AbstractFish update(AbstractFish fish) {
+        //TODO field type FK
+        String sql = "UPDATE fish f INNER JOIN weather_state ws ON f.id = ws.fish_id " +
+                "SET f.name = ?, f.description = ?, f.type = ?, ws.max = ?, ws.min = ?, ws.nibble = ?, ws.type_data_weather = ?";
         return null;
     }
 
     @Override
-    public boolean delete(int id) {
-        return false;
+    public void delete(int id) throws CustomDfmException, SQLException {
+        List<Integer> typesFish = new ArrayList<>();
+        Connection connection = getConnection();
+
+        String sqlSelectTypes = "SELECT id FROM weather_state WHERE fish_id = ?";
+        String sqlRemoveFishType = "DELETE FROM weather_state WHERE id = ?";
+        String sqlRemoveFish = "DELETE FROM fish WHERE id = ?";
+
+
+        try{
+            connection.setAutoCommit(false);
+
+            //get fish's types
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlSelectTypes);
+            preparedStatement.setInt(1, id);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()){
+                typesFish.add(rs.getInt(1));
+            }
+
+            preparedStatement = connection.prepareStatement(sqlRemoveFishType);
+
+            //create butch for remove types
+            for (Integer typeId : typesFish) {
+                preparedStatement.setInt(1, typeId);
+                preparedStatement.addBatch();
+            }
+
+            int[] affectedRecords = preparedStatement.executeBatch();
+
+            log.info("Remove Fish_Type rows: " + affectedRecords.length);
+
+            //remove fish model
+            preparedStatement = connection.prepareStatement(sqlRemoveFish);
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+
+            connection.commit();
+
+            log.info("Removed Fish with id: " + id);
+
+        }catch(SQLException e){
+            connection.rollback();
+            throw new CustomDfmException(e, "Fish remove error");
+        }finally {
+            if(connection != null){
+                connection.close();
+            }
+        }
     }
 
     @Override
@@ -212,5 +247,25 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
         fish.setDescription(rs.getString("description"));
         fish.setName(rs.getString("name"));
         return fish;
+    }
+
+    private void setNibbleStateParamToPs(PreparedStatement preparedStatement, NibbleStateParam stateParam, int idFish) throws SQLException {
+        preparedStatement.setString(1, Constants.NIBBLE_DATA_TYPE);
+        preparedStatement.setFloat(2, stateParam.getNibble());
+        preparedStatement.setInt(3, stateParam.getMinValue());
+        preparedStatement.setInt(4, stateParam.getMaxValue());
+        preparedStatement.setInt(5, idFish);
+    }
+
+    private void setNibbleStateParamToPs(PreparedStatement preparedStatement, AbstractFish fish) throws SQLException {
+        preparedStatement.setString(1, fish.getName());
+        preparedStatement.setString(2, fish.getDescription());
+
+        if (fish instanceof CalmFish) {
+            preparedStatement.setString(3, Constants.FISH_TYPE_CALM);
+        }
+        if (fish instanceof PredatorFish) {
+            preparedStatement.setString(3, Constants.FISH_TYPE_PREDATOR);
+        }
     }
 }
