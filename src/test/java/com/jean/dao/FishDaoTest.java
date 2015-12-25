@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.springframework.stereotype.Component;
 import com.jean.BaseTest;
 
+import java.sql.SQLException;
+
 /**
  * Created by stas on 30.05.15.
  */
@@ -34,7 +36,7 @@ public class FishDaoTest extends BaseTest {
 
     @Test
     @Ignore
-    public void createTest() throws CustomDfmException {
+    public void createTest() throws CustomDfmException, SQLException {
         fishDao.save(fish);
         System.out.println("Test 1");
     }

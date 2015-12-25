@@ -18,7 +18,7 @@ import java.util.Locale;
 /**
  * Created by root on 27.09.15.
  */
-public class FishServiceTest extends BaseTest {
+public class FishAnalyzerServiceTest extends BaseTest {
 
     private AbstractFish fish;
     private Date date;
@@ -34,7 +34,7 @@ public class FishServiceTest extends BaseTest {
     @Test
     @Ignore
     public void getBehaviorFishByDayTest() throws CustomDfmException {
-        fishService.getBehaviorFishByDay(fish, date);
+        fishAnalyzerService.getBehaviorFishByDay(fish, date);
         System.out.println("-------------");
     }
 }

@@ -6,7 +6,7 @@ import com.jean.controller.AuthenticationController;
 import com.jean.dao.FishDao;
 import com.jean.dao.WeatherDao;
 import com.jean.schedule.DataWeatherDataBaseWriter;
-import com.jean.service.FishService;
+import com.jean.service.FishAnalyzerService;
 import com.jean.service.WeatherService;
 import com.jean.analyzers.fish.FishAnalyzer;
 
@@ -38,7 +38,7 @@ public class BaseTest  {
     protected WeatherService weatherService;
 
     @Autowired
-    protected FishService fishService;
+    protected FishAnalyzerService fishAnalyzerService;
 
     @Autowired
     protected DataWeatherDataBaseWriter dataWeatherDataBaseWriter;

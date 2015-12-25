@@ -2,15 +2,17 @@ package com.jean.service;
 
 import com.jean.CustomDfmException;
 import com.jean.entity.AbstractFish;
-import com.jean.entity.Weather;
-import com.jean.model.FishDto;
 
-import java.util.Date;
+import java.sql.SQLException;
+import java.util.List;
 
 public interface FishService {
-    
-    FishDto getCurrentFishState(Weather weather);
 
-    int getBehaviorFishByDay(AbstractFish fish, Date date) throws CustomDfmException;
-    
+    AbstractFish get(int id) throws CustomDfmException;
+    boolean create(AbstractFish fish) throws SQLException, CustomDfmException;
+    void update(AbstractFish fish);
+    boolean remove(int id);
+    List<AbstractFish> getAll();
+
+
 }

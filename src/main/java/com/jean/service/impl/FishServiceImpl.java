@@ -1,37 +1,45 @@
 package com.jean.service.impl;
 
-
 import com.jean.CustomDfmException;
-import com.jean.dao.WeatherDao;
+import com.jean.dao.FishDao;
 import com.jean.entity.AbstractFish;
-import com.jean.entity.Weather;
-import com.jean.model.FishDto;
 import com.jean.service.FishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
 public class FishServiceImpl implements FishService {
 
     @Autowired
-    private WeatherDao weatherDao;
+    private FishDao fishDao;
+
 
     @Override
-    public FishDto getCurrentFishState(Weather weather) {
-
-	return null;
+    public AbstractFish get(int id) throws CustomDfmException {
+        return fishDao.read(id);
     }
 
-    public int getBehaviorFishByDay(AbstractFish fish, Date date) throws CustomDfmException {
-        List<Weather> weathers = weatherDao.getLimitWeatherByDate(date);
-
-
-
-
-        return 0;
+    @Override
+    public boolean create(AbstractFish fish) throws SQLException, CustomDfmException {
+        fishDao.save(fish);
+        return false;
     }
 
+    @Override
+    public void update(AbstractFish fish) {
+            fishDao.update(fish);
+    }
+
+    @Override
+    public boolean remove(int id) {
+        return fishDao.delete(id);
+    }
+
+    @Override
+    public List<AbstractFish> getAll() {
+        return null;
+    }
 }
