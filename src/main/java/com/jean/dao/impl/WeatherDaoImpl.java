@@ -72,7 +72,8 @@ public class WeatherDaoImpl extends BaseDaoImpl implements WeatherDao {
 
     @Override
     public List<Weather> getLimitWeatherByDate(java.util.Date date) throws CustomDfmException {
-        String sql = "SELECT id, city, date, temp_day, temp_night, temp_even, temp_morn, pressure, wind_speed, wind_deg, humidity, clouds FROM weather WHERE date <= ? ORDER BY id DESC LIMIT 5"; //todo not working
+        String sql = "SELECT id, city, date, temp_day, temp_night, temp_even, temp_morn, pressure, wind_speed, wind_deg, humidity, " +
+                "clouds FROM weather WHERE date <= ? ORDER BY id DESC LIMIT 5"; //todo not working
 
         List<Weather> weathers = new ArrayList<>();
 

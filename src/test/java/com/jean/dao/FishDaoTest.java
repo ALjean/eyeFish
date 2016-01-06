@@ -69,12 +69,14 @@ public class FishDaoTest extends BaseTest {
     }
 
     @Test
+    @Ignore
     public void deleteFishTest() throws SQLException, CustomDfmException {
         fishDao.delete(15);
         System.out.println("---------------");
     }
 
     @Test
+    @Ignore
     public void getFishByTempForNibbleTest() throws CustomDfmException {
         AbstractFish fish = fishDao.getFishByTempForNibble(temp, id);
         System.out.println("Test 3");

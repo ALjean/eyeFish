@@ -46,6 +46,13 @@ public class WeatherDaoTest extends BaseTest {
     }
 
     @Test
+    public void getLimitWeatherByDateTest() throws CustomDfmException {
+        List<Weather> weathers = weatherDao.getLimitWeatherByDate(new Date());
+        Assert.assertTrue(weathers.size() > 0);
+
+    }
+
+    @Test
     @Ignore
     public void getAllWeatherTest() throws CustomDfmException {
         List<Weather> weathers = weatherDao.getAllWeather();
