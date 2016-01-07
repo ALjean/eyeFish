@@ -1,5 +1,5 @@
-var app = angular.module('myCtrl', []);
+angular.module('app').controller('SomeController', SomeController);
 
-app.controller('MyCtrl1', ['$scope', function ($scope) {
-    $scope.sometext = 'Hello Word'
-}]);
+function SomeController($scope){
+    $scope.someText = 'Hello Word'
+}

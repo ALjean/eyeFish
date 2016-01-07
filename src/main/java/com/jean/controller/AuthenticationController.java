@@ -8,10 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@RestController("/security")
+@RestController
+@RequestMapping("/security")
 public class AuthenticationController {
 
-    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+        @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public Object authentication(HttpServletRequest request, HttpServletResponse response, @RequestBody UserDto userDto) {
         if (checkPermission(userDto))
             response.setHeader("fish-authenticate-id", "123455657678798");

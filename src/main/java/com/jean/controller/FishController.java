@@ -13,7 +13,8 @@ import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
 
-@RestController("/fish")
+@RestController
+@RequestMapping("/fish")
 public class FishController {
 
     @Autowired

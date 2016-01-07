@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 
 /**
@@ -19,7 +21,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 @ComponentScan("com.jean.*")
 @PropertySource("classpath:application.properties")
-public class AppConfiguration {
+public class AppConfiguration extends WebMvcConfigurerAdapter {
 
     @Autowired
     DataBaseProperties dataBaseProperties;
@@ -51,4 +53,8 @@ public class AppConfiguration {
     }
 
 
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**").addResourceLocations("/static/");
+    }
 }
