@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -22,8 +24,14 @@ public class WeatherDaoTest extends BaseTest {
 
     private int id;
 
+    private Date date;
+
     @Before
-    public void init() {
+    public void init() throws ParseException {
+        String testDate = "13/01/2016";
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        date = formatter.parse(testDate);
+
         weather = new Weather();
         weather.setDate(new Date());
         weather.setCity("Kharkov");
@@ -46,15 +54,13 @@ public class WeatherDaoTest extends BaseTest {
     }
 
     @Test
-    @Ignore
     public void getLimitWeatherByDateTest() throws CustomDfmException {
-        List<Weather> weathers = weatherDao.getLimitWeatherByDate(new Date());
+        List<Weather> weathers = weatherDao.getLimitWeatherByDate(date);
         Assert.assertTrue(weathers.size() > 0);
 
     }
 
     @Test
-    @Ignore
     public void getAllWeatherTest() throws CustomDfmException {
         List<Weather> weathers = weatherDao.getAllWeather();
         Assert.assertTrue(weathers.size() > 0);

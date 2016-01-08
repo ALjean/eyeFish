@@ -22,12 +22,8 @@
 
     <servlet-mapping>
         <servlet-name>RestServlet</servlet-name>
-        <url-pattern>/rest/*</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
-
-    <welcome-file-list>
-        <welcome-file>static/index.html</welcome-file>
-    </welcome-file-list>
 
     <filter>
         <filter-name>expiredPasswordFilter</filter-name>
@@ -41,7 +37,7 @@
 
     <filter-mapping>
         <filter-name>expiredPasswordFilter</filter-name>
-        <url-pattern>/rest/service/*</url-pattern>
+        <url-pattern>/service/*</url-pattern>
     </filter-mapping>
 
     <context-param>

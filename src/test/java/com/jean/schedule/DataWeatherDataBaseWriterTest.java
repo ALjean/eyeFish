@@ -12,7 +12,6 @@ import org.junit.Test;
 public class DataWeatherDataBaseWriterTest extends BaseTest {
 
     @Test
-    @Ignore
     public void parseOwnWeatherTest() throws CustomDfmException {
         dataWeatherDataBaseWriter.parseOwnWeather();
         System.out.println("Test Writer API");

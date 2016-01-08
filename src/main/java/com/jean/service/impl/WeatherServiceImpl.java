@@ -48,7 +48,7 @@ public class WeatherServiceImpl implements WeatherService {
 
     private URI urlBuilder(String type) {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(weatherApiProperties.getWeatherUrl() + "/" + type)
-                // .queryParam(Constants.APPID, weatherApiProperties.getAppId()) //todo connect with auth
+                 .queryParam(Constants.APPID, weatherApiProperties.getAppId()) //todo connect with auth
                 .queryParam(Constants.ID, weatherApiProperties.getCityId());
 
         return builder.build().encode().toUri();

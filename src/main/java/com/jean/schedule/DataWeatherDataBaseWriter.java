@@ -55,6 +55,7 @@ public class DataWeatherDataBaseWriter {
     private List<Weather> weatherOwmToDtoList(GeneralWeatherStateOWM weatherOwm) {
         List<Weather> weathers = new ArrayList<>();
 
+
         List<DayWeatherDataOWM> weatherDataOWMs = weatherOwm.getList();
         for (DayWeatherDataOWM weatherDataOWM : weatherDataOWMs) {
             Weather weather = new Weather();
