@@ -20,6 +20,7 @@ public class AuthenticationController {
     public Object authentication(HttpServletResponse response, @RequestBody UserDto userDto) throws Exception {
         if (userService.authenticate(userDto.getEmail(), userDto.getPassword())){
             response.setHeader("fish-authenticate-id", userService.generateToken());
+
         }
 
         return "Hello AuthenticationController in header now you have token";
