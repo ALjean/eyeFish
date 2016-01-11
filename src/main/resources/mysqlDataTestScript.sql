@@ -23,3 +23,5 @@ INSERT INTO spawning (fish_id, spawning, gluttony, sick) VALUES (4, '2014-01-01 
 INSERT INTO spawning (fish_id, spawning, gluttony, sick) VALUES (5, '2014-01-01 00:00:01','2014-02-01 00:00:01','2014-03-01 00:00:01');
 INSERT INTO spawning (fish_id, spawning, gluttony, sick) VALUES (5, '2014-01-01 00:00:01','2014-02-01 00:00:01','2014-03-01 00:00:01');
 INSERT INTO spawning (fish_id, spawning, gluttony, sick) VALUES (6, '2014-01-01 00:00:01','2014-02-01 00:00:01','2014-03-01 00:00:01');
+INSERT INTO users (email, password, first_name, last_name) VALUES ('mail@mail.com', 'y0EYoyAG+KG7A3Ut/h0Zrg==', 'Bill', 'Montgomery');
+INSERT INTO users (email, password, first_name, last_name) VALUES ('mail@mail.com', 'y0EYoyAG+KG7A3Ut/h0Zrg==', 'Taller', 'Derdon');

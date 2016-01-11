@@ -2,9 +2,10 @@ package com.jean.controller;
 
 
 import com.jean.model.UserDto;
+import com.jean.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -12,12 +13,17 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/security")
 public class AuthenticationController {
 
-        @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-    public Object authentication(HttpServletRequest request, HttpServletResponse response, @RequestBody UserDto userDto) {
-        if (checkPermission(userDto))
-            response.setHeader("fish-authenticate-id", "123455657678798");
+    @Autowired
+    private UserService userService;
 
-        return "Hello AuthenticationController";
+    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+    public Object authentication(HttpServletResponse response, @RequestBody UserDto userDto) throws Exception {
+        if (userService.authenticate(userDto.getEmail(), userDto.getPassword())){
+            response.setHeader("fish-authenticate-id", userService.generateToken());
+
+        }
+
+        return "Hello AuthenticationController in header now you have token";
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
@@ -25,11 +31,5 @@ public class AuthenticationController {
         session.invalidate();
         return "Session invalidate";
     }
-
-
-    private boolean checkPermission(UserDto userDto) {
-        return userDto.getUserName().equals("user") && userDto.getPassword().equals("password");
-    }
-
 
 }

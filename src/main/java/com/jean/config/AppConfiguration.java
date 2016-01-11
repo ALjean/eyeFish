@@ -1,13 +1,11 @@
 package com.jean.config;
 
 import com.jean.AuthenticationTokenProcessingFilter;
+import com.jean.config.property.CryptProperties;
 import com.jean.config.property.DataBaseProperties;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -25,6 +23,9 @@ public class AppConfiguration extends WebMvcConfigurerAdapter {
 
     @Autowired
     DataBaseProperties dataBaseProperties;
+
+    @Autowired
+    CryptProperties cryptProperties;
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {

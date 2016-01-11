@@ -53,6 +53,15 @@ CREATE TABLE weather(
   PRIMARY KEY (id)
 );
 
+CREATE TABLE users (
+  id INT NOT NULL AUTO_INCREMENT,
+  email VARCHAR(30) NOT NULL,
+  password VARCHAR(50),
+  first_name VARCHAR(20),
+  last_name VARCHAR(20),
+  PRIMARY KEY (id)
+)
+
 # CREATE TABLE parameters(
 #   id INT NOT NULL AUTO_INCREMENT,
 #   id_fish INT NOT NULL,
