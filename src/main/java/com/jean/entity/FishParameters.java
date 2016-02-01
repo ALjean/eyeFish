@@ -3,26 +3,36 @@ package com.jean.entity;
 /**
  * Created by Stas on 15.11.2015.
  */
-public class NibbleStateParam {
+public class FishParameters {
 
     private int id;
-    private int minValue;
-    private int maxValue;
+    private String stateDataType;
+    private double minValue;
+    private double maxValue;
     private float nibble;
+    
 
-    public int getMinValue() {
+    public String getStateDataType() {
+        return stateDataType;
+    }
+
+    public void setStateDataType(String stateDataType) {
+        this.stateDataType = stateDataType;
+    }
+
+    public double getMinValue() {
         return minValue;
     }
 
-    public void setMinValue(int minValue) {
+    public void setMinValue(double minValue) {
         this.minValue = minValue;
     }
 
-    public int getMaxValue() {
+    public double getMaxValue() {
         return maxValue;
     }
 
-    public void setMaxValue(int maxValue) {
+    public void setMaxValue(double maxValue) {
         this.maxValue = maxValue;
     }
 

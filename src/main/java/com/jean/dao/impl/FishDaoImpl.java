@@ -27,7 +27,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
     public void save(AbstractFish fish) throws CustomDfmException, SQLException {
 
         String sqlFish = "INSERT INTO fish (name, description, type) VALUES (?, ?, ?)";
-        String sqlWeatherStateParam = "INSERT INTO weather_state (type_data_weather, nibble, min, max, fish_id) VALUES (?, ?, ?, ?, ?)";
+        String sqlWeatherStateParam = "INSERT INTO fish_parameters (fish_id, state_data_type, min_range_value, max_range_value, result_nibble_value) VALUES (?, ?, ?, ?, ?)";
         Connection connection = getConnection();
         int idFish = -1;
         int rowInsert;
@@ -53,7 +53,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
             preparedStatement = connection.prepareStatement(sqlWeatherStateParam);
 
-            for(NibbleStateParam stateParam : fish.getNibbleStateParams()){
+            for(FishParameters stateParam : fish.getFishParams()){
                 setNibbleStateParamToPs(preparedStatement, stateParam, idFish);
             }
 
@@ -82,8 +82,8 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
     @Override
     public AbstractFish read(int id) throws CustomDfmException {
 
-        String sql = "SELECT f.name, f.description, f.type, ws.id type_data_id, ws.type_data_weather, ws.nibble, ws.min, ws.max, ws.fish_id\n" +
-                "FROM fish f INNER JOIN  weather_state ws ON f.id = ws.fish_id WHERE f.id = ?";
+        String sql = "SELECT f.name, f.description, f.type, fp.id, fp.fish_id, fp.state_data_type, fp.min_range_value, fp.max_range_value, fp.result_nibble_value\n" +
+                "FROM fish f INNER JOIN  fish_parameters fp ON f.id = fp.fish_id WHERE f.id = ?";
 
         AbstractFish fish = null;
 
@@ -92,16 +92,16 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
             preparedStatement.setInt(1, id);
 
             ResultSet rs = preparedStatement.executeQuery();
-            List<NibbleStateParam> nibbleStateParams = new ArrayList<>();
+            List<FishParameters> fishParams = new ArrayList<FishParameters>();
 
             while (rs.next()) {
-                String key = rs.getString("type_data_weather");
+                String key = rs.getString("state_data_type");
 
                 fish = getFishFromRs(rs);
-                fish.setNibbleStateParams(nibbleStateParams);
+                fish.setFishParams(fishParams);
 
                 if (key.equals(Constants.NIBBLE_DATA_TYPE)) {
-                    nibbleStateParams.add(getNibbleStateParamFromRs(rs));
+                    fishParams.add(getNibbleStateParamFromRs(rs));
                 }
 
             }
@@ -214,14 +214,14 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
             preparedStatement.setInt(3, fishId);
 
             ResultSet rs = preparedStatement.executeQuery();
-            List<NibbleStateParam> nibbleStateParams = new ArrayList<>();
+            List<FishParameters> nibbleStateParams = new ArrayList<>();
 
             while (rs.next()) {
                 fish = getFishFromRs(rs);
-                fish.setNibbleStateParams(nibbleStateParams);
+                fish.setFishParams(nibbleStateParams);
 
                 nibbleStateParams.add(getNibbleStateParamFromRs(rs));
-                fish.setNibbleStateParams(nibbleStateParams);
+                fish.setFishParams(nibbleStateParams);
             }
             log.info(fish != null ? fish.toString() : "Fish by temp not found");
 
@@ -232,12 +232,13 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
         return fish;
     }
 
-    private NibbleStateParam getNibbleStateParamFromRs(ResultSet rs) throws SQLException {
-        NibbleStateParam nibbleStateParam = new NibbleStateParam();
+    private FishParameters getNibbleStateParamFromRs(ResultSet rs) throws SQLException {
+        FishParameters nibbleStateParam = new FishParameters();
         nibbleStateParam.setId(rs.getInt("type_data_id"));
-        nibbleStateParam.setMinValue(rs.getInt("min"));
-        nibbleStateParam.setMaxValue(rs.getInt("max"));
-        nibbleStateParam.setNibble(rs.getLong("nibble"));
+        nibbleStateParam.setStateDataType(rs.getString("state_data_type"));
+        nibbleStateParam.setMinValue(rs.getDouble("min_range_value"));
+        nibbleStateParam.setMaxValue(rs.getDouble("max_range_value"));
+        nibbleStateParam.setNibble(rs.getLong("result_nibble_value"));
         return nibbleStateParam;
     }
 
@@ -249,12 +250,12 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
         return fish;
     }
 
-    private void setNibbleStateParamToPs(PreparedStatement preparedStatement, NibbleStateParam stateParam, int idFish) throws SQLException {
-        preparedStatement.setString(1, Constants.NIBBLE_DATA_TYPE);
-        preparedStatement.setFloat(2, stateParam.getNibble());
-        preparedStatement.setInt(3, stateParam.getMinValue());
-        preparedStatement.setInt(4, stateParam.getMaxValue());
-        preparedStatement.setInt(5, idFish);
+    private void setNibbleStateParamToPs(PreparedStatement preparedStatement, FishParameters fishParam, int idFish) throws SQLException {
+        preparedStatement.setInt(1, idFish);
+        preparedStatement.setString(2, fishParam.getStateDataType());
+        preparedStatement.setDouble(3, fishParam.getMinValue());
+        preparedStatement.setDouble(4, fishParam.getMaxValue()); 
+        preparedStatement.setDouble(5, fishParam.getNibble());
     }
 
     private void setNibbleStateParamToPs(PreparedStatement preparedStatement, AbstractFish fish) throws SQLException {

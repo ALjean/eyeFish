@@ -17,5 +17,5 @@ public interface ConstantsAnalyzer {
     
     double CRITICAL_HIGH_TEMPERATURE = 28.5;
     
-    
+    enum STATE_DATA_TYPE {ENVIROMENT_TEMPERATURE, WATER_TEMPERATURE, PRESSURE, MOON_PHASE, TIME_DAY, TIME_YEAR};
 }

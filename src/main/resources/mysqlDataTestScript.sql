@@ -1,27 +1,36 @@
-INSERT INTO fish (name, description, type) VALUES ('Akula', 'This very nice fish', 'predator');
-INSERT INTO fish (name, description, type) VALUES ('Akula1', 'This very nice fish', 'calm');
-INSERT INTO fish (name, description, type) VALUES ('Akula1', 'This very nice fish', 'calm');
-INSERT INTO fish (name, description, type) VALUES ('Akula1', 'This very nice fish', 'calm');
-INSERT INTO fish (name, description, type) VALUES ('Akula1', 'This very nice fish', 'calm');
-INSERT INTO fish (name, description, type) VALUES ('Akula1', 'This very nice fish', 'calm');
-INSERT INTO weather_state (type_data_weather, nibble, min, max, fish_id) VALUES ('tempDataType', 0.5, 7, 27, 1);
-INSERT INTO weather_state (type_data_weather, nibble, min, max, fish_id) VALUES ('pressDataType', 0.25, 5, 21, 3);
-INSERT INTO weather_state (type_data_weather, nibble, min, max, fish_id) VALUES ('pressDataType',0.75, 5, 21, 3);
-INSERT INTO weather_state (type_data_weather, nibble, min, max, fish_id) VALUES ('pressDataType', 0.3, 5, 21, 3);
-INSERT INTO weather_state (type_data_weather, nibble, min, max, fish_id) VALUES ('tempDataType', 0.2, 5, 21, 3);
-INSERT INTO weather_state (type_data_weather, nibble, min, max, fish_id) VALUES ('tempDataType', 0.9, 5, 21, 3);
-INSERT INTO weather_state (type_data_weather, nibble, min, max, fish_id) VALUES ('tempDataType', 0.25, 1, 23, 2);
-INSERT INTO weather_state (type_data_weather, nibble, min, max, fish_id) VALUES ('tempDataType', 0.1, 2, 25, 2);
-INSERT INTO weather_state (type_data_weather, nibble, min, max, fish_id) VALUES ('pressDataType', 0.5, 5, 21, 5);
-INSERT INTO weather_state (type_data_weather, nibble, min, max, fish_id) VALUES ('pressDataType', 0.75, 5, 21, 6);
-INSERT INTO weather_state (type_data_weather, nibble, min, max, fish_id) VALUES ('nibbleDataType', 0.3, 5, 21, 3);
-INSERT INTO weather_state (type_data_weather, nibble, min, max, fish_id) VALUES ('nibbleDataType', 0.3, 5, 21, 3);
-INSERT INTO spawning (fish_id, spawning, gluttony, sick) VALUES (1, '2014-01-01 00:00:01','2014-02-01 00:00:01','2014-03-01 00:00:01');
-INSERT INTO spawning (fish_id, spawning, gluttony, sick) VALUES (2, '2014-01-01 00:00:01','2014-02-01 00:00:01','2014-03-01 00:00:01');
-INSERT INTO spawning (fish_id, spawning, gluttony, sick) VALUES (3, '2014-01-01 00:00:01','2014-02-01 00:00:01','2014-03-01 00:00:01');
-INSERT INTO spawning (fish_id, spawning, gluttony, sick) VALUES (4, '2014-01-01 00:00:01','2014-02-01 00:00:01','2014-03-01 00:00:01');
-INSERT INTO spawning (fish_id, spawning, gluttony, sick) VALUES (5, '2014-01-01 00:00:01','2014-02-01 00:00:01','2014-03-01 00:00:01');
-INSERT INTO spawning (fish_id, spawning, gluttony, sick) VALUES (5, '2014-01-01 00:00:01','2014-02-01 00:00:01','2014-03-01 00:00:01');
-INSERT INTO spawning (fish_id, spawning, gluttony, sick) VALUES (6, '2014-01-01 00:00:01','2014-02-01 00:00:01','2014-03-01 00:00:01');
-INSERT INTO users (email, password, first_name, last_name) VALUES ('mail@mail.com', 'y0EYoyAG+KG7A3Ut/h0Zrg==', 'Bill', 'Montgomery');
-INSERT INTO users (email, password, first_name, last_name) VALUES ('mail@mail.com', 'y0EYoyAG+KG7A3Ut/h0Zrg==', 'Taller', 'Derdon');
+#Insert test dates into eyeFish
+
+INSERT INTO fish (name, description, type) VALUES (
+'Carp',
+'In Europe, even when not fished for food, they are eagerly sought by anglers, 
+being considered highly prized coarse fish that are difficult to hook. The UK has a thriving 
+carp angling market. It is the fastest growing angling market in the UK, and has spawned a number 
+of specialised carp angling publications such as Carpology,[30] Advanced carp fishing, Carpworld and 
+Total Carp, and informative carp angling web sites, such as Carpfishing UK', 
+'calmfish'
+);
+
+INSERT INTO fish_parameters (fish_id, state_data_type, min_range_value, max_range_value, result_nibble_value)VALUES(7, 'ENVIROMENT_TEMPERATURE', -50, -4, 0);
+INSERT INTO fish_parameters (fish_id, state_data_type, min_range_value, max_range_value, result_nibble_value)VALUES(7, 'ENVIROMENT_TEMPERATURE', -4, 12, 15.5);
+INSERT INTO fish_parameters (fish_id, state_data_type, min_range_value, max_range_value, result_nibble_value)VALUES(7, 'ENVIROMENT_TEMPERATURE', 12, 16, 21.2);
+INSERT INTO fish_parameters (fish_id, state_data_type, min_range_value, max_range_value, result_nibble_value)VALUES(7, 'ENVIROMENT_TEMPERATURE', 16, 20, 38.23);
+INSERT INTO fish_parameters (fish_id, state_data_type, min_range_value, max_range_value, result_nibble_value)VALUES(7, 'ENVIROMENT_TEMPERATURE', 20, 26, 88.3);
+INSERT INTO fish_parameters (fish_id, state_data_type, min_range_value, max_range_value, result_nibble_value)VALUES(7, 'ENVIROMENT_TEMPERATURE', 20, 26, 88.3);
+INSERT INTO fish_parameters (fish_id, state_data_type, min_range_value, max_range_value, result_nibble_value)VALUES(7, 'ENVIROMENT_TEMPERATURE', 26, 31, 52.3);
+INSERT INTO fish_parameters (fish_id, state_data_type, min_range_value, max_range_value, result_nibble_value)VALUES(7, 'ENVIROMENT_TEMPERATURE', 31, 36, 21.8);
+INSERT INTO fish_parameters (fish_id, state_data_type, min_range_value, max_range_value, result_nibble_value)VALUES(7, 'ENVIROMENT_TEMPERATURE', 36, 48, 5.4);
+
+INSERT INTO fish_parameters (fish_id, state_data_type, min_range_value, max_range_value, result_nibble_value)VALUES(7, 'WATER_TEMPERATURE', -4, 10, 5.4);
+INSERT INTO fish_parameters (fish_id, state_data_type, min_range_value, max_range_value, result_nibble_value)VALUES(7, 'WATER_TEMPERATURE', 10, 16, 32.8);
+INSERT INTO fish_parameters (fish_id, state_data_type, min_range_value, max_range_value, result_nibble_value)VALUES(7, 'WATER_TEMPERATURE', 16, 22, 76.2);
+INSERT INTO fish_parameters (fish_id, state_data_type, min_range_value, max_range_value, result_nibble_value)VALUES(7, 'WATER_TEMPERATURE', 22, 26, 88.9);
+INSERT INTO fish_parameters (fish_id, state_data_type, min_range_value, max_range_value, result_nibble_value)VALUES(7, 'WATER_TEMPERATURE', 26, 32, 23.5);
+INSERT INTO fish_parameters (fish_id, state_data_type, min_range_value, max_range_value, result_nibble_value)VALUES(7, 'WATER_TEMPERATURE', 32, 48, 0);
+
+INSERT INTO fish_parameters (fish_id, state_data_type, min_range_value, max_range_value, result_nibble_value)VALUES(7, 'PRESSURE', 710, 725, 5.2);
+INSERT INTO fish_parameters (fish_id, state_data_type, min_range_value, max_range_value, result_nibble_value)VALUES(7, 'PRESSURE', 725, 740, 38.9);
+INSERT INTO fish_parameters (fish_id, state_data_type, min_range_value, max_range_value, result_nibble_value)VALUES(7, 'PRESSURE', 745, 752, 86.3);
+INSERT INTO fish_parameters (fish_id, state_data_type, min_range_value, max_range_value, result_nibble_value)VALUES(7, 'PRESSURE', 752, 765, 26.3);
+
+
+

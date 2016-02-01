@@ -1,85 +1,119 @@
 package com.jean.analyzers.weather;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.sql.Timestamp;
 
 public class AnalyzerResultObject {
 
-	private double weatherStateResult;
-	private double windResult;
-	private double pressureResult;
-	private double badWeatherResult;
+    // Individual parameters for each fish in database
+    private double temperature;
+    private double waterTemperature;
+    private double pressure;
+    private double moonPhase;
 
-	private Date currentDate;
-	private Map<Integer, Double> priorityMap;
+    // Values from WeatherAnalyzer
+    private double weatherStabilityValue;
+    private double pressureStabilityValue;
+    private double windDirectionValue;
 
-	public AnalyzerResultObject(double weatherStateResult, double windResult,
-								double pressureResult, double badWeatherResult, Date date) {
+    // Current date and time on moment of fetching weather data
+    private Timestamp timeDay;
+    private Timestamp timeYear;
 
-		this.weatherStateResult = weatherStateResult;
-		this.windResult = windResult;
-		this.pressureResult = pressureResult;
-		this.badWeatherResult = badWeatherResult;
+    public AnalyzerResultObject(double temperature, double waterTemperature, double pressure, double moonPhase, double weatherStabilityValue,
+	    double pressureStabilityValue, double windDirectionValue, Timestamp timeDay, Timestamp timeYear) {
+	super();
+	this.temperature = temperature;
+	this.waterTemperature = waterTemperature;
+	this.pressure = pressure;
+	this.moonPhase = moonPhase;
+	this.weatherStabilityValue = weatherStabilityValue;
+	this.pressureStabilityValue = pressureStabilityValue;
+	this.windDirectionValue = windDirectionValue;
+	this.timeDay = timeDay;
+	this.timeYear = timeYear;
+    }
 
-		this.setDate(date);
-		this.priorityMap = new HashMap<Integer, Double>();
+    public AnalyzerResultObject() {
+	super();
+    }
 
-		if (date.equals(new Date())) {
-			// Some logic which helps create priority for each other result
-			// depends on year time
-		}
-	}
+    public double getTemperature() {
+	return temperature;
+    }
 
-	public double getWeatherStateResult() {
-		return weatherStateResult;
-	}
+    public void setTemperature(double temperature) {
+	this.temperature = temperature;
+    }
 
-	public void setWeatherStateResult(double weatherStateResult) {
-		this.weatherStateResult = weatherStateResult;
-	}
+    public double getWaterTemperature() {
+	return waterTemperature;
+    }
 
-	public double getWindResult() {
-		return windResult;
-	}
+    public void setWaterTemperature(double waterTemperature) {
+	this.waterTemperature = waterTemperature;
+    }
 
-	public void setWindResult(double windResult) {
-		this.windResult = windResult;
-	}
+    public double getPressure() {
+	return pressure;
+    }
 
-	public double getPressureResult() {
-		return pressureResult;
-	}
+    public void setPressure(double pressure) {
+	this.pressure = pressure;
+    }
 
-	public void setPressureResult(double pressureResult) {
-		this.pressureResult = pressureResult;
-	}
+    public double getMoonPhase() {
+	return moonPhase;
+    }
 
-	public Map<Integer, Double> getPriorityMap() {
-		return priorityMap;
-	}
+    public void setMoonPhase(double moonPhase) {
+	this.moonPhase = moonPhase;
+    }
 
-	public Date getDate() {
-		return currentDate;
-	}
+    public double getWeatherStabilityValue() {
+	return weatherStabilityValue;
+    }
 
-	public void setDate(Date date) {
-		this.currentDate = date;
-	}
+    public void setWeatherStabilityValue(double weatherStabilityValue) {
+	this.weatherStabilityValue = weatherStabilityValue;
+    }
 
-	public double getBadWeatherResult() {
-		return badWeatherResult;
-	}
+    public double getPressureStabilityValue() {
+	return pressureStabilityValue;
+    }
 
-	public void setBadWeatherResult(double badWeatherResult) {
-		this.badWeatherResult = badWeatherResult;
-	}
+    public void setPressureStabilityValue(double pressureStabilityValue) {
+	this.pressureStabilityValue = pressureStabilityValue;
+    }
 
-	@Override
-	public String toString() {
-		return "AnalisationResultObject [weatherStateResult="
-				+ weatherStateResult + ", windResult=" + windResult
-				+ ", pressureResult=" + pressureResult + "]";
-	}
+    public double getWindDirectionValue() {
+	return windDirectionValue;
+    }
+
+    public void setWindDirectionValue(double windDirectionValue) {
+	this.windDirectionValue = windDirectionValue;
+    }
+
+    public Timestamp getTimeDay() {
+	return timeDay;
+    }
+
+    public void setTimeDay(Timestamp timeDay) {
+	this.timeDay = timeDay;
+    }
+
+    public Timestamp getTimeYear() {
+	return timeYear;
+    }
+
+    public void setTimeYear(Timestamp timeYear) {
+	this.timeYear = timeYear;
+    }
+
+    @Override
+    public String toString() {
+	return "AnalyzerResultObject [temperature=" + temperature + ", waterTemperature=" + waterTemperature + ", pressure=" + pressure
+		+ ", moonPhase=" + moonPhase + ", weatherStabilityValue=" + weatherStabilityValue + ", pressureStabilityValue="
+		+ pressureStabilityValue + ", windDirectionValue=" + windDirectionValue + ", timeDay=" + timeDay + ", timeYear=" + timeYear + "]";
+    }
 
 }

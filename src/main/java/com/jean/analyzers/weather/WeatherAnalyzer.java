@@ -9,6 +9,6 @@ public interface WeatherAnalyzer {
 
 	public double pressureChecker(float[] pressureParams);
 	
-	public double badWeatherAnalyzer(double rain, double clouds, double temperature);
+	
 
 }

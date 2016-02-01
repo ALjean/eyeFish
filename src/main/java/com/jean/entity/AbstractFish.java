@@ -10,7 +10,7 @@ public abstract class AbstractFish {
 	private int id;
 	private String name;
 	private String description;
-	private List<NibbleStateParam> nibbleStateParams;
+	private List<FishParameters> fishParams;
 
 	public int getId() {
 		return id;
@@ -36,12 +36,12 @@ public abstract class AbstractFish {
 		this.description = description;
 	}
 
-	public List<NibbleStateParam> getNibbleStateParams() {
-		return nibbleStateParams;
+	public List<FishParameters> getFishParams() {
+		return fishParams;
 	}
 
-	public void setNibbleStateParams(List<NibbleStateParam> nibbleStateParams) {
-		this.nibbleStateParams = nibbleStateParams;
+	public void setFishParams(List<FishParameters> nibbleStateParams) {
+		this.fishParams = nibbleStateParams;
 	}
 
 	public abstract double hungryAnalyzer(AnalyzerResultObject resultObject);

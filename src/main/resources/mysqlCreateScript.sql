@@ -3,28 +3,27 @@
 CREATE TABLE fish(
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(30) NOT NULL,
-  description VARCHAR(400),
+  description TEXT,
   type VARCHAR(10),
   PRIMARY KEY (id)
 );
 
-# CREATE TABLE spawning(
-#   id INT NOT NULL AUTO_INCREMENT,
-#   fish_id INT NOT NULL,
-#   spawning TIMESTAMP,
-#   gluttony TIMESTAMP,
-#   sick TIMESTAMP,
-#   PRIMARY KEY (id),
-#   FOREIGN KEY (fish_id) REFERENCES fish(id)
-# );
-
-CREATE TABLE weather_state(
-  id INT NOT NULL AUTO_INCREMENT,
-  type_data_weather VARCHAR(20) NOT NULL,
-  nibble FLOAT NOT NULL,
-  min INTEGER NOT NULL,
-  max INTEGER NOT NULL,
+CREATE TABLE year_periods (id INT NOT NULL AUTO_INCREMENT,
   fish_id INT NOT NULL,
+  start_period TIMESTAMP,   
+  end_period TIMESTAMP,
+  result_nibble_value DOUBLE,
+  PRIMARY KEY (id),
+  FOREIGN KEY (fish_id) REFERENCES fish(id)
+);
+
+CREATE TABLE fish_parameters(
+  id INT NOT NULL AUTO_INCREMENT,
+  fish_id INT NOT NULL,
+  state_data_type VARCHAR(30) NOT NULL,
+  min_range_value DOUBLE NOT NULL,
+  max_range_value DOUBLE NOT NULL,
+  result_nibble_value DOUBLE NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (fish_id) REFERENCES fish(id)
 );
@@ -62,14 +61,11 @@ CREATE TABLE users (
   PRIMARY KEY (id)
 )
 
-# CREATE TABLE parameters(
-#   id INT NOT NULL AUTO_INCREMENT,
-#   id_fish INT NOT NULL,
-#   type_data_weather VARCHAR(30) NOT NULL,
-#   type_behavior VARCHAR(40) NOT NULL,
-#   type_key VARCHAR(30) NOT NULL,
-#   range_min INT NOT NULL,
-#   range_max INT NOT NULL,
-#   PRIMARY KEY (id),
-#   FOREIGN KEY (id_fish) REFERENCES fish(id)
-# );
+CREATE TABLE day_phases (id INT NOT NULL AUTO_INCREMENT,
+  fish_id INT NOT NULL,
+  state_data_type VARCHAR(30),
+  phase_value VARCHAR(20),  
+  result_nibble_value DOUBLE,
+  PRIMARY KEY (id),
+  FOREIGN KEY (fish_id) REFERENCES fish(id)
+);
