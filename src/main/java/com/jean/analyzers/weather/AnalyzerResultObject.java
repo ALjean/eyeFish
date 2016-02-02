@@ -4,10 +4,13 @@ import java.sql.Timestamp;
 
 public class AnalyzerResultObject {
 
-    // Individual parameters for each fish in database
+    // Individual parameters for compare for each fish in database
     private double temperature;
     private double waterTemperature;
     private double pressure;
+    private double clouds;
+    private double rain;
+    private double snow;
     private double moonPhase;
 
     // Values from WeatherAnalyzer
@@ -19,12 +22,16 @@ public class AnalyzerResultObject {
     private Timestamp timeDay;
     private Timestamp timeYear;
 
-    public AnalyzerResultObject(double temperature, double waterTemperature, double pressure, double moonPhase, double weatherStabilityValue,
-	    double pressureStabilityValue, double windDirectionValue, Timestamp timeDay, Timestamp timeYear) {
+    public AnalyzerResultObject(double temperature, double waterTemperature, double pressure, double clouds, double rain, double snow,
+	    double moonPhase, double weatherStabilityValue, double pressureStabilityValue, double windDirectionValue, Timestamp timeDay,
+	    Timestamp timeYear) {
 	super();
 	this.temperature = temperature;
 	this.waterTemperature = waterTemperature;
 	this.pressure = pressure;
+	this.clouds = clouds;
+	this.rain = rain;
+	this.snow = snow;
 	this.moonPhase = moonPhase;
 	this.weatherStabilityValue = weatherStabilityValue;
 	this.pressureStabilityValue = pressureStabilityValue;
@@ -39,6 +46,30 @@ public class AnalyzerResultObject {
 
     public double getTemperature() {
 	return temperature;
+    }
+
+    public double getClouds() {
+	return clouds;
+    }
+
+    public void setClouds(double clouds) {
+	this.clouds = clouds;
+    }
+
+    public double getRain() {
+	return rain;
+    }
+
+    public void setRain(double rain) {
+	this.rain = rain;
+    }
+
+    public double getSnow() {
+	return snow;
+    }
+
+    public void setSnow(double snow) {
+	this.snow = snow;
     }
 
     public void setTemperature(double temperature) {
@@ -111,9 +142,10 @@ public class AnalyzerResultObject {
 
     @Override
     public String toString() {
-	return "AnalyzerResultObject [temperature=" + temperature + ", waterTemperature=" + waterTemperature + ", pressure=" + pressure
-		+ ", moonPhase=" + moonPhase + ", weatherStabilityValue=" + weatherStabilityValue + ", pressureStabilityValue="
-		+ pressureStabilityValue + ", windDirectionValue=" + windDirectionValue + ", timeDay=" + timeDay + ", timeYear=" + timeYear + "]";
+	return "AnalyzerResultObject [temperature=" + temperature + ", waterTemperature=" + waterTemperature + ", pressure=" + pressure + ", clouds="
+		+ clouds + ", rain=" + rain + ", snow=" + snow + ", moonPhase=" + moonPhase + ", weatherStabilityValue=" + weatherStabilityValue
+		+ ", pressureStabilityValue=" + pressureStabilityValue + ", windDirectionValue=" + windDirectionValue + ", timeDay=" + timeDay
+		+ ", timeYear=" + timeYear + "]";
     }
 
 }

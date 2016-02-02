@@ -32,5 +32,41 @@ INSERT INTO fish_parameters (fish_id, state_data_type, min_range_value, max_rang
 INSERT INTO fish_parameters (fish_id, state_data_type, min_range_value, max_range_value, result_nibble_value)VALUES(7, 'PRESSURE', 745, 752, 86.3);
 INSERT INTO fish_parameters (fish_id, state_data_type, min_range_value, max_range_value, result_nibble_value)VALUES(7, 'PRESSURE', 752, 765, 26.3);
 
+INSERT INTO bait (fish_id, bait_type, name, description)VALUES
+(7, 'livebait', 'warm', 'For most biggest calm fish'),
+(7, 'vegetale', 'maggot', 'For white calm fish'),
+(7, 'vegetale', 'bloodwarm', 'For white calm fish on winter period'),
+(7, 'vegetale', 'corn', 'Traditional bait for calm fish'),
+(7, 'vegetale', 'semolina', 'Effective bait for calm fish');
+
+INSERT INTO bait_color (name)VALUES
+('white'),
+('bright'),
+('dark'),
+('smooth');
+
+INSERT INTO bait_taste (name)VALUES
+('sweet'),
+('sold'),
+('spicy'),
+('natural');
+
+INSERT INTO bait_weight (name)VALUES
+('heavy'),
+('medium'),
+('light'),
+('ultralight');
+
+INSERT INTO weather_feed_prefer (bait_id, name_color, name_taste, name_weight, state_data_type, min_range_value, max_range_value)VALUES
+(1, 'dark', 'natural', null, 'ENVIRMOMENT_TEMPERATURE', 12, 18),
+(2, 'white', 'natural', null, 'ENVIRMOMENT_TEMPERATURE', 18, 23),
+(4, 'bright', 'spicy', null, 'ENVIRMOMENT_TEMPERATURE', 23, 26),
+(5, 'white', 'sweet', null, 'ENVIRMOMENT_TEMPERATURE', 26, 32);
+
+INSERT INTO season_feed_prefer (bait_id, name_color, name_taste, name_weight, start_period, end_period)VALUES
+(1, 'dark', 'natural', null, '2016-08-01', '2017-02-28'),
+(3, 'dark', 'natural', null, '2017-02-28', '2017-05-01'),
+(5, 'bright', 'spicy', null, '2017-05-01', '2017-07-31');
+
 
 

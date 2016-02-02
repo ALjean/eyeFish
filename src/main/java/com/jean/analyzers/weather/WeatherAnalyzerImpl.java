@@ -1,8 +1,5 @@
 package com.jean.analyzers.weather;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Map;
 
 import com.jean.analyzers.weather.WindDirectionConverter.DirectionMap;
@@ -152,11 +149,6 @@ public class WeatherAnalyzerImpl implements WeatherAnalyzer {
 	System.out.println("Pressure activity are: " + analyzer.pressureChecker(pressureParams));
 
 	System.out.println("Wind activity is " + analyzer.windChecker(32, 348, 5.6));
-
-	Timestamp time = new Timestamp(1406106000l);
-	SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
-	String s = df2.format(time);
-	System.out.println(s);
 
     }
 
