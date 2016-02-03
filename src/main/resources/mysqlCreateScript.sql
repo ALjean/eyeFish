@@ -74,21 +74,18 @@ AUTO_INCREMENT=5;
 
 CREATE TABLE `season_feed_prefer` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`bait_id` INT(11) NOT NULL,
-	`color_id` INT(11) NULL DEFAULT NULL,
-	`taste_id` INT(11) NULL DEFAULT NULL,
-	`weight_id` INT(11) NULL DEFAULT NULL,
+	`fish_id` INT(11) NOT NULL DEFAULT '0',
+	`bait_id` INT(11) NULL DEFAULT NULL,
+	`taste` VARCHAR(20) NULL DEFAULT NULL,
 	`start_period` DATE NOT NULL,
 	`end_period` DATE NOT NULL,
 	PRIMARY KEY (`id`),
 	INDEX `FK_season_feed_prefer_bait` (`bait_id`),
-	INDEX `FK_season_feed_prefer_bait_color` (`color_id`),
-	INDEX `FK_season_feed_prefer_bait_taste` (`taste_id`),
-	INDEX `FK_season_feed_prefer_bait_weight` (`weight_id`),
+	INDEX `FK_season_feed_prefer_fish` (`fish_id`),
+	INDEX `FK_season_feed_prefer_bait_taste` (`taste`),
 	CONSTRAINT `FK_season_feed_prefer_bait` FOREIGN KEY (`bait_id`) REFERENCES `bait` (`id`),
-	CONSTRAINT `FK_season_feed_prefer_bait_color` FOREIGN KEY (`color_id`) REFERENCES `bait_color` (`id`),
-	CONSTRAINT `FK_season_feed_prefer_bait_taste` FOREIGN KEY (`taste_id`) REFERENCES `bait_taste` (`id`),
-	CONSTRAINT `FK_season_feed_prefer_bait_weight` FOREIGN KEY (`weight_id`) REFERENCES `bait_weight` (`id`)
+	CONSTRAINT `FK_season_feed_prefer_bait_taste` FOREIGN KEY (`taste`) REFERENCES `bait_taste` (`name`),
+	CONSTRAINT `FK_season_feed_prefer_fish` FOREIGN KEY (`fish_id`) REFERENCES `fish` (`id`)
 )
 COLLATE='latin1_swedish_ci'
 ENGINE=InnoDB
@@ -96,26 +93,22 @@ AUTO_INCREMENT=6;
 
 CREATE TABLE `weather_feed_prefer` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`bait_id` INT(11) NOT NULL,
-	`color_id` INT(11) NULL DEFAULT NULL,
-	`taste_id` INT(11) NULL DEFAULT NULL,
-	`weight_id` INT(11) NULL DEFAULT NULL,
-	`state_data_type` VARCHAR(40) NOT NULL,
-	`min_range_value` DOUBLE NOT NULL,
-	`max_range_value` DOUBLE NOT NULL,
+	`fish_id` INT(11) NOT NULL DEFAULT '0',
+	`bait_id` INT(11) NULL DEFAULT NULL,
+	`taste` VARCHAR(20) NULL DEFAULT NULL,
+	`min_temp` DOUBLE NOT NULL,
+	`max_temp` DOUBLE NOT NULL,
 	PRIMARY KEY (`id`),
 	INDEX `weather_feed_prefer_ibfk_1` (`bait_id`),
-	INDEX `FK_weather_feed_prefer_bait_color` (`color_id`),
-	INDEX `FK_weather_feed_prefer_bait_taste` (`taste_id`),
-	INDEX `FK_weather_feed_prefer_bait_weight` (`weight_id`),
-	CONSTRAINT `FK_weather_feed_prefer_bait_color` FOREIGN KEY (`color_id`) REFERENCES `bait_color` (`id`),
-	CONSTRAINT `FK_weather_feed_prefer_bait_taste` FOREIGN KEY (`taste_id`) REFERENCES `bait_taste` (`id`),
-	CONSTRAINT `FK_weather_feed_prefer_bait_weight` FOREIGN KEY (`weight_id`) REFERENCES `bait_weight` (`id`),
+	INDEX `FK_weather_feed_prefer_fish` (`fish_id`),
+	INDEX `FK_weather_feed_prefer_bait_taste` (`taste`),
+	CONSTRAINT `FK_weather_feed_prefer_bait_taste` FOREIGN KEY (`taste`) REFERENCES `bait_taste` (`name`),
+	CONSTRAINT `FK_weather_feed_prefer_fish` FOREIGN KEY (`fish_id`) REFERENCES `fish` (`id`),
 	CONSTRAINT `weather_feed_prefer_ibfk_1` FOREIGN KEY (`bait_id`) REFERENCES `bait` (`id`)
 )
 COLLATE='latin1_swedish_ci'
 ENGINE=InnoDB
-AUTO_INCREMENT=7;
+AUTO_INCREMENT=20;
 
 
 CREATE TABLE messages(
@@ -159,3 +152,18 @@ CREATE TABLE day_phases (id INT NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (id),
   FOREIGN KEY (fish_id) REFERENCES fish(id)
 );
+
+--SELECT s.bait_id, b.name, s.taste FROM season_feed_prefer AS s, bait AS b
+--WHERE '2016-05-23' BETWEEN s.start_period AND s.end_period 
+--AND s.bait_id = b.id;
+--
+--SELECT w.bait_id, b.name, w.taste FROM  weather_feed_prefer AS w, bait AS b
+--WHERE 23 BETWEEN w.min_temp AND w.max_temp
+--AND w.bait_id = b.id;
+--
+--SELECT DISTINCT b.name, b.bait_type, b.name, w.taste FROM season_feed_prefer AS s, bait AS b, weather_feed_prefer AS w
+--WHERE 32 BETWEEN w.min_temp AND w.max_temp
+--AND '2016-09-23' BETWEEN s.start_period AND s.end_period 
+--AND s.bait_id = b.id
+--AND w.bait_id = b.id
+--AND s.bait_id = w.bait_id;

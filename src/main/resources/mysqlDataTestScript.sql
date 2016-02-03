@@ -37,19 +37,21 @@ INSERT INTO bait (fish_id, bait_type, name, description)VALUES
 (7, 'vegetale', 'maggot', 'For white calm fish'),
 (7, 'vegetale', 'bloodwarm', 'For white calm fish on winter period'),
 (7, 'vegetale', 'corn', 'Traditional bait for calm fish'),
-(7, 'vegetale', 'semolina', 'Effective bait for calm fish');
+(7, 'vegetale', 'semolina', 'Effective bait for calm fish')
+(7, 'vegetale', 'boil', 'Best for most biggest carp');
 
 INSERT INTO bait_color (name)VALUES
-('white'),
-('bright'),
-('dark'),
-('smooth');
+('white_colors'),
+('bright_colors'),
+('dark_colors'),
+('natural_colors');
 
 INSERT INTO bait_taste (name)VALUES
 ('sweet'),
 ('sold'),
 ('spicy'),
-('natural');
+('meat'),
+('vanilla');
 
 INSERT INTO bait_weight (name)VALUES
 ('heavy'),
@@ -57,16 +59,42 @@ INSERT INTO bait_weight (name)VALUES
 ('light'),
 ('ultralight');
 
-INSERT INTO weather_feed_prefer (bait_id, name_color, name_taste, name_weight, state_data_type, min_range_value, max_range_value)VALUES
-(1, 'dark', 'natural', null, 'ENVIRMOMENT_TEMPERATURE', 12, 18),
-(2, 'white', 'natural', null, 'ENVIRMOMENT_TEMPERATURE', 18, 23),
-(4, 'bright', 'spicy', null, 'ENVIRMOMENT_TEMPERATURE', 23, 26),
-(5, 'white', 'sweet', null, 'ENVIRMOMENT_TEMPERATURE', 26, 32);
+INSERT INTO weather_feed_prefer (bait_id, fish_id, taste, min_temp, max_temp)VALUES
+(null, 7, null, -40.00, 6.00),
+(1, 7, null, 7.00, 16.00),
+(6, 7, 'MEAT', 7.00, 16.00),
+(2, 7, null, 7.00, 16.00),
+(3, 7, null, 7.00, 16.00),
+(6, 7, 'MEAT', 17.00, 22.00),
+(6, 7, 'SPICY', 17.00, 22.00),
+(4, 7, 'SWEET', 17.00, 22.00),
+(6, 7, 'SWEET', 23.00, 28.00),
+(4, 7, 'SPICY', 23.00, 28.00),
+(6, 7, 'VANILLA', 23.00, 28.00),
+(6, 7, 'SWEET', 29.00, 35.00),
+(null, 7, null, 36.00, 45.00);
 
-INSERT INTO season_feed_prefer (bait_id, name_color, name_taste, name_weight, start_period, end_period)VALUES
-(1, 'dark', 'natural', null, '2016-08-01', '2017-02-28'),
-(3, 'dark', 'natural', null, '2017-02-28', '2017-05-01'),
-(5, 'bright', 'spicy', null, '2017-05-01', '2017-07-31');
+INSERT INTO season_feed_prefer (bait_id, fish_id, taste, start_period, end_period)VALUES
+(null, 7, null, '2016-01-01', '2016-04-30'),
+(1, 7, null, '2016-05-01', '2016-06-01'),
+(6, 7, 'MEAT', '2016-05-01', '2016-06-01'),
+(2, 7, null, '2016-05-01', '2016-06-01'),
+(3, 7, null, '2016-05-01', '2016-06-01'),
+(6, 7, 'SPICY', '2016-05-01', '2016-06-01'),
+(4, 7, 'SWEET', '2016-06-01', '2016-07-31'),
+(4, 7, 'VANILLA', '2016-06-01', '2016-07-31'),
+(6, 7, 'SWEET', '2016-06-01', '2016-07-31'),
+(6, 7, 'VANILLA', '2016-06-01', '2016-07-31'),
+(6, 7, 'MEAT', '2016-07-01', '2016-08-15'),
+(2, 7, null, '2016-07-01', '2016-08-15'),
+(3, 7, null, '2016-07-01', '2016-08-15'),
+(4, 7, 'SPICY', '2016-07-01', '2016-08-15'),
+(4, 7, 'SPICY', '2016-07-01', '2016-08-15'),
+(6, 7, 'MEAT', '2016-08-16', '2016-10-30'),
+(1, 7, null, '2016-08-16', '2016-10-30'),
+(null, 7, null, '2016-11-01', '2016-12-31');
+
+
 
 
 
