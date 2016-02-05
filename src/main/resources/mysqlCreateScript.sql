@@ -1,15 +1,14 @@
 # CREATE DATABASE `eyeFish`;
 
-CREATE TABLE fish(
-  id INT NOT NULL AUTO_INCREMENT,
-  name VARCHAR(30) NOT NULL,
-  description VARCHAR(500),
-  type VARCHAR(10),
-  PRIMARY KEY (id)
+CREATE TABLE `fish` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(30) NOT NULL,
+	`description` TEXT NULL,
+	`fish_type` VARCHAR(20) NULL DEFAULT NULL,
+	PRIMARY KEY (`id`)
 );
 
-CREATE TABLE year_periods (
-  id INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE year_periods (id INT NOT NULL AUTO_INCREMENT,
   fish_id INT NOT NULL,
   start_period TIMESTAMP,   
   end_period TIMESTAMP,
@@ -29,61 +28,71 @@ CREATE TABLE fish_parameters(
   FOREIGN KEY (fish_id) REFERENCES fish(id)
 );
 
-CREATE TABLE bait (
-	id INT(11) NOT NULL AUTO_INCREMENT,
-	fish_id INT(11) NOT NULL,
-	bait_type VARCHAR(30),
-	name VARCHAR(50) NOT NULL,
-	description VARCHAR(400) NULL,
+CREATE TABLE `bait` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`bait_type` VARCHAR(30) NOT NULL DEFAULT '0',
+	`name` VARCHAR(50) NOT NULL,
+	`description` TEXT NULL,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `bait_binding` (
+	`binding_id` INT(11) NOT NULL AUTO_INCREMENT,
+	`fish_id` INT(11) NOT NULL,
+	`bait_id` INT(11) NOT NULL,
+	PRIMARY KEY (`binding_id`),
+	INDEX `fish_id` (`fish_id`),
+	INDEX `bait_id` (`bait_id`),
+	CONSTRAINT `bait_binding_ibfk_1` FOREIGN KEY (`fish_id`) REFERENCES `fish` (`id`),
+	CONSTRAINT `bait_binding_ibfk_2` FOREIGN KEY (`bait_id`) REFERENCES `bait` (`id`)
+);
+
+CREATE TABLE `bait_color` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(20) NOT NULL,
 	PRIMARY KEY (`id`),
-  FOREIGN KEY (fish_id) REFERENCES fish(id)
-
+	UNIQUE INDEX `name` (`name`)
 );
 
-CREATE TABLE bait_color (
-	id INT(11) NOT NULL AUTO_INCREMENT,
-	name VARCHAR(20) NOT NULL,
-	PRIMARY KEY (id)
+CREATE TABLE `bait_taste` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(20) NOT NULL,
+	PRIMARY KEY (`id`),
+	UNIQUE INDEX `name` (`name`)
 );
 
-CREATE TABLE bait_taste (
-	id INT(11) NOT NULL AUTO_INCREMENT,
-	name VARCHAR(20) NOT NULL,
-	PRIMARY KEY (id)
+CREATE TABLE `bait_weight` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(20) NOT NULL,
+	PRIMARY KEY (`id`),
+	UNIQUE INDEX `name` (`name`)
 );
 
-CREATE TABLE bait_weight (
-	id INT(11) NOT NULL AUTO_INCREMENT,
-	name VARCHAR(20) NOT NULL,
-	PRIMARY KEY (id)
+CREATE TABLE `season_feed_prefer` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`bait_id` INT(11) NULL DEFAULT NULL,
+	`taste` VARCHAR(20) NULL DEFAULT NULL,
+	`start_period` DATE NOT NULL,
+	`end_period` DATE NOT NULL,
+	PRIMARY KEY (`id`),
+	INDEX `FK_season_feed_prefer_bait` (`bait_id`),
+	INDEX `FK_season_feed_prefer_bait_taste` (`taste`),
+	CONSTRAINT `FK_season_feed_prefer_bait` FOREIGN KEY (`bait_id`) REFERENCES `bait` (`id`),
+	CONSTRAINT `FK_season_feed_prefer_bait_taste` FOREIGN KEY (`taste`) REFERENCES `bait_taste` (`name`)
 );
 
-CREATE TABLE season_feed_prefer (
-	id INT(11) NOT NULL AUTO_INCREMENT,
-	fish_id INT(11) NOT NULL,
-  bait_id INT(11),
-	taste VARCHAR(20),
-	start_period TIMESTAMP NOT NULL,
-	end_period TIMESTAMP NOT NULL,
-	PRIMARY KEY (id),
-  FOREIGN KEY (fish_id) REFERENCES fish(id),
-  FOREIGN KEY (taste) REFERENCES bait_taste(name),
-  FOREIGN KEY (bait_id) REFERENCES bait(name)
+CREATE TABLE `weather_feed_prefer` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`bait_id` INT(11) NULL DEFAULT NULL,
+	`taste` VARCHAR(20) NULL DEFAULT NULL,
+	`min_temp` DOUBLE NOT NULL,
+	`max_temp` DOUBLE NOT NULL,
+	PRIMARY KEY (`id`),
+	INDEX `weather_feed_prefer_ibfk_1` (`bait_id`),
+	INDEX `FK_weather_feed_prefer_bait_taste` (`taste`),
+	CONSTRAINT `FK_weather_feed_prefer_bait_taste` FOREIGN KEY (`taste`) REFERENCES `bait_taste` (`name`),
+	CONSTRAINT `weather_feed_prefer_ibfk_1` FOREIGN KEY (`bait_id`) REFERENCES `bait` (`id`)
 );
-
-CREATE TABLE weather_feed_prefer (
-	id INT(11) NOT NULL AUTO_INCREMENT,
-	fish_id INT(11) NOT NULL DEFAULT '0',
-	bait_id INT(11),
-	taste VARCHAR(20),
-	min_temp DOUBLE NOT NULL,
-	max_temp DOUBLE NOT NULL,
-	PRIMARY KEY (id),
-  FOREIGN KEY (fish_id) REFERENCES fish(id),
-  FOREIGN KEY (taste) REFERENCES bait_taste(name),
-  FOREIGN KEY (bait_id) REFERENCES bait(id)
-);
-
 
 CREATE TABLE messages(
   id INT NOT NULL AUTO_INCREMENT,
@@ -115,7 +124,6 @@ CREATE TABLE users (
   password VARCHAR(50),
   first_name VARCHAR(20),
   last_name VARCHAR(20),
-  role VARCHAR(30),
   PRIMARY KEY (id)
 );
 
@@ -128,17 +136,24 @@ CREATE TABLE day_phases (id INT NOT NULL AUTO_INCREMENT,
   FOREIGN KEY (fish_id) REFERENCES fish(id)
 );
 
-# SELECT s.bait_id, b.name, s.taste FROM season_feed_prefer AS s, bait AS b
-# WHERE '2016-05-23' BETWEEN s.start_period AND s.end_period
-# AND s.bait_id = b.id;
-#
-# SELECT w.bait_id, b.name, w.taste FROM  weather_feed_prefer AS w, bait AS b
-# WHERE 23 BETWEEN w.min_temp AND w.max_temp
-# AND w.bait_id = b.id;
-#
-# SELECT DISTINCT b.name, b.bait_type, b.name, w.taste FROM season_feed_prefer AS s, bait AS b, weather_feed_prefer AS w
-# WHERE 32 BETWEEN w.min_temp AND w.max_temp
-# AND '2016-09-23' BETWEEN s.start_period AND s.end_period
-# AND s.bait_id = b.id
-# AND w.bait_id = b.id
-# AND s.bait_id = w.bait_id;
+
+SELECT s.bait_id, b.name, s.taste FROM season_feed_prefer AS s INNER JOIN bait AS b ON s.bait_id = b.id
+WHERE '2016-06-23' BETWEEN s.start_period AND s.end_period; 
+
+SELECT w.bait_id, b.name, w.taste FROM  weather_feed_prefer AS w INNER JOIN bait AS b ON w.bait_id = b.id
+WHERE 23 BETWEEN w.min_temp AND w.max_temp
+;
+
+SELECT DISTINCT b.name, b.bait_type, b.description, w.taste AS taste_prefer 
+FROM season_feed_prefer AS s 
+INNER JOIN  
+weather_feed_prefer 
+AS w ON s.bait_id = w.bait_id 
+INNER JOIN bait
+ AS b ON w.bait_id = b.id
+INNER JOIN bait_binding AS bin ON b.id = bin.bait_id
+WHERE 
+23 BETWEEN w.min_temp AND w.max_temp
+AND 
+'2016-06-23' BETWEEN s.start_period AND s.end_period
+AND 7 = bin.fish_id;
