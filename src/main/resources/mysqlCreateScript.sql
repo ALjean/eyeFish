@@ -68,6 +68,17 @@ CREATE TABLE `bait_weight` (
 	UNIQUE INDEX `name` (`name`)
 );
 
+CREATE TABLE bait_deep (
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+deep VARCHAR(20) NOT NULL UNIQUE
+);
+
+CREATE TABLE bait_speed (
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+speed VARCHAR(20) NOT NULL UNIQUE
+);
+
+
 CREATE TABLE `season_feed_prefer` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`bait_id` INT(11) NULL DEFAULT NULL,
@@ -81,7 +92,7 @@ CREATE TABLE `season_feed_prefer` (
 	CONSTRAINT `FK_season_feed_prefer_bait_taste` FOREIGN KEY (`taste`) REFERENCES `bait_taste` (`name`)
 );
 
-CREATE TABLE `weather_feed_prefer` (
+CREATE TABLE `temperature_feed_prefer` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`bait_id` INT(11) NULL DEFAULT NULL,
 	`taste` VARCHAR(20) NULL DEFAULT NULL,
@@ -147,7 +158,7 @@ WHERE 23 BETWEEN w.min_temp AND w.max_temp
 SELECT DISTINCT b.name, b.bait_type, b.description, w.taste AS taste_prefer 
 FROM season_feed_prefer AS s 
 INNER JOIN  
-weather_feed_prefer 
+temperature_feed_prefer 
 AS w ON s.bait_id = w.bait_id 
 INNER JOIN bait
  AS b ON w.bait_id = b.id

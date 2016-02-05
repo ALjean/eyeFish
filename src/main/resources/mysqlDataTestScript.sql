@@ -95,7 +95,27 @@ INSERT INTO bait_weight (name)VALUES
 ('light'),
 ('ultralight');
 
-INSERT INTO weather_feed_prefer (bait_id, taste, min_temp, max_temp)VALUES
+INSERT INTO bait_deep (deep)VALUES
+('pop-up'),
+('height-layer-top'),
+('height-layer-midle'),
+('height-layer-bottom'),
+('mid-layer-top'),
+('mid-layer-midle'),
+('mid-layer-bottom'),
+('down-layer-top'),
+('down-layer-midle'),
+('down-layer-bottom');
+
+INSERT INTO bait_speed (speed)VALUES
+('slow'),
+('midle-slow'),
+('midle-speed'),
+('speed'),
+('midle-seed'),
+('high-speed');
+
+INSERT INTO temperature_feed_prefer (bait_id, taste, min_temp, max_temp)VALUES
 (null, null, -40.00, 6.00),
 (1, null, 7.00, 16.00),
 (6, 'MEAT', 7.00, 16.00),
