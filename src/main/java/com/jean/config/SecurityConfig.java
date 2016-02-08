@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(restAuthenticationEntryPoint)
                 .and()
                 .authorizeRequests()
-//                .antMatchers("/fish/**").authenticated() //TODO patterns
+                .antMatchers("/fish/**").authenticated() //TODO patterns
                 .and()
                 .formLogin().usernameParameter("email").passwordParameter("password")
                 .successHandler(customAuthenticationSuccessHandler)
