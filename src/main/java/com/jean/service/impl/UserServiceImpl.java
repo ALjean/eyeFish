@@ -1,5 +1,6 @@
 package com.jean.service.impl;
 
+import com.jean.CustomDfmException;
 import com.jean.dao.UserDao;
 import com.jean.entity.User;
 import com.jean.service.CryptService;
@@ -35,5 +36,17 @@ public class UserServiceImpl implements UserService {
     public String generateToken() {
         SecureRandom random = new SecureRandom();
         return new BigInteger(130, random).toString(14);
+    }
+
+
+    @Override
+    public User getUserByEmail(String email) {
+        User user = null;
+        try {
+            user = userDao.getUserByEmail(email);
+        } catch (CustomDfmException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 }

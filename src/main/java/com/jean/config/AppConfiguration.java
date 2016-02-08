@@ -3,13 +3,17 @@ package com.jean.config;
 import com.jean.AuthenticationTokenProcessingFilter;
 import com.jean.config.property.CryptProperties;
 import com.jean.config.property.DataBaseProperties;
+import com.jean.config.security.SocialContext;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.scheduling.annotation.EnableScheduling;
+
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import javax.sql.DataSource;
 
 
 /**
@@ -19,10 +23,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableScheduling
 @ComponentScan("com.jean.*")
 @PropertySource("classpath:application.properties")
+//@Import({SecurityConfig.class, SocialContext.class})
 public class AppConfiguration extends WebMvcConfigurerAdapter {
 
     @Autowired
-    DataBaseProperties dataBaseProperties;
+    private DataBaseProperties dataBaseProperties;
 
     @Autowired
     CryptProperties cryptProperties;
@@ -33,7 +38,7 @@ public class AppConfiguration extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public BasicDataSource getBasicDataSource(){
+    public DataSource getBasicDataSource(){
         BasicDataSource basicDataSource = new BasicDataSource();
         basicDataSource.setDriverClassName(dataBaseProperties.getDriver());
         basicDataSource.setUrl(dataBaseProperties.getUrl());

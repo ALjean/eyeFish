@@ -1,11 +1,11 @@
 package com.jean.config;
 
 
-import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.sql.DataSource;
 
 
 /**
@@ -16,9 +16,9 @@ import org.springframework.stereotype.Component;
 public class PoolConnectionFactory {
 
     @Autowired
-    private BasicDataSource basicDataSource;
+    private DataSource basicDataSource;
 
-    public BasicDataSource getBds() {
+    public DataSource getBds() {
         return basicDataSource;
     }
 
