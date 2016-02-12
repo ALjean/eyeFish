@@ -1,9 +1,9 @@
 package com.jean.service.impl;
 
 import com.jean.config.property.WeatherApiProperties;
-import com.jean.model.owm.DayWeatherDataOWM;
-import com.jean.model.owm.GeneralWeatherStateOWM;
-import com.jean.model.owm.HoursWeatherDataOWM;
+import com.jean.servlet.model.owm.DayWeatherDataOWM;
+import com.jean.servlet.model.owm.GeneralWeatherStateOWM;
+import com.jean.servlet.model.owm.HoursWeatherDataOWM;
 import com.jean.service.WeatherService;
 import com.jean.Constants;
 

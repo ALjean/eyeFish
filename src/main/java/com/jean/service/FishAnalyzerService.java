@@ -3,7 +3,7 @@ package com.jean.service;
 import com.jean.CustomDfmException;
 import com.jean.entity.AbstractFish;
 import com.jean.entity.Weather;
-import com.jean.model.FishDto;
+import com.jean.servlet.model.FishDto;
 
 import java.util.Date;
 

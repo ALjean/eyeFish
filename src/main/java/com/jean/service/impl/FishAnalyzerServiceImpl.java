@@ -5,7 +5,7 @@ import com.jean.CustomDfmException;
 import com.jean.dao.WeatherDao;
 import com.jean.entity.AbstractFish;
 import com.jean.entity.Weather;
-import com.jean.model.FishDto;
+import com.jean.servlet.model.FishDto;
 import com.jean.service.FishAnalyzerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

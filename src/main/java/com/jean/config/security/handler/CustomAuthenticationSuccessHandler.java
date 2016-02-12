@@ -37,4 +37,8 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         clearAuthenticationAttributes(request);
     }
+
+    public void setRequestCache(RequestCache requestCache) {
+        this.requestCache = requestCache;
+    }
 }

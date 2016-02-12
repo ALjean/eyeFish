@@ -1,4 +1,4 @@
-package com.jean.model;
+package com.jean.servlet.model;
 
 public class UserDto {
 

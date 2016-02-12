@@ -1,4 +1,4 @@
-package com.jean.model.owm;
+package com.jean.servlet.model.owm;
 
 /**
  * Created by Alex on 06.08.15.

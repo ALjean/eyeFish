@@ -1,0 +1,4 @@
+Test request spring security
+
+ curl -i -X POST -d email=test@email.com -d password=pass -c /opt/cookies.txt http://localhost:8085/login
+ curl -i --header "Accept:application/json" -X GET -b /opt/cookies.txt hhttp://localhost:8085/fish/1

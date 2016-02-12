@@ -1,4 +1,4 @@
-package com.jean.model;
+package com.jean.servlet.model;
 
 import com.jean.entity.Message;
 

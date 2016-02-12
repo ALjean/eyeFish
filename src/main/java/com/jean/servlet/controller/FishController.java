@@ -1,4 +1,4 @@
-package com.jean.controller;
+package com.jean.servlet.controller;
 
 import com.jean.CustomDfmException;
 import com.jean.entity.AbstractFish;

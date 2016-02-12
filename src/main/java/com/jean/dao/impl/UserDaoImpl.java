@@ -35,6 +35,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
                 user.setPassword(rs.getString("password"));
                 user.setFirstName(rs.getString("first_name"));
                 user.setLastName(rs.getString("last_name"));
+                user.setRole(rs.getString("role"));
             }
 
             log.info("get user by email: " + user.toString());

@@ -1,4 +1,4 @@
-package com.jean.controller;
+package com.jean.servlet.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

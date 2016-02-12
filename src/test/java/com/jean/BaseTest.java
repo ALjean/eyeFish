@@ -1,8 +1,8 @@
 package com.jean;
 
 
-import com.jean.config.AppConfiguration;
-import com.jean.controller.AuthenticationController;
+import com.jean.config.context.AppConfig;
+import com.jean.servlet.controller.AuthenticationController;
 import com.jean.dao.FishDao;
 import com.jean.dao.UserDao;
 import com.jean.dao.WeatherDao;
@@ -27,7 +27,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 @Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes =AppConfiguration.class, loader=AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes = AppConfig.class, loader=AnnotationConfigContextLoader.class)
 @ActiveProfiles("test")
 public class BaseTest  {
 

@@ -1,4 +1,4 @@
-package com.jean.model.owm;
+package com.jean.servlet.model.owm;
 
 import java.util.List;
 

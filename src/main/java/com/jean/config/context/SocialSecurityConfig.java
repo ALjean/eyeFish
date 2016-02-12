@@ -1,7 +1,6 @@
-package com.jean.config.security;
+package com.jean.config.context;
 
 import com.jean.config.property.SocialProperties;
-import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -26,7 +25,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableSocial
 @ComponentScan("com.jean.*")
-public class SocialContext implements SocialConfigurer {
+public class SocialSecurityConfig implements SocialConfigurer {
 
     @Autowired
     private DataSource basicDataSource;
@@ -47,12 +46,11 @@ public class SocialContext implements SocialConfigurer {
 
     @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
-        UsersConnectionRepository usersConnectionRepository =  new JdbcUsersConnectionRepository(
+
+        return new JdbcUsersConnectionRepository(
                 basicDataSource,
                 connectionFactoryLocator,
                 Encryptors.noOpText());
-
-        return usersConnectionRepository;
 
 
     }

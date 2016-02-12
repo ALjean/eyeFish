@@ -1,16 +1,15 @@
-package com.jean.config;
+package com.jean.config.context;
 
-import com.jean.AuthenticationTokenProcessingFilter;
+//import com.jean.AuthenticationTokenProcessingFilter;
+import com.jean.config.PoolConnectionFactory;
 import com.jean.config.property.CryptProperties;
 import com.jean.config.property.DataBaseProperties;
-import com.jean.config.security.SocialContext;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.sql.DataSource;
@@ -24,7 +23,7 @@ import javax.sql.DataSource;
 @ComponentScan("com.jean.*")
 @PropertySource("classpath:application.properties")
 //@Import({SecurityConfig.class, SocialContext.class})
-public class AppConfiguration extends WebMvcConfigurerAdapter {
+public class AppConfig extends WebMvcConfigurerAdapter {
 
     @Autowired
     private DataBaseProperties dataBaseProperties;
@@ -48,19 +47,19 @@ public class AppConfiguration extends WebMvcConfigurerAdapter {
         return basicDataSource;
     }
 
-    @Bean
-    public AuthenticationTokenProcessingFilter authenticationTokenProcessingFilter(){
-        return new AuthenticationTokenProcessingFilter();
-    }
+//    @Bean
+//    public AuthenticationTokenProcessingFilter authenticationTokenProcessingFilter(){
+//        return new AuthenticationTokenProcessingFilter();
+//    }
 
     @Bean
     public PoolConnectionFactory getConnectionFactory(){
         return new PoolConnectionFactory();
     }
 
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**").addResourceLocations("/static/");
-    }
+//
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        registry.addResourceHandler("/static/**").addResourceLocations("/static/");
+//    }
 }

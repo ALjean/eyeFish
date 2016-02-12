@@ -1,4 +1,4 @@
-package com.jean.model;
+package com.jean.servlet.model;
 
 /**
  * Created by Stas Patek and Aleksey Gloliev and Some Guy 26.08.15.

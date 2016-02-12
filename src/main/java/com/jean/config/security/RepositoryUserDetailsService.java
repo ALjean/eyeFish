@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+
 public class RepositoryUserDetailsService implements UserDetailsService {
 
     @Autowired
@@ -20,6 +21,7 @@ public class RepositoryUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("No user found with username: " + username);
         }
 
+
         return ExampleUserDetails.getBuilder()
                 .firstName(user.getFirstName())
                 .id((long) user.getId())
@@ -29,7 +31,5 @@ public class RepositoryUserDetailsService implements UserDetailsService {
                 .socialSignInProvider(user.getSocialService())
                 .username(user.getEmail())
                 .build();
-
-//        return principal;
     }
 }

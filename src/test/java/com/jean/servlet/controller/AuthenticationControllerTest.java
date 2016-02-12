@@ -1,4 +1,4 @@
-package com.jean.controller;
+package com.jean.servlet.controller;
 
 import com.jean.BaseTest;
 import org.junit.Ignore;
