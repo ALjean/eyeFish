@@ -1,171 +1,264 @@
-# CREATE DATABASE `eyeFish`;
+CREATE TABLE `activity_levels` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(20) NULL DEFAULT NULL,
+	`min_value` DOUBLE NULL DEFAULT NULL,
+	`max_value` DOUBLE NULL DEFAULT NULL,
+	PRIMARY KEY (`id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=5;
 
-CREATE TABLE `fish` (
+CREATE TABLE `baits` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(50) NOT NULL,
+	`bait_type` VARCHAR(30) NOT NULL DEFAULT '0',
+	`description` TEXT NOT NULL,
+	`is_color` BIT(1) NOT NULL,
+	`is_taste` BIT(1) NOT NULL,
+	`is_deep` BIT(1) NOT NULL,
+	`is_weight` BIT(1) NOT NULL,
+	`is_speed` BIT(1) NOT NULL,
+	PRIMARY KEY (`id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=7;
+
+CREATE TABLE `baits_colors` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`color_name` VARCHAR(20) NOT NULL,
+	PRIMARY KEY (`id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=5;
+
+CREATE TABLE `baits_deeps` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`deep_level` VARCHAR(20) NOT NULL,
+	PRIMARY KEY (`id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=5;
+
+CREATE TABLE `baits_speeds` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`speed` VARCHAR(20) NOT NULL,
+	PRIMARY KEY (`id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=7;
+
+CREATE TABLE `baits_tastes` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`taste_name` VARCHAR(20) NOT NULL,
+	`description` TEXT NULL,
+	`min_temp_value` DOUBLE NOT NULL,
+	`max_temp_value` DOUBLE NOT NULL,
+	PRIMARY KEY (`id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=6;
+
+CREATE TABLE `baits_weights` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(20) NOT NULL,
+	PRIMARY KEY (`id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=5;
+
+CREATE TABLE `fishes` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(30) NOT NULL,
 	`description` TEXT NULL,
-	`fish_type` VARCHAR(20) NULL DEFAULT NULL,
+	`fish_type` INT(11) NULL DEFAULT NULL,
+	`living_area` INT(11) NULL DEFAULT NULL,
 	PRIMARY KEY (`id`)
-);
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=14;
 
-CREATE TABLE year_periods (id INT NOT NULL AUTO_INCREMENT,
-  fish_id INT NOT NULL,
-  start_period TIMESTAMP,   
-  end_period TIMESTAMP,
-  result_nibble_value DOUBLE,
-  PRIMARY KEY (id),
-  FOREIGN KEY (fish_id) REFERENCES fish(id)
-);
-
-CREATE TABLE fish_parameters(
-  id INT NOT NULL AUTO_INCREMENT,
-  fish_id INT NOT NULL,
-  state_data_type VARCHAR(30) NOT NULL,
-  min_range_value DOUBLE NOT NULL,
-  max_range_value DOUBLE NOT NULL,
-  result_nibble_value DOUBLE NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (fish_id) REFERENCES fish(id)
-);
-
-CREATE TABLE `bait` (
+CREATE TABLE `seasons` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`bait_type` VARCHAR(30) NOT NULL DEFAULT '0',
-	`name` VARCHAR(50) NOT NULL,
 	`description` TEXT NULL,
-	PRIMARY KEY (`id`)
-);
-
-CREATE TABLE `bait_binding` (
-	`binding_id` INT(11) NOT NULL AUTO_INCREMENT,
-	`fish_id` INT(11) NOT NULL,
-	`bait_id` INT(11) NOT NULL,
-	PRIMARY KEY (`binding_id`),
-	INDEX `fish_id` (`fish_id`),
-	INDEX `bait_id` (`bait_id`),
-	CONSTRAINT `bait_binding_ibfk_1` FOREIGN KEY (`fish_id`) REFERENCES `fish` (`id`),
-	CONSTRAINT `bait_binding_ibfk_2` FOREIGN KEY (`bait_id`) REFERENCES `bait` (`id`)
-);
-
-CREATE TABLE `bait_color` (
-	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(20) NOT NULL,
-	PRIMARY KEY (`id`),
-	UNIQUE INDEX `name` (`name`)
-);
-
-CREATE TABLE `bait_taste` (
-	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(20) NOT NULL,
-	PRIMARY KEY (`id`),
-	UNIQUE INDEX `name` (`name`)
-);
-
-CREATE TABLE `bait_weight` (
-	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(20) NOT NULL,
-	PRIMARY KEY (`id`),
-	UNIQUE INDEX `name` (`name`)
-);
-
-CREATE TABLE bait_deep (
-id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-deep VARCHAR(20) NOT NULL UNIQUE
-);
-
-CREATE TABLE bait_speed (
-id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-speed VARCHAR(20) NOT NULL UNIQUE
-);
-
-
-CREATE TABLE `season_feed_prefer` (
-	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`bait_id` INT(11) NULL DEFAULT NULL,
-	`taste` VARCHAR(20) NULL DEFAULT NULL,
 	`start_period` DATE NOT NULL,
 	`end_period` DATE NOT NULL,
-	PRIMARY KEY (`id`),
-	INDEX `FK_season_feed_prefer_bait` (`bait_id`),
-	INDEX `FK_season_feed_prefer_bait_taste` (`taste`),
-	CONSTRAINT `FK_season_feed_prefer_bait` FOREIGN KEY (`bait_id`) REFERENCES `bait` (`id`),
-	CONSTRAINT `FK_season_feed_prefer_bait_taste` FOREIGN KEY (`taste`) REFERENCES `bait_taste` (`name`)
-);
+	PRIMARY KEY (`id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=13;
 
-CREATE TABLE `temperature_feed_prefer` (
+CREATE TABLE `daily_forecast_weathers` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`bait_id` INT(11) NULL DEFAULT NULL,
-	`taste` VARCHAR(20) NULL DEFAULT NULL,
-	`min_temp` DOUBLE NOT NULL,
-	`max_temp` DOUBLE NOT NULL,
+	`city` VARCHAR(30) NOT NULL,
+	`date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	`temp_day` FLOAT NOT NULL,
+	`temp_night` FLOAT NOT NULL,
+	`temp_even` FLOAT NOT NULL,
+	`temp_morn` FLOAT NOT NULL,
+	`pressure` FLOAT NOT NULL,
+	`wind_speed` FLOAT NOT NULL,
+	`wind_deg` INT(11) NOT NULL,
+	`humidity` INT(11) NOT NULL,
+	`clouds` INT(11) NOT NULL,
+	PRIMARY KEY (`id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB;
+
+CREATE TABLE `parameters_names` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`parameters_name` VARCHAR(50) NOT NULL,
+	`priority_level` INT(11) NULL DEFAULT NULL,
+	PRIMARY KEY (`id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=9;
+
+CREATE TABLE `seasons` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`description` TEXT NULL,
+	`start_period` DATE NOT NULL,
+	`end_period` DATE NOT NULL,
+	PRIMARY KEY (`id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=13;
+
+CREATE TABLE `year_periods` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`fish_id` INT(11) NOT NULL,
+	`start_period` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	`end_period` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+	`result_nibble_value` DOUBLE NULL DEFAULT NULL,
 	PRIMARY KEY (`id`),
-	INDEX `weather_feed_prefer_ibfk_1` (`bait_id`),
-	INDEX `FK_weather_feed_prefer_bait_taste` (`taste`),
-	CONSTRAINT `FK_weather_feed_prefer_bait_taste` FOREIGN KEY (`taste`) REFERENCES `bait_taste` (`name`),
-	CONSTRAINT `weather_feed_prefer_ibfk_1` FOREIGN KEY (`bait_id`) REFERENCES `bait` (`id`)
-);
+	INDEX `fish_id` (`fish_id`),
+	CONSTRAINT `year_periods_ibfk_1` FOREIGN KEY (`fish_id`) REFERENCES `fishes` (`id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB;
 
-CREATE TABLE messages(
-  id INT NOT NULL AUTO_INCREMENT,
-  type VARCHAR(30) NOT NULL,
-  state VARCHAR(30) NOT NULL,
-  text VARCHAR(100) NOT NULL,
-  PRIMARY KEY (id)
-);
+CREATE TABLE `baits_colors_properties` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`parameter_id` INT(11) NOT NULL DEFAULT '0',
+	`min_value` DOUBLE NOT NULL,
+	`max_value` DOUBLE NOT NULL,
+	`color_id` INT(11) NOT NULL,
+	PRIMARY KEY (`id`),
+	INDEX `color_id` (`color_id`),
+	INDEX `FK_baits_colors_properties_envirmoment_parameters_names` (`parameter_id`),
+	CONSTRAINT `FK_baits_colors_properties_envirmoment_parameters_names` FOREIGN KEY (`parameter_id`) REFERENCES `parameters_names` (`id`),
+	CONSTRAINT `baits_colors_properties_ibfk_1` FOREIGN KEY (`color_id`) REFERENCES `baits_colors` (`id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=15;
 
-CREATE TABLE weather(
-  id INT NOT NULL AUTO_INCREMENT,
-  city VARCHAR(30) NOT NULL,
-  date TIMESTAMP,
-  temp_day FLOAT NOT NULL,
-  temp_night FLOAT NOT NULL,
-  temp_even FLOAT NOT NULL,
-  temp_morn FLOAT NOT NULL,
-  pressure FLOAT NOT NULL,
-  wind_speed FLOAT NOT NULL,
-  wind_deg INT NOT NULL,
-  humidity INT NOT NULL,
-  clouds INT NOT NULL,
-  PRIMARY KEY (id)
-);
+CREATE TABLE `baits_deep_properties` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`parameter_id` INT(11) NULL DEFAULT NULL,
+	`min_value` DOUBLE NULL DEFAULT NULL,
+	`max_value` DOUBLE NULL DEFAULT NULL,
+	`deep_id` INT(11) NULL DEFAULT NULL,
+	PRIMARY KEY (`id`),
+	INDEX `parameter_id` (`parameter_id`),
+	INDEX `deep_id` (`deep_id`),
+	CONSTRAINT `baits_deep_properties_ibfk_1` FOREIGN KEY (`parameter_id`) REFERENCES `parameters_names` (`id`),
+	CONSTRAINT `baits_deep_properties_ibfk_2` FOREIGN KEY (`deep_id`) REFERENCES `baits_deeps` (`id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=7;
 
-CREATE TABLE users (
-  id INT NOT NULL AUTO_INCREMENT,
-  email VARCHAR(30) NOT NULL,
-  password VARCHAR(50),
-  first_name VARCHAR(30),
-  last_name VARCHAR(30),
-	role VARCHAR(20),
-  PRIMARY KEY (id)
-);
+CREATE TABLE `baits_speeds_properties` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`parameter_id` INT(11) NULL DEFAULT NULL,
+	`min_value` DOUBLE NULL DEFAULT NULL,
+	`max_value` DOUBLE NULL DEFAULT NULL,
+	`speed_id` INT(11) NULL DEFAULT NULL,
+	PRIMARY KEY (`id`),
+	INDEX `parameter_id` (`parameter_id`),
+	INDEX `speed_id` (`speed_id`),
+	CONSTRAINT `baits_speeds_properties_ibfk_1` FOREIGN KEY (`parameter_id`) REFERENCES `parameters_names` (`id`),
+	CONSTRAINT `baits_speeds_properties_ibfk_2` FOREIGN KEY (`speed_id`) REFERENCES `baits_speeds` (`id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB;
 
-CREATE TABLE day_phases (id INT NOT NULL AUTO_INCREMENT,
-  fish_id INT NOT NULL,
-  state_data_type VARCHAR(30),
-  phase_value VARCHAR(20),  
-  result_nibble_value DOUBLE,
-  PRIMARY KEY (id),
-  FOREIGN KEY (fish_id) REFERENCES fish(id)
-);
+CREATE TABLE `baits_tastes_properties` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`parameter_id` INT(11) NOT NULL,
+	`min_value` DOUBLE NOT NULL,
+	`max_value` DOUBLE NOT NULL,
+	`taste_id` INT(11) NULL DEFAULT NULL,
+	PRIMARY KEY (`id`),
+	INDEX `FK_baits_tastes_properties_envirmoment_parameters_names` (`parameter_id`),
+	INDEX `FK_baits_tastes_properties_bait_taste` (`taste_id`),
+	CONSTRAINT `FK_baits_tastes_properties_bait_taste` FOREIGN KEY (`taste_id`) REFERENCES `baits_tastes` (`id`),
+	CONSTRAINT `FK_baits_tastes_properties_envirmoment_parameters_names` FOREIGN KEY (`parameter_id`) REFERENCES `parameters_names` (`id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=8;
+
+CREATE TABLE `baits_weights_properties` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`parameter_id` INT(11) NOT NULL,
+	`min_value` DOUBLE NOT NULL,
+	`max_value` DOUBLE NOT NULL,
+	`weight_id` INT(11) NULL DEFAULT NULL,
+	PRIMARY KEY (`id`),
+	INDEX `FK_baits_weights_properties_parameters_names` (`parameter_id`),
+	INDEX `FK_baits_weights_properties_baits_deeps` (`weight_id`),
+	CONSTRAINT `FK_baits_weights_properties_baits_deeps` FOREIGN KEY (`weight_id`) REFERENCES `baits_weights` (`id`),
+	CONSTRAINT `FK_baits_weights_properties_parameters_names` FOREIGN KEY (`parameter_id`) REFERENCES `parameters_names` (`id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=5;
 
 
-SELECT s.bait_id, b.name, s.taste FROM season_feed_prefer AS s INNER JOIN bait AS b ON s.bait_id = b.id
-WHERE '2016-06-23' BETWEEN s.start_period AND s.end_period; 
+CREATE TABLE `bindings_baits_to_fishes` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`fish_id` INT(11) NULL DEFAULT NULL,
+	`bait_id` INT(11) NULL DEFAULT NULL,
+	`activity_id` INT(11) NULL DEFAULT NULL,
+	PRIMARY KEY (`id`),
+	INDEX `FK_bindings_baits_to_fishes_fish` (`fish_id`),
+	INDEX `FK_bindings_baits_to_fishes_bait` (`bait_id`),
+	INDEX `FK_bindings_baits_to_fishes_activity_levels` (`activity_id`),
+	CONSTRAINT `FK_bindings_baits_to_fishes_activity_levels` FOREIGN KEY (`activity_id`) REFERENCES `activity_levels` (`id`),
+	CONSTRAINT `FK_bindings_baits_to_fishes_bait` FOREIGN KEY (`bait_id`) REFERENCES `baits` (`id`),
+	CONSTRAINT `FK_bindings_baits_to_fishes_fish` FOREIGN KEY (`fish_id`) REFERENCES `fishes` (`id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=5;
 
-SELECT w.bait_id, b.name, w.taste FROM  weather_feed_prefer AS w INNER JOIN bait AS b ON w.bait_id = b.id
-WHERE 23 BETWEEN w.min_temp AND w.max_temp
-;
+CREATE TABLE `fishes_nibble_properties` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`fish_id` INT(11) NOT NULL,
+	`parameter_id` INT(11) NOT NULL,
+	`min_value` DOUBLE NOT NULL,
+	`max_value` DOUBLE NOT NULL,
+	`nibble_level` DOUBLE NOT NULL,
+	PRIMARY KEY (`id`),
+	INDEX `fish_id` (`fish_id`),
+	INDEX `FK_fishes_nibble_properties_parameters_names` (`parameter_id`),
+	CONSTRAINT `FK_fishes_nibble_properties_parameters_names` FOREIGN KEY (`parameter_id`) REFERENCES `parameters_names` (`id`),
+	CONSTRAINT `fishes_nibble_properties_ibfk_1` FOREIGN KEY (`fish_id`) REFERENCES `fishes` (`id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=89;
 
-SELECT DISTINCT b.name, b.bait_type, b.description, w.taste AS taste_prefer 
-FROM season_feed_prefer AS s 
-INNER JOIN  
-temperature_feed_prefer 
-AS w ON s.bait_id = w.bait_id 
-INNER JOIN bait
- AS b ON w.bait_id = b.id
-INNER JOIN bait_binding AS bin ON b.id = bin.bait_id
-WHERE 
-23 BETWEEN w.min_temp AND w.max_temp
-AND 
-'2016-06-23' BETWEEN s.start_period AND s.end_period
-AND 7 = bin.fish_id;
