@@ -1,4 +1,45 @@
+INSERT INTO `parameters_names` (`id`, `parameters_name`, `priority_level`) VALUES
+	(1, 'CLOUD_LEVEL', 3),
+	(2, 'RAIN_LEVEL', 2),
+	(3, 'ENVIRMOMENT_TEMPERATURE', NULL),
+	(4, 'WATER_TEMPERATURE', NULL),
+	(5, 'PRESSURE', NULL),
+	(6, 'DEEP_LEVEL', 1),
+	(7, 'ALGA_LEVEL', NULL),
+	(8, 'WIND_SPEED', NULL);
+	
 
+INSERT INTO `fishes` (`id`, `name`, `description`, `fish_type`, `living_area`) VALUES
+	(7, 'Carp', 'In Europe, even when not fished for food, they are eagerly sought by anglers, being considered highly prized coarse fish that are difficult to hook.[29] The UK has a thriving carp angling market. It is the fastest growing angling market in the UK, and has spawned a number of specialised carp angling publications such as Carpology,[30] Advanced carp fishing, Carpworld and Total Carp, and informative carp angling web sites, such as Carpfishing UK', 'CALM', 'BOTTOM'),
+	(13, 'Pike', 'Effective methods for catching this hard-fighting fish include dead baits, live baits, and lure fishing. \r\nPike can easily be damaged when handled since they are not as robust as their reputation would suggest. \r\nColour of lure can be influenced by water clarity and weather conditions. Since pike have numerous sharp \r\nteeth it is wise to take extreme care when unhooking them. The use of a wet leather gauntlet and surgical \r\nforceps to remove hooks is highly recommended on safety grounds. If practicing catch and release fishing, \r\ncare for the pike should be the pike angler s utmost concern. The formerly recommended practice of grasping \r\na pike by its eye sockets (tragically interpreted as "its eyes") resulted in countless released pike that \r\nquickly died from inability to see prey any longer.', 'PREDATOR', 'BOTTOM');
+	
+	INSERT INTO `fishes_nibble_properties` (`id`, `fish_id`, `parameter_id`, `min_value`, `max_value`, `nibble_level`) VALUES
+	(38, 7, 3, -50, -4, 0),
+	(39, 7, 3, -5, 12, 15.5),
+	(40, 7, 3, 12, 16, 21.2),
+	(41, 7, 3, 17, 20, 38.23),
+	(42, 7, 3, 21, 26, 88.3),
+	(43, 7, 3, 20, 26, 88.3),
+	(44, 7, 3, 27, 31, 52.3),
+	(45, 7, 3, 32, 36, 21.8),
+	(46, 7, 3, 37, 48, 5.4),
+	(53, 7, 5, 710, 725, 5.2),
+	(54, 7, 5, 726, 740, 38.9),
+	(55, 7, 5, 741, 752, 86.3),
+	(56, 7, 5, 753, 765, 26.3),
+	(70, 13, 3, -50, -4, 0),
+	(71, 13, 3, -4, 12, 45.3),
+	(72, 13, 3, 13, 16, 80.2),
+	(73, 13, 3, 17, 20, 89.23),
+	(74, 13, 3, 21, 26, 75.3),
+	(76, 13, 3, 27, 31, 33.3),
+	(77, 13, 3, 32, 36, 15.8),
+	(78, 13, 3, 37, 48, 5.4),
+	(85, 13, 5, 710, 725, 5.2),
+	(86, 13, 5, 726, 740, 23.87),
+	(87, 13, 5, 741, 752, 26.3),
+	(88, 13, 5, 753, 765, 96.3);
+	
 INSERT INTO `baits` (`id`, `name`, `bait_type`, `description`) VALUES
 	(1, 'worm', 'LIVEBAIT', 'For most biggest calm fish'),
 	(2, 'maggot', 'LIVEBAIT', 'For white calm fish'),
@@ -7,7 +48,7 @@ INSERT INTO `baits` (`id`, `name`, `bait_type`, `description`) VALUES
 	(5, 'semolina', 'VEGETALE', 'Effective bait for calm fish'),
 	(6, 'boil', 'BOIL', 'Best for most biggest carp'),
 	(7, 'castmaster', 'SIMULATED', 'Best for pike');
-
+	
 INSERT INTO `baits_colors` (`id`, `color_name`, `description`) VALUES
 	(1, 'WHITE', NULL),
 	(2, 'BRIGHT', NULL),
@@ -75,48 +116,7 @@ INSERT INTO `ecosystem_properties` (`id`, `parameter_id`, `min_value`, `max_valu
 	(9, 4, 12, 17, 'SOFT'),
 	(10, 4, 18, 24, 'WARM'),
 	(11, 4, 25, 30, 'HOT');
-
-INSERT INTO `fishes` (`id`, `name`, `description`, `fish_type`, `living_area`) VALUES
-	(7, 'Carp', 'In Europe, even when not fished for food, they are eagerly sought by anglers, being considered highly prized coarse fish that are difficult to hook.[29] The UK has a thriving carp angling market. It is the fastest growing angling market in the UK, and has spawned a number of specialised carp angling publications such as Carpology,[30] Advanced carp fishing, Carpworld and Total Carp, and informative carp angling web sites, such as Carpfishing UK', 'CALM', 'BOTTOM'),
-	(13, 'Pike', 'Effective methods for catching this hard-fighting fish include dead baits, live baits, and lure fishing. \r\nPike can easily be damaged when handled since they are not as robust as their reputation would suggest. \r\nColour of lure can be influenced by water clarity and weather conditions. Since pike have numerous sharp \r\nteeth it is wise to take extreme care when unhooking them. The use of a wet leather gauntlet and surgical \r\nforceps to remove hooks is highly recommended on safety grounds. If practicing catch and release fishing, \r\ncare for the pike should be the pike angler s utmost concern. The formerly recommended practice of grasping \r\na pike by its eye sockets (tragically interpreted as "its eyes") resulted in countless released pike that \r\nquickly died from inability to see prey any longer.', 'PREDATOR', 'BOTTOM');
-
-INSERT INTO `fishes_nibble_properties` (`id`, `fish_id`, `parameter_id`, `min_value`, `max_value`, `nibble_level`) VALUES
-	(38, 7, 3, -50, -4, 0),
-	(39, 7, 3, -5, 12, 15.5),
-	(40, 7, 3, 12, 16, 21.2),
-	(41, 7, 3, 17, 20, 38.23),
-	(42, 7, 3, 21, 26, 88.3),
-	(43, 7, 3, 20, 26, 88.3),
-	(44, 7, 3, 27, 31, 52.3),
-	(45, 7, 3, 32, 36, 21.8),
-	(46, 7, 3, 37, 48, 5.4),
-	(53, 7, 5, 710, 725, 5.2),
-	(54, 7, 5, 726, 740, 38.9),
-	(55, 7, 5, 741, 752, 86.3),
-	(56, 7, 5, 753, 765, 26.3),
-	(70, 13, 3, -50, -4, 0),
-	(71, 13, 3, -4, 12, 45.3),
-	(72, 13, 3, 13, 16, 80.2),
-	(73, 13, 3, 17, 20, 89.23),
-	(74, 13, 3, 21, 26, 75.3),
-	(76, 13, 3, 27, 31, 33.3),
-	(77, 13, 3, 32, 36, 15.8),
-	(78, 13, 3, 37, 48, 5.4),
-	(85, 13, 5, 710, 725, 5.2),
-	(86, 13, 5, 726, 740, 23.87),
-	(87, 13, 5, 741, 752, 26.3),
-	(88, 13, 5, 753, 765, 96.3);
-
-INSERT INTO `parameters_names` (`id`, `parameters_name`, `priority_level`) VALUES
-	(1, 'CLOUD_LEVEL', 3),
-	(2, 'RAIN_LEVEL', 2),
-	(3, 'ENVIRMOMENT_TEMPERATURE', NULL),
-	(4, 'WATER_TEMPERATURE', NULL),
-	(5, 'PRESSURE', NULL),
-	(6, 'DEEP_LEVEL', 1),
-	(7, 'ALGA_LEVEL', NULL),
-	(8, 'WIND_SPEED', NULL);
-
+	
 INSERT INTO `seasons` (`id`, `description`, `start_period`, `end_period`) VALUES
 	(1, 'WINTER_MIDDLE', '2016-01-01', '2016-01-30'),
 	(2, 'WINTER_END', '2016-02-01', '2016-02-29'),
@@ -129,5 +129,4 @@ INSERT INTO `seasons` (`id`, `description`, `start_period`, `end_period`) VALUES
 	(9, 'OTOUMN_EARLY', '2016-09-01', '2016-09-30'),
 	(10, 'OTOUMN_MIDDLE', '2016-10-01', '2016-10-31'),
 	(11, 'OTOUMN_END', '2016-11-01', '2016-11-30'),
-	(12, 'WINTER_EARLY', '2016-12-01', '2016-12-31');
-
+	(12, 'WINTER_EARLY', '2016-12-01', '2016-12-31');					
