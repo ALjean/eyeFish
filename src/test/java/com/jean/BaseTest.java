@@ -3,6 +3,7 @@ package com.jean;
 
 import com.jean.config.context.AppConfig;
 import com.jean.servlet.controller.AuthenticationController;
+import com.jean.dao.BaitDao;
 import com.jean.dao.FishDao;
 import com.jean.dao.UserDao;
 import com.jean.dao.WeatherDao;
@@ -39,6 +40,9 @@ public class BaseTest  {
 
     @Autowired
     protected UserDao userDao;
+    
+    @Autowired
+    protected BaitDao baitDao;
 
     @Autowired
     protected WeatherService weatherService;
@@ -46,10 +50,10 @@ public class BaseTest  {
     @Autowired
     protected FishAnalyzerService fishAnalyzerService;
 
-    @Autowired
+    //@Autowired
     protected CryptService cryptService;
 
-    @Autowired
+   // @Autowired
     protected UserService userService;
 
     @Autowired
@@ -58,7 +62,8 @@ public class BaseTest  {
     @Autowired
     protected FishAnalyzer fishAnalyzer;
 
-    @Autowired
+    //@Autowired
     protected AuthenticationController authenticationController;
+
 
 }
