@@ -1,6 +1,6 @@
 package com.jean.config.context;
 
-import com.jean.config.security.SimpleSocialUserDetailsService;
+
 import com.jean.config.security.handler.CustomAuthenticationSuccessHandler;
 import com.jean.config.security.RepositoryUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
-import org.springframework.social.security.SocialUserDetailsService;
-import org.springframework.social.security.SpringSocialConfigurer;
 
 /**
  * Created by stas on 07.06.15.
@@ -43,14 +41,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(restAuthenticationEntryPoint)
                 .and()
                 .authorizeRequests()
+                .antMatchers("/**").permitAll()
                 .antMatchers("/fish/**").authenticated() //TODO patterns
                 .and()
                 .formLogin().usernameParameter("email").passwordParameter("password")
                 .successHandler(customAuthenticationSuccessHandler)
                 .failureHandler(new SimpleUrlAuthenticationFailureHandler())
                 .and()
-                .logout().and()
-                .apply(new SpringSocialConfigurer());
+                .logout();
 
     }
 
@@ -66,10 +64,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder(10);
     }
 
-    @Bean
-    public SocialUserDetailsService socialUserDetailsService() {
-        return new SimpleSocialUserDetailsService(userDetailsService());
-    }
 
     @Bean
     public UserDetailsService userDetailsService() {
