@@ -8,11 +8,5 @@ import com.jean.entity.User;
  */
 public interface UserService {
 
-    @Deprecated
-    boolean authenticate(String email, String password) throws Exception;
-
-    @Deprecated
-    String generateToken();
-
     User getUserByEmail(String email);
 }

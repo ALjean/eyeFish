@@ -19,24 +19,7 @@ import java.security.SecureRandom;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private CryptService cryptService;
-
-    @Autowired
     private UserDao userDao;
-
-
-    public boolean authenticate(String email, String password) throws Exception {
-        String encPassword = cryptService.crypt(password);
-        User user = userDao.getUserByEmail(email);
-        return (user != null && encPassword.equals(user.getPassword()));
-
-    }
-
-    @Override
-    public String generateToken() {
-        SecureRandom random = new SecureRandom();
-        return new BigInteger(130, random).toString(14);
-    }
 
 
     @Override

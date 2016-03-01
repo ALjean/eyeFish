@@ -1,8 +1,7 @@
 package com.jean.config.context;
 
-//import com.jean.AuthenticationTokenProcessingFilter;
+
 import com.jean.config.PoolConnectionFactory;
-import com.jean.config.property.CryptProperties;
 import com.jean.config.property.DataBaseProperties;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +27,6 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     @Autowired
     private DataBaseProperties dataBaseProperties;
 
-    @Autowired
-    CryptProperties cryptProperties;
-
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         return new PropertySourcesPlaceholderConfigurer();
@@ -47,19 +43,9 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         return basicDataSource;
     }
 
-//    @Bean
-//    public AuthenticationTokenProcessingFilter authenticationTokenProcessingFilter(){
-//        return new AuthenticationTokenProcessingFilter();
-//    }
-
     @Bean
     public PoolConnectionFactory getConnectionFactory(){
         return new PoolConnectionFactory();
     }
 
-//
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("/static/**").addResourceLocations("/static/");
-//    }
 }

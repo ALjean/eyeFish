@@ -1,8 +1,10 @@
 package com.jean.config.context;
 
 
+import com.jean.config.property.SecurityConst;
 import com.jean.config.security.handler.CustomAuthenticationSuccessHandler;
 import com.jean.config.security.RepositoryUserDetailsService;
+import com.jean.config.security.handler.RestAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,7 +46,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**").permitAll()
                 .antMatchers("/fish/**").authenticated() //TODO patterns
                 .and()
-                .formLogin().usernameParameter("email").passwordParameter("password")
+                .formLogin()
+                .usernameParameter(SecurityConst.LOGIN)
+                .passwordParameter(SecurityConst.PASSWORD)
                 .successHandler(customAuthenticationSuccessHandler)
                 .failureHandler(new SimpleUrlAuthenticationFailureHandler())
                 .and()
@@ -75,6 +79,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public CustomAuthenticationSuccessHandler customSuccessHandler() {
         return new CustomAuthenticationSuccessHandler();
     }
+
+    @Bean
+    public RestAuthenticationEntryPoint restAuthenticationEntryPoint() {
+        return new RestAuthenticationEntryPoint();
+    }
+
 
     @Bean
     public SimpleUrlAuthenticationFailureHandler customFailureHandler() {
