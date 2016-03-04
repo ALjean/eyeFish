@@ -12,6 +12,7 @@ import com.jean.service.CryptService;
 import com.jean.service.FishAnalyzerService;
 import com.jean.service.UserService;
 import com.jean.service.WeatherService;
+import com.jean.analyzers.fish.BaitPropertiesAnalyzer;
 import com.jean.analyzers.fish.FishAnalyzer;
 
 import org.junit.Ignore;
@@ -61,6 +62,9 @@ public class BaseTest  {
     
     @Autowired
     protected FishAnalyzer fishAnalyzer;
+    
+    @Autowired
+    protected BaitPropertiesAnalyzer baitPropAnalyzer;
 
     //@Autowired
     protected AuthenticationController authenticationController;

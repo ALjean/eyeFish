@@ -1,13 +1,16 @@
 package com.jean.analyzers.fish;
 
+import java.util.List;
+
+import com.jean.CustomDfmException;
 import com.jean.entity.BaitProperties;
 
 public interface BaitPropertiesAnalyzer {
 
 
-	public BaitProperties getTheBestColor(double cloudLevel, double deepLevel, double algaLevel, double rainLevel);
+	public List<BaitProperties> getTheBestColor(double cloudLevel, double rainLevel, String deepLevel) throws CustomDfmException;
 	
-	public BaitProperties getTheBestTaste(double temperature);
+	public List<BaitProperties> getTheBestTaste(double temperature);
 	
-	public BaitProperties getTheBestMass(int boffortScale);
+	public List<BaitProperties> getTheBestMass(int boffortScale);
 }

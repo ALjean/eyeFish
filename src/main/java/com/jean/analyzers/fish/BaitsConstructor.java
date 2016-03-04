@@ -1,27 +1,11 @@
 package com.jean.analyzers.fish;
 
-import java.sql.Date;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.jean.dao.FishDao;
-import com.jean.dao.WeatherDao;
+import com.jean.entity.AbstractFish;
 import com.jean.entity.Bait;
+import com.jean.entity.EcosystemProperties;
 
-public class BaitsConstructor {
-	
-	@Autowired
-	private BaitPropertiesAnalyzer baitPropertiesAnalyzer;
-	
-	@Autowired 
-	private FishDao fishDao;
-	
-	@Autowired
-	private WeatherDao weatherDao;
+public interface BaitsConstructor {
 
-	public List<Bait> getTheBestBaits(int fishId, double activityLevel, Date date) {
-
-		return null;
-	}
+    public List<Bait> getTheBestBaits(AbstractFish fish, EcosystemProperties properties);
 }
