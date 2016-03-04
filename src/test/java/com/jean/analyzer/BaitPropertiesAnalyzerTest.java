@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 import com.jean.BaseTest;
 import com.jean.CustomDfmException;
-import com.jean.analyzers.weather.ConstantsAnalyzer.DEEP_LEVEL;
+import com.jean.analyzers.weather.ConstantsAnalyzer.*;
 import com.jean.entity.BaitProperties;
 
 public class BaitPropertiesAnalyzerTest extends BaseTest {
@@ -19,14 +19,15 @@ public class BaitPropertiesAnalyzerTest extends BaseTest {
 
     @Before
     public void init() {
-	cloudLevel = 27;
-	rainLevel = 82;
-	deepLevel = DEEP_LEVEL.MIDDLE.toString();
+	cloudLevel = 15;
+	rainLevel = 70;
+	deepLevel = DEEP_LEVEL.SHALLOW.toString();
     }
     
     @Test
     public void getTheBestColorTest() throws CustomDfmException{
 	props = baitPropAnalyzer.getTheBestColor(cloudLevel, rainLevel, deepLevel);
 	assertTrue(!props.isEmpty());
+	System.out.println(props.get(0).getName());
     }
 }

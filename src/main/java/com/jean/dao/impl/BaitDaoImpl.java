@@ -41,19 +41,23 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 		baits.add(getBaitFromRs(rs));
 	    }
 
-	    log.info(baits.size() > 0 ? "Size list of baits is " + baits.size() : "list of baits is empty");
+	    if (baits.isEmpty()) {
+		throw new CustomDfmException("For some reason list of baits is empty");
+	    }
 
 	} catch (SQLException e) {
 	    throw new CustomDfmException("Some problem with fetching list of baits " + "Message: " + e.getMessage());
 	}
 
+	log.info("End method getBaitColors(), list size is: " + baits.size());
+	
 	return baits;
     }
 
     @Override
     public List<BaitProperties> getBaitColors(double cloudLevel) throws CustomDfmException {
 
-	String sql = "SELECT bc.color_name, bc.description  " + "FROM baits_colors AS bc " + "WHERE ? BETWEEN bc.cloud_min AND bc.cloud_max;";
+	String sql = "SELECT bc.prop_name, bc.description  " + "FROM baits_colors AS bc " + "WHERE ? BETWEEN bc.cloud_min AND bc.cloud_max;";
 
 	List<BaitProperties> baitsProperties = new ArrayList<BaitProperties>();
 
@@ -69,18 +73,23 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 		baitsProperties.add(getBaitPropsFromRs(rs));
 	    }
 
-	    log.info(baitsProperties.size() > 0 ? "Size list of bait properties is " + baitsProperties.size() : "list of bait properties is empty");
+	    if (baitsProperties.isEmpty()) {
+		throw new CustomDfmException("For some reason list of colors is empty");
+	    }
 
 	} catch (SQLException e) {
 	    throw new CustomDfmException("Some problem with fetching list of baits. " + "Message: " + e.getMessage());
 	}
+
+	log.info("End method getBaitColors(), list size is: " + baitsProperties.size());
+
 	return baitsProperties;
     }
 
     @Override
     public List<BaitProperties> getBaitColors(String colorName) throws CustomDfmException {
 
-	String sql = "SELECT bc.color_name, bc.description  " + "FROM baits_colors AS bc " + "WHERE color_name LIKE ?";
+	String sql = "SELECT bc.prop_name, bc.description  " + "FROM baits_colors AS bc " + "WHERE prop_name LIKE ?";
 
 	List<BaitProperties> baitsProperties = new ArrayList<BaitProperties>();
 
@@ -96,12 +105,72 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 		baitsProperties.add(getBaitPropsFromRs(rs));
 	    }
 
-	    log.info(baitsProperties.size() > 0 ? "Size list of bait properties is " + baitsProperties.size() : "list of bait properties is empty");
+	    if (baitsProperties.isEmpty()) {
+		throw new CustomDfmException("For some reason list of colors is empty");
+	    }
 
 	} catch (SQLException e) {
 	    throw new CustomDfmException("Some problem with fetching list of baits. " + "Message: " + e.getMessage());
 	}
+
+	log.info("End method getBaitColors(), list size is: " + baitsProperties.size());
+
 	return baitsProperties;
+    }
+
+    @Override
+    public List<BaitProperties> getBaitTastes(double temperature) throws CustomDfmException {
+
+	String sql = "SELECT bt.prop_name, bt.description " + "FROM baits_tastes AS bt " + "WHERE ? BETWEEN bt.temp_min AND bt.temp_max";
+
+	List<BaitProperties> baitsProperties = new ArrayList<BaitProperties>();
+
+	log.info("Starting method getBaitTastes(), with parameter values: [ temperature: " + temperature + " ]");
+
+	try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
+
+	    preparedStatement.setDouble(1, temperature);
+
+	    ResultSet rs = preparedStatement.executeQuery();
+
+	    while (rs.next()) {
+		baitsProperties.add(getBaitPropsFromRs(rs));
+	    }
+
+	    if (baitsProperties.isEmpty()) {
+		throw new CustomDfmException("For some reason list of tastes is empty");
+	    }
+
+	} catch (SQLException e) {
+	    throw new CustomDfmException("Some problem with fetching list of tastes. " + "Message: " + e.getMessage());
+	}
+
+	log.info("End method getBaitTastes(), list size is: " + baitsProperties.size());
+
+	return baitsProperties;
+
+    }
+    
+    @Override
+    public String getMessage(String key) throws CustomDfmException {
+	
+	String sql = "SELECT mess_text FROM messages WHERE string_key LIKE ?";
+	
+	String result = "";
+	
+	try(PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
+	    
+	    preparedStatement.setString(1, key);
+	    
+	    ResultSet rs = preparedStatement.executeQuery();
+	    
+	    while(rs.next()){
+		result = rs.getString("mess_text");
+	    }
+	} catch (SQLException e) {
+	    throw new CustomDfmException("Some problem with fetching message text. " + "Message: " + e.getMessage());
+	}
+	return result;
     }
 
     private Bait getBaitFromRs(ResultSet rs) throws SQLException {
@@ -116,7 +185,7 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 
     private BaitProperties getBaitPropsFromRs(ResultSet rs) throws SQLException {
 	BaitProperties baitProp = new BaitProperties();
-	baitProp.setName(rs.getString("color_name"));
+	baitProp.setName(rs.getString("prop_name"));
 	baitProp.setDescription(rs.getString("description"));
 	return baitProp;
     }

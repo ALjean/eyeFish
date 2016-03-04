@@ -10,7 +10,9 @@ public interface BaitPropertiesAnalyzer {
 
 	public List<BaitProperties> getTheBestColor(double cloudLevel, double rainLevel, String deepLevel) throws CustomDfmException;
 	
-	public List<BaitProperties> getTheBestTaste(double temperature);
+	public List<BaitProperties> getTheBestTaste(double temperature) throws CustomDfmException;
 	
 	public List<BaitProperties> getTheBestMass(int boffortScale);
+	
+	public List<BaitProperties> isPopUp(String algaLevel, String livingArea, String baitType, String deepLevel) throws CustomDfmException;
 }
