@@ -23,6 +23,9 @@ public class DataBaseProperties {
     @Value("${mysql.url}")
     private String url;
 
+    @Value("${mysql.pool}")
+    private int pool;
+
     public String getUserName() {
         return userName;
     }
@@ -54,5 +57,13 @@ public class DataBaseProperties {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public int getPool() {
+        return pool;
+    }
+
+    public void setPool(int pool) {
+        this.pool = pool;
     }
 }

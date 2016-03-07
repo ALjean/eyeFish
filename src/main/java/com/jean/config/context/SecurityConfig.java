@@ -1,7 +1,7 @@
 package com.jean.config.context;
 
 
-import com.jean.config.property.SecurityConst;
+import com.jean.config.SecurityConstants;
 import com.jean.config.security.handler.CustomAuthenticationSuccessHandler;
 import com.jean.config.security.RepositoryUserDetailsService;
 import com.jean.config.security.handler.RestAuthenticationEntryPoint;
@@ -47,8 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/fish/**").authenticated() //TODO patterns
                 .and()
                 .formLogin()
-                .usernameParameter(SecurityConst.LOGIN)
-                .passwordParameter(SecurityConst.PASSWORD)
+                .usernameParameter(SecurityConstants.LOGIN)
+                .passwordParameter(SecurityConstants.PASSWORD)
                 .successHandler(customAuthenticationSuccessHandler)
                 .failureHandler(new SimpleUrlAuthenticationFailureHandler())
                 .and()

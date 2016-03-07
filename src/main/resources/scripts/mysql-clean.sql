@@ -1,0 +1,16 @@
+DROP TABLE IF EXISTS
+year_periods,
+fishes_nibble_properties,
+bindings_baits_to_fishes,
+bindings_baits_to_seasons,
+pond_properties,
+parameters_names,
+fishes,
+baits,
+daily_forecast_weathers,
+baits_colors,
+baits_mass,
+baits_tastes,
+messages,
+seasons,
+users;

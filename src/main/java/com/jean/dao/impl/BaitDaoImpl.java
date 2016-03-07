@@ -6,14 +6,14 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import com.jean.CustomDfmException;
 import com.jean.dao.BaitDao;
 import com.jean.entity.Bait;
 import com.jean.entity.BaitProperties;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 
     private static Logger log = LoggerFactory.getLogger(BaitDaoImpl.class);
@@ -23,10 +23,10 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 
 	String sql = "SELECT b.id, b.name, b.bait_type, b.description, bf.is_priority "
 		+ "FROM baits AS b INNER JOIN bindings_baits_to_fishes AS bf ON bf.bait_id = b.id "
-		+ "INNER JOIN binding_baits_to_seasons AS bs ON bs.bait_id = b.id WHERE bf.fish_id = ? " + "AND "
+		+ "INNER JOIN bindings_baits_to_seasons AS bs ON bs.bait_id = b.id WHERE bf.fish_id = ? " + "AND "
 		+ "? BETWEEN bs.start_period AND bs.end_period ";
 
-	List<Bait> baits = new ArrayList<Bait>();
+	List<Bait> baits = new ArrayList<>();
 
 	log.info("Starting method getBaitsForFishByDate(), with parameter values: [ fishId: " + fishId + ", date: " + date + " ]");
 
