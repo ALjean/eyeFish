@@ -2,6 +2,9 @@ package com.jean.analyzers.fish;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.jean.dao.BaitPropertiesDao;
+import com.jean.enums.BrightLevel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,14 +17,17 @@ import com.jean.entity.BaitProperties;
 public class BaitPropertiesAnalyzerImpl implements BaitPropertiesAnalyzer {
 
     @Autowired
-    private BaitDao baitDao;
+    private BaitPropertiesDao baitPropertiesDao;
+
+	@Autowired
+	private BaitDao baitDao;
 
     @Override
     public List<BaitProperties> getTheBestTaste(double temperature) throws CustomDfmException {
 
-	List<BaitProperties> tastes = new ArrayList<BaitProperties>();
+	List<BaitProperties> tastes = new ArrayList<>();
 
-	tastes.addAll(baitDao.getBaitTastes(temperature));
+	tastes.addAll(baitPropertiesDao.getBaitTastes(temperature));
 	return tastes;
     }
 
@@ -35,7 +41,7 @@ public class BaitPropertiesAnalyzerImpl implements BaitPropertiesAnalyzer {
     @Override
     public List<BaitProperties> getTheBestColor(double cloudLevel, double rainLevel, String deepLevel) throws CustomDfmException {
 
-	List<BaitProperties> colors = new ArrayList<BaitProperties>();
+	List<BaitProperties> colors = new ArrayList<>();
 
 	boolean isRain = false;
 	if (rainLevel > 80) {
@@ -43,11 +49,11 @@ public class BaitPropertiesAnalyzerImpl implements BaitPropertiesAnalyzer {
 	}
 
 	if (deepLevel.equalsIgnoreCase(DEEP_LEVEL.OVERDEEPLY.toString())) {
-	    colors.addAll(baitDao.getBaitColors(BRIGHT_LEVEL.BRIGHT.toString()));
+	    colors.addAll(baitPropertiesDao.getBaitColors(BrightLevel.BRIGHT));
 	} else if ((deepLevel.equalsIgnoreCase(DEEP_LEVEL.DEEPLY.toString()) || deepLevel.equalsIgnoreCase(DEEP_LEVEL.MIDDLE.toString())) && isRain) {
-	    colors.addAll(baitDao.getBaitColors(BRIGHT_LEVEL.WHITE.toString()));
+	    colors.addAll(baitPropertiesDao.getBaitColors(BrightLevel.WHITE));
 	} else {
-	    colors.addAll(baitDao.getBaitColors(cloudLevel));
+	    colors.addAll(baitPropertiesDao.getBaitColors(cloudLevel));
 	}
 
 	return colors;

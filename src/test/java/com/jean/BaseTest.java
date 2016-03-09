@@ -2,13 +2,8 @@ package com.jean;
 
 
 import com.jean.config.context.AppConfig;
-import com.jean.servlet.controller.AuthenticationController;
-import com.jean.dao.BaitDao;
-import com.jean.dao.FishDao;
-import com.jean.dao.UserDao;
-import com.jean.dao.WeatherDao;
+import com.jean.dao.*;
 import com.jean.schedule.DataWeatherDataBaseWriter;
-import com.jean.service.CryptService;
 import com.jean.service.FishAnalyzerService;
 import com.jean.service.UserService;
 import com.jean.service.WeatherService;
@@ -46,15 +41,15 @@ public class BaseTest  {
     protected BaitDao baitDao;
 
     @Autowired
+    protected BaitPropertiesDao baitPropertiesDao;
+
+    @Autowired
     protected WeatherService weatherService;
 
     @Autowired
     protected FishAnalyzerService fishAnalyzerService;
 
-    //@Autowired
-    protected CryptService cryptService;
-
-   // @Autowired
+    @Autowired
     protected UserService userService;
 
     @Autowired
@@ -66,8 +61,6 @@ public class BaseTest  {
     @Autowired
     protected BaitPropertiesAnalyzer baitPropAnalyzer;
 
-    //@Autowired
-    protected AuthenticationController authenticationController;
 
 
 }

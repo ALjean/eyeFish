@@ -10,7 +10,7 @@ public abstract class AbstractFish {
     private String description;
     private String fishType;
     private String livingArea;
-    private AnalyzerResultObject analyzerObject;
+//    private AnalyzerResultObject analyzerObject;
     private List<FishParameters> fishParams;
 
     public int getId() {
@@ -53,13 +53,13 @@ public abstract class AbstractFish {
         this.livingArea = livingArea;
     }
 
-    public AnalyzerResultObject getAnalyzerObject() {
-        return analyzerObject;
-    }
-
-    public void setAnalyzerObject(AnalyzerResultObject analyzerObject) {
-        this.analyzerObject = analyzerObject;
-    }
+//    public AnalyzerResultObject getAnalyzerObject() {
+//        return analyzerObject;
+//    }
+//
+//    public void setAnalyzerObject(AnalyzerResultObject analyzerObject) {
+//        this.analyzerObject = analyzerObject;
+//    }
 
     public List<FishParameters> getFishParams() {
         return fishParams;

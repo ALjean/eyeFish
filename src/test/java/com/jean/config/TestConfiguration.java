@@ -1,10 +1,8 @@
 package com.jean.config;
 
-import org.apache.commons.dbcp2.BasicDataSource;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.core.env.Environment;
 
 
 
@@ -14,11 +12,8 @@ import org.springframework.core.env.Environment;
 @Configuration
 @Profile("test")
 @ComponentScan("com.jean.*")
-//@PropertySource("classpath:application.properties")
 public class TestConfiguration {
 
-    @Autowired
-    private Environment env;
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {

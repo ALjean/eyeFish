@@ -9,7 +9,7 @@ CREATE TABLE `fishes` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(30) NOT NULL,
 	`description` VARCHAR(500),
-	`fish_type` VARCHAR(50) NOT NULL,
+	`type` VARCHAR(50) NOT NULL,
 	`living_area` VARCHAR(50) NOT NULL,
 	PRIMARY KEY (`id`)
 );
@@ -17,7 +17,7 @@ CREATE TABLE `fishes` (
 CREATE TABLE `baits` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(50) NOT NULL,
-	`bait_type` VARCHAR(50) NOT NULL,
+	`type` VARCHAR(50) NOT NULL,
 	`description` VARCHAR(200),
 	PRIMARY KEY (`id`)
 );

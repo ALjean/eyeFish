@@ -24,240 +24,242 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
     @Override
     public void save(AbstractFish fish) throws CustomDfmException, SQLException {
 
-	String sqlFish = "INSERT INTO fish (name, description, type) VALUES (?, ?, ?)";
-	String sqlWeatherStateParam = "INSERT INTO fish_parameters (fish_id, state_data_type, min_range_value, max_range_value, result_nibble_value) VALUES (?, ?, ?, ?, ?)";
-	Connection connection = getConnection();
-	int idFish = -1;
-	int rowInsert;
+        String sqlFish = "INSERT INTO fish (name, description, type, living_area) VALUES (?, ?, ?, ?)";
+        String sqlWeatherStateParam = "INSERT INTO fish_parameters (fish_id, state_data_type, min_range_value, max_range_value, result_nibble_value) VALUES (?, ?, ?, ?, ?)";
+        Connection connection = getConnection();
+        int idFish = -1;
+        int rowInsert;
 
-	try {
+        try {
 
-	    connection.setAutoCommit(false);
-	    PreparedStatement preparedStatement = connection.prepareStatement(sqlFish, Statement.RETURN_GENERATED_KEYS);
+            connection.setAutoCommit(false);
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlFish, Statement.RETURN_GENERATED_KEYS);
 
-	    setNibbleStateParamToPs(preparedStatement, fish);
+            setNibbleStateParamToPs(preparedStatement, fish);
 
-	    rowInsert = preparedStatement.executeUpdate();
+            rowInsert = preparedStatement.executeUpdate();
 
-	    if (rowInsert == 0) {
-		throw new SQLException("Creating fish failed, no rows affected.");
-	    }
+            if (rowInsert == 0) {
+                throw new SQLException("Creating fish failed, no rows affected.");
+            }
 
-	    ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-	    if (generatedKeys.next()) {
-		idFish = generatedKeys.getInt(1);
-	    }
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                idFish = generatedKeys.getInt(1);
+            }
 
-	    preparedStatement = connection.prepareStatement(sqlWeatherStateParam);
+            preparedStatement = connection.prepareStatement(sqlWeatherStateParam);
 
-	    for (FishParameters stateParam : fish.getFishParams()) {
-		setNibbleStateParamToPs(preparedStatement, stateParam, idFish);
-	    }
+            for (FishParameters stateParam : fish.getFishParams()) {
+                setNibbleStateParamToPs(preparedStatement, stateParam, idFish);
+            }
 
-	    rowInsert = preparedStatement.executeUpdate();
+            rowInsert = preparedStatement.executeUpdate();
 
-	    if (rowInsert == 0) {
-		throw new SQLException("Creating Weather State failed, no rows affected.");
-	    }
+            if (rowInsert == 0) {
+                throw new SQLException("Creating Weather State failed, no rows affected.");
+            }
 
-	    connection.commit();
+            connection.commit();
 
-	} catch (SQLException e) {
-	    connection.rollback();
-	    throw new CustomDfmException(e, "some problem with save fish");
-	} finally {
-	    if (connection != null) {
-		connection.close();
-	    }
-	}
+        } catch (SQLException e) {
+            connection.rollback();
+            throw new CustomDfmException(e, "some problem with save fish");
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
 
-	log.info("Fish model save with id: " + idFish);
+        log.info("Fish model save with id: " + idFish);
 
     }
 
     @Override
     public AbstractFish read(int id) throws CustomDfmException {
 
-	String sql = "SELECT f.name, f.description, f.type, fp.id, fp.fish_id, fp.state_data_type, fp.min_range_value, fp.max_range_value, fp.result_nibble_value\n"
-		+ "FROM fish f INNER JOIN  fish_parameters fp ON f.id = fp.fish_id WHERE f.id = ?";
+        String sql = "SELECT f.name, f.description, f.type, fp.id, fp.fish_id, fp.state_data_type, fp.min_range_value, fp.max_range_value, fp.result_nibble_value\n"
+                + "FROM fish f INNER JOIN  fish_parameters fp ON f.id = fp.fish_id WHERE f.id = ?";
 
-	AbstractFish fish = null;
+        AbstractFish fish = null;
 
-	try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
 
-	    preparedStatement.setInt(1, id);
+            preparedStatement.setInt(1, id);
 
-	    ResultSet rs = preparedStatement.executeQuery();
-	    List<FishParameters> fishParams = new ArrayList<FishParameters>();
+            ResultSet rs = preparedStatement.executeQuery();
+            List<FishParameters> fishParams = new ArrayList<FishParameters>();
 
-	    while (rs.next()) {
+            while (rs.next()) {
 
-		fish = getFishFromRs(rs);
-		fish.setFishParams(fishParams);
+                fish = getFishFromRs(rs);
+                fish.setFishParams(fishParams);
 
-		fishParams.add(getNibbleStateParamFromRs(rs));
+                fishParams.add(getNibbleStateParamFromRs(rs));
 
-	    }
-	    log.info(fish != null ? fish.toString() : "Fish by id not found");
+            }
+            log.info(fish != null ? fish.toString() : "Fish by id not found");
 
-	} catch (SQLException e) {
-	    throw new CustomDfmException(e, "some problem when you try read fish");
-	}
+        } catch (SQLException e) {
+            throw new CustomDfmException(e, "some problem when you try read fish");
+        }
 
-	return fish;
+        return fish;
     }
 
     @Override
     public AbstractFish update(AbstractFish fish) {
-	// TODO field type FK
-	String sql = "UPDATE fish f INNER JOIN weather_state ws ON f.id = ws.fish_id "
-		+ "SET f.name = ?, f.description = ?, f.type = ?, ws.max = ?, ws.min = ?, ws.nibble = ?, ws.type_data_weather = ?";
-	return null;
+        // TODO field type FK
+        String sql = "UPDATE fish f INNER JOIN weather_state ws ON f.id = ws.fish_id "
+                + "SET f.name = ?, f.description = ?, f.type = ?, ws.max = ?, ws.min = ?, ws.nibble = ?, ws.type_data_weather = ?";
+        return null;
     }
 
     @Override
     public void delete(int id) throws CustomDfmException, SQLException {
-	List<Integer> typesFish = new ArrayList<>();
-	Connection connection = getConnection();
+        List<Integer> typesFish = new ArrayList<>();
+        Connection connection = getConnection();
 
-	String sqlSelectTypes = "SELECT id FROM weather_state WHERE fish_id = ?";
-	String sqlRemoveFishType = "DELETE FROM weather_state WHERE id = ?";
-	String sqlRemoveFish = "DELETE FROM fish WHERE id = ?";
+        String sqlSelectTypes = "SELECT id FROM weather_state WHERE fish_id = ?";
+        String sqlRemoveFishType = "DELETE FROM weather_state WHERE id = ?";
+        String sqlRemoveFish = "DELETE FROM fish WHERE id = ?";
 
-	try {
-	    connection.setAutoCommit(false);
+        try {
+            connection.setAutoCommit(false);
 
-	    // get fish's types
-	    PreparedStatement preparedStatement = connection.prepareStatement(sqlSelectTypes);
-	    preparedStatement.setInt(1, id);
+            // get fish's types
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlSelectTypes);
+            preparedStatement.setInt(1, id);
 
-	    ResultSet rs = preparedStatement.executeQuery();
+            ResultSet rs = preparedStatement.executeQuery();
 
-	    while (rs.next()) {
-		typesFish.add(rs.getInt(1));
-	    }
+            while (rs.next()) {
+                typesFish.add(rs.getInt(1));
+            }
 
-	    preparedStatement = connection.prepareStatement(sqlRemoveFishType);
+            preparedStatement = connection.prepareStatement(sqlRemoveFishType);
 
-	    // create butch for remove types
-	    for (Integer typeId : typesFish) {
-		preparedStatement.setInt(1, typeId);
-		preparedStatement.addBatch();
-	    }
+            // create butch for remove types
+            for (Integer typeId : typesFish) {
+                preparedStatement.setInt(1, typeId);
+                preparedStatement.addBatch();
+            }
 
-	    int[] affectedRecords = preparedStatement.executeBatch();
+            int[] affectedRecords = preparedStatement.executeBatch();
 
-	    log.info("Remove Fish_Type rows: " + affectedRecords.length);
+            log.info("Remove Fish_Type rows: " + affectedRecords.length);
 
-	    // remove fish model
-	    preparedStatement = connection.prepareStatement(sqlRemoveFish);
-	    preparedStatement.setInt(1, id);
-	    preparedStatement.executeUpdate();
+            // remove fish model
+            preparedStatement = connection.prepareStatement(sqlRemoveFish);
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
 
-	    connection.commit();
+            connection.commit();
 
-	    log.info("Removed Fish with id: " + id);
+            log.info("Removed Fish with id: " + id);
 
-	} catch (SQLException e) {
-	    connection.rollback();
-	    throw new CustomDfmException(e, "Fish remove error");
-	} finally {
-	    if (connection != null) {
-		connection.close();
-	    }
-	}
+        } catch (SQLException e) {
+            connection.rollback();
+            throw new CustomDfmException(e, "Fish remove error");
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
     }
 
     @Override
     public List<AbstractFish> getAllWeather() throws CustomDfmException {
-	String sql = "SELECT id fish_id, name, description FROM fish";
-	List<AbstractFish> fishes = new ArrayList<>();
+        String sql = "SELECT id fish_id, name, description FROM fish";
+        List<AbstractFish> fishes = new ArrayList<>();
 
-	try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
 
-	    ResultSet rs = preparedStatement.executeQuery();
+            ResultSet rs = preparedStatement.executeQuery();
 
-	    while (rs.next()) {
-		fishes.add(getFishFromRs(rs));
-	    }
+            while (rs.next()) {
+                fishes.add(getFishFromRs(rs));
+            }
 
-	    log.info(fishes.size() > 0 ? "Fish list: " + fishes.size() : "Fish result is zero");
+            log.info(fishes.size() > 0 ? "Fish list: " + fishes.size() : "Fish result is zero");
 
-	} catch (SQLException e) {
-	    throw new CustomDfmException(e, "some problem when get List Weather");
-	}
+        } catch (SQLException e) {
+            throw new CustomDfmException(e, "some problem when get List Weather");
+        }
 
-	return fishes;
+        return fishes;
     }
 
     public AbstractFish getFishByTempForNibble(int temp, int fishId) throws CustomDfmException {
 
-	String sql = "SELECT f.name, f.description, f.type ,ws.id type_data_id, ws.type_data_weather, ws.nibble, ws.min, ws.max, ws.fish_id "
-		+ "FROM fish f INNER JOIN  weather_state ws ON f.id = ws.fish_id "
-		+ "WHERE ws.type_data_weather = 'nibbleDataType' and ws.min <= ? and ws.max >= ? and (f.id = ?)";
+        String sql = "SELECT f.name, f.description, f.type ,ws.id type_data_id, ws.type_data_weather, ws.nibble, ws.min, ws.max, ws.fish_id "
+                + "FROM fish f INNER JOIN  weather_state ws ON f.id = ws.fish_id "
+                + "WHERE ws.type_data_weather = 'nibbleDataType' AND ws.min <= ? AND ws.max >= ? AND (f.id = ?)";
 
-	AbstractFish fish = null;
+        AbstractFish fish = null;
 
-	try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
 
-	    preparedStatement.setInt(1, temp);
-	    preparedStatement.setInt(2, temp);
-	    preparedStatement.setInt(3, fishId);
+            preparedStatement.setInt(1, temp);
+            preparedStatement.setInt(2, temp);
+            preparedStatement.setInt(3, fishId);
 
-	    ResultSet rs = preparedStatement.executeQuery();
-	    List<FishParameters> nibbleStateParams = new ArrayList<>();
+            ResultSet rs = preparedStatement.executeQuery();
+            List<FishParameters> nibbleStateParams = new ArrayList<>();
 
-	    while (rs.next()) {
-		fish = getFishFromRs(rs);
-		fish.setFishParams(nibbleStateParams);
+            while (rs.next()) {
+                fish = getFishFromRs(rs);
+                fish.setFishParams(nibbleStateParams);
 
-		nibbleStateParams.add(getNibbleStateParamFromRs(rs));
-		fish.setFishParams(nibbleStateParams);
-	    }
-	    log.info(fish != null ? fish.toString() : "Fish by temp not found");
+                nibbleStateParams.add(getNibbleStateParamFromRs(rs));
+                fish.setFishParams(nibbleStateParams);
+            }
+            log.info(fish != null ? fish.toString() : "Fish by temp not found");
 
-	} catch (SQLException e) {
-	    throw new CustomDfmException(e, "can't get fish by Temp");
-	}
+        } catch (SQLException e) {
+            throw new CustomDfmException(e, "can't get fish by Temp");
+        }
 
-	return fish;
+        return fish;
     }
 
     private FishParameters getNibbleStateParamFromRs(ResultSet rs) throws SQLException {
-	FishParameters nibbleStateParam = new FishParameters();
-	nibbleStateParam.setId(rs.getInt("type_data_id"));
-	nibbleStateParam.setStateDataType(rs.getString("state_data_type"));
-	nibbleStateParam.setMinValue(rs.getDouble("min_range_value"));
-	nibbleStateParam.setMaxValue(rs.getDouble("max_range_value"));
-	nibbleStateParam.setNibble(rs.getLong("result_nibble_value"));
-	return nibbleStateParam;
+        FishParameters nibbleStateParam = new FishParameters();
+        nibbleStateParam.setId(rs.getInt("type_data_id"));
+        nibbleStateParam.setStateDataType(rs.getString("state_data_type"));
+        nibbleStateParam.setMinValue(rs.getDouble("min_range_value"));
+        nibbleStateParam.setMaxValue(rs.getDouble("max_range_value"));
+        nibbleStateParam.setNibble(rs.getLong("result_nibble_value"));
+        return nibbleStateParam;
     }
 
     private AbstractFish getFishFromRs(ResultSet rs) throws SQLException, CustomDfmException {
-	AbstractFish fish = FactoryProduser.createFish(rs.getString("type"));
-	fish.setId(rs.getInt("fish_id"));
-	fish.setDescription(rs.getString("description"));
-	fish.setName(rs.getString("name"));
-	return fish;
+        AbstractFish fish = FactoryProduser.createFish(rs.getString("type"));
+        fish.setId(rs.getInt("fish_id"));
+        fish.setDescription(rs.getString("description"));
+        fish.setName(rs.getString("name"));
+        return fish;
     }
 
     private void setNibbleStateParamToPs(PreparedStatement preparedStatement, FishParameters fishParam, int idFish) throws SQLException {
-	preparedStatement.setInt(1, idFish);
-	preparedStatement.setString(2, fishParam.getStateDataType());
-	preparedStatement.setDouble(3, fishParam.getMinValue());
-	preparedStatement.setDouble(4, fishParam.getMaxValue());
-	preparedStatement.setDouble(5, fishParam.getNibble());
+        preparedStatement.setInt(1, idFish);
+        preparedStatement.setString(2, fishParam.getStateDataType());
+        preparedStatement.setDouble(3, fishParam.getMinValue());
+        preparedStatement.setDouble(4, fishParam.getMaxValue());
+        preparedStatement.setDouble(5, fishParam.getNibble());
     }
 
     private void setNibbleStateParamToPs(PreparedStatement preparedStatement, AbstractFish fish) throws SQLException {
-	preparedStatement.setString(1, fish.getName());
-	preparedStatement.setString(2, fish.getDescription());
+        preparedStatement.setString(1, fish.getName());
+        preparedStatement.setString(2, fish.getDescription());
 
-	if (fish instanceof CalmFish) {
-	    preparedStatement.setString(3, Constants.FISH_TYPE_CALM);
-	}
-	if (fish instanceof PredatorFish) {
-	    preparedStatement.setString(3, Constants.FISH_TYPE_PREDATOR);
-	}
+        if (fish instanceof CalmFish) {
+            preparedStatement.setString(3, Constants.FISH_TYPE_CALM);
+        }
+        if (fish instanceof PredatorFish) {
+            preparedStatement.setString(3, Constants.FISH_TYPE_PREDATOR);
+        }
+		preparedStatement.setString(4, fish.getLivingArea());
+
     }
 }

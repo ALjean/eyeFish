@@ -9,13 +9,14 @@ import com.jean.entity.BaitProperties;
 
 public interface BaitDao {
 
-	public List<Bait> getBaitsForFishByDate(Date date, int fishId) throws CustomDfmException;
-	
-	public List<BaitProperties> getBaitColors(double cloudLevel) throws CustomDfmException;
-	
-	public List<BaitProperties> getBaitColors(String colorName) throws CustomDfmException;
-	
-	public List<BaitProperties> getBaitTastes(double temperature) throws CustomDfmException;
-	
-	public String getMessage(String key) throws CustomDfmException;
+    List<Bait> getBaitsForFishByDate(Date date, int fishId) throws CustomDfmException;
+
+
+    String getMessage(String key) throws CustomDfmException;
+
+    Integer save(Bait bait) throws CustomDfmException;
+
+    void delete(int id) throws CustomDfmException;
+
+    List<Bait> getBaitListToFish(int id) throws CustomDfmException;
 }

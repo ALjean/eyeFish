@@ -52,28 +52,27 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         return basicDataSource;
     }
 
-    @Bean
-    public DataSourceInitializer dataSourceInitializer() {
-        DataSourceInitializer initializer = new DataSourceInitializer();
-        initializer.setDataSource(getBasicDataSource());
-        initializer.setDatabasePopulator(databasePopulatorInit());
-        initializer.setDatabaseCleaner(databasePopulatorCleaner());
-        return initializer;
-    }
-
-    private DatabasePopulator databasePopulatorInit() {
-        ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
-//        resourceDatabasePopulator.setContinueOnError(true);
-        resourceDatabasePopulator.addScript(sqlScriptsProperties.getSchemaScript());
-        resourceDatabasePopulator.addScript(sqlScriptsProperties.getDataScript());
-        return resourceDatabasePopulator;
-    }
-
-    private DatabasePopulator databasePopulatorCleaner() {
-        ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
-        resourceDatabasePopulator.addScript(sqlScriptsProperties.getCleanerScript());
-        return resourceDatabasePopulator;
-    }
+//    @Bean
+//    public DataSourceInitializer dataSourceInitializer() {
+//        DataSourceInitializer initializer = new DataSourceInitializer();
+//        initializer.setDataSource(getBasicDataSource());
+//        initializer.setDatabasePopulator(databasePopulatorInit());
+//        initializer.setDatabaseCleaner(databasePopulatorCleaner());
+//        return initializer;
+//    }
+//
+//    private DatabasePopulator databasePopulatorInit() {
+//        ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
+//        resourceDatabasePopulator.addScript(sqlScriptsProperties.getSchemaScript());
+//        resourceDatabasePopulator.addScript(sqlScriptsProperties.getDataScript());
+//        return resourceDatabasePopulator;
+//    }
+//
+//    private DatabasePopulator databasePopulatorCleaner() {
+//        ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
+//        resourceDatabasePopulator.addScript(sqlScriptsProperties.getCleanerScript());
+//        return resourceDatabasePopulator;
+//    }
 
     @Bean
     public PoolConnectionFactory getConnectionFactory(){

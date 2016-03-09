@@ -1,12 +1,15 @@
 package com.jean.entity;
 
+import com.jean.analyzers.weather.ConstantsAnalyzer;
+import com.jean.enums.BaitType;
+
 import java.util.List;
 
 public class Bait {
 
 	private int id;
 	private String name;
-	private String baitType;
+	private BaitType type;
 	private String description;
 
 	private List<BaitProperties> baitProperties;
@@ -27,12 +30,12 @@ public class Bait {
 		this.name = name;
 	}
 
-	public String getBaitType() {
-		return baitType;
+	public BaitType getType() {
+		return type;
 	}
 
-	public void setBaitType(String baitType) {
-		this.baitType = baitType;
+	public void setType(BaitType type) {
+		this.type = type;
 	}
 
 	public String getDescription() {
@@ -53,7 +56,7 @@ public class Bait {
 
 	@Override
 	public String toString() {
-		return "Bait [id=" + id + ", name=" + name + ", baitType=" + baitType + ", description=" + description
+		return "Bait [id=" + id + ", name=" + name + ", baitType=" + type + ", description=" + description
 				+ ", baitProperties=" + baitProperties + "]";
 	}
 
