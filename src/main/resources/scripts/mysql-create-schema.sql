@@ -23,28 +23,24 @@ CREATE TABLE `baits` (
 );
 
 
-
-CREATE TABLE `baits_colors` (
+CREATE TABLE baits_settings (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`color_name` VARCHAR(20) NOT NULL,
+	`name` VARCHAR(50) NOT NULL,
+	`type` VARCHAR(50) NOT NULL,
 	`description` VARCHAR(200),
-	`cloud_min` DOUBLE NOT NULL,
-	`cloud_max` DOUBLE NOT NULL,
+	`cloud_min` DOUBLE,
+	`cloud_max` DOUBLE,
+	`temp_min` DOUBLE,
+	`temp_max` DOUBLE,
 	PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `baits_mass` (
+CREATE TABLE baits_to_baits_settings(
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(20) NOT NULL,
-	PRIMARY KEY (`id`)
-);
-
-CREATE TABLE `baits_tastes` (
-	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`taste_name` VARCHAR(20) NOT NULL,
-	`description` VARCHAR(200),
-	`temp_min` DOUBLE NOT NULL,
-	`temp_max` DOUBLE NOT NULL,
+	`bait_id` INT(11) NOT NULL,
+	`baits_settings_id` INT(11) NOT NULL,
+	FOREIGN KEY (`bait_id`) REFERENCES `baits` (`id`),
+	FOREIGN KEY (`baits_settings_id`) REFERENCES `baits_settings` (`id`),
 	PRIMARY KEY (`id`)
 );
 
@@ -98,7 +94,6 @@ CREATE TABLE `messages` (
 );
 
 
-
 CREATE TABLE `seasons` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`description` VARCHAR(200),
@@ -107,18 +102,18 @@ CREATE TABLE `seasons` (
 	PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `year_periods` (
-	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`fish_id` INT(11) NOT NULL,
-	`start_period` TIMESTAMP NOT NULL,
-	`end_period` TIMESTAMP NOT NULL,
-	`result_nibble_value` DOUBLE NOT NULL,
-	PRIMARY KEY (`id`),
-	FOREIGN KEY (`fish_id`) REFERENCES `fishes` (`id`)
-);
+# CREATE TABLE `year_periods` (
+# 	`id` INT(11) NOT NULL AUTO_INCREMENT,
+# 	`fish_id` INT(11) NOT NULL,
+# 	`start_period` TIMESTAMP NOT NULL,
+# 	`end_period` TIMESTAMP NOT NULL,
+# 	`result_nibble_value` DOUBLE NOT NULL,
+# 	PRIMARY KEY (`id`),
+# 	FOREIGN KEY (`fish_id`) REFERENCES `fishes` (`id`)
+# );
 
 
-CREATE TABLE `bindings_baits_to_fishes` (
+CREATE TABLE `baits_to_fishes` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`fish_id` INT(11) NOT NULL,
 	`bait_id` INT(11) NOT NULL,
@@ -128,12 +123,14 @@ CREATE TABLE `bindings_baits_to_fishes` (
 	FOREIGN KEY (`fish_id`) REFERENCES `fishes` (`id`)
 );
 
-CREATE TABLE `bindings_baits_to_seasons` (
+CREATE TABLE `baits_to_seasons` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`bait_id` INT(11) NOT NULL,
 	`seasons_id` INT(11) NOT NULL,
-	PRIMARY KEY (`id`),
-	FOREIGN KEY (`bait_id`) REFERENCES `baits` (`id`)
+	FOREIGN KEY (`bait_id`) REFERENCES `baits` (`id`),
+	FOREIGN KEY (`seasons_id`) REFERENCES `seasons` (`id`),
+	PRIMARY KEY (`id`)
+
 );
 
 CREATE TABLE users (

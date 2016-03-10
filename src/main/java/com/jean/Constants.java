@@ -16,8 +16,8 @@ public interface Constants {
 
     int MULTIPLIER = 1000;
 
-    enum Location {UP, MIDDLE, DIP}
-    enum Hungry {NOTEAT, WEAKLY, MODESTLY, ACTIVE} //new vers.
+
+
     String NIBBLE_DATA_TYPE = "nibbleDataType";
 
 

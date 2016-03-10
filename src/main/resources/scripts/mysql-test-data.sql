@@ -11,33 +11,31 @@ INSERT INTO `baits` (`id`, `name`, `type`, `description`) VALUES
 	(6, 'Boil', 'BOIL', 'Best for most biggest carp'),
 	(7, 'Castmaster', 'SIMULATED', 'Best for pike');
 
-INSERT INTO `bindings_baits_to_fishes` (`id`, `fish_id`, `bait_id`, `is_priority`) VALUES
+INSERT INTO `baits_to_fishes` (`id`, `fish_id`, `bait_id`, `is_priority`) VALUES
 	(1, 7, 1, b'0'),
 	(2, 7, 2, b'0'),
 	(3, 7, 4, b'0'),
 	(4, 7, 6, b'1'),
 	(5, 13, 7, b'0');
-	
-INSERT INTO `baits_colors` (`id`, `color_name`, `description`, `cloud_min`, `cloud_max`) VALUES
-	(1, 'DARK', 'Use dark or soft colors', 0, 15),
-	(2, 'NATURAL', 'Use natural colors wich belong to pond', 0, 25),
-	(3, 'WHITE', 'Use white colors and lights', 26, 79),
-	(4, 'BRIGHT', 'Use bright and lumia colors', 65, 100);
 
-INSERT INTO `baits_mass` (`id`, `name`) VALUES
-	(1, 'ULTRALIGHT'),
-	(2, 'LIGHT'),
-	(3, 'MEDIUM'),
-	(4, 'HEAVY'),
-	(5, 'ULTRAHEAVY');
+INSERT INTO baits_settings (name, type, description, cloud_min, cloud_max, temp_min, temp_max) VALUES
+	('DARK', 'COLOR', 'Use dark or soft colors', 0, 15, null, null),
+	('NATURAL','COLOR', 'Use natural colors wich belong to pond', 0, 25, null, null),
+	('WHITE','COLOR',  'Use white colors and lights', 26, 79, null, null),
+	('BRIGHT','COLOR', 'Use bright and lumia colors', 65, 100, null, null),
+	('ULTRALIGHT', 'MASS', null, null, null, null, null),
+	('LIGHT', 'MASS', null, null, null, null, null),
+	('MEDIUM', 'MASS', null, null, null, null, null),
+	('HEAVY', 'MASS', null, null, null, null, null),
+	('ULTRAHEAVY', 'MASS', null, null, null, null, null),
+	('MEAT','TASTE', 'For cold water and cjld weather', null, null, 0, 10),
+	('FISHED', 'TASTE', 'For Otoumn and early Winter',null, null, 11, 15),
+	('SPICY', 'TASTE', 'For worm water', null, null,16, 20),
+	('FRUIT','TASTE', 'For hot weather',null, null, 21, 35);
 
-INSERT INTO `baits_tastes` (`id`, `taste_name`, `description`, `temp_min`, `temp_max`) VALUES
-	(1, 'MEAT', 'For cold water and cjld weather', 0, 10),
-	(2, 'FISHED', 'For Otoumn and early Winter', 11, 15),
-	(3, 'SPICY', 'For worm water', 16, 20),
-	(4, 'FRUIT', 'For hot weather', 21, 35);	
+
 	
-INSERT INTO `bindings_baits_to_seasons` (`seasons_id`, `bait_id`) VALUES
+INSERT INTO `baits_to_seasons` (`seasons_id`, `bait_id`) VALUES
 	(1, 1),
 	(2, 1),
 	(3, 4),
@@ -52,6 +50,15 @@ INSERT INTO `parameters_names` (`id`, `name`, `priority_level`) VALUES
 	(6, 'DEEP_LEVEL', 1),
 	(7, 'ALGA_LEVEL', NULL),
 	(8, 'WIND_SPEED', NULL);
+
+INSERT INTO baits_to_baits_settings (bait_id, baits_settings_id) VALUES
+	(1, 2),
+	(1, 3),
+	(3, 4),
+	(3, 4),
+	(5, 7),
+	(2, 5),
+	(4, 6);
 	
 INSERT INTO `fishes_nibble_properties` (`id`, `fish_id`, `parameter_id`, `min_value`, `max_value`, `nibble_level`) VALUES
 	(38, 7, 3, -50, -4, 0),

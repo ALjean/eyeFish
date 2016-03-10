@@ -2,7 +2,8 @@ package com.jean.analyzers.fish;
 
 import java.util.*;
 
-import com.jean.Constants;
+
+import com.jean.enums.Hungry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -49,7 +50,7 @@ public class FishAnalyzerImpl implements FishAnalyzer {
     public FishAnalyzerImpl() {
 
         this.raiting = new HashMap<>();
-        for (Constants.Hungry stateMark : Constants.Hungry.values()) {
+        for (Hungry stateMark : Hungry.values()) {
             raiting.put(stateMark.toString(), null);
         }
     }
