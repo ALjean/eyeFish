@@ -1,9 +1,9 @@
 DROP TABLE IF EXISTS
-fishes_nibble_properties,
+fishes_nibble,
 baits_to_fishes,
 baits_to_seasons,
 baits_to_baits_settings,
-pond_properties,
+pond,
 parameters_names,
 fishes,
 baits,

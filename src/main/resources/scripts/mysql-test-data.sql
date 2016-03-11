@@ -52,7 +52,7 @@ INSERT INTO `parameters_names` (`id`, `name`, `priority_level`) VALUES
 	(8, 'WIND_SPEED', NULL);
 
 	
-INSERT INTO `fishes_nibble_properties` (`id`, `fish_id`, `parameter_id`, `min_value`, `max_value`, `nibble_level`) VALUES
+INSERT INTO `fishes_nibble` (`id`, `fish_id`, `parameter_id`, `min_value`, `max_value`, `nibble_level`) VALUES
 	(38, 7, 3, -50, -4, 0),
 	(39, 7, 3, -5, 12, 15.5),
 	(40, 7, 3, 12, 16, 21.2),
@@ -84,7 +84,7 @@ INSERT INTO `messages` (`id`, `string_key`, `mess_text`) VALUES
 	(2, 'BOIL_POP_UP', 'Use the pop-up boil for take up your bait under bottom'),
 	(3, 'TOP_POP_UP', 'Use some stuff for take up your bait on the top water layer');
 	
-INSERT INTO `pond_properties` (`id`, `parameter_id`, `min_value`, `max_value`, `deep_id`) VALUES
+INSERT INTO `pond` (`id`, `parameter_id`, `min_value`, `max_value`, `deep_id`) VALUES
 	(1, 6, 0.5, 1.2, 'SHALLOW'),
 	(2, 6, 1.3, 1.9, 'MIDDLE'),
 	(3, 6, 2, 2.5, 'DEEPLY'),

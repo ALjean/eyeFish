@@ -56,7 +56,7 @@ CREATE TABLE `daily_forecast_weathers` (
 
 
 
-CREATE TABLE `pond_properties` (
+CREATE TABLE `pond` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`parameter_id` INT(11) NOT NULL,
 	`min_value` DOUBLE NOT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE `pond_properties` (
 	FOREIGN KEY (`parameter_id`) REFERENCES `parameters_names` (`id`)
 );
 
-CREATE TABLE `fishes_nibble_properties` (
+CREATE TABLE `fishes_nibble` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`fish_id` INT(11) NOT NULL,
 	`parameter_id` INT(11) NOT NULL,
