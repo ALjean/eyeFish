@@ -24,7 +24,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
     @Override
     public void save(AbstractFish fish) throws CustomDfmException, SQLException {
 
-        String sqlFish = "INSERT INTO fish (name, description, type, living_area) VALUES (?, ?, ?, ?)";
+        String sqlFish = "INSERT INTO fishes (name, description, type, living_area) VALUES (?, ?, ?, ?)";
         String sqlWeatherStateParam = "INSERT INTO fish_parameters (fish_id, state_data_type, min_range_value, max_range_value, result_nibble_value) VALUES (?, ?, ?, ?, ?)";
         Connection connection = getConnection();
         int idFish = -1;
@@ -79,7 +79,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
     public AbstractFish read(int id) throws CustomDfmException {
 
         String sql = "SELECT f.name, f.description, f.type, fp.id, fp.fish_id, fp.state_data_type, fp.min_range_value, fp.max_range_value, fp.result_nibble_value\n"
-                + "FROM fish f INNER JOIN  fish_parameters fp ON f.id = fp.fish_id WHERE f.id = ?";
+                + "FROM fishes f INNER JOIN  fish_parameters fp ON f.id = fp.fish_id WHERE f.id = ?";
 
         AbstractFish fish = null;
 
@@ -122,7 +122,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
         String sqlSelectTypes = "SELECT id FROM weather_state WHERE fish_id = ?";
         String sqlRemoveFishType = "DELETE FROM weather_state WHERE id = ?";
-        String sqlRemoveFish = "DELETE FROM fish WHERE id = ?";
+        String sqlRemoveFish = "DELETE FROM fishes WHERE id = ?";
 
         try {
             connection.setAutoCommit(false);
@@ -170,7 +170,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
     @Override
     public List<AbstractFish> getAllWeather() throws CustomDfmException {
-        String sql = "SELECT id fish_id, name, description FROM fish";
+        String sql = "SELECT id fish_id, name, description FROM fishes";
         List<AbstractFish> fishes = new ArrayList<>();
 
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
@@ -193,7 +193,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
     public AbstractFish getFishByTempForNibble(int temp, int fishId) throws CustomDfmException {
 
         String sql = "SELECT f.name, f.description, f.type ,ws.id type_data_id, ws.type_data_weather, ws.nibble, ws.min, ws.max, ws.fish_id "
-                + "FROM fish f INNER JOIN  weather_state ws ON f.id = ws.fish_id "
+                + "FROM fishes f INNER JOIN  year_periods ws ON f.id = ws.fish_id "
                 + "WHERE ws.type_data_weather = 'nibbleDataType' AND ws.min <= ? AND ws.max >= ? AND (f.id = ?)";
 
         AbstractFish fish = null;

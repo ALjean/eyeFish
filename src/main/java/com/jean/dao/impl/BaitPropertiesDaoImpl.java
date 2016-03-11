@@ -3,6 +3,8 @@ package com.jean.dao.impl;
 import com.jean.CustomDfmException;
 import com.jean.dao.BaitPropertiesDao;
 import com.jean.entity.BaitProperties;
+import com.jean.enums.BaitSettings;
+import com.jean.enums.BaitType;
 import com.jean.enums.BrightLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,9 +22,14 @@ public class BaitPropertiesDaoImpl extends BaseDaoImpl implements BaitProperties
     private static Logger log = LoggerFactory.getLogger(BaitPropertiesDaoImpl.class);
 
     @Override
+    public List<BaitProperties> getBaitPropertiesByType(BaitSettings baitType) throws CustomDfmException {
+        return null;
+    }
+
+    @Override
     public List<BaitProperties> getBaitColors(double cloudLevel) throws CustomDfmException {
 
-        String sql = "SELECT bc.prop_name, bc.description  " + "FROM baits_colors AS bc " + "WHERE ? BETWEEN bc.cloud_min AND bc.cloud_max;";
+        String sql = "SELECT bs.name, bs.description  " + "FROM baits_settings AS bs " + "WHERE ? BETWEEN bs.cloud_min AND bs.cloud_max AND bs.type = ?";
 
         List<BaitProperties> baitsProperties = new ArrayList<>();
 
@@ -31,6 +38,7 @@ public class BaitPropertiesDaoImpl extends BaseDaoImpl implements BaitProperties
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
 
             preparedStatement.setDouble(1, cloudLevel);
+            preparedStatement.setString(2, BaitSettings.COLOR.name());
 
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -54,7 +62,7 @@ public class BaitPropertiesDaoImpl extends BaseDaoImpl implements BaitProperties
     @Override
     public List<BaitProperties> getBaitColors(BrightLevel brightLevel) throws CustomDfmException {
 
-        String sql = "SELECT bc.prop_name, bc.description  " + "FROM baits_colors AS bc " + "WHERE prop_name LIKE ?";
+        String sql = "SELECT bs.name, bs.description  " + "FROM baits_settings AS bs " + "WHERE bs.name LIKE ? AND bs.type = ?";
 
         List<BaitProperties> baitsProperties = new ArrayList<>();
 
@@ -63,6 +71,7 @@ public class BaitPropertiesDaoImpl extends BaseDaoImpl implements BaitProperties
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
 
             preparedStatement.setString(1, brightLevel.name());
+            preparedStatement.setString(2, BaitSettings.COLOR.name());
 
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -75,7 +84,7 @@ public class BaitPropertiesDaoImpl extends BaseDaoImpl implements BaitProperties
             }
 
         } catch (SQLException e) {
-            throw new CustomDfmException("Some problem with fetching list of baits. " + "Message: " + e.getMessage());
+            throw new CustomDfmException("Some problem with fetching list of baits. " + "Message: " + e.getMessage(), e);
         }
 
         log.info("End method getBaitColors(), list size is: " + baitsProperties.size());
@@ -86,7 +95,7 @@ public class BaitPropertiesDaoImpl extends BaseDaoImpl implements BaitProperties
     @Override
     public List<BaitProperties> getBaitTastes(double temperature) throws CustomDfmException {
 
-        String sql = "SELECT bt.prop_name, bt.description " + "FROM baits_tastes AS bt " + "WHERE ? BETWEEN bt.temp_min AND bt.temp_max";
+        String sql = "SELECT bs.name, bs.description " + "FROM baits_settings AS bs " + "WHERE ? BETWEEN bs.temp_min AND bs.temp_max AND bs.type = ?";
 
         List<BaitProperties> baitsProperties = new ArrayList<>();
 
@@ -95,6 +104,7 @@ public class BaitPropertiesDaoImpl extends BaseDaoImpl implements BaitProperties
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
 
             preparedStatement.setDouble(1, temperature);
+            preparedStatement.setString(2, BaitSettings.TASTE.name());
 
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -107,7 +117,7 @@ public class BaitPropertiesDaoImpl extends BaseDaoImpl implements BaitProperties
             }
 
         } catch (SQLException e) {
-            throw new CustomDfmException("Some problem with fetching list of tastes. " + "Message: " + e.getMessage());
+            throw new CustomDfmException("Some problem with fetching list of tastes. " + "Message: " + e.getMessage(), e);
         }
 
         log.info("End method getBaitTastes(), list size is: " + baitsProperties.size());
@@ -118,7 +128,8 @@ public class BaitPropertiesDaoImpl extends BaseDaoImpl implements BaitProperties
 
     private BaitProperties getBaitPropsFromRs(ResultSet rs) throws SQLException {
         BaitProperties baitProp = new BaitProperties();
-        baitProp.setName(rs.getString("prop_name"));
+        baitProp.setId(rs.getInt("id"));
+        baitProp.setName(rs.getString("name"));
         baitProp.setDescription(rs.getString("description"));
         return baitProp;
     }

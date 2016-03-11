@@ -114,7 +114,7 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 
     public List<Bait> getBaitListToFish(int id) throws CustomDfmException {
 
-        String sql = "SELECT * from baits WHERE id IN (SELECT fish_id from bindings_baits_to_fishes WHERE fish_id = ?)";
+        String sql = "SELECT * from baits WHERE id IN (SELECT fish_id from baits_to_fishes WHERE fish_id = ?)";
 
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
 

@@ -14,6 +14,9 @@ public class CustomDfmException extends Exception {
     public CustomDfmException(String message) {
         super (message);
     }
+    public CustomDfmException(String message, Exception e) {
+        super (message, e);
+    }
 
     public CustomDfmException(Throwable cause) {
         super (cause);
