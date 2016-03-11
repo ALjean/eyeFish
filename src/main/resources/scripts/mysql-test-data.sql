@@ -51,14 +51,6 @@ INSERT INTO `parameters_names` (`id`, `name`, `priority_level`) VALUES
 	(7, 'ALGA_LEVEL', NULL),
 	(8, 'WIND_SPEED', NULL);
 
-INSERT INTO baits_to_baits_settings (bait_id, baits_settings_id) VALUES
-	(1, 2),
-	(1, 3),
-	(3, 4),
-	(3, 4),
-	(5, 7),
-	(2, 5),
-	(4, 6);
 	
 INSERT INTO `fishes_nibble_properties` (`id`, `fish_id`, `parameter_id`, `min_value`, `max_value`, `nibble_level`) VALUES
 	(38, 7, 3, -50, -4, 0),
