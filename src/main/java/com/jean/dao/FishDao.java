@@ -1,7 +1,7 @@
 package com.jean.dao;
 
 import com.jean.CustomDfmException;
-import com.jean.entity.AbstractFish;
+import com.jean.entity.Fish;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -12,16 +12,16 @@ import java.util.List;
 public interface FishDao {
 
 
-    void save(AbstractFish fish) throws CustomDfmException, SQLException;
+    void save(Fish fish) throws CustomDfmException, SQLException;
 
-    AbstractFish read(int id) throws CustomDfmException;
+    Fish read(int id) throws CustomDfmException;
 
-    AbstractFish update(AbstractFish fish);
+    Fish update(Fish fish);
 
     void delete(int id) throws CustomDfmException, SQLException;
 
-    List<AbstractFish> getAllWeather() throws CustomDfmException;
+    List<Fish> getAllWeather() throws CustomDfmException;
 
-    AbstractFish getFishByTempForNibble(int temp, int fishId) throws CustomDfmException;
+    Fish getFishByTempForNibble(int temp, int fishId) throws CustomDfmException;
 
 }

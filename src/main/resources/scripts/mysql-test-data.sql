@@ -1,6 +1,8 @@
 INSERT INTO `fishes` (`id`, `name`, `description`, `type`, `living_area`) VALUES
 	(7, 'Carp', 'In Europe, even when not carp angling publications such as Carpolo Advanced carp fishing, Carpworld and Total Carp, and informative carp angling web sites, such as Carpfishing UK', 'CALM', 'BOTTOM'),
 	(13, 'Pike', 'Effective methods for catching this teeth it is wise to take extreme remove hooks is highly recommended on safety grounds. If practicing catch and release fishing, \r\ncare for the pike should be the pike angler s utmost concern. The formerly recommended practice of grasping \r\na pike by its eye sockets (tragically interpreted as "its eyes") resulted in countless released pike that.', 'PREDATOR', 'BOTTOM');
+
+
 	
 INSERT INTO `baits` (`id`, `name`, `type`, `description`) VALUES
 	(1, 'Worm', 'LIVEBAIT', 'For most biggest calm fish'),

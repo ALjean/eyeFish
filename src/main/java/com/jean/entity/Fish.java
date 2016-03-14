@@ -1,17 +1,17 @@
 package com.jean.entity;
 
 import java.util.List;
-import com.jean.analyzers.weather.AnalyzerResultObject;
 
-public abstract class AbstractFish {
+public abstract class Fish {
 
     private int id;
     private String name;
     private String description;
     private String fishType;
     private String livingArea;
-//    private AnalyzerResultObject analyzerObject;
-    private List<FishParameters> fishParams;
+    private List<FishParameter> fishParams;
+    private List<FishNibble> nibbles;
+
 
     public int getId() {
         return id;
@@ -53,20 +53,20 @@ public abstract class AbstractFish {
         this.livingArea = livingArea;
     }
 
-//    public AnalyzerResultObject getAnalyzerObject() {
-//        return analyzerObject;
-//    }
-//
-//    public void setAnalyzerObject(AnalyzerResultObject analyzerObject) {
-//        this.analyzerObject = analyzerObject;
-//    }
-
-    public List<FishParameters> getFishParams() {
+    public List<FishParameter> getFishParams() {
         return fishParams;
     }
 
-    public void setFishParams(List<FishParameters> fishParams) {
+    public void setFishParams(List<FishParameter> fishParams) {
         this.fishParams = fishParams;
+    }
+
+    public List<FishNibble> getNibbles() {
+        return nibbles;
+    }
+
+    public void setNibbles(List<FishNibble> nibbles) {
+        this.nibbles = nibbles;
     }
 
     public abstract double hungryAnalyzer();

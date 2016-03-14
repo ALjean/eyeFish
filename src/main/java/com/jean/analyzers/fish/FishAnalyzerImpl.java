@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.jean.CustomDfmException;
 import com.jean.dao.WeatherDao;
-import com.jean.entity.AbstractFish;
+import com.jean.entity.Fish;
 import com.jean.entity.Weather;
 
 @Component
@@ -20,7 +20,7 @@ public class FishAnalyzerImpl implements FishAnalyzer {
 
     private Map<String, Integer> raiting;
 
-    public List<String> getHungryRating(AbstractFish fish) throws CustomDfmException {
+    public List<String> getHungryRating(Fish fish) throws CustomDfmException {
 
         List<Weather> listWeather = weatherDao.getLimitWeatherByDate(new Date());
 

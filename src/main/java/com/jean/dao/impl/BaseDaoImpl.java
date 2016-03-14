@@ -1,5 +1,6 @@
 package com.jean.dao.impl;
 
+import com.jean.CustomDfmException;
 import com.jean.config.PoolConnectionFactory;
 import com.jean.dao.BaseDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
@@ -20,10 +22,17 @@ public class BaseDaoImpl implements BaseDao {
     @Qualifier("getConnectionFactory")
     private PoolConnectionFactory connectionFactory;
 
-    protected Connection getConnection() throws SQLException {
-        return connectionFactory.getBds().getConnection();
-    }
+    private Connection connection;
 
+
+    protected Connection getConnection() throws SQLException {
+        if (connection == null) {
+            connection = connectionFactory.getBds().getConnection();
+            connection.setAutoCommit(false);
+
+        }
+        return connection;
+    }
 
 
 }

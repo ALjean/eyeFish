@@ -2,9 +2,9 @@ package com.jean.dao;
 
 import com.jean.Constants;
 import com.jean.CustomDfmException;
-import com.jean.entity.AbstractFish;
+import com.jean.entity.Fish;
 import com.jean.entity.FactoryProduser;
-import com.jean.entity.FishParameters;
+import com.jean.entity.FishParameter;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -13,7 +13,6 @@ import com.jean.BaseTest;
 
 import java.sql.SQLException;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +23,7 @@ import java.util.List;
 @Component
 public class FishDaoTest extends BaseTest {
 
-    private AbstractFish fish;
+    private Fish fish;
 
     private int id;
     private int temp;
@@ -35,11 +34,11 @@ public class FishDaoTest extends BaseTest {
         fish.setName("TestTaskName");
         fish.setDescription("Test Description JUNIT");
 
-        List<FishParameters> nibbleStateParams = new ArrayList<>();
+        List<FishParameter> nibbleStateParams = new ArrayList<>();
 
 
         for(int i = 0; i < 10; i++){
-            FishParameters nibbleStateParam = new FishParameters();
+            FishParameter nibbleStateParam = new FishParameter();
             nibbleStateParam.setMaxValue(20 + i);
             nibbleStateParam.setMinValue(15 - i);
             nibbleStateParam.setNibble(0.75f);
@@ -63,7 +62,7 @@ public class FishDaoTest extends BaseTest {
     @Test
     @Ignore
     public void readFishTest() throws CustomDfmException {
-        AbstractFish t= fishDao.read(id);
+        Fish t= fishDao.read(id);
 //        assertEquals(t.getName(), "TestTaskName");
         System.out.println("Test 2");
     }
@@ -78,7 +77,7 @@ public class FishDaoTest extends BaseTest {
     @Test
     @Ignore
     public void getFishByTempForNibbleTest() throws CustomDfmException {
-        AbstractFish fish = fishDao.getFishByTempForNibble(temp, id);
+        Fish fish = fishDao.getFishByTempForNibble(temp, id);
         System.out.println("Test 3");
     }
 }

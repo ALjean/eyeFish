@@ -2,7 +2,7 @@ package com.jean.service.impl;
 
 import com.jean.CustomDfmException;
 import com.jean.dao.FishDao;
-import com.jean.entity.AbstractFish;
+import com.jean.entity.Fish;
 import com.jean.service.FishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,18 +18,18 @@ public class FishServiceImpl implements FishService {
 
 
     @Override
-    public AbstractFish get(int id) throws CustomDfmException {
+    public Fish get(int id) throws CustomDfmException {
         return fishDao.read(id);
     }
 
     @Override
-    public boolean create(AbstractFish fish) throws SQLException, CustomDfmException {
+    public boolean create(Fish fish) throws SQLException, CustomDfmException {
         fishDao.save(fish);
         return false;
     }
 
     @Override
-    public void update(AbstractFish fish) {
+    public void update(Fish fish) {
             fishDao.update(fish);
     }
 
@@ -39,7 +39,7 @@ public class FishServiceImpl implements FishService {
     }
 
     @Override
-    public List<AbstractFish> getAll() {
+    public List<Fish> getAll() {
         return null;
     }
 }

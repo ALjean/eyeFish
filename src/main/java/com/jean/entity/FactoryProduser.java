@@ -5,7 +5,7 @@ import com.jean.CustomDfmException;
 
 public class FactoryProduser {
 
-    public static AbstractFish createFish(String type) throws CustomDfmException {
+    public static Fish createFish(String type) throws CustomDfmException {
 
         if (type.equalsIgnoreCase(Constants.FISH_TYPE_PREDATOR)) {
             return new PredatorFish();

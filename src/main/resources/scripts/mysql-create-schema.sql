@@ -1,9 +1,9 @@
-CREATE TABLE `parameters_names` (
-	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(50) NOT NULL,
-	`priority_level` INT(11) NULL,
-	PRIMARY KEY (`id`)
-);
+# CREATE TABLE `parameters_names` (
+# 	`id` INT(11) NOT NULL AUTO_INCREMENT,
+# 	`name` VARCHAR(50) NOT NULL,
+# 	`priority_level` INT(11) NULL,
+# 	PRIMARY KEY (`id`)
+# );
 
 CREATE TABLE `fishes` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -14,11 +14,13 @@ CREATE TABLE `fishes` (
 	PRIMARY KEY (`id`)
 );
 
+
 CREATE TABLE `baits` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(50) NOT NULL,
 	`type` VARCHAR(50) NOT NULL,
 	`description` VARCHAR(200),
+	FOREIGN KEY (`date_id`) REFERENCES `baits` (`bait_date`),
 	PRIMARY KEY (`id`)
 );
 
@@ -58,23 +60,21 @@ CREATE TABLE `daily_forecast_weathers` (
 
 CREATE TABLE `pond` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`parameter_id` INT(11) NOT NULL,
+	`name_type` VARCHAR(20),
 	`min_value` DOUBLE NOT NULL,
 	`max_value` DOUBLE NOT NULL,
 	`deep_id` VARCHAR(50) NOT NULL,
-	PRIMARY KEY (`id`),
-	FOREIGN KEY (`parameter_id`) REFERENCES `parameters_names` (`id`)
+	PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `fishes_nibble` (
+CREATE TABLE `fish_settings` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`fish_id` INT(11) NOT NULL,
-	`parameter_id` INT(11) NOT NULL,
+	`name_type` VARCHAR(20),
 	`min_value` DOUBLE NOT NULL,
 	`max_value` DOUBLE NOT NULL,
 	`nibble_level` DOUBLE NOT NULL,
 	PRIMARY KEY (`id`),
-	FOREIGN KEY (`parameter_id`) REFERENCES `parameters_names` (`id`),
 	FOREIGN KEY (`fish_id`) REFERENCES `fishes` (`id`)
 );
 
@@ -86,22 +86,15 @@ CREATE TABLE `messages` (
 );
 
 
-CREATE TABLE `seasons` (
-	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`description` VARCHAR(400),
-	`start_period` DATE NOT NULL,
-	`end_period` DATE NOT NULL,
-	PRIMARY KEY (`id`)
-);
 
-CREATE TABLE `year_periods` (
+CREATE TABLE `fish_nibble` (
 	id INT(11) NOT NULL AUTO_INCREMENT,
 	fish_id INT(11) NOT NULL,
-	seasons_id INT(11) NOT NULL,
-	`result_nibble_value` DOUBLE NOT NULL,
+	`start_period` DATE NOT NULL,
+	`end_period` DATE NOT NULL,
+	`nibble_value` DOUBLE NOT NULL,  #%
 	PRIMARY KEY (`id`),
-	FOREIGN KEY (`fish_id`) REFERENCES `fishes` (`id`),
-	FOREIGN KEY (`seasons_id`) REFERENCES `seasons` (`id`)
+	FOREIGN KEY (`fish_id`) REFERENCES `fishes` (`id`)
 );
 
 
@@ -115,15 +108,13 @@ CREATE TABLE `baits_to_fishes` (
 	FOREIGN KEY (`fish_id`) REFERENCES `fishes` (`id`)
 );
 
-CREATE TABLE `baits_to_seasons` (
-	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`bait_id` INT(11) NOT NULL,
-	`seasons_id` INT(11) NOT NULL,
-	FOREIGN KEY (`bait_id`) REFERENCES `baits` (`id`),
-	FOREIGN KEY (`seasons_id`) REFERENCES `seasons` (`id`),
+CREATE TABLE bait_date (
+`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`start_period` DATE NOT NULL,
+	`end_period` DATE NOT NULL,
 	PRIMARY KEY (`id`)
-
 );
+
 
 CREATE TABLE users (
 	id INT NOT NULL AUTO_INCREMENT,

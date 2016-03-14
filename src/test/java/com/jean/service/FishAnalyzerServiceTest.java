@@ -3,7 +3,7 @@ package com.jean.service;
 import com.jean.BaseTest;
 import com.jean.Constants;
 import com.jean.CustomDfmException;
-import com.jean.entity.AbstractFish;
+import com.jean.entity.Fish;
 import com.jean.entity.FactoryProduser;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -20,7 +20,7 @@ import java.util.Locale;
  */
 public class FishAnalyzerServiceTest extends BaseTest {
 
-    private AbstractFish fish;
+    private Fish fish;
     private Date date;
 
     @Before

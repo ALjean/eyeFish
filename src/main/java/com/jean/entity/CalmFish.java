@@ -1,6 +1,6 @@
 package com.jean.entity;
 
-public class CalmFish extends AbstractFish {
+public class CalmFish extends Fish {
 
     @Override
     public double hungryAnalyzer() {
