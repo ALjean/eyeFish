@@ -2,6 +2,7 @@ package com.jean.dao;
 
 import com.jean.Constants;
 import com.jean.CustomDfmException;
+import com.jean.DaoDfmException;
 import com.jean.entity.Fish;
 import com.jean.entity.FactoryProduser;
 import com.jean.entity.FishParameter;
@@ -54,29 +55,29 @@ public class FishDaoTest extends BaseTest {
 
     @Test
     @Ignore
-    public void createFishTest() throws CustomDfmException, SQLException {
+    public void createFishTest() throws CustomDfmException, DaoDfmException {
         fishDao.save(fish);
         System.out.println("Test 1");
     }
 
     @Test
     @Ignore
-    public void readFishTest() throws CustomDfmException {
-        Fish t= fishDao.read(id);
+    public void readFishTest() throws CustomDfmException,DaoDfmException {
+        Fish t= fishDao.get(id);
 //        assertEquals(t.getName(), "TestTaskName");
         System.out.println("Test 2");
     }
 
     @Test
     @Ignore
-    public void deleteFishTest() throws SQLException, CustomDfmException {
+    public void deleteFishTest() throws DaoDfmException, CustomDfmException {
         fishDao.delete(15);
         System.out.println("---------------");
     }
 
     @Test
     @Ignore
-    public void getFishByTempForNibbleTest() throws CustomDfmException {
+    public void getFishByTempForNibbleTest() throws CustomDfmException, DaoDfmException {
         Fish fish = fishDao.getFishByTempForNibble(temp, id);
         System.out.println("Test 3");
     }

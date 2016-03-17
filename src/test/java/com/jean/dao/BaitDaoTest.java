@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.sql.Date;
 import java.util.List;
 
+import com.jean.DaoDfmException;
 import com.jean.enums.BaitType;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,7 +31,7 @@ public class BaitDaoTest extends BaseTest {
     }
 
     @Test
-    public void getBaitsForFishByDateTest() throws CustomDfmException {
+    public void getBaitsForFishByDateTest() throws CustomDfmException, DaoDfmException {
 	baits = baitDao.getBaitsForFishByDate(date, fishId);
 	assertTrue(!baits.isEmpty());
     }
@@ -38,12 +39,12 @@ public class BaitDaoTest extends BaseTest {
 
     
     @Test
-    public void getMessageByKeyTest() throws CustomDfmException{
+    public void getMessageByKeyTest() throws CustomDfmException, DaoDfmException{
 	assertTrue(baitDao.getMessage(key).length() > 0);
     }
 
     @Test
-    public void saveTest() throws CustomDfmException{
+    public void saveTest() throws CustomDfmException, DaoDfmException{
         Bait bait = new Bait();
         bait.setName("Test");
         bait.setDescription("Adsdssdsd");

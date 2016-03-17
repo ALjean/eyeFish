@@ -2,6 +2,7 @@ package com.jean.service.impl;
 
 
 import com.jean.CustomDfmException;
+import com.jean.DaoDfmException;
 import com.jean.dao.WeatherDao;
 import com.jean.entity.Fish;
 import com.jean.entity.Weather;
@@ -25,7 +26,7 @@ public class FishAnalyzerServiceImpl implements FishAnalyzerService {
 	return null;
     }
 
-    public int getBehaviorFishByDay(Fish fish, Date date) throws CustomDfmException {
+    public int getBehaviorFishByDay(Fish fish, Date date) throws CustomDfmException, DaoDfmException {
         List<Weather> weathers = weatherDao.getLimitWeatherByDate(date);
 
 

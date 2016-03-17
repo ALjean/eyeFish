@@ -1,6 +1,7 @@
 package com.jean.service.impl;
 
 import com.jean.CustomDfmException;
+import com.jean.DaoDfmException;
 import com.jean.dao.FishDao;
 import com.jean.entity.Fish;
 import com.jean.service.FishService;
@@ -18,12 +19,12 @@ public class FishServiceImpl implements FishService {
 
 
     @Override
-    public Fish get(int id) throws CustomDfmException {
-        return fishDao.read(id);
+    public Fish get(int id) throws CustomDfmException, DaoDfmException {
+        return fishDao.get(id);
     }
 
     @Override
-    public boolean create(Fish fish) throws SQLException, CustomDfmException {
+    public boolean create(Fish fish) throws CustomDfmException, DaoDfmException {
         fishDao.save(fish);
         return false;
     }
@@ -34,7 +35,7 @@ public class FishServiceImpl implements FishService {
     }
 
     @Override
-    public void remove(int id) throws SQLException, CustomDfmException {
+    public void remove(int id) throws CustomDfmException, DaoDfmException {
         fishDao.delete(id);
     }
 

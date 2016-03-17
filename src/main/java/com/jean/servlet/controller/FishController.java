@@ -1,6 +1,7 @@
 package com.jean.servlet.controller;
 
 import com.jean.CustomDfmException;
+import com.jean.DaoDfmException;
 import com.jean.entity.Fish;
 import com.jean.service.FishService;
 import com.jean.util.DocumentParser;
@@ -24,12 +25,12 @@ public class FishController {
     private DocumentParser documentParser;
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public boolean create(@RequestBody Fish fish) throws SQLException, CustomDfmException {
+    public boolean create(@RequestBody Fish fish) throws CustomDfmException, DaoDfmException {
         return fishService.create(fish);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Fish get(@PathVariable int id) throws CustomDfmException {
+    public Fish get(@PathVariable int id) throws CustomDfmException, DaoDfmException {
         return fishService.get(id);
     }
 
@@ -39,7 +40,7 @@ public class FishController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable int id) throws SQLException, CustomDfmException {
+    public void delete(@PathVariable int id) throws CustomDfmException, DaoDfmException {
         fishService.remove(id);
     }
 

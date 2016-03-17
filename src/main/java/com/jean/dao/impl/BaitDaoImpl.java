@@ -4,6 +4,7 @@ import java.sql.*;
 import java.sql.Date;
 import java.util.*;
 
+import com.jean.DaoDfmException;
 import com.jean.enums.BaitType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import com.jean.CustomDfmException;
 import com.jean.dao.BaitDao;
 import com.jean.entity.Bait;
-import com.jean.entity.BaitProperties;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -20,7 +20,7 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
     private static Logger log = LoggerFactory.getLogger(BaitDaoImpl.class);
 
     @Override
-    public List<Bait> getBaitsForFishByDate(Date date, int fishId) throws CustomDfmException {
+    public List<Bait> getBaitsForFishByDate(Date date, int fishId) throws DaoDfmException {
 
         String sql = "SELECT b.id, b.name, b.bait_type, b.description, bf.is_priority "
                 + "FROM baits AS b INNER JOIN bindings_baits_to_fishes AS bf ON bf.bait_id = b.id "
@@ -43,11 +43,11 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
             }
 
             if (baits.isEmpty()) {
-                throw new CustomDfmException("For some reason list of baits is empty");
+                throw new DaoDfmException("For some reason list of baits is empty");
             }
 
         } catch (SQLException e) {
-            throw new CustomDfmException("Some problem with fetching list of baits " + "Message: " + e.getMessage());
+            throw new DaoDfmException("Some problem with fetching list of baits " + "Message: " + e.getMessage(), e);
         }
 
         log.info("End method getBaitColors(), list size is: " + baits.size());
@@ -59,7 +59,7 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 
 
     @Override
-    public String getMessage(String key) throws CustomDfmException {
+    public String getMessage(String key) throws DaoDfmException {
 
         String sql = "SELECT mess_text FROM messages WHERE string_key LIKE ?";
 
@@ -75,13 +75,13 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
                 result = rs.getString("mess_text");
             }
         } catch (SQLException e) {
-            throw new CustomDfmException("Some problem with fetching message text. " + "Message: " + e.getMessage());
+            throw new DaoDfmException("Some problem with fetching message text. " + "Message: " + e.getMessage(), e);
         }
         return result;
     }
 
     @Override
-    public Integer save(Bait bait) throws CustomDfmException {
+    public Integer save(Bait bait) throws DaoDfmException {
         String sql = "INSERT INTO baits (name, description, type) VALUES (?, ?, ?)";
 
 
@@ -103,16 +103,16 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
              return savedId;
 
         } catch (SQLException e) {
-            throw new CustomDfmException("Some problem with save message text. " + "Message: " + e.getMessage());
+            throw new DaoDfmException("Some problem with save message text. " + "Message: " + e.getMessage(), e);
         }
     }
 
     @Override
-    public void delete(int id) throws CustomDfmException {
+    public void delete(int id) throws DaoDfmException {
 
     }
 
-    public List<Bait> getBaitListToFish(int id) throws CustomDfmException {
+    public List<Bait> getBaitListToFish(int id) throws DaoDfmException {
 
         String sql = "SELECT * from baits WHERE id IN (SELECT fish_id from baits_to_fishes WHERE fish_id = ?)";
 
@@ -131,7 +131,7 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
             return list;
 
         } catch (SQLException e) {
-            throw new CustomDfmException("Some problem with save message text. " + "Message: " + e.getMessage());
+            throw new DaoDfmException("Some problem with save message text. " + "Message: " + e.getMessage(), e);
         }
 
     }

@@ -7,7 +7,7 @@ public interface BaseDao {
 
 //    void create(T entry);
 //
-//    T read(int id);
+//    T get(int id);
 //
 //    T update(T entry);
 //

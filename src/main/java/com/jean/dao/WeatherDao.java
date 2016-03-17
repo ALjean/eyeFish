@@ -1,6 +1,7 @@
 package com.jean.dao;
 
 import com.jean.CustomDfmException;
+import com.jean.DaoDfmException;
 import com.jean.entity.Weather;
 
 import java.util.Date;
@@ -12,9 +13,9 @@ import java.util.List;
  */
 public interface WeatherDao {
 
-    void save(Weather weather) throws CustomDfmException;
+    void save(Weather weather) throws DaoDfmException;
 
-    List<Weather> getAllWeather() throws CustomDfmException;
+    List<Weather> getAllWeather() throws DaoDfmException;
     
-    List<Weather> getLimitWeatherByDate(Date date)throws CustomDfmException;
+    List<Weather> getLimitWeatherByDate(Date date)throws DaoDfmException;
 }

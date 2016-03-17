@@ -1,6 +1,7 @@
 package com.jean.dao.impl;
 
 import com.jean.CustomDfmException;
+import com.jean.DaoDfmException;
 import com.jean.dao.UserDao;
 import com.jean.entity.User;
 import org.slf4j.Logger;
@@ -20,7 +21,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
     private static final Logger log = LoggerFactory.getLogger(UserDaoImpl.class);
 
     @Override
-    public User getUserByEmail(String email) throws CustomDfmException {
+    public User getUserByEmail(String email) throws DaoDfmException {
         String sql = "SELECT * FROM users WHERE email = ?";
         User user = new User();
 
@@ -41,7 +42,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
             log.info("get user by email: " + user.toString());
 
         } catch (SQLException e){
-            throw new CustomDfmException(e, "Same problem when find user by email");
+            throw new DaoDfmException("Same problem when find user by email", e);
         }
 
         return user;

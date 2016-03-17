@@ -1,12 +1,12 @@
 package com.jean.dao.impl;
 
 import com.jean.CustomDfmException;
+import com.jean.DaoDfmException;
 import com.jean.dao.FishNibbleDao;
 import com.jean.entity.FishNibble;
 import org.springframework.stereotype.Repository;
 
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,27 +19,27 @@ import java.util.List;
 @Repository
 public class FishNibbleDaoImpl extends BaseDaoImpl implements FishNibbleDao {
 
-    public void save(FishNibble fishNibble) throws CustomDfmException {
-
-        String sql = "INSERT INTO fish_nibble (fish_id, start_period, end_period, nibble_value) VALUES (?, ?, ?, ?)";
-
-
-        try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
-
-            preparedStatement.setInt(1, fishNibble.getFishId());
-            preparedStatement.setDate(2, new Date(fishNibble.getStart().getTime()));
-            preparedStatement.setDate(3, new Date(fishNibble.getEnd().getTime()));
-            preparedStatement.setDouble(4, fishNibble.getValue());
-
-            preparedStatement.executeUpdate();
-
-
-        } catch (SQLException e) {
-            throw new CustomDfmException("Error saved nibble", e);
-        }
-
-
-    }
+//    public void save(FishNibble fishNibble) throws CustomDfmException {
+//
+//        String sql = "INSERT INTO fish_nibble (fish_id, start_period, end_period, nibble_value) VALUES (?, ?, ?, ?)";
+//
+//
+//        try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
+//
+//            preparedStatement.setInt(1, fishNibble.getFishId());
+//            preparedStatement.setDate(2, new Date(fishNibble.getStart().getTime()));
+//            preparedStatement.setDate(3, new Date(fishNibble.getEnd().getTime()));
+//            preparedStatement.setDouble(4, fishNibble.getValue());
+//
+//            preparedStatement.executeUpdate();
+//
+//
+//        } catch (SQLException e) {
+//            throw new CustomDfmException("Error saved nibble", e);
+//        }
+//
+//
+//    }
 
 //    public void save(FishNibble fishNibble, boolean isCommitOff) throws SQLException, CustomDfmException {
 //        getConnection().setAutoCommit(isCommitOff);
@@ -47,7 +47,7 @@ public class FishNibbleDaoImpl extends BaseDaoImpl implements FishNibbleDao {
 //
 //    }
 
-    public List<FishNibble> getAllFishNibbleByFishId(int fishId) throws CustomDfmException {
+    public List<FishNibble> getAllFishNibbleByFishId(int fishId) throws DaoDfmException {
         String sql = "SELECT * FROM fish_nibble WHERE fish_id = ? ";
 
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
@@ -69,7 +69,7 @@ public class FishNibbleDaoImpl extends BaseDaoImpl implements FishNibbleDao {
             return nibbles;
 
         } catch (SQLException e) {
-            throw new CustomDfmException("Error when get nibble", e);
+            throw new DaoDfmException("Error when get nibble", e);
         }
 
     }

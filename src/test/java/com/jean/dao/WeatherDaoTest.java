@@ -2,6 +2,7 @@ package com.jean.dao;
 
 import com.jean.BaseTest;
 import com.jean.CustomDfmException;
+import com.jean.DaoDfmException;
 import com.jean.entity.Weather;
 
 import org.junit.Assert;
@@ -48,14 +49,14 @@ public class WeatherDaoTest extends BaseTest {
 
     @Test
     @Ignore
-    public void saveTest() throws CustomDfmException {
+    public void saveTest() throws CustomDfmException, DaoDfmException {
         weatherDao.save(weather);
         System.out.println("Test weather save");
     }
 
     @Test
     @Ignore
-    public void getLimitWeatherByDateTest() throws CustomDfmException {
+    public void getLimitWeatherByDateTest() throws CustomDfmException, DaoDfmException{
         List<Weather> weathers = weatherDao.getLimitWeatherByDate(date);
         Assert.assertTrue(weathers.size() > 0);
 
@@ -63,7 +64,7 @@ public class WeatherDaoTest extends BaseTest {
 
     @Test
     @Ignore
-    public void getAllWeatherTest() throws CustomDfmException {
+    public void getAllWeatherTest() throws CustomDfmException, DaoDfmException {
         List<Weather> weathers = weatherDao.getAllWeather();
         Assert.assertTrue(weathers.size() > 0);
     }

@@ -1,6 +1,7 @@
 package com.jean.dao;
 
 import com.jean.CustomDfmException;
+import com.jean.DaoDfmException;
 import com.jean.entity.User;
 
 /**
@@ -8,5 +9,5 @@ import com.jean.entity.User;
  */
 public interface UserDao {
 
-    User getUserByEmail(String email) throws CustomDfmException;
+    User getUserByEmail(String email) throws DaoDfmException;
 }

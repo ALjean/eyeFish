@@ -1,6 +1,7 @@
 package com.jean.schedule;
 
 import com.jean.CustomDfmException;
+import com.jean.DaoDfmException;
 import com.jean.dao.WeatherDao;
 import com.jean.entity.Weather;
 import com.jean.servlet.model.owm.DayWeatherDataOWM;
@@ -40,7 +41,7 @@ public class DataWeatherDataBaseWriter {
 
 
 
-    public void parseOwnWeather() throws CustomDfmException {
+    public void parseOwnWeather() throws CustomDfmException, DaoDfmException {
         GeneralWeatherStateOWM weatherOwm = weatherService.getDayWeatherState();
 
         List<Weather> weathers = weatherOwmToDtoList(weatherOwm);
@@ -48,7 +49,6 @@ public class DataWeatherDataBaseWriter {
         for (Weather weather : weathers) {
             weatherDao.save(weather);
         }
-
 
     }
 

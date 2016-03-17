@@ -3,6 +3,7 @@ package com.jean.service;
 import com.jean.BaseTest;
 import com.jean.Constants;
 import com.jean.CustomDfmException;
+import com.jean.DaoDfmException;
 import com.jean.entity.Fish;
 import com.jean.entity.FactoryProduser;
 import org.junit.Before;
@@ -33,7 +34,7 @@ public class FishAnalyzerServiceTest extends BaseTest {
 
     @Test
     @Ignore
-    public void getBehaviorFishByDayTest() throws CustomDfmException {
+    public void getBehaviorFishByDayTest() throws CustomDfmException ,DaoDfmException {
         fishAnalyzerService.getBehaviorFishByDay(fish, date);
         System.out.println("-------------");
     }

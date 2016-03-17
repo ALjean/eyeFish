@@ -1,6 +1,7 @@
 package com.jean.service.impl;
 
-import com.jean.CustomDfmException;
+
+import com.jean.DaoDfmException;
 import com.jean.dao.UserDao;
 import com.jean.entity.User;
 import com.jean.service.UserService;
@@ -23,7 +24,7 @@ public class UserServiceImpl implements UserService {
         User user = null;
         try {
             user = userDao.getUserByEmail(email);
-        } catch (CustomDfmException e) {
+        } catch (DaoDfmException e) {
             e.printStackTrace();
         }
         return user;

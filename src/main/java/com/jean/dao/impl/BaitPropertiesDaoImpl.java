@@ -1,10 +1,9 @@
 package com.jean.dao.impl;
 
-import com.jean.CustomDfmException;
+import com.jean.DaoDfmException;
 import com.jean.dao.BaitPropertiesDao;
 import com.jean.entity.BaitProperties;
 import com.jean.enums.BaitSettings;
-import com.jean.enums.BaitType;
 import com.jean.enums.BrightLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,12 +21,12 @@ public class BaitPropertiesDaoImpl extends BaseDaoImpl implements BaitProperties
     private static Logger log = LoggerFactory.getLogger(BaitPropertiesDaoImpl.class);
 
     @Override
-    public List<BaitProperties> getBaitPropertiesByType(BaitSettings baitType) throws CustomDfmException {
+    public List<BaitProperties> getBaitPropertiesByType(BaitSettings baitType) throws DaoDfmException {
         return null;
     }
 
     @Override
-    public List<BaitProperties> getBaitColors(double cloudLevel) throws CustomDfmException {
+    public List<BaitProperties> getBaitColors(double cloudLevel) throws DaoDfmException {
 
         String sql = "SELECT bs.name, bs.description  " + "FROM baits_settings AS bs " + "WHERE ? BETWEEN bs.cloud_min AND bs.cloud_max AND bs.type = ?";
 
@@ -47,11 +46,11 @@ public class BaitPropertiesDaoImpl extends BaseDaoImpl implements BaitProperties
             }
 
             if (baitsProperties.isEmpty()) {
-                throw new CustomDfmException("For some reason list of colors is empty");
+                throw new DaoDfmException("For some reason list of colors is empty");
             }
 
         } catch (SQLException e) {
-            throw new CustomDfmException("Some problem with fetching list of baits. " + "Message: " + e.getMessage());
+            throw new DaoDfmException("Some problem with fetching list of baits. " + "Message: " + e.getMessage());
         }
 
         log.info("End method getBaitColors(), list size is: " + baitsProperties.size());
@@ -60,7 +59,7 @@ public class BaitPropertiesDaoImpl extends BaseDaoImpl implements BaitProperties
     }
 
     @Override
-    public List<BaitProperties> getBaitColors(BrightLevel brightLevel) throws CustomDfmException {
+    public List<BaitProperties> getBaitColors(BrightLevel brightLevel) throws DaoDfmException {
 
         String sql = "SELECT bs.name, bs.description  " + "FROM baits_settings AS bs " + "WHERE bs.name LIKE ? AND bs.type = ?";
 
@@ -80,11 +79,11 @@ public class BaitPropertiesDaoImpl extends BaseDaoImpl implements BaitProperties
             }
 
             if (baitsProperties.isEmpty()) {
-                throw new CustomDfmException("For some reason list of colors is empty");
+                throw new DaoDfmException("For some reason list of colors is empty");
             }
 
         } catch (SQLException e) {
-            throw new CustomDfmException("Some problem with fetching list of baits. " + "Message: " + e.getMessage(), e);
+            throw new DaoDfmException("Some problem with fetching list of baits. " + "Message: " + e.getMessage(), e);
         }
 
         log.info("End method getBaitColors(), list size is: " + baitsProperties.size());
@@ -93,7 +92,7 @@ public class BaitPropertiesDaoImpl extends BaseDaoImpl implements BaitProperties
     }
 
     @Override
-    public List<BaitProperties> getBaitTastes(double temperature) throws CustomDfmException {
+    public List<BaitProperties> getBaitTastes(double temperature) throws DaoDfmException {
 
         String sql = "SELECT bs.name, bs.description " + "FROM baits_settings AS bs " + "WHERE ? BETWEEN bs.temp_min AND bs.temp_max AND bs.type = ?";
 
@@ -113,11 +112,11 @@ public class BaitPropertiesDaoImpl extends BaseDaoImpl implements BaitProperties
             }
 
             if (baitsProperties.isEmpty()) {
-                throw new CustomDfmException("For some reason list of tastes is empty");
+                throw new DaoDfmException("For some reason list of tastes is empty");
             }
 
         } catch (SQLException e) {
-            throw new CustomDfmException("Some problem with fetching list of tastes. " + "Message: " + e.getMessage(), e);
+            throw new DaoDfmException("Some problem with fetching list of tastes. " + "Message: " + e.getMessage(), e);
         }
 
         log.info("End method getBaitTastes(), list size is: " + baitsProperties.size());

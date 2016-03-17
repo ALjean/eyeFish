@@ -1,6 +1,7 @@
 package com.jean.dao.impl;
 
 import com.jean.CustomDfmException;
+import com.jean.DaoDfmException;
 import com.jean.dao.WeatherDao;
 import com.jean.entity.Weather;
 import org.slf4j.Logger;
@@ -23,7 +24,7 @@ public class WeatherDaoImpl extends BaseDaoImpl implements WeatherDao {
     private static final Logger log = LoggerFactory.getLogger(FishDaoImpl.class);
 
     @Override
-    public void save(Weather weather) throws CustomDfmException {
+    public void save(Weather weather) throws DaoDfmException {
         String sql = "INSERT INTO weather (city, date, temp_day, temp_night, temp_even, temp_morn, pressure, wind_speed, wind_deg, humidity, clouds) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -44,12 +45,12 @@ public class WeatherDaoImpl extends BaseDaoImpl implements WeatherDao {
             log.info(result != 0 ? "Weather saved" : "Weather didn't save");
 
         } catch (SQLException e) {
-            throw new CustomDfmException(e, "some problem with save weather");
+            throw new DaoDfmException("some problem with save weather", e);
         }
 
     }
 
-    public List<Weather> getAllWeather() throws CustomDfmException {
+    public List<Weather> getAllWeather() throws DaoDfmException {
         String sql = "SELECT id, city, date, temp_day, temp_night, temp_even, temp_morn, pressure, wind_speed, wind_deg, humidity, clouds FROM weather";
         List<Weather> weathers = new ArrayList<>();
 
@@ -64,14 +65,14 @@ public class WeatherDaoImpl extends BaseDaoImpl implements WeatherDao {
             log.info(weathers.size() > 0 ? "Weather list: " + weathers.size() : "Weather result is zero");
 
         } catch (SQLException e) {
-            throw new CustomDfmException(e, "some problem when get List Weather");
+            throw new DaoDfmException("some problem when get List Weather", e);
         }
 
         return weathers;
     }
 
     @Override
-    public List<Weather> getLimitWeatherByDate(java.util.Date date) throws CustomDfmException {
+    public List<Weather> getLimitWeatherByDate(java.util.Date date) throws DaoDfmException {
         String sql = "SELECT id, city, date, temp_day, temp_night, temp_even, temp_morn, pressure, wind_speed, wind_deg, humidity, " +
                 "clouds FROM weather WHERE date <= ? ORDER BY id DESC LIMIT 5";
 
@@ -86,7 +87,7 @@ public class WeatherDaoImpl extends BaseDaoImpl implements WeatherDao {
             }
 
         } catch (SQLException e) {
-            throw new CustomDfmException(e, "some problem when get List Weather");
+            throw new DaoDfmException("some problem when get List Weather", e);
         }
 
         return weathers;

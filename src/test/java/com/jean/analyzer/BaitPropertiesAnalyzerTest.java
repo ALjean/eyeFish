@@ -2,6 +2,7 @@ package com.jean.analyzer;
 
 import java.util.List;
 
+import com.jean.DaoDfmException;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -25,7 +26,7 @@ public class BaitPropertiesAnalyzerTest extends BaseTest {
     }
     
     @Test
-    public void getTheBestColorTest() throws CustomDfmException{
+    public void getTheBestColorTest() throws CustomDfmException, DaoDfmException {
 	props = baitPropAnalyzer.getTheBestColor(cloudLevel, rainLevel, deepLevel);
 	assertTrue(!props.isEmpty());
 	System.out.println(props.get(0).getName());

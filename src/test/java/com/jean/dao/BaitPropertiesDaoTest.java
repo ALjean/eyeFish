@@ -2,6 +2,7 @@ package com.jean.dao;
 
 import com.jean.BaseTest;
 import com.jean.CustomDfmException;
+import com.jean.DaoDfmException;
 import com.jean.entity.BaitProperties;
 import com.jean.enums.BrightLevel;
 import org.junit.Before;
@@ -26,19 +27,19 @@ public class BaitPropertiesDaoTest extends BaseTest {
     }
 
     @Test
-    public void getBaitColorsByCloudLevelTest() throws CustomDfmException {
+    public void getBaitColorsByCloudLevelTest() throws CustomDfmException, DaoDfmException {
         props = baitPropertiesDao.getBaitColors(cloudLevel);
         assertTrue(!props.isEmpty());
     }
 
     @Test
-    public void getBaitColorByNameTest() throws CustomDfmException {
+    public void getBaitColorByNameTest() throws CustomDfmException, DaoDfmException {
         props = baitPropertiesDao.getBaitColors(BrightLevel.DARK);
         assertTrue(!props.isEmpty());
     }
 
     @Test
-    public void getBaitTastesByTemperature() throws CustomDfmException {
+    public void getBaitTastesByTemperature() throws CustomDfmException, DaoDfmException {
         props = baitPropertiesDao.getBaitTastes(temperature);
         assertTrue(!props.isEmpty());
     }

@@ -3,6 +3,7 @@ package com.jean.analyzers.fish;
 import java.util.*;
 
 
+import com.jean.DaoDfmException;
 import com.jean.enums.Hungry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,7 +21,7 @@ public class FishAnalyzerImpl implements FishAnalyzer {
 
     private Map<String, Integer> raiting;
 
-    public List<String> getHungryRating(Fish fish) throws CustomDfmException {
+    public List<String> getHungryRating(Fish fish) throws CustomDfmException, DaoDfmException {
 
         List<Weather> listWeather = weatherDao.getLimitWeatherByDate(new Date());
 

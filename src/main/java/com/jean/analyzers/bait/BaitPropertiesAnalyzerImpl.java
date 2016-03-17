@@ -3,7 +3,7 @@ package com.jean.analyzers.bait;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jean.analyzers.bait.BaitPropertiesAnalyzer;
+import com.jean.DaoDfmException;
 import com.jean.dao.BaitPropertiesDao;
 import com.jean.enums.BrightLevel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class BaitPropertiesAnalyzerImpl implements BaitPropertiesAnalyzer {
 	private BaitDao baitDao;
 
     @Override
-    public List<BaitProperties> getTheBestTaste(double temperature) throws CustomDfmException {
+    public List<BaitProperties> getTheBestTaste(double temperature) throws DaoDfmException {
 
 	List<BaitProperties> tastes = new ArrayList<>();
 
@@ -40,7 +40,7 @@ public class BaitPropertiesAnalyzerImpl implements BaitPropertiesAnalyzer {
     }
 
     @Override
-    public List<BaitProperties> getTheBestColor(double cloudLevel, double rainLevel, String deepLevel) throws CustomDfmException {
+    public List<BaitProperties> getTheBestColor(double cloudLevel, double rainLevel, String deepLevel) throws DaoDfmException {
 
 	List<BaitProperties> colors = new ArrayList<>();
 
@@ -61,7 +61,7 @@ public class BaitPropertiesAnalyzerImpl implements BaitPropertiesAnalyzer {
     }
 
     @Override
-    public List<BaitProperties> isPopUp(String algaLevel, String livingArea, String baitType, String deepLevel) throws CustomDfmException {
+    public List<BaitProperties> isPopUp(String algaLevel, String livingArea, String baitType, String deepLevel) throws DaoDfmException {
 	
 	String result = "";
 	
