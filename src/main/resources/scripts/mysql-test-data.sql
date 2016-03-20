@@ -1,49 +1,19 @@
-INSERT INTO `fishes` (`id`, `name`, `description`, `type`, `living_area`) VALUES
-	(7, 'Carp', 'In Europe, even when not carp angling publications such as Carpolo Advanced carp fishing, Carpworld and Total Carp, and informative carp angling web sites, such as Carpfishing UK', 'CALM', 'BOTTOM'),
-	(13, 'Pike', 'Effective methods for catching this teeth it is wise to take extreme remove hooks is highly recommended on safety grounds. If practicing catch and release fishing, \r\ncare for the pike should be the pike angler s utmost concern. The formerly recommended practice of grasping \r\na pike by its eye sockets (tragically interpreted as "its eyes") resulted in countless released pike that.', 'PREDATOR', 'BOTTOM');
-
-
+INSERT INTO `fish_types` (`id`, `type_name`) VALUES
+	(1, 'CALM'),
+	(2, 'PREDATOR'),
+	(3, 'OMNIVOROUS');
 	
-INSERT INTO `baits` (`id`, `name`, `type`, `description`) VALUES
-	(1, 'Worm', 'LIVEBAIT', 'For most biggest calm fish'),
-	(2, 'Maggot', 'LIVEBAIT', 'For white calm fish'),
-	(3, 'Bloodwarm', 'LIVEBAIT', 'For white calm fish on winter period'),
-	(4, 'Corn', 'VEGETALE', 'Traditional bait for calm fish'),
-	(5, 'Semolina', 'VEGETALE', 'Effective bait for calm fish'),
-	(6, 'Boil', 'BOIL', 'Best for most biggest carp'),
-	(7, 'Castmaster', 'SIMULATED', 'Best for pike');
-
-INSERT INTO `baits_to_fishes` (`id`, `fish_id`, `bait_id`, `is_priority`) VALUES
-	(1, 7, 1, b'0'),
-	(2, 7, 2, b'0'),
-	(3, 7, 4, b'0'),
-	(4, 7, 6, b'1'),
-	(5, 13, 7, b'0');
-
-INSERT INTO baits_settings (name, type, description, cloud_min, cloud_max, temp_min, temp_max) VALUES
-	('DARK', 'COLOR', 'Use dark or soft colors', 0, 15, null, null),
-	('NATURAL','COLOR', 'Use natural colors wich belong to pond', 0, 25, null, null),
-	('WHITE','COLOR',  'Use white colors and lights', 26, 79, null, null),
-	('BRIGHT','COLOR', 'Use bright and lumia colors', 65, 100, null, null),
-	('ULTRALIGHT', 'MASS', null, null, null, null, null),
-	('LIGHT', 'MASS', null, null, null, null, null),
-	('MEDIUM', 'MASS', null, null, null, null, null),
-	('HEAVY', 'MASS', null, null, null, null, null),
-	('ULTRAHEAVY', 'MASS', null, null, null, null, null),
-	('MEAT','TASTE', 'For cold water and cjld weather', null, null, 0, 10),
-	('FISHED', 'TASTE', 'For Otoumn and early Winter',null, null, 11, 15),
-	('SPICY', 'TASTE', 'For worm water', null, null,16, 20),
-	('FRUIT','TASTE', 'For hot weather',null, null, 21, 35);
-
-
+INSERT INTO `living_areas` (`id`, `area_name`) VALUES
+	(1, 'TOP'),
+	(2, 'MIDDLE'),
+	(4, 'BOTTOM'),
+	(5, 'EVERPRESENT');
 	
-INSERT INTO `baits_to_seasons` (`seasons_id`, `bait_id`) VALUES
-	(1, 1),
-	(2, 1),
-	(3, 4),
-	(5, 6);
+INSERT INTO `fishes` (`id`, `name`, `description`, `type_id`, `area_id`) VALUES	
+	(7, 'Carp', 'In Europe, even when not fished for food, they are eagerly sought by anglers, being considered highly prized coarse fish', 1, 4),
+	(13, 'Pike', 'Effective methods for catching this hard-fighting fish include dead baits', 2, 4);
 	
-INSERT INTO `parameters_names` (`id`, `name`, `priority_level`) VALUES
+INSERT INTO `parameters_names` (`id`, `parameters_name`, `priority_level`) VALUES
 	(1, 'CLOUD_LEVEL', 3),
 	(2, 'RAIN_LEVEL', 2),
 	(3, 'ENVIRMOMENT_TEMPERATURE', NULL),
@@ -52,9 +22,8 @@ INSERT INTO `parameters_names` (`id`, `name`, `priority_level`) VALUES
 	(6, 'DEEP_LEVEL', 1),
 	(7, 'ALGA_LEVEL', NULL),
 	(8, 'WIND_SPEED', NULL);
-
 	
-INSERT INTO `fishes_nibble` (`id`, `fish_id`, `parameter_id`, `min_value`, `max_value`, `nibble_level`) VALUES
+INSERT INTO `fishe_settings` (`id`, `fish_id`, `parameter_id`, `min_value`, `max_value`, `nibble_level`) VALUES
 	(38, 7, 3, -50, -4, 0),
 	(39, 7, 3, -5, 12, 15.5),
 	(40, 7, 3, 12, 16, 21.2),
@@ -80,6 +49,76 @@ INSERT INTO `fishes_nibble` (`id`, `fish_id`, `parameter_id`, `min_value`, `max_
 	(86, 13, 5, 726, 740, 23.87),
 	(87, 13, 5, 741, 752, 26.3),
 	(88, 13, 5, 753, 765, 96.3);
+
+INSERT INTO `bait_types` (`id`, `type_name`) VALUES
+	(1, 'LIVEBAIT'),
+	(2, 'VEGETALE'),
+	(3, 'BOIL'),
+	(4, 'SIMULATED'),
+	(5, 'SPOONBAIT');
+	
+INSERT INTO `baits` (`id`, `bait_name`, `type_id`, `description`, `is_color`, `is_taste`, `is_mass`, `is_speed`, `is_deep`) VALUES
+	(1, 'Worm', 1, 'For most biggest calm fish', b'0', b'0', b'0', b'0', b'0'),
+	(2, 'Maggot', 1, 'For white calm fish', b'1', b'0', b'0', b'0', b'0'),
+	(3, 'Bloodwarm', 1, 'For white calm fish on winter period', b'0', b'0', b'0', b'0', b'0'),
+	(4, 'Corn', 2, 'Traditional bait for calm fish', b'0', b'1', b'0', b'0', b'0'),
+	(5, 'Semolina', 2, 'Effective bait for calm fish', b'1', b'1', b'0', b'0', b'0'),
+	(6, 'Boil', 3, 'Best for most biggest carp', b'1', b'1', b'0', b'0', b'0'),
+	(7, 'Castmaster', 5, 'Best for pike', b'1', b'0', b'1', b'1', b'0');
+	
+INSERT INTO `baits_mass` (`id`, `mass_name`, `description`) VALUES
+	(1, 'ULTRALIGHT', NULL),
+	(2, 'LIGHT', NULL),
+	(3, 'MEDIUM', NULL),
+	(4, 'HEAVY', NULL),
+	(5, 'ULTRAHEAVY', NULL);
+
+INSERT INTO `bait_colors` (`id`, `color_name`, `description`) VALUES
+	(1, 'DARK', NULL),
+	(2, 'NATURAL', NULL),
+	(3, 'WHITE', NULL),
+	(4, 'BRIGHT', NULL);
+	
+INSERT INTO `bait_tastes` (`id`, `taste_name`, `description`) VALUES
+	(1, 'MEAT', NULL),
+	(2, 'FRUIT', NULL),
+	(3, 'SPICY', NULL),
+	(4, 'FISH', NULL);
+	
+INSERT INTO `bait_tastes_properties` (`id`, `parameter_id`, `min_value`, `max_value`, `taste_id`) VALUES
+	(1, 3, -50, 10, 1),
+	(2, 3, 11, 15, 4),
+	(3, 3, 16, 20, 3),
+	(4, 3, 21, 35, 2),
+	(5, 4, 0, 10, 1),
+	(6, 4, 11, 15, 4),
+	(7, 4, 16, 20, 3),
+	(8, 4, 21, 26, 2);
+	
+INSERT INTO `bait_colors_properties` (`id`, `parameter_id`, `min_value`, `max_value`, `color_id`) VALUES
+	(1, 1, 0, 15, 1),
+	(2, 1, 16, 25, 2),
+	(3, 1, 26, 79, 3),
+	(4, 1, 65, 100, 4),
+	(5, 6, 0, 1.2, 1),
+	(6, 6, 1.3, 2, 2),
+	(7, 6, 2.1, 3.5, 3),
+	(8, 6, 3.6, 15, 4),
+	(9, 7, 30, 60, 3),
+	(10, 7, 61, 100, 4);
+	
+INSERT INTO `baits_to_fishes` (`id`, `fish_id`, `bait_id`, `is_priority`) VALUES
+	(1, 7, 1, b'0'),
+	(2, 7, 2, b'0'),
+	(3, 7, 4, b'0'),
+	(4, 7, 6, b'1'),
+	(5, 13, 7, b'0');
+	
+INSERT INTO `baits_to_seasons` (`id`, `bait_id`, `start_period`, `end_period`) VALUES
+	(1, 1, '2016-09-01', '2016-10-31'),
+	(2, 1, '2016-04-15', '2016-05-15'),
+	(3, 4, '2016-06-01', '2016-08-31'),
+	(5, 6, '2016-06-01', '2016-08-31');
 	
 INSERT INTO `messages` (`id`, `string_key`, `mess_text`) VALUES
 	(1, 'STYRO_POP_UP', 'Use the styrofoam for take up your bait under bottom'),
@@ -98,24 +137,12 @@ INSERT INTO `pond` (`id`, `parameter_id`, `min_value`, `max_value`, `deep_id`) V
 	(9, 4, 12, 17, 'SOFT'),
 	(10, 4, 18, 24, 'WARM'),
 	(11, 4, 25, 30, 'HOT');
-
-INSERT INTO `seasons` (`id`, `description`, `start_period`, `end_period`) VALUES
-	(1, 'WINTER_MIDDLE', '2016-01-01', '2016-01-30'),
-	(2, 'WINTER_END', '2016-02-01', '2016-02-29'),
-	(3, 'SPRING_EARLY', '2016-03-01', '2016-03-31'),
-	(4, 'SPRING_MIDDLE', '2016-04-01', '2016-04-30'),
-	(5, 'SPRING_END', '2016-05-01', '2016-05-31'),
-	(6, 'SUMMER_EARLY', '2016-06-01', '2016-06-30'),
-	(7, 'SUMMER_MIDDLE', '2016-07-01', '2016-07-30'),
-	(8, 'SUMMER_END', '2016-08-01', '2016-08-31'),
-	(9, 'OTOUMN_EARLY', '2016-09-01', '2016-09-30'),
-	(10, 'OTOUMN_MIDDLE', '2016-10-01', '2016-10-31'),
-	(11, 'OTOUMN_END', '2016-11-01', '2016-11-30'),
-	(12, 'WINTER_EARLY', '2016-12-01', '2016-12-31');
-
-INSERT INTO users (email, password, first_name, last_name, role) VALUES
-('mail@mail.com', '$2a$08$.Vib2ZN7L3C3kx.BRAf5xOW8wKNN/v8FFpKSMcV21lfkoSy.ILpRW', 'Bill', 'Montgomery', 'ADMIN'),
-('mail1@mail.com', '$2a$08$.Vib2ZN7L3C3kx.BRAf5xOW8wKNN/v8FFpKSMcV21lfkoSy.ILpRW', 'Taller', 'Derdon', 'USER');
 	
+INSERT INTO `rain_volume` (`id`, `min_mm_level`, `max_mm_level`, `description`) VALUES
+	(1, 0.3, 0.5, 'Slight rain'),
+	(2, 0.6, 4, 'Moderate rain'),
+	(3, 4.1, 8, 'Heavy rain'),
+	(4, 8, 100, 'Very heavy rain');
 	
+
 	

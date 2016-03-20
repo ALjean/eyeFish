@@ -8,9 +8,9 @@ import com.jean.entity.BaitProperties;
 public interface BaitPropertiesAnalyzer {
 
 
-	List<BaitProperties> getTheBestColor(double cloudLevel, double rainLevel, String deepLevel) throws DaoDfmException;
+	List<BaitProperties> getTheBestColor(double cloudLevel, double rainLevel, double deepLevel, double algaLevel) throws DaoDfmException;
 	
-	List<BaitProperties> getTheBestTaste(double temperature) throws DaoDfmException;
+	List<BaitProperties> getTheBestTaste(double envirmomentTemp, Double waterTemp) throws DaoDfmException;
 	
 	List<BaitProperties> getTheBestMass(int boffortScale);
 	

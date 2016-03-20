@@ -7,38 +7,116 @@
 
 CREATE TABLE `fishes` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(30) NOT NULL,
-	`description` VARCHAR(500),
-	`type` VARCHAR(50) NOT NULL,
-	`living_area` VARCHAR(50) NOT NULL,
+	`name` VARCHAR(30) NOT NULL 
+	`description` TEXT NULL 
+	`type_id` INT(11) NULL DEFAULT NULL,
+	`area_id` INT(11) NULL DEFAULT NULL,
+	PRIMARY KEY (`id`),
+	FOREIGN KEY (`type_id`) REFERENCES `fish_types` (`id`),
+	FOREIGN KEY (`area_id`) REFERENCES `living_areas` (`id`)
+);
+
+CREATE TABLE `fish_types` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`type_name` VARCHAR(30) NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
+CREATE TABLE `bait_types` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`type_name` VARCHAR(30) NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `living_areas` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`area_name` VARCHAR(30) NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `rain_volume` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`min_mm_level` DOUBLE NULL DEFAULT NULL,
+	`max_mm_level` DOUBLE NULL DEFAULT NULL,
+	`description` VARCHAR(500) NULL DEFAULT NULL,
+	PRIMARY KEY (`id`)
+);
 
 CREATE TABLE `baits` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`bait_name` VARCHAR(50) NOT NULL 
+	`type_id` INT(11) NULL,
+	`description` TEXT NOT NULL,
+	`is_color` BIT(1) NOT NULL,
+	`is_taste` BIT(1) NOT NULL,
+	`is_mass` BIT(1) NOT NULL,
+	`is_speed` BIT(1) NOT NULL,
+	`is_deep` BIT(1) NOT NULL,
+ 	FOREIGN KEY (`type_id`) REFERENCES `bait_types` (`id`)
+);
+
+CREATE TABLE `baits_to_seasons` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(50) NOT NULL,
-	`type` VARCHAR(50) NOT NULL,
-	`description` VARCHAR(200),
-	FOREIGN KEY (`date_id`) REFERENCES `baits` (`bait_date`),
+	`bait_id` INT(11) NOT NULL,
+	`start_period` DATE NOT NULL,
+	`end_period` DATE NOT NULL,
+	PRIMARY KEY (`id`),
+    FOREIGN KEY (`bait_id`) REFERENCES `baits` (`id`)
+);
+
+CREATE TABLE `baits_mass` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`mass_name` VARCHAR(30) NOT NULL,
+	`description` TEXT NOT NULL ,
 	PRIMARY KEY (`id`)
 );
 
-
-CREATE TABLE baits_settings (
+CREATE TABLE `bait_colors` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(50) NOT NULL,
-	`type` VARCHAR(50) NOT NULL,
-	`description` VARCHAR(200),
-	`cloud_min` DOUBLE,
-	`cloud_max` DOUBLE,
-	`temp_min` DOUBLE,
-	`temp_max` DOUBLE,
+	`color_name` VARCHAR(20) NOT NULL COLLATE 'utf16_bin',
+	`description` TEXT NULL COLLATE 'utf16_bin',
 	PRIMARY KEY (`id`)
 );
 
+CREATE TABLE `bait_tastes` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`taste_name` VARCHAR(30) NOT NULL,
+	`description` TEXT NULL,
+	PRIMARY KEY (`id`)
+);
 
+CREATE TABLE `bait_colors_properties` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`parameter_id` INT(11) NOT NULL,
+	`min_value` DOUBLE NOT NULL,
+	`max_value` DOUBLE NOT NULL,
+	`color_id` INT(11) NOT NULL,
+	PRIMARY KEY (`id`),
+	FOREIGN KEY (`color_id`) REFERENCES `bait_colors` (`id`),
+ 	FOREIGN KEY (`parameter_id`) REFERENCES `parameters_names` (`id`)
+);
 
+CREATE TABLE `bait_mass_properties` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`parameter_id` INT(11) NOT NULL,
+	`min_value` DOUBLE NOT NULL,
+	`max_value` DOUBLE NOT NULL,
+	`mass_id` INT(11) NOT NULL,
+	PRIMARY KEY (`id`),
+	FOREIGN KEY (`mass_id`) REFERENCES `baits_mass` (`id`),
+	FOREIGN KEY (`parameter_id`) REFERENCES `parameters_names` (`id`)
+);
+
+CREATE TABLE `bait_tastes_properties` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`parameter_id` INT(11) NOT NULL,
+	`min_value` DOUBLE NOT NULL,
+	`max_value` DOUBLE NOT NULL,
+	`taste_id` INT(11) NOT NULL,
+	PRIMARY KEY (`id`),
+	FOREIGN KEY (`taste_id`) REFERENCES `bait_tastes` (`id`),
+	FOREIGN KEY (`parameter_id`) REFERENCES `parameters_names` (`id`)
+)
 
 CREATE TABLE `daily_forecast_weathers` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -55,8 +133,6 @@ CREATE TABLE `daily_forecast_weathers` (
 	`clouds` INT(11) NOT NULL,
 	PRIMARY KEY (`id`)
 );
-
-
 
 CREATE TABLE `pond` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -86,7 +162,6 @@ CREATE TABLE `messages` (
 );
 
 
-
 CREATE TABLE `fish_nibble` (
 	id INT(11) NOT NULL AUTO_INCREMENT,
 	fish_id INT(11) NOT NULL,
@@ -114,7 +189,6 @@ CREATE TABLE bait_date (
 	`end_period` DATE NOT NULL,
 	PRIMARY KEY (`id`)
 );
-
 
 CREATE TABLE users (
 	id INT NOT NULL AUTO_INCREMENT,
