@@ -25,10 +25,10 @@ public class BaitPropertiesAnalyzerTest extends BaseTest {
 	deepLevel = DEEP_LEVEL.SHALLOW.toString();
     }
     
-    @Test
+   /* @Test
     public void getTheBestColorTest() throws CustomDfmException, DaoDfmException {
-	props = baitPropAnalyzer.getTheBestColor(cloudLevel, rainLevel, deepLevel);
+	props = baitPropAnalyzer.getTheBestColor(cloudLevel, rainLevel, deepLevel, null);
 	assertTrue(!props.isEmpty());
 	System.out.println(props.get(0).getName());
-    }
+    }*/
 }

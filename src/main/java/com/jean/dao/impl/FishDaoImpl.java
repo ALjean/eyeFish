@@ -5,7 +5,7 @@ import com.jean.DaoDfmException;
 import com.jean.dao.FishDao;
 import com.jean.entity.*;
 import com.jean.Constants;
-import com.jean.enums.NameType;
+import com.jean.enums.ParamNames;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -235,7 +235,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
     private FishParameter getNibbleStateParamFromRs(ResultSet rs) throws SQLException {
         FishParameter nibbleStateParam = new FishParameter();
         nibbleStateParam.setId(rs.getInt("type_data_id"));
-        nibbleStateParam.setStateDataType(NameType.valueOf(rs.getString("state_data_type")));
+        nibbleStateParam.setStateDataType(ParamNames.valueOf(rs.getString("state_data_type")));
         nibbleStateParam.setMinValue(rs.getDouble("min_range_value"));
         nibbleStateParam.setMaxValue(rs.getDouble("max_range_value"));
         nibbleStateParam.setNibble(rs.getLong("result_nibble_value"));

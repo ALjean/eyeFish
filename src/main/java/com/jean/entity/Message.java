@@ -1,44 +1,48 @@
 package com.jean.entity;
 
+import com.jean.enums.MessageKey;
+
 public class Message {
 
     private int id;
-    
-    private String locationMessage;
-    
-    private String hungryMessage;
-    
-    private String spawingMessage;
+
+    private MessageKey key;
+
+    private String text;
 
     public int getId() {
-        return id;
+	return id;
     }
 
     public void setId(int id) {
-        this.id = id;
+	this.id = id;
     }
 
-    public String getLocationMessage() {
-        return locationMessage;
+    public MessageKey getKey() {
+	return key;
     }
 
-    public void setLocationMessage(String locationMessage) {
-        this.locationMessage = locationMessage;
+    public void setKey(MessageKey key) {
+	this.key = key;
     }
 
-    public String getHungryMessage() {
-        return hungryMessage;
+    public String getText() {
+	return text;
     }
 
-    public void setHungryMessage(String hungryMessage) {
-        this.hungryMessage = hungryMessage;
+    public void setText(String text) {
+	this.text = text;
     }
 
-    public String getSpawingMessage() {
-        return spawingMessage;
+    public Message() {
+	super();
     }
 
-    public void setSpawingMessage(String spawingMessage) {
-        this.spawingMessage = spawingMessage;
+    public Message(int id, MessageKey key, String text) {
+	super();
+	this.id = id;
+	this.key = key;
+	this.text = text;
     }
+
 }

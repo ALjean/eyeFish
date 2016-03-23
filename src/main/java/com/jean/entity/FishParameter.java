@@ -1,6 +1,6 @@
 package com.jean.entity;
 
-import com.jean.enums.NameType;
+import com.jean.enums.ParamNames;
 
 /**
  * Created by Stas on 15.11.2015.
@@ -9,17 +9,17 @@ public class FishParameter {
 
     private int id;
     private int fishId;
-    private NameType stateDataType;
+    private ParamNames stateDataType;
     private double minValue;
     private double maxValue;
     private float nibble;
 
 
-    public NameType getStateDataType() {
+    public ParamNames getStateDataType() {
         return stateDataType;
     }
 
-    public void setStateDataType(NameType stateDataType) {
+    public void setStateDataType(ParamNames stateDataType) {
         this.stateDataType = stateDataType;
     }
 

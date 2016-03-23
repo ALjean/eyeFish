@@ -1,5 +1,5 @@
 package com.jean.enums;
 
-public enum BrightLevel {
+public enum BaitProperties {
     BRIGHT, WHITE, NATURAL, DARK
 }

@@ -3,8 +3,7 @@ package com.jean.dao.impl;
 import com.jean.DaoDfmException;
 import com.jean.dao.BaitPropertiesDao;
 import com.jean.entity.BaitProperties;
-import com.jean.enums.BaitSettings;
-import com.jean.enums.BrightLevel;
+import com.jean.enums.BaitPropertieTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -23,7 +22,7 @@ public class BaitPropertiesDaoImpl extends BaseDaoImpl implements BaitProperties
     private static Logger log = LoggerFactory.getLogger(BaitPropertiesDaoImpl.class);
 
     @Override
-    public List<BaitProperties> getBaitPropertiesByType(BaitSettings baitType) throws DaoDfmException {
+    public List<BaitProperties> getBaitPropertiesByType(BaitPropertieTypes baitType) throws DaoDfmException {
 	return null;
     }
 
@@ -64,7 +63,7 @@ public class BaitPropertiesDaoImpl extends BaseDaoImpl implements BaitProperties
     }
 
     @Override
-    public List<BaitProperties> getBaitColors(BrightLevel brightLevel) throws DaoDfmException {
+    public List<BaitProperties> getBaitColors(BaitProperties brightLevel) throws DaoDfmException {
 
 	String sql = "SELECT bs.name, bs.description  " + "FROM baits_settings AS bs " + "WHERE bs.name LIKE ? AND bs.type = ?";
 
@@ -74,8 +73,8 @@ public class BaitPropertiesDaoImpl extends BaseDaoImpl implements BaitProperties
 
 	try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
 
-	    preparedStatement.setString(1, brightLevel.name());
-	    preparedStatement.setString(2, BaitSettings.COLOR.name());
+	   // preparedStatement.setString(1, brightLevel.name());
+	    preparedStatement.setString(2, BaitPropertieTypes.COLOR.name());
 
 	    ResultSet rs = preparedStatement.executeQuery();
 
@@ -108,7 +107,7 @@ public class BaitPropertiesDaoImpl extends BaseDaoImpl implements BaitProperties
 	try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
 
 	    preparedStatement.setDouble(1, temperature);
-	    preparedStatement.setString(2, BaitSettings.TASTE.name());
+	    preparedStatement.setString(2, BaitPropertieTypes.TASTE.name());
 
 	    ResultSet rs = preparedStatement.executeQuery();
 
