@@ -15,10 +15,10 @@ public class MainController {
 //    private static final Logger log = LogManager.getLogger(MainController.class); todo
 
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    @RequestMapping(value = "/test", method = RequestMethod.GET, produces = "application/json")
     public Object testMethod(){
-
-        return "Hello Controller";
+        String hello = "Hello Controller";
+        return hello;
     }
 }
 

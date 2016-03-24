@@ -1,6 +1,5 @@
 package com.jean.dao.impl;
 
-import com.jean.CustomDfmException;
 import com.jean.DaoDfmException;
 import com.jean.dao.WeatherDao;
 import com.jean.entity.Weather;
@@ -25,7 +24,7 @@ public class WeatherDaoImpl extends BaseDaoImpl implements WeatherDao {
 
     @Override
     public void save(Weather weather) throws DaoDfmException {
-        String sql = "INSERT INTO weather (city, date, temp_day, temp_night, temp_even, temp_morn, pressure, wind_speed, wind_deg, humidity, clouds) "
+        String sql = "INSERT INTO daily_forecast_weathers (city, date, temp_day, temp_night, temp_even, temp_morn, pressure, wind_speed, wind_deg, humidity, clouds) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
@@ -51,7 +50,7 @@ public class WeatherDaoImpl extends BaseDaoImpl implements WeatherDao {
     }
 
     public List<Weather> getAllWeather() throws DaoDfmException {
-        String sql = "SELECT id, city, date, temp_day, temp_night, temp_even, temp_morn, pressure, wind_speed, wind_deg, humidity, clouds FROM weather";
+        String sql = "SELECT id, city, date, temp_day, temp_night, temp_even, temp_morn, pressure, wind_speed, wind_deg, humidity, clouds FROM daily_forecast_weathers";
         List<Weather> weathers = new ArrayList<>();
 
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
@@ -74,7 +73,7 @@ public class WeatherDaoImpl extends BaseDaoImpl implements WeatherDao {
     @Override
     public List<Weather> getLimitWeatherByDate(java.util.Date date) throws DaoDfmException {
         String sql = "SELECT id, city, date, temp_day, temp_night, temp_even, temp_morn, pressure, wind_speed, wind_deg, humidity, " +
-                "clouds FROM weather WHERE date <= ? ORDER BY id DESC LIMIT 5";
+                "clouds FROM daily_forecast_weathers WHERE date <= ? ORDER BY id DESC LIMIT 5";
 
         List<Weather> weathers = new ArrayList<>();
 

@@ -19,8 +19,6 @@ public class FishAnalyzerImpl implements FishAnalyzer {
     @Autowired
     private WeatherDao weatherDao;
 
-    private Map<String, Integer> raiting;
-
     public List<String> getHungryRating(Fish fish) throws CustomDfmException, DaoDfmException {
 
         List<Weather> listWeather = weatherDao.getLimitWeatherByDate(new Date());
@@ -48,13 +46,14 @@ public class FishAnalyzerImpl implements FishAnalyzer {
 
     }
 
-    public FishAnalyzerImpl() {
-
-        this.raiting = new HashMap<>();
-        for (Hungry stateMark : Hungry.values()) {
-            raiting.put(stateMark.toString(), null);
-        }
-    }
+//    public FishAnalyzerImpl() {
+//
+//////        this.raiting = ;
+////        for (Hungry stateMark : Hungry.values()) {
+//////            Map<String, Integer> raiting = new HashMap<>();
+////            raiting.put(stateMark.toString(), null);
+////        }
+//    }
 
 
 }

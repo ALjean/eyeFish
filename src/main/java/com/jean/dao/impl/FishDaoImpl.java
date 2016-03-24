@@ -5,6 +5,7 @@ import com.jean.DaoDfmException;
 import com.jean.dao.FishDao;
 import com.jean.entity.*;
 import com.jean.Constants;
+import com.jean.enums.FishTypes;
 import com.jean.enums.ParamNames;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +27,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
     public void save(Fish fish) throws DaoDfmException {
 
-        String sqlFish = "INSERT INTO fishes (name, description, type, living_area) VALUES (?, ?, ?, ?)";
+        String sqlFish = "INSERT INTO fishes (fish_name, description, type, living_area) VALUES (?, ?, ?, ?)";
         String sqlParam = "INSERT INTO fish_settings (fish_id, name_type, min_value, max_value, nibble_level) VALUES (?, ?, ?, ?, ?)";
         String sqlNibble = "INSERT INTO fish_nibble (fish_id, start_period, end_period, nibble_value) VALUES (?, ?, ?, ?)";
 
@@ -59,10 +60,10 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
             statement = connection.prepareStatement(sqlNibble);
 
-            for (FishNibble fishNibble : fish.getNibbles()) {
+/*            for (FishNibble fishNibble : fish.getNibbles()) {
                 fishNibble.setFishId(idFish);
                 addNibbleToBatch(fishNibble, statement);
-            }
+            }*/
 
             statement.executeUpdate();
 
@@ -84,8 +85,27 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
     @Override
     public Fish get(int id) throws DaoDfmException {
 
-        String sql = "SELECT f.id, f.name, f.description, f.type, f.living_area, fn.id AS fish_nibble_id, fn.start_period, fn.end_period, fn.nibble_value" +
-                "fs.id AS fish_settings_id, fs.name_type, fs.min_value, fs.max_value, fs.nibble_level FROM fishes f INNER JOIN  fish_settings fs ON  f.id = fs.fish_id INNER JOIN fish_nibble fn ON f.id = fn.fish_id WHERE f.id = ?";
+        /*
+
+        SELECT f.fish_id, f.fish_name, f.description, ft.fish_type_name, la.area_name,
+                pn.parameters_name, fs.min_range, fs.min_range, fs.nibble_level FROM fishes f
+                INNER JOIN  fish_settings fs ON  f.fish_id = fs.fish_id RIGHT JOIN parameters_names as pn ON fs.param_name_id = pn.param_name_id
+                RIGHT JOIN living_areas AS la on f.area_id = la.area_id
+                RIGHT JOIN fish_types AS ft ON f.fish_type_id = ft.fish_type_id
+        * */
+
+//        String sql = "SELECT f.fish_id, f.fish_name, f.description, ft.fish_type_name, la.area_name, fn.id AS fish_nibble_id, fn.start_period, fn.end_period, fn.nibble_value" +
+//                "fs.id AS fish_settings_id, fs.name_type, fs.min_value, fs.max_value, fs.nibble_level FROM fishes f " +
+//                "INNER JOIN  fish_settings fs ON  f.id = fs.fish_id " +
+//                "RIGHT JOIN living_areas AS la ON f.area_id = la.area_id " +
+//                "RIGHT JOIN fish_types AS ft ON f.fish_type_id = ft.fish_type_id " +
+//                "INNER JOIN fish_nibble fn ON f.id = fn.fish_id WHERE f.id = ?";
+
+        String sql = "        SELECT f.fish_id, f.fish_name, f.description, ft.fish_type_name, la.area_name,\n" +
+                "                pn.parameters_name, fs.min_range, fs.min_range, fs.nibble_level FROM fishes f\n" +
+                "                INNER JOIN  fish_settings fs ON  f.fish_id = fs.fish_id RIGHT JOIN parameters_names AS pn ON fs.param_name_id = pn.param_name_id\n" +
+                "                RIGHT JOIN living_areas AS la ON f.area_id = la.area_id\n" +
+                "                RIGHT JOIN fish_types AS ft ON f.fish_type_id = ft.fish_type_id";
 
         Fish fish = null;
 
@@ -236,8 +256,8 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
         FishParameter nibbleStateParam = new FishParameter();
         nibbleStateParam.setId(rs.getInt("type_data_id"));
         nibbleStateParam.setStateDataType(ParamNames.valueOf(rs.getString("state_data_type")));
-        nibbleStateParam.setMinValue(rs.getDouble("min_range_value"));
-        nibbleStateParam.setMaxValue(rs.getDouble("max_range_value"));
+        nibbleStateParam.setMinValue(rs.getDouble("min_range"));
+        nibbleStateParam.setMaxValue(rs.getDouble("max_range"));
         nibbleStateParam.setNibble(rs.getLong("result_nibble_value"));
 
 
@@ -245,15 +265,16 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
     }
 
     private Fish getFishFromRs(ResultSet rs) throws DaoDfmException {
-        Fish fish;
+        Fish fish = new Fish();
         try {
 
-            fish = FactoryProduser.createFish(rs.getString("type"));
+//            fish = FactoryProduser.createFish(rs.getString("type"));
             fish.setId(rs.getInt("fish_id"));
             fish.setDescription(rs.getString("description"));
             fish.setName(rs.getString("name"));
+            fish.setFishType(FishTypes.valueOf("parameters_name"));
 
-        } catch (SQLException | CustomDfmException e) {
+        } catch (SQLException e) {
             throw new DaoDfmException("Can't get fish from rs", e);
         }
         return fish;
@@ -262,18 +283,13 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
     private void setFishStatement(PreparedStatement statement, Fish fish) throws SQLException {
         statement.setString(1, fish.getName());
         statement.setString(2, fish.getDescription());
+        statement.setString(3, fish.getFishType().name());
 
-        if (fish instanceof CalmFish) {
-            statement.setString(3, Constants.FISH_TYPE_CALM);
-        }
-        if (fish instanceof PredatorFish) {
-            statement.setString(3, Constants.FISH_TYPE_PREDATOR);
-        }
-        statement.setString(4, fish.getLivingArea());
+//        statement.setString(4, fish.getLivingArea().);
 
     }
 
-    public void addParamsToBatch(FishParameter fishParameter, PreparedStatement statement) throws DaoDfmException {
+    private void addParamsToBatch(FishParameter fishParameter, PreparedStatement statement) throws DaoDfmException {
 
         try {
 
@@ -292,7 +308,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
     }
 
-    public void addNibbleToBatch(FishNibble fishNibble, PreparedStatement statement) throws DaoDfmException {
+    private void addNibbleToBatch(FishNibble fishNibble, PreparedStatement statement) throws DaoDfmException {
 
         try {
 

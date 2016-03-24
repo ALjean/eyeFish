@@ -1,11 +1,9 @@
 package com.jean.service;
 
 import com.jean.BaseTest;
-import com.jean.Constants;
 import com.jean.CustomDfmException;
 import com.jean.DaoDfmException;
 import com.jean.entity.Fish;
-import com.jean.entity.FactoryProduser;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -26,7 +24,7 @@ public class FishAnalyzerServiceTest extends BaseTest {
 
     @Before
     public void init() throws ParseException, CustomDfmException {
-        fish = new FactoryProduser().createFish(Constants.FISH_TYPE_CALM);
+        fish = new Fish();
         String string = "2015-08-13 00:00:00";
 
         date = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH).parse(string);

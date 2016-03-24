@@ -1,18 +1,14 @@
 package com.jean.dao;
 
-import com.jean.Constants;
 import com.jean.CustomDfmException;
 import com.jean.DaoDfmException;
 import com.jean.entity.Fish;
-import com.jean.entity.FactoryProduser;
 import com.jean.entity.FishParameter;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.stereotype.Component;
 import com.jean.BaseTest;
-
-import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +27,8 @@ public class FishDaoTest extends BaseTest {
 
     @Before
     public void init() throws CustomDfmException {
-        fish = FactoryProduser.createFish(Constants.FISH_TYPE_CALM);
+
+        fish = new Fish();
         fish.setName("TestTaskName");
         fish.setDescription("Test Description JUNIT");
 

@@ -25,7 +25,7 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableScheduling
-@ComponentScan("com.jean.*")
+@ComponentScan({"com.jean.*", "com.jean.servlet.controller.*"})
 @PropertySource("classpath:application.properties")
 public class AppConfig extends WebMvcConfigurerAdapter {
 

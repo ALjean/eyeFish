@@ -1,14 +1,17 @@
 package com.jean.entity;
 
+import com.jean.enums.FishTypes;
+import com.jean.enums.LiveArea;
+
 import java.util.List;
 
-public abstract class Fish {
+public class Fish {
 
     private int id;
     private String name;
     private String description;
-    private String fishType;
-    private String livingArea;
+    private FishTypes fishType;
+    private LiveArea livingArea;
     private List<FishParameter> fishParams;
     private List<FishNibble> nibbles;
 
@@ -37,19 +40,19 @@ public abstract class Fish {
         this.description = description;
     }
 
-    public String getFishType() {
+    public FishTypes getFishType() {
         return fishType;
     }
 
-    public void setFishType(String fishType) {
+    public void setFishType(FishTypes fishType) {
         this.fishType = fishType;
     }
 
-    public String getLivingArea() {
+    public LiveArea getLivingArea() {
         return livingArea;
     }
 
-    public void setLivingArea(String livingArea) {
+    public void setLivingArea(LiveArea livingArea) {
         this.livingArea = livingArea;
     }
 
@@ -68,8 +71,4 @@ public abstract class Fish {
     public void setNibbles(List<FishNibble> nibbles) {
         this.nibbles = nibbles;
     }
-
-    public abstract double hungryAnalyzer();
-
-    public abstract String locationAnalyzer();
 }

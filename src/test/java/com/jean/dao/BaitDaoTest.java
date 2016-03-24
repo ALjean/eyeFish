@@ -6,11 +6,10 @@ import java.sql.Date;
 import java.util.List;
 
 import com.jean.DaoDfmException;
-import com.jean.enums.BaitPropertieTypes;
-import com.jean.enums.BaitTypes;
-import com.sun.org.apache.xerces.internal.impl.dtd.models.DFAContentModel;
 
-import org.junit.After;
+import com.jean.enums.BaitTypes;
+
+
 import org.junit.Before;
 import org.junit.Test;
 
