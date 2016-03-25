@@ -170,15 +170,91 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
     }
 
     @Override
-    public List<Bait> getBaitsBySeason(int seasonId) {
-	// TODO Auto-generated method stub
-	return null;
+    public List<Bait> getBaitsBySeason(Date date) throws DaoDfmException {
+	String sql =
+
+	"SELECT b.bait_id, b.bait_name, bt.bait_type_name, bt.bait_type_id, b.description " + "FROM " + "baits AS b " + "INNER JOIN"
+		+ " bait_types AS bt ON bt.bait_type_id = b.bait_type_id " + "INNER JOIN " + "baits_to_seasons AS bts ON bts.bait_id = b.bait_id "
+		+ "WHERE ? BETWEEN bts.start_period AND bts.end_period";
+
+	List<Bait> baits = new ArrayList<>();
+
+	try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
+
+	    preparedStatement.setDate(1, date);
+
+	    ResultSet rs = preparedStatement.executeQuery();
+
+	    while (rs.next()) {
+		baits.add(getBaitFromRs(rs));
+	    }
+
+	    if (baits.isEmpty()) {
+		throw new DaoDfmException("For some reason list of baits is empty");
+	    }
+
+	} catch (SQLException e) {
+	    throw new DaoDfmException("Some problem with fetching list of baits " + "Message: " + e.getMessage(), e);
+	}
+
+	log.info("End method getBaitColors(), list size is: " + baits.size());
+
+	return baits;
     }
 
     @Override
-    public Integer updateBait(Bait bait) throws DaoDfmException {
-	// TODO Auto-generated method stub
-	return null;
+    public List<Bait> getBaits() throws DaoDfmException, CustomDfmException {
+
+	String sql =
+
+	"SELECT b.bait_id, b.bait_name, bt.bait_type_id, bt.bait_type_name, b.description " + "FROM " + "baits AS b " + "INNER JOIN "
+		+ "bait_types AS bt ON b.bait_type_id = bt.bait_type_id ";
+
+	List<Bait> baits = new ArrayList<>();
+
+	try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
+
+	    ResultSet rs = preparedStatement.executeQuery();
+	    while (rs.next()) {
+		baits.add(getBaitFromRs(rs));
+	    }
+
+	    if (baits.isEmpty()) {
+		throw new CustomDfmException("For some reason list of baits is empty");
+	    }
+
+	} catch (SQLException e) {
+	    throw new DaoDfmException("Some problem with fetching list of baits " + "Message: " + e.getMessage(), e);
+	}
+
+	return baits;
+    }
+
+    @Override
+    public void updateBait(Bait bait) throws DaoDfmException, CustomDfmException {
+
+	String sql = "UPDATE baits AS b SET b.bait_name = ?, b.bait_type_id = ?, b.description = ? WHERE b.bait_id = ?";
+	Connection connection = getConnection();
+	int result;
+
+	try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+	    preparedStatement.setString(1, bait.getName());
+	    preparedStatement.setInt(2, bait.getBaitType().getTypeId());
+	    preparedStatement.setString(3, bait.getDescription());
+	    preparedStatement.setInt(4, bait.getId());
+
+	    result = preparedStatement.executeUpdate();
+
+	    if (result == 0) {
+		throw new CustomDfmException("Update didn't comlete: " + bait.toString());
+	    }
+
+	    connection.commit();
+
+	} catch (SQLException e) {
+	    throw new DaoDfmException("SQLEror: " + bait.toString() + e.getMessage());
+	}
     }
 
     @Override
@@ -190,6 +266,7 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 
 	Connection connection = getConnection();
 	PreparedStatement statement = null;
+	int result;
 
 	try {
 
@@ -203,12 +280,16 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 
 	    statement = connection.prepareStatement(sqlDeleteBait);
 	    statement.setInt(1, baitId);
-	    statement.executeUpdate();
+	    result = statement.executeUpdate();
+
+	    if (result == 0) {
+		throw new CustomDfmException("Delete didn't comlete with baitId: " + baitId);
+	    }
 
 	    connection.commit();
 
 	} catch (SQLException e) {
-	    throw new CustomDfmException("SQLEror: " + baitId + e.getMessage());
+	    throw new DaoDfmException("SQLEror: " + baitId + e.getMessage());
 	}
 
     }

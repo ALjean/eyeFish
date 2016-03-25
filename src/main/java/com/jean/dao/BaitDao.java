@@ -15,13 +15,15 @@ public interface BaitDao {
     
     List<Bait> getBaitsToFishesByDate(int fishId, Date date) throws DaoDfmException;
     
-    List<Bait> getBaitsBySeason(int seasonId);
+    List<Bait> getBaitsBySeason(Date date) throws DaoDfmException;
+    
+    List<Bait> getBaits() throws DaoDfmException, CustomDfmException;
     
     Integer saveBait(Bait bait) throws DaoDfmException, CustomDfmException;
 
     void deleteBait(int baitId) throws DaoDfmException, CustomDfmException;
     
-    Integer updateBait(Bait bait) throws DaoDfmException;
+    void updateBait(Bait bait) throws DaoDfmException, CustomDfmException;
     
    /* Message getMessage(String key) throws DaoDfmException;
     

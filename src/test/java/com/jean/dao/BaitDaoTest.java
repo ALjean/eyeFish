@@ -8,7 +8,6 @@ import java.util.List;
 
 import com.jean.DaoDfmException;
 
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -50,39 +49,48 @@ public class BaitDaoTest extends BaseTest {
     }
 
     @Test
+    public void getBaitByIdTest() throws DaoDfmException, CustomDfmException {
+	Bait bait = baitDao.getBait(4);
+	assertNotNull(bait);
+	System.out.println(bait);
+    }
+
+    @Test
+    public void getBaitsBySeasonTest() throws DaoDfmException {
+	baits = baitDao.getBaitsBySeason(date);
+	assertTrue(!baits.isEmpty());
+	System.out.println(baits);
+    }
+
+    @Test
+    public void getBaitsTest() throws DaoDfmException, CustomDfmException {
+	baits = baitDao.getBaits();
+	assertTrue(!baits.isEmpty());
+	System.out.println(baits);
+    }
+
+    @Test
     public void saveBaitTest() throws DaoDfmException, CustomDfmException {
 	generateKey = baitDao.saveBait(bait);
 	assertTrue(generateKey > 0);
 	System.out.println(generateKey);
     }
 
-    @Test
-    public void deleteBaitTest() throws DaoDfmException, CustomDfmException {
-	baitDao.deleteBait(43);
-    }
-    
-    @Test
-    public void getBaitByIdTest() throws DaoDfmException, CustomDfmException{
-	Bait bait = baitDao.getBait(4);
-	assertNotNull(bait);
-	System.out.println(bait);
-    }
-    
-
-
-   // @Test(expected = CustomDfmException.class)
+    @Test(expected = CustomDfmException.class)
     public void deleteBaitExceptionTest() throws DaoDfmException, CustomDfmException {
 	baitDao.deleteBait(123);
     }
 
-    /*
-     * @Test public void getMessageByKeyTest() throws CustomDfmException,
-     * DaoDfmException{ assertTrue(baitDao.getMessage(key).length() > 0); }
-     * 
-     * @Test public void saveTest() throws CustomDfmException, DaoDfmException{
-     * Bait bait = new Bait(); bait.setName("Test");
-     * bait.setDescription("Adsdssdsd"); bait.setType(BaitType.LIVEBAIT);
-     * baitDao.save(bait); }
-     */
+    @Test
+    public void deleteBaitTest() throws DaoDfmException, CustomDfmException {
+	baitDao.deleteBait(50);
+    }
+    
+    @Test
+    public void updateBaitTest() throws DaoDfmException, CustomDfmException{
+	bait.setId(51);
+	bait.setName("Update test");
+	baitDao.updateBait(bait);
+    }
 
 }
