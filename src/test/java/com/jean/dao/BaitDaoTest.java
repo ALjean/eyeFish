@@ -3,11 +3,10 @@ package com.jean.dao;
 import static org.junit.Assert.*;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.jean.DaoDfmException;
-
-import com.jean.enums.BaitTypes;
 
 
 import org.junit.Before;
@@ -17,6 +16,8 @@ import com.jean.BaseTest;
 import com.jean.CustomDfmException;
 import com.jean.analyzers.weather.ConstantsAnalyzer.KEY_MESSAGE;
 import com.jean.entity.Bait;
+import com.jean.entity.BaitPropertie;
+import com.jean.entity.BaitType;
 
 public class BaitDaoTest extends BaseTest {
 
@@ -32,20 +33,20 @@ public class BaitDaoTest extends BaseTest {
 	fishId = 7;
 	key = KEY_MESSAGE.STYRO_POP_UP.toString();
 	date = Date.valueOf("2016-06-22");
-	bait = new Bait(0, "Slizzard", BaitTypes.LIVEBAIT, "For real man who want to catch real Big Fish");
+	bait = new Bait(0, "Slizzard", "For real man who want to catch real Big Fish", new BaitType(1, " "), new ArrayList<BaitPropertie>());
 
     }
 
     @Test
     public void getBaitsForFishByDateTest() throws CustomDfmException, DaoDfmException {
-	baits = baitDao.getBaits(fishId, date);
+	baits = baitDao.getBaitsToFishesByDate(fishId, date);
 	assertTrue(!baits.isEmpty());
 	System.out.println(baits);
     }
 
     @Test(expected = DaoDfmException.class)
     public void getBaitsForFishByDateExceptionTest() throws DaoDfmException {
-	baits = baitDao.getBaits(123, date);
+	baits = baitDao.getBaitsToFishesByDate(123, date);
     }
 
     @Test
@@ -57,8 +58,17 @@ public class BaitDaoTest extends BaseTest {
 
     @Test
     public void deleteBaitTest() throws DaoDfmException, CustomDfmException {
-	baitDao.deleteBait(27);
+	baitDao.deleteBait(43);
     }
+    
+    @Test
+    public void getBaitByIdTest() throws DaoDfmException, CustomDfmException{
+	Bait bait = baitDao.getBait(4);
+	assertNotNull(bait);
+	System.out.println(bait);
+    }
+    
+
 
    // @Test(expected = CustomDfmException.class)
     public void deleteBaitExceptionTest() throws DaoDfmException, CustomDfmException {

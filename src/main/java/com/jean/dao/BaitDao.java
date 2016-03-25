@@ -6,15 +6,16 @@ import java.util.List;
 import com.jean.CustomDfmException;
 import com.jean.DaoDfmException;
 import com.jean.entity.Bait;
-import com.jean.entity.Message;
 
 public interface BaitDao {
 
-    Bait getBait(int baitId) throws DaoDfmException;
+    Bait getBait(int baitId) throws DaoDfmException, CustomDfmException;
     
-    List<Bait> getBaits(int fishId) throws DaoDfmException;
+    List<Bait> getBaitsToFishes(int fishId) throws DaoDfmException;
     
-    List<Bait> getBaits(int fishId, Date date) throws DaoDfmException;
+    List<Bait> getBaitsToFishesByDate(int fishId, Date date) throws DaoDfmException;
+    
+    List<Bait> getBaitsBySeason(int seasonId);
     
     Integer saveBait(Bait bait) throws DaoDfmException, CustomDfmException;
 
@@ -22,7 +23,7 @@ public interface BaitDao {
     
     Integer updateBait(Bait bait) throws DaoDfmException;
     
-    Message getMessage(String key) throws DaoDfmException;
+   /* Message getMessage(String key) throws DaoDfmException;
     
     Message getMessage(int messageId);
     
@@ -32,6 +33,6 @@ public interface BaitDao {
     
     Integer updateMessage(Message mesage);
     
-    void deleteMessage(int messageId);
+    void deleteMessage(int messageId);*/
  
 }

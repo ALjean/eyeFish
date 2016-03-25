@@ -3,7 +3,7 @@ package com.jean.dao;
 import com.jean.BaseTest;
 import com.jean.CustomDfmException;
 import com.jean.DaoDfmException;
-import com.jean.entity.BaitProperties;
+import com.jean.entity.BaitPropertie;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 public class BaitPropertiesDaoTest extends BaseTest {
 
 
-    private List<BaitProperties> props;
+    private List<BaitPropertie> props;
     private double cloudLevel;
     private double temperature;
 

@@ -9,14 +9,14 @@ import static org.junit.Assert.*;
 import com.jean.BaseTest;
 import com.jean.CustomDfmException;
 import com.jean.analyzers.weather.ConstantsAnalyzer.*;
-import com.jean.entity.BaitProperties;
+import com.jean.entity.BaitPropertie;
 
 public class BaitPropertiesAnalyzerTest extends BaseTest {
 
     private double cloudLevel;
     private double rainLevel;
     private String deepLevel;
-    private List<BaitProperties> props;
+    private List<BaitPropertie> props;
 
     @Before
     public void init() {

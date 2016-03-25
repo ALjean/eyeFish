@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.jean.DaoDfmException;
 import com.jean.dao.BaitPropertiesDao;
-import com.jean.enums.BaitProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,26 +22,26 @@ public class BaitPropertiesAnalyzerImpl implements BaitPropertiesAnalyzer {
     private BaitDao baitDao;
 
     @Override
-    public List<com.jean.entity.BaitProperties> getTheBestColor(double cloudLevel, double rainLevel, double deepLevel, double algaLevel)
+    public List<com.jean.entity.BaitPropertie> getTheBestColor(double cloudLevel, double rainLevel, double deepLevel, double algaLevel)
 	    throws DaoDfmException {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public List<com.jean.entity.BaitProperties> getTheBestTaste(double envirmomentTemp, Double waterTemp) throws DaoDfmException {
+    public List<com.jean.entity.BaitPropertie> getTheBestTaste(double envirmomentTemp, Double waterTemp) throws DaoDfmException {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public List<com.jean.entity.BaitProperties> getTheBestMass(int boffortScale) {
+    public List<com.jean.entity.BaitPropertie> getTheBestMass(int boffortScale) {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public List<com.jean.entity.BaitProperties> isPopUp(String algaLevel, String livingArea, String baitType, String deepLevel)
+    public List<com.jean.entity.BaitPropertie> isPopUp(String algaLevel, String livingArea, String baitType, String deepLevel)
 	    throws DaoDfmException {
 	// TODO Auto-generated method stub
 	return null;

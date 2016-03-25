@@ -6,14 +6,12 @@ import java.util.*;
 
 import com.jean.CustomDfmException;
 import com.jean.DaoDfmException;
-import com.jean.enums.BaitTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.jean.dao.BaitDao;
 import com.jean.entity.Bait;
-import com.jean.entity.Message;
-
+import com.jean.entity.BaitType;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -22,11 +20,13 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
     private static Logger log = LoggerFactory.getLogger(BaitDaoImpl.class);
 
     @Override
-    public List<Bait> getBaits(int fishId, Date date) throws DaoDfmException {
+    public List<Bait> getBaitsToFishesByDate(int fishId, Date date) throws DaoDfmException {
 
-	String sql = "SELECT b.bait_id, b.bait_name, bt.bait_type_name, b.description " + "FROM "
-		+ "baits AS b INNER JOIN bait_types AS bt ON bt.bait_type_id = b.bait_type_id " + "INNER JOIN "
-		+ "baits_to_fishes AS btf ON btf.bait_id = b.bait_id " + "INNER JOIN " + "baits_to_seasons AS bts ON bts.bait_id = b.bait_id "
+	String sql =
+
+	"SELECT b.bait_id, b.bait_name, bt.bait_type_name, bt.bait_type_id, b.description " + "FROM " + "baits AS b " + "INNER JOIN"
+		+ " bait_types AS bt ON bt.bait_type_id = b.bait_type_id " + "INNER JOIN " + "baits_to_fishes AS btf ON btf.bait_id = b.bait_id "
+		+ "INNER JOIN " + "baits_to_seasons AS bts ON bts.bait_id = b.bait_id "
 		+ "WHERE ? BETWEEN bts.start_period AND bts.end_period AND btf.fish_id = ?";
 
 	List<Bait> baits = new ArrayList<>();
@@ -60,28 +60,19 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
     @Override
     public Integer saveBait(Bait bait) throws DaoDfmException, CustomDfmException {
 
-	String sqlSelectTypeId = "SELECT bait_type_id FROM bait_types WHERE bait_type_name LIKE ?";
 	String sqlInsertBait = "INSERT INTO baits (bait_name, bait_type_id, description) VALUES (?, ?, ?)";
 
 	Connection connection = getConnection();
 
 	PreparedStatement statement = null;
 
-	int typeId;
 	int primaryKey;
 
 	try {
 
-	    statement = connection.prepareStatement(sqlSelectTypeId);
-	    statement.setString(1, bait.getType().name());
-	    ResultSet rs = statement.executeQuery();
-
-	    rs.next();
-	    typeId = rs.getInt("bait_type_id");
-
 	    statement = connection.prepareStatement(sqlInsertBait, Statement.RETURN_GENERATED_KEYS);
 	    statement.setString(1, bait.getName());
-	    statement.setInt(2, typeId);
+	    statement.setInt(2, bait.getBaitType().getTypeId());
 	    statement.setString(3, bait.getDescription());
 	    statement.executeUpdate();
 
@@ -96,39 +87,6 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 	}
 
 	return primaryKey;
-    }
-
-    @Override
-    public void deleteBait(int baitId) throws DaoDfmException, CustomDfmException {
-
-	String sqlDeleteBait = "DELETE FROM baits WHERE bait_id = ?";
-	String sqlDeleteBinding = "DELETE FROM baits_to_fishes WHERE bait_id = ?";
-	String sqlDeleteSeason = "DELETE FROM baits_to_seasons WHERE bait_id = ?";
-
-	Connection connection = getConnection();
-	PreparedStatement statement = null;
-	int result;
-
-	try {
-
-	    statement = connection.prepareStatement(sqlDeleteBinding);
-	    statement.setInt(1, baitId);
-	    result = statement.executeUpdate();
-
-	    statement = connection.prepareStatement(sqlDeleteSeason);
-	    statement.setInt(1, baitId);
-	    result = statement.executeUpdate();
-
-	    statement = connection.prepareStatement(sqlDeleteBait);
-	    statement.setInt(1, baitId);
-	    result = statement.executeUpdate();
-	    
-	    connection.commit();
-
-	} catch (SQLException e) {
-	    throw new CustomDfmException("SQLEror: " + baitId + e.getMessage());
-	}
-
     }
 
     public List<Bait> getBaitListToFish(int id) throws DaoDfmException {
@@ -156,13 +114,63 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
     }
 
     @Override
-    public Bait getBait(int baitId) throws DaoDfmException {
-	// TODO Auto-generated method stub
-	return null;
+    public Bait getBait(int baitId) throws DaoDfmException, CustomDfmException {
+
+	String sql =
+
+	"SELECT b.bait_id, b.bait_name, bt.bait_type_id, bt.bait_type_name, b.description " + "FROM " + "baits AS b " + "INNER JOIN "
+		+ "bait_types AS bt ON b.bait_type_id = bt.bait_type_id " + "WHERE b.bait_id = ?";
+
+	Bait bait = null;
+
+	try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
+
+	    preparedStatement.setInt(1, baitId);
+	    ResultSet rs = preparedStatement.executeQuery();
+	    rs.next();
+	    bait = getBaitFromRs(rs);
+
+	} catch (SQLException e) {
+	    throw new DaoDfmException("Some problem with fetching bait: " + baitId + "Message: " + e.getMessage());
+	}
+	return bait;
+
     }
 
     @Override
-    public List<Bait> getBaits(int fishId) throws DaoDfmException {
+    public List<Bait> getBaitsToFishes(int fishId) throws DaoDfmException {
+
+	String sql =
+
+	"SELECT b.bait_id, b.bait_name, bt.bait_type_id, bt.bait_type_name, b.description " + "FROM " + "baits AS b " + "INNER JOIN "
+		+ "bait_types AS bt ON b.bait_type_id = bt.bait_type_id " + "INNER JOIN " + "baits_to_fishes AS bts ON bts.bait_id = b.bait_id "
+		+ "WHERE bts.fish_id = ?";
+
+	List<Bait> baits = new ArrayList<Bait>();
+
+	try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
+
+	    preparedStatement.setInt(1, fishId);
+	    ResultSet rs = preparedStatement.executeQuery();
+	    while (rs.next()) {
+		baits.add(getBaitFromRs(rs));
+	    }
+
+	    if (baits.isEmpty()) {
+		throw new DaoDfmException("For some reason list of baits is empty");
+	    }
+
+	} catch (SQLException e) {
+	    throw new DaoDfmException("Some problem with fetching list of baits " + "Message: " + e.getMessage(), e);
+	}
+
+	log.info("End method getBaitColors(), list size is: " + baits.size());
+
+	return baits;
+    }
+
+    @Override
+    public List<Bait> getBaitsBySeason(int seasonId) {
 	// TODO Auto-generated method stub
 	return null;
     }
@@ -174,61 +182,41 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
     }
 
     @Override
-    public Message getMessage(String key) throws DaoDfmException {
+    public void deleteBait(int baitId) throws DaoDfmException, CustomDfmException {
 
-	String sql = "SELECT mess_text FROM messages WHERE key LIKE ?";
+	String sqlDeleteBait = "DELETE FROM baits WHERE bait_id = ?";
+	String sqlDeleteBinding = "DELETE FROM baits_to_fishes WHERE bait_id = ?";
+	String sqlDeleteSeason = "DELETE FROM baits_to_seasons WHERE bait_id = ?";
 
-	Message message = new Message();
+	Connection connection = getConnection();
+	PreparedStatement statement = null;
 
-	try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
+	try {
 
-	    preparedStatement.setString(1, key);
+	    statement = connection.prepareStatement(sqlDeleteBinding);
+	    statement.setInt(1, baitId);
+	    statement.executeUpdate();
 
-	    ResultSet rs = preparedStatement.executeQuery();
+	    statement = connection.prepareStatement(sqlDeleteSeason);
+	    statement.setInt(1, baitId);
+	    statement.executeUpdate();
 
-	    while (rs.next()) {
-		// result = rs.getString("mess_text");
-	    }
+	    statement = connection.prepareStatement(sqlDeleteBait);
+	    statement.setInt(1, baitId);
+	    statement.executeUpdate();
+
+	    connection.commit();
+
 	} catch (SQLException e) {
-	    throw new DaoDfmException("Some problem with fetching message text. " + "Message: " + e.getMessage(), e);
+	    throw new CustomDfmException("SQLEror: " + baitId + e.getMessage());
 	}
-	return message;
-    }
-
-    @Override
-    public Message getMessage(int messageId) {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public List<String> getMessages() throws DaoDfmException {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public Integer saveMessage(Message message) {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public Integer updateMessage(Message mesage) {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public void deleteMessage(int messageId) {
-	// TODO Auto-generated method stub
 
     }
 
     private Bait getBaitFromRs(ResultSet rs) throws SQLException {
 	Bait bait = new Bait();
 	bait.setId(rs.getInt("bait_id"));
-	bait.setType(BaitTypes.valueOf(rs.getString("bait_type_name")));
+	bait.setBaitType(new BaitType(rs.getInt("bt.bait_type_id"), rs.getString("bt.bait_type_name")));
 	bait.setName(rs.getString("bait_name"));
 	bait.setDescription(rs.getString("description"));
 	return bait;

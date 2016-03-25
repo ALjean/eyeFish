@@ -1,64 +1,72 @@
 package com.jean.entity;
 
-import com.jean.enums.BaitTypes;
-
+import java.util.List;
 
 public class Bait {
 
-	private int id;
-	private String name;
-	private BaitTypes type;
-	private String description;
+    private int id;
+    private String name;
+    private String description;
+    private BaitType baitType;
+    private List<BaitPropertie> baitPropertie;
 
-	public int getId() {
-		return id;
-	}
+    public int getId() {
+	return id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setId(int id) {
+	this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+	return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+	this.name = name;
+    }
 
-	public BaitTypes getType() {
-		return type;
-	}
+    public BaitType getBaitType() {
+	return baitType;
+    }
 
-	public void setType(BaitTypes type) {
-		this.type = type;
-	}
+    public void setBaitType(BaitType baitType) {
+	this.baitType = baitType;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+	return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+	this.description = description;
+    }
 
-	@Override
-	public String toString() {
-		return "Bait [id=" + id + ", name=" + name + ", baitType=" + type + ", description=" + description + "]";
-	}
+    public List<BaitPropertie> getBaitPropertie() {
+	return baitPropertie;
+    }
 
-	public Bait() {
-	    super();
-	}
+    public void setBaitPropertie(List<BaitPropertie> baitPropertie) {
+	this.baitPropertie = baitPropertie;
+    }
 
-	public Bait(int id, String name, BaitTypes type, String description) {
-	    super();
-	    this.id = id;
-	    this.name = name;
-	    this.type = type;
-	    this.description = description;
-	}
-	
-	
+    @Override
+    public String toString() {
+	return "Bait [id=" + id + ", name=" + name + ", description=" + description + ", baitType=" + baitType + ", baitPropertie=" + baitPropertie
+		+ "]";
+    }
+
+    public Bait() {
+	super();
+    }
+
+    public Bait(int id, String name, String description, BaitType baitType, List<BaitPropertie> baitPropertie) {
+	super();
+	this.id = id;
+	this.name = name;
+	this.description = description;
+	this.baitType = baitType;
+	this.baitPropertie = baitPropertie;
+    }
 
 }
