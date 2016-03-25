@@ -3,7 +3,7 @@ package com.jean.dao;
 import com.jean.CustomDfmException;
 import com.jean.DaoDfmException;
 import com.jean.entity.Fish;
-import com.jean.entity.FishParameter;
+import com.jean.entity.FishSetting;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -32,16 +32,16 @@ public class FishDaoTest extends BaseTest {
         fish.setName("TestTaskName");
         fish.setDescription("Test Description JUNIT");
 
-        List<FishParameter> nibbleStateParams = new ArrayList<>();
+        List<FishSetting> nibbleStateParams = new ArrayList<>();
 
 
-        for(int i = 0; i < 10; i++){
-            FishParameter nibbleStateParam = new FishParameter();
+     /*   for(int i = 0; i < 10; i++){
+            FishSetting nibbleStateParam = new FishSetting();
             nibbleStateParam.setMaxValue(20 + i);
             nibbleStateParam.setMinValue(15 - i);
             nibbleStateParam.setNibble(0.75f);
             nibbleStateParams.add(nibbleStateParam);
-        }
+        }*/
 
         fish.setFishParams(nibbleStateParams);
 

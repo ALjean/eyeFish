@@ -3,7 +3,7 @@ package com.jean.dao.impl;
 import com.jean.CustomDfmException;
 import com.jean.DaoDfmException;
 import com.jean.dao.FishNibbleDao;
-import com.jean.entity.FishNibble;
+import com.jean.entity.NibblePeriod;
 import org.springframework.stereotype.Repository;
 
 
@@ -47,18 +47,19 @@ public class FishNibbleDaoImpl extends BaseDaoImpl implements FishNibbleDao {
 //
 //    }
 
-    public List<FishNibble> getAllFishNibbleByFishId(int fishId) throws DaoDfmException {
+    public List<NibblePeriod> getAllFishNibbleByFishId(int fishId) throws DaoDfmException {
         String sql = "SELECT * FROM fish_nibble WHERE fish_id = ? ";
+	return null;
 
-        try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
+      /*  try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
 
             preparedStatement.setInt(1, fishId);
 
             ResultSet rs = preparedStatement.executeQuery();
 
-            List<FishNibble> nibbles = new ArrayList<>();
+            List<NibblePeriod> nibbles = new ArrayList<>();
             while (rs.next()) {
-                FishNibble nibble = new FishNibble();
+                NibblePeriod nibble = new NibblePeriod();
                 nibble.setId(rs.getInt("id"));
                 nibble.setValue(rs.getDouble("nibble_value"));
                 nibble.setStart(rs.getDate("start_period"));
@@ -70,7 +71,7 @@ public class FishNibbleDaoImpl extends BaseDaoImpl implements FishNibbleDao {
 
         } catch (SQLException e) {
             throw new DaoDfmException("Error when get nibble", e);
-        }
+        }*/
 
     }
 }

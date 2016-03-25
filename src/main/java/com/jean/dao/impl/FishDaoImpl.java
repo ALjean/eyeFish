@@ -50,7 +50,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
             statement = connection.prepareStatement(sqlParam);
 
-            for (FishParameter stateParam : fish.getFishParams()) {
+            for (FishSetting stateParam : fish.getFishParams()) {
                 stateParam.setFishId(idFish);
                 addParamsToBatch(stateParam, statement);
             }
@@ -115,7 +115,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
             ResultSet rs = preparedStatement.executeQuery();
 
-            List<FishParameter> fishParams = new ArrayList<>();
+            List<FishSetting> fishParams = new ArrayList<>();
 
             while (rs.next()) {
 
@@ -234,7 +234,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
             preparedStatement.setInt(3, fishId);
 
             ResultSet rs = preparedStatement.executeQuery();
-            List<FishParameter> nibbleStateParams = new ArrayList<>();
+            List<FishSetting> nibbleStateParams = new ArrayList<>();
 
             while (rs.next()) {
                 fish = getFishFromRs(rs);
@@ -252,14 +252,14 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
         return fish;
     }
 
-    private FishParameter getNibbleStateParamFromRs(ResultSet rs) throws SQLException {
-        FishParameter nibbleStateParam = new FishParameter();
-        nibbleStateParam.setId(rs.getInt("type_data_id"));
+    private FishSetting getNibbleStateParamFromRs(ResultSet rs) throws SQLException {
+        FishSetting nibbleStateParam = new FishSetting();
+       /* nibbleStateParam.setId(rs.getInt("type_data_id"));
         nibbleStateParam.setStateDataType(ParamNames.valueOf(rs.getString("state_data_type")));
         nibbleStateParam.setMinValue(rs.getDouble("min_range"));
         nibbleStateParam.setMaxValue(rs.getDouble("max_range"));
         nibbleStateParam.setNibble(rs.getLong("result_nibble_value"));
-
+*/
 
         return nibbleStateParam;
     }
@@ -289,9 +289,9 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
     }
 
-    private void addParamsToBatch(FishParameter fishParameter, PreparedStatement statement) throws DaoDfmException {
+    private void addParamsToBatch(FishSetting fishParameter, PreparedStatement statement) throws DaoDfmException {
 
-        try {
+        /*try {
 
             statement.setInt(1, fishParameter.getFishId());
             statement.setString(2, fishParameter.getStateDataType().name());
@@ -303,14 +303,14 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
         } catch (SQLException e) {
             log.error("Error when set fish params to state ", e);
             throw new DaoDfmException("Error when set fish params to state ", e);
-        }
+        }*/
 
 
     }
 
-    private void addNibbleToBatch(FishNibble fishNibble, PreparedStatement statement) throws DaoDfmException {
+    private void addNibbleToBatch(NibblePeriod fishNibble, PreparedStatement statement) throws DaoDfmException {
 
-        try {
+      /*  try {
 
             statement.setInt(1, fishNibble.getFishId());
             statement.setDate(2, new Date(fishNibble.getStart().getTime()));
@@ -324,6 +324,6 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
             log.error("Error when set fish nibble to state ", e);
             throw new DaoDfmException("Error when set fish nibble to state", e);
         }
-
+*/
     }
 }

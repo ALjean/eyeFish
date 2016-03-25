@@ -1,5 +1,6 @@
 package com.jean.entity;
 
+import com.jean.enums.DaysActivity;
 import com.jean.enums.FishTypes;
 import com.jean.enums.LiveArea;
 
@@ -12,8 +13,9 @@ public class Fish {
     private String description;
     private FishTypes fishType;
     private LiveArea livingArea;
-    private List<FishParameter> fishParams;
-    private List<FishNibble> nibbles;
+    private DaysActivity daysActivity;
+    private List<FishSetting> fishParams;
+    private List<NibblePeriod> nibbles;
 
 
     public int getId() {
@@ -56,19 +58,35 @@ public class Fish {
         this.livingArea = livingArea;
     }
 
-    public List<FishParameter> getFishParams() {
+    public List<FishSetting> getFishParams() {
         return fishParams;
     }
 
-    public void setFishParams(List<FishParameter> fishParams) {
+    public void setFishParams(List<FishSetting> fishParams) {
         this.fishParams = fishParams;
     }
 
-    public List<FishNibble> getNibbles() {
+    public List<NibblePeriod> getNibbles() {
         return nibbles;
     }
 
-    public void setNibbles(List<FishNibble> nibbles) {
+    public void setNibbles(List<NibblePeriod> nibbles) {
         this.nibbles = nibbles;
     }
+
+    public DaysActivity getDaysActivity() {
+        return daysActivity;
+    }
+
+    public void setDaysActivity(DaysActivity daysActivity) {
+        this.daysActivity = daysActivity;
+    }
+
+    @Override
+    public String toString() {
+	return "Fish [id=" + id + ", name=" + name + ", description=" + description + ", fishType=" + fishType + ", livingArea=" + livingArea
+		+ ", daysActivity=" + daysActivity + ", fishParams=" + fishParams + ", nibbles=" + nibbles + "]";
+    }
+    
+    
 }
