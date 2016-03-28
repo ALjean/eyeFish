@@ -4,69 +4,48 @@ import java.util.List;
 
 public class Bait {
 
-    private int id;
-    private String name;
-    private String description;
-    private BaitType baitType;
-    private List<BaitPropertie> baitPropertie;
+    private int baitId;
+    private String baitName;
+    private List<BaitSetting> settings;
 
-    public int getId() {
-	return id;
+    public int getBaitId() {
+	return baitId;
     }
 
-    public void setId(int id) {
-	this.id = id;
+    public void setBaitId(int baitId) {
+	this.baitId = baitId;
     }
 
-    public String getName() {
-	return name;
+    public String getBaitName() {
+	return baitName;
     }
 
-    public void setName(String name) {
-	this.name = name;
+    public void setBaitName(String baitName) {
+	this.baitName = baitName;
     }
 
-    public BaitType getBaitType() {
-	return baitType;
+    public List<BaitSetting> getSettings() {
+	return settings;
     }
 
-    public void setBaitType(BaitType baitType) {
-	this.baitType = baitType;
-    }
-
-    public String getDescription() {
-	return description;
-    }
-
-    public void setDescription(String description) {
-	this.description = description;
-    }
-
-    public List<BaitPropertie> getBaitPropertie() {
-	return baitPropertie;
-    }
-
-    public void setBaitPropertie(List<BaitPropertie> baitPropertie) {
-	this.baitPropertie = baitPropertie;
+    public void setSettings(List<BaitSetting> settings) {
+	this.settings = settings;
     }
 
     @Override
     public String toString() {
-	return "Bait [id=" + id + ", name=" + name + ", description=" + description + ", baitType=" + baitType + ", baitPropertie=" + baitPropertie
-		+ "]";
+	return "Bait [baitId=" + baitId + ", baitName=" + baitName + ", settings=" + settings + "]";
     }
 
     public Bait() {
 	super();
     }
 
-    public Bait(int id, String name, String description, BaitType baitType, List<BaitPropertie> baitPropertie) {
+    public Bait(int baitId, String baitName, List<BaitSetting> settings) {
 	super();
-	this.id = id;
-	this.name = name;
-	this.description = description;
-	this.baitType = baitType;
-	this.baitPropertie = baitPropertie;
+	this.baitId = baitId;
+	this.baitName = baitName;
+	this.settings = settings;
     }
 
 }

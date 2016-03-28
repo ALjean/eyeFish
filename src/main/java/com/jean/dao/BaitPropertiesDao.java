@@ -1,15 +1,14 @@
 package com.jean.dao;
 
 import com.jean.DaoDfmException;
+import com.jean.entity.Bait;
 import com.jean.entity.BaitPropertie;
 import java.util.List;
-import java.util.Map;
 
 public interface BaitPropertiesDao {
 
-    Map<String, String> getBaitColors(double cloudLevel, double algaLevel, double deepLevel) throws DaoDfmException;
+    public Integer saveBaitPropertie(BaitPropertie baitPropertie) throws DaoDfmException;
 
-    List<BaitPropertie> getBaitColors(BaitPropertie brightLevel) throws DaoDfmException;
+    public List<BaitPropertie> getBaitPropertiesForBait(Bait bait);
 
-    List<BaitPropertie> getBaitTastes(double temperature, String paramName) throws DaoDfmException;
 }

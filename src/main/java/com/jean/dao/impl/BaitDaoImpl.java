@@ -11,7 +11,10 @@ import org.slf4j.LoggerFactory;
 
 import com.jean.dao.BaitDao;
 import com.jean.entity.Bait;
+import com.jean.entity.BaitPropertieType;
 import com.jean.entity.BaitType;
+import com.jean.entity.ParameterName;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -60,33 +63,31 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
     @Override
     public Integer saveBait(Bait bait) throws DaoDfmException, CustomDfmException {
 
-	String sqlInsertBait = "INSERT INTO baits (bait_name, bait_type_id, description) VALUES (?, ?, ?)";
+	String sqlInsertBait = "INSERT INTO baits (bait_name, description) VALUES (?, ?)";
+	String sqlInsertBaitToPropType = "";
+	String sqlInsertBaitToParamName = "";
 
 	Connection connection = getConnection();
-
 	PreparedStatement statement = null;
-
-	int primaryKey;
+	int baitId;
 
 	try {
 
 	    statement = connection.prepareStatement(sqlInsertBait, Statement.RETURN_GENERATED_KEYS);
-	    statement.setString(1, bait.getName());
-	    statement.setInt(2, bait.getBaitType().getTypeId());
-	    statement.setString(3, bait.getDescription());
+	    setBaitStatement(bait, statement);
 	    statement.executeUpdate();
-
-	    ResultSet keySet = statement.getGeneratedKeys();
-	    keySet.next();
-	    primaryKey = keySet.getInt(1);
-
-	    connection.commit();
-
+	    baitId = getGeneratedKey(statement);
+	    
+	    statement = connection.prepareStatement(sqlInsertBaitToPropType, Statement.RETURN_GENERATED_KEYS);
+	    for(BaitPropertieType proptype : bait.getBaitPropertie()){
+	    setBindingBaitToPropTypeStatement(baitId, bait, statement);
+	    }
+	    
 	} catch (SQLException e) {
 	    throw new DaoDfmException("Some problem with save bait. " + "Message: " + e.getMessage(), e);
 	}
 
-	return primaryKey;
+	return baitId;
     }
 
     public List<Bait> getBaitListToFish(int id) throws DaoDfmException {
@@ -297,10 +298,24 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
     private Bait getBaitFromRs(ResultSet rs) throws SQLException {
 	Bait bait = new Bait();
 	bait.setId(rs.getInt("bait_id"));
-	bait.setBaitType(new BaitType(rs.getInt("bt.bait_type_id"), rs.getString("bt.bait_type_name")));
 	bait.setName(rs.getString("bait_name"));
 	bait.setDescription(rs.getString("description"));
 	return bait;
+    }
+
+    private void setBaitStatement(Bait bait, PreparedStatement statement) throws SQLException {
+	statement.setString(1, bait.getName());
+	statement.setString(2, bait.getDescription());
+    }
+
+    private void setBindingBaitToPropTypeStatement(int baitId, int propTypeId, PreparedStatement statement) throws SQLException {
+	statement.setInt(1, baitId);
+	statement.setInt(2, propTypeId);
+    }
+
+    private void setBindingBaitToParamNameStatement(int baitId, int paramNameId, PreparedStatement statement) throws SQLException {
+	statement.setInt(1, baitId);
+	statement.setInt(2, paramNameId);
     }
 
 }

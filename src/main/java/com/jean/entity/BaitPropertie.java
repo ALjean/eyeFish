@@ -3,8 +3,14 @@ package com.jean.entity;
 public class BaitPropertie {
 
     private int id;
-    private String name;
+    private String baitPropName;
     private String description;
+
+    private BaitPropertieType baitPropTypes;
+    private ParameterName paramNames;
+
+    private double minRange;
+    private double maxRange;
 
     public int getId() {
 	return id;
@@ -14,12 +20,12 @@ public class BaitPropertie {
 	this.id = id;
     }
 
-    public String getName() {
-	return name;
+    public String getBaitPropName() {
+	return baitPropName;
     }
 
-    public void setName(String name) {
-	this.name = name;
+    public void setBaitPropName(String baitPropName) {
+	this.baitPropName = baitPropName;
     }
 
     public String getDescription() {
@@ -30,20 +36,42 @@ public class BaitPropertie {
 	this.description = description;
     }
 
+    public BaitPropertieType getBaitPropTypes() {
+	return baitPropTypes;
+    }
+
+    public void setBaitPropTypes(BaitPropertieType baitPropTypes) {
+	this.baitPropTypes = baitPropTypes;
+    }
+
+    public ParameterName getParamNames() {
+	return paramNames;
+    }
+
+    public void setParamNames(ParameterName paramNames) {
+	this.paramNames = paramNames;
+    }
+
+    public double getMinRange() {
+	return minRange;
+    }
+
+    public void setMinRange(double minRange) {
+	this.minRange = minRange;
+    }
+
+    public double getMaxRange() {
+	return maxRange;
+    }
+
+    public void setMaxRange(double maxRange) {
+	this.maxRange = maxRange;
+    }
+
     @Override
     public String toString() {
-	return "BaitPropertie [id=" + id + ", name=" + name + ", description=" + description + "]";
-    }
-
-    public BaitPropertie() {
-	super();
-    }
-
-    public BaitPropertie(int id, String name, String description) {
-	super();
-	this.id = id;
-	this.name = name;
-	this.description = description;
+	return "BaitPropertie [id=" + id + ", baitPropName=" + baitPropName + ", description=" + description + ", baitPropTypes=" + baitPropTypes
+		+ ", paramNames=" + paramNames + ", minRange=" + minRange + ", maxRange=" + maxRange + "]";
     }
 
 }
