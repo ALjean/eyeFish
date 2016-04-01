@@ -2,6 +2,8 @@ package com.jean.entity;
 
 import java.util.List;
 
+import com.jean.util.Qualifier;
+
 public class BaitSetting {
 
     private int settingId;

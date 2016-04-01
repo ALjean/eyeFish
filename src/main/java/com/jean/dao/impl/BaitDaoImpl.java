@@ -14,6 +14,8 @@ import com.jean.entity.Bait;
 import com.jean.entity.BaitPropertieType;
 import com.jean.entity.BaitType;
 import com.jean.entity.ParameterName;
+import com.jean.entity.RangeHolder;
+import com.jean.util.Qualifier;
 
 import org.springframework.stereotype.Repository;
 
@@ -316,6 +318,21 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
     private void setBindingBaitToParamNameStatement(int baitId, int paramNameId, PreparedStatement statement) throws SQLException {
 	statement.setInt(1, baitId);
 	statement.setInt(2, paramNameId);
+    }
+    
+    public static void main(String[] args){
+	
+	ParameterName parameterName = new ParameterName(1, "CLOUD_LEVEL", 0, 100, 80);
+	
+	List<RangeHolder> ranges = new ArrayList<RangeHolder>();
+	
+	
+	Qualifier qualifier = new Qualifier();
+	qualifier.setParameterName(parameterName);
+	qualifier.setRanges(ranges);
+	
+	
+	
     }
 
 }
