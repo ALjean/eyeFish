@@ -2,33 +2,43 @@ package com.jean.util;
 
 public class ParameterName {
 
-    private String paramName;
-    private int priorityLevel;
+	private String paramName;
+	private double allowMin;
+	private double allowMax;
 
-    public String getParamName() {
-	return paramName;
-    }
+	public String getParamName() {
+		return paramName;
+	}
 
-    public void setParamName(String paramName) {
-	this.paramName = paramName;
-    }
+	public void setParamName(String paramName) {
+		this.paramName = paramName;
+	}
 
-    public int getPriorityLevel() {
-	return priorityLevel;
-    }
+	public double getAllowMin() {
+		return allowMin;
+	}
 
-    public void setPriorityLevel(int priorityLevel) {
-	this.priorityLevel = priorityLevel;
-    }
+	public void setAllowMin(double allowMin) {
+		this.allowMin = allowMin;
+	}
 
-    public ParameterName() {
-	super();
-    }
+	public double getAllowMax() {
+		return allowMax;
+	}
 
-    public ParameterName(String paramName, int priorityLevel) {
-	super();
-	this.paramName = paramName;
-	this.priorityLevel = priorityLevel;
-    }
+	public void setAllowMax(double allowMax) {
+		this.allowMax = allowMax;
+	}
+
+	public ParameterName() {
+		super();
+	}
+
+	public ParameterName(String paramName, double allowMin, double allowMax) {
+		super();
+		this.paramName = paramName;
+		this.allowMin = allowMin;
+		this.allowMax = allowMax;
+	}
 
 }

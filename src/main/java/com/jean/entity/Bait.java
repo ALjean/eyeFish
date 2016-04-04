@@ -2,50 +2,46 @@ package com.jean.entity;
 
 import java.util.List;
 
+import com.jean.util.BaitSetting;
+
 public class Bait {
 
-    private int baitId;
-    private String baitName;
-    private List<BaitSetting> settings;
+	private int baitId;
+	private String baitName;
+	private String description;
 
-    public int getBaitId() {
-	return baitId;
-    }
+	private List<BaitSetting> baitSetting;
 
-    public void setBaitId(int baitId) {
-	this.baitId = baitId;
-    }
+	public int getBaitId() {
+		return baitId;
+	}
 
-    public String getBaitName() {
-	return baitName;
-    }
+	public void setBaitId(int baitId) {
+		this.baitId = baitId;
+	}
 
-    public void setBaitName(String baitName) {
-	this.baitName = baitName;
-    }
+	public String getBaitName() {
+		return baitName;
+	}
 
-    public List<BaitSetting> getSettings() {
-	return settings;
-    }
+	public void setBaitName(String baitName) {
+		this.baitName = baitName;
+	}
 
-    public void setSettings(List<BaitSetting> settings) {
-	this.settings = settings;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    @Override
-    public String toString() {
-	return "Bait [baitId=" + baitId + ", baitName=" + baitName + ", settings=" + settings + "]";
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public Bait() {
-	super();
-    }
+	public List<BaitSetting> getBaitSetting() {
+		return baitSetting;
+	}
 
-    public Bait(int baitId, String baitName, List<BaitSetting> settings) {
-	super();
-	this.baitId = baitId;
-	this.baitName = baitName;
-	this.settings = settings;
-    }
+	public void setBaitSetting(List<BaitSetting> baitSetting) {
+		this.baitSetting = baitSetting;
+	}
 
 }

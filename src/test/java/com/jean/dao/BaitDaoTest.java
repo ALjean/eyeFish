@@ -17,6 +17,10 @@ import com.jean.analyzers.weather.ConstantsAnalyzer.KEY_MESSAGE;
 import com.jean.entity.Bait;
 import com.jean.entity.BaitPropertie;
 import com.jean.entity.BaitType;
+import com.jean.util.BaitSetting;
+import com.jean.util.ParameterName;
+import com.jean.util.ParameterNamesHolder;
+import com.jean.util.Qualifier;
 
 public class BaitDaoTest extends BaseTest {
 
@@ -25,14 +29,25 @@ public class BaitDaoTest extends BaseTest {
     private String key;
     private Date date;
     private Bait bait;
-    List<Bait> baits;
+    private BaitSetting baitSetting;
+    private Qualifier qualifier;
+    private List<Bait> baits;
 
     @Before
     public void init() {
 	fishId = 7;
 	key = KEY_MESSAGE.STYRO_POP_UP.toString();
 	date = Date.valueOf("2016-06-22");
-	bait = new Bait(0, "Slizzard", "For real man who want to catch real Big Fish", new BaitType(1, " "), new ArrayList<BaitPropertie>());
+	bait = new Bait();
+	
+	qualifier = new Qualifier();
+	qualifier.setParamName(new ParameterName("ALGA_LEVEL", 25, 36));
+	qualifier.setMin(3);
+	qualifier.setMax(12);
+	
+	baitSetting = new BaitSetting();
+	
+	
 
     }
 
@@ -86,11 +101,9 @@ public class BaitDaoTest extends BaseTest {
 	baitDao.deleteBait(50);
     }
     
-    @Test
+    //@Test
     public void updateBaitTest() throws DaoDfmException, CustomDfmException{
-	bait.setId(51);
-	bait.setName("Update test");
-	baitDao.updateBait(bait);
+	
     }
 
 }

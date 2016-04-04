@@ -2,43 +2,51 @@ package com.jean.util;
 
 public class Qualifier {
 
-    private ParameterName parameterName;
-    private double min;
-    private double max;
+	private ParameterName paramName;
+	private double min;
+	private double max;
 
-    public ParameterName getParameterName() {
-	return parameterName;
-    }
+	public ParameterName getParameterName() {
+		return paramName;
+	}
 
-    public void setParameterName(ParameterName parameterName) {
-	this.parameterName = parameterName;
-    }
+	public void setParameterName(ParameterName parameterName) {
+		this.paramName = parameterName;
+	}
 
-    public double getMin() {
-	return min;
-    }
+	public double getMin() {
+		return min;
+	}
 
-    public void setMin(double min) {
-	this.min = min;
-    }
+	public void setMin(double min) {
+		this.min = min;
+	}
 
-    public double getMax() {
-	return max;
-    }
+	public double getMax() {
+		return max;
+	}
 
-    public void setMax(double max) {
-	this.max = max;
-    }
+	public void setMax(double max) {
+		this.max = max;
+	}
 
-    public Qualifier() {
-	super();
-    }
+	public ParameterName getParamName() {
+		return paramName;
+	}
 
-    public Qualifier(ParameterName parameterName, double min, double max) {
-	super();
-	this.parameterName = parameterName;
-	this.min = min;
-	this.max = max;
-    }
+	public void setParamName(ParameterName paramName) {
+		this.paramName = paramName;
+	}
+
+	public Qualifier() {
+		super();
+	}
+
+	public Qualifier(ParameterName parameterName, double min, double max) {
+		super();
+		this.paramName = parameterName;
+		this.min = min;
+		this.max = max;
+	}
 
 }

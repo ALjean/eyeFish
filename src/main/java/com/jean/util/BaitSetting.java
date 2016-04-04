@@ -1,34 +1,56 @@
 package com.jean.util;
 
+import java.util.List;
+
+import com.jean.entity.Bait;
+
 public class BaitSetting {
 
-    private String settingName;
-    private String description;
+	private int settingId;
+	private String settingType;
+	private String settingName;
+	private String description;
 
-    public String getSettingName() {
-	return settingName;
-    }
+	private List<Qualifier> qualifers;
 
-    public void setSettingName(String settingName) {
-	this.settingName = settingName;
-    }
+	public int getSettingId() {
+		return settingId;
+	}
 
-    public String getDescription() {
-	return description;
-    }
+	public void setSettingId(int settingId) {
+		this.settingId = settingId;
+	}
 
-    public void setDescription(String description) {
-	this.description = description;
-    }
+	public String getSettingType() {
+		return settingType;
+	}
 
-    public BaitSetting() {
-	super();
-    }
+	public void setSettingType(String settingType) {
+		this.settingType = settingType;
+	}
 
-    public BaitSetting(String settingName, String description) {
-	super();
-	this.settingName = settingName;
-	this.description = description;
-    }
+	public String getSettingName() {
+		return settingName;
+	}
+
+	public void setSettingName(String settingName) {
+		this.settingName = settingName;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public List<Qualifier> getQualifers() {
+		return qualifers;
+	}
+
+	public void setQualifers(List<Qualifier> qualifers) {
+		this.qualifers = qualifers;
+	}
 
 }
