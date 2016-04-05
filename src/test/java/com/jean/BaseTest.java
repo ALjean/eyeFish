@@ -1,14 +1,12 @@
 package com.jean;
 
-
 import com.jean.config.context.AppConfig;
 import com.jean.dao.*;
 import com.jean.schedule.DataWeatherDataBaseWriter;
 import com.jean.service.FishAnalyzerService;
 import com.jean.service.UserService;
 import com.jean.service.WeatherService;
-import com.jean.analyzers.bait.BaitPropertiesAnalyzer;
-
+import com.jean.analyzers.fish.FishAnalyzer;
 
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
@@ -24,9 +22,9 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 @Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = AppConfig.class, loader=AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes = AppConfig.class, loader = AnnotationConfigContextLoader.class)
 @ActiveProfiles("test")
-public class BaseTest  {
+public class BaseTest {
 
     @Autowired
     protected FishDao fishDao;
@@ -36,12 +34,9 @@ public class BaseTest  {
 
     @Autowired
     protected UserDao userDao;
-    
-    @Autowired
-    protected BaitDao baitDao;
 
     @Autowired
-    protected BaitPropertiesDao baitPropertiesDao;
+    protected BaitDao baitDao;
 
     @Autowired
     protected WeatherService weatherService;
@@ -54,13 +49,7 @@ public class BaseTest  {
 
     @Autowired
     protected DataWeatherDataBaseWriter dataWeatherDataBaseWriter;
-    
-//    @Autowired
-//    protected FishAnalyzer fishAnalyzer;
-    
+
     @Autowired
-    protected BaitPropertiesAnalyzer baitPropAnalyzer;
-
-
-
+    protected FishAnalyzer fishAnalyzer;
 }

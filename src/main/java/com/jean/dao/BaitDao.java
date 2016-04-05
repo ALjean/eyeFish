@@ -6,6 +6,7 @@ import java.util.List;
 import com.jean.CustomDfmException;
 import com.jean.DaoDfmException;
 import com.jean.entity.Bait;
+import com.jean.entity.PondEnvirmoment;
 
 public interface BaitDao {
 
@@ -17,7 +18,7 @@ public interface BaitDao {
     
     List<Bait> getBaitsBySeason(Date date) throws DaoDfmException;
     
-    List<Bait> getBaits() throws DaoDfmException, CustomDfmException;
+    List<Bait> getBaits(int baitid, String baitName, Date date, int fishId, PondEnvirmoment pondEnv) throws DaoDfmException, CustomDfmException;
     
     Integer saveBait(Bait bait) throws DaoDfmException, CustomDfmException;
 
