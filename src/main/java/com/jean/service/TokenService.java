@@ -5,4 +5,6 @@ import com.jean.CustomDfmException;
 public interface TokenService {
 
     String getToken(String username, String password) throws CustomDfmException;
+
+    String getSession();
 }

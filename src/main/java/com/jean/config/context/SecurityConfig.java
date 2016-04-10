@@ -1,11 +1,9 @@
 package com.jean.config.context;
 
 
-import com.jean.config.security.TokenAuthenticationManager;
-import com.jean.config.security.RepositoryUserDetailsService;
-import com.jean.config.security.handler.TokenAuthenticationFilter;
+import com.jean.config.security.jwt.JwtAuthenticationTokenFilter;
+import com.jean.config.security.jwt.JwtAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,157 +12,78 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import java.util.Collections;
 
 
 /**
  * Created by stas on 07.06.15.
  */
 
-//@Configuration
-//@EnableWebSecurity
-//public class SecurityConfig extends WebSecurityConfigurerAdapter {
-//
-//
-//    @Autowired
-//    private AuthenticationSuccessHandler customAuthenticationSuccessHandler;
-//
-//    @Autowired
-//    private AuthenticationEntryPoint restAuthenticationEntryPoint;
-//
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//
-//        http
-//                .csrf().disable()
-//                .exceptionHandling()
-//                .authenticationEntryPoint(restAuthenticationEntryPoint)
-//                .and()
-//                .authorizeRequests()
-//                .antMatchers("/**").permitAll()
-//                .antMatchers("/fish/**").authenticated() //TODO patterns
-//                .and()
-//                .formLogin()
-//                .usernameParameter(SecurityConstants.LOGIN)
-//                .passwordParameter(SecurityConstants.PASSWORD)
-//                .successHandler(customAuthenticationSuccessHandler)
-//                .failureHandler(new SimpleUrlAuthenticationFailureHandler())
-//                .and()
-//                .logout();
-//
-//    }
-//
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//                .userDetailsService(userDetailsService())
-//                .passwordEncoder(passwordEncoder());
-//    }
-//
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder(10);
-//    }
-//
-//
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        return new RepositoryUserDetailsService();
-//    }
-//
-//
-//    @Bean
-//    public CustomAuthenticationSuccessHandler customSuccessHandler() {
-//        return new CustomAuthenticationSuccessHandler();
-//    }
-//
-//    @Bean
-//    public RestAuthenticationEntryPoint restAuthenticationEntryPoint() {
-//        return new RestAuthenticationEntryPoint();
-//    }
-//
-//
-//    @Bean
-//    public SimpleUrlAuthenticationFailureHandler customFailureHandler() {
-//        return new SimpleUrlAuthenticationFailureHandler();
-//    }
-//
-//}
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    @Qualifier("userDetailsService")
     private UserDetailsService userDetailsService;
 
     @Autowired
-    private TokenAuthenticationManager tokenAuthenticationManager;
-
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .headers().frameOptions().sameOrigin()
-//                .and()
-//                .addFilterAfter(restTokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-//                .authorizeRequests()
-//                .antMatchers("/**").authenticated();
-//    }
-//
-//    @Bean(name = "restTokenAuthenticationFilter")
-//    public TokenAuthenticationFilter restTokenAuthenticationFilter() throws Exception {
-//        TokenAuthenticationFilter restTokenAuthenticationFilter = new TokenAuthenticationFilter();
-//        tokenAuthenticationManager.setUserDetailsService(userDetailsService());
-//        restTokenAuthenticationFilter.setAuthenticationManager(tokenAuthenticationManager);
-//        return restTokenAuthenticationFilter;
-//    }
+    private JwtAuthenticationEntryPoint unauthorizedHandler;
 
 
+    @Autowired
+    public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+        authenticationManagerBuilder
+                .userDetailsService(this.userDetailsService)
+                .passwordEncoder(passwordEncoder());
+    }
 
-
-//        @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//                .userDetailsService(userDetailsService())
-//                .passwordEncoder(passwordEncoder());
-//    }
-
-
+    @Bean
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .headers().frameOptions().sameOrigin()
-                .and()
-                .addFilterAfter(restTokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-                .authorizeRequests()
-                .antMatchers("/*").authenticated();
-    }
-
-    @Bean(name = "restTokenAuthenticationFilter")
-    public TokenAuthenticationFilter restTokenAuthenticationFilter() {
-        TokenAuthenticationFilter restTokenAuthenticationFilter = new TokenAuthenticationFilter();
-        tokenAuthenticationManager.setUserDetailsService(userDetailsService);
-        restTokenAuthenticationFilter.setAuthenticationManager(tokenAuthenticationManager);
-        return restTokenAuthenticationFilter;
-    }
-
-
-        @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(10);
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
 
     @Bean
-    public UserDetailsService userDetailsService() {
-        return new RepositoryUserDetailsService();
+    public JwtAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
+        JwtAuthenticationTokenFilter authenticationTokenFilter = new JwtAuthenticationTokenFilter();
+        authenticationTokenFilter.setAuthenticationManager(authenticationManagerBean());
+        return authenticationTokenFilter;
     }
+
+    @Override
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
+                // we don't need CSRF because our token is invulnerable
+                .csrf().disable()
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+                // don't create session
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .authorizeRequests()
+                //.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                .antMatchers("/auth/**").permitAll()
+                .anyRequest().authenticated();
+
+        // Custom JWT based security filter
+        httpSecurity
+                .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
+
+        httpSecurity.headers().cacheControl();
+
+    }
+
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(10);
+    }
+
 
 
 }

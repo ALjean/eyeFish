@@ -1,35 +1,29 @@
 package com.jean.config.security;
 
+import com.jean.config.security.jwt.JwtUserFactory;
 import com.jean.entity.User;
 import com.jean.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+
+@Service
 public class RepositoryUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserService userDao;
+    private UserService userService;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDao.getUserByEmail(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userService.getUserByEmail(email);
 
         if (user == null) {
-            throw new UsernameNotFoundException("No user found with username: " + username);
+            throw new UsernameNotFoundException("No user found with email: " + email);
         }
 
-
-        return ExampleUserDetails.getBuilder()
-                .firstName(user.getFirstName())
-                .id((long) user.getId())
-                .lastName(user.getLastName())
-                .password(user.getPassword())
-                .role(user.getRole())
-                .username(user.getEmail())
-                .build();
+        return JwtUserFactory.create(user);
     }
 }

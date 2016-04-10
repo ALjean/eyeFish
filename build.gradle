@@ -60,15 +60,15 @@ dependencies {
     // doc parse
     compile group: 'org.apache.poi', name: 'poi', version: '3.13'
 
-
+    compile group: 'org.springframework.mobile', name: 'spring-mobile-device', version: '1.1.5.RELEASE'
 
 
 }
 
 
-task deploy(type: Copy, dependsOn: build) {
+task deploy(type: Copy, dependsOn: war) {
     from 'build/libs/'
-    into '/home/stas/Work/Tomcats/apache-tomcat-8.0.30/webapps'
+    into '/home/jean/Work/Soft/apache-tomcat-9.0.0.M1/webapps'
 //    into jbossHome + '/standalone/deployments/'
 }
 
