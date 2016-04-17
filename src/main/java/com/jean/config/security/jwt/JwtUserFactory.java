@@ -1,6 +1,6 @@
 package com.jean.config.security.jwt;
 
-import com.jean.config.security.jwt.JwtUser;
+
 import com.jean.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
