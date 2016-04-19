@@ -51,22 +51,15 @@ public class AuthenticationController {
 
     }
 
-    @RequestMapping(value = "/test1", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> test1(HttpServletRequest request){
+    @RequestMapping(value = "/logout", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> repealAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest){
 
-
-        return ResponseEntity.ok("Hello");
-
-    }
-
-
-    @RequestMapping(value = "/test2", method = RequestMethod.POST)
-    public ResponseEntity<?> test2(HttpServletRequest request){
-
-
-        return ResponseEntity.ok("Hello");
+        return null;
 
     }
+
+
+
 
 //    @RequestMapping(value = "/refresh", method = RequestMethod.GET)
 //    public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
