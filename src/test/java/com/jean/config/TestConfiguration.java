@@ -15,10 +15,10 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 public class TestConfiguration {
 
 
-    @Bean
+    /*@Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         return new PropertySourcesPlaceholderConfigurer();
-    }
+    }*/
 
 //@Bean
 //public BasicDataSource getBasicDataSource(){

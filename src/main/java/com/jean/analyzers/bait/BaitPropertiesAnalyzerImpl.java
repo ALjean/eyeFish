@@ -12,7 +12,7 @@ import com.jean.analyzers.weather.ConstantsAnalyzer;
 import com.jean.analyzers.weather.ConstantsAnalyzer.*;
 import com.jean.dao.BaitDao;
 
-@Component
+
 public class BaitPropertiesAnalyzerImpl implements BaitPropertiesAnalyzer {
 
     @Autowired

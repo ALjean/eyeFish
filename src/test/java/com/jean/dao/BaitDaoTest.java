@@ -36,7 +36,7 @@ public class BaitDaoTest extends BaseTest {
     private List<Qualifier> qualifiers;
     private List<DateHolder> dates;
     private List<Integer> idFishes;
-    private List<Bait> baits;
+    private List<Bait> baits; 
 
     @Before
     public void init() {

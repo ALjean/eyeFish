@@ -1,5 +1,6 @@
 package com.jean.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.jean.util.BaitSetting;
@@ -63,7 +64,9 @@ public class Bait {
     }
 
     public Bait() {
-	super();
+	this.baitSetting = new ArrayList<BaitSetting>();
+	this.fishId = new ArrayList<Integer>();
+	this.dates = new ArrayList<DateHolder>();
     }
 
     public Bait(int baitId, String baitName, String description, List<BaitSetting> baitSetting, List<Integer> fishId, List<DateHolder> dates) {

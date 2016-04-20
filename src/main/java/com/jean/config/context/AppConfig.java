@@ -31,7 +31,7 @@ import java.util.List;
  */
 @Configuration
 @EnableScheduling
-@EnableWebMvc
+//@EnableWebMvc
 @ComponentScan({"com.jean.*", "com.jean.servlet.controller.*"})
 @PropertySource("classpath:application.properties")
 public class AppConfig extends WebMvcConfigurerAdapter {

@@ -1,6 +1,7 @@
 package com.jean;
 
 import com.jean.config.context.AppConfig;
+import com.jean.config.property.DataBaseProperties;
 import com.jean.dao.*;
 import com.jean.schedule.DataWeatherDataBaseWriter;
 import com.jean.service.FishAnalyzerService;
@@ -52,4 +53,7 @@ public class BaseTest {
 
     @Autowired
     protected FishAnalyzer fishAnalyzer;
+    
+    @Autowired
+    protected DataBaseProperties dataBaseProperties;
 }
