@@ -2,16 +2,25 @@ package com.jean.util;
 
 public class Qualifier {
 
-    private ParameterName paramName;
+    private int qualId;
+    private String paramName;
     private double min;
     private double max;
 
-    public ParameterName getParameterName() {
+    public int getQuaId() {
+	return qualId;
+    }
+
+    public void setQuaId(int qual_id) {
+	this.qualId = qual_id;
+    }
+
+    public String getParamName() {
 	return paramName;
     }
 
-    public void setParameterName(ParameterName parameterName) {
-	this.paramName = parameterName;
+    public void setParamName(String paramName) {
+	this.paramName = paramName;
     }
 
     public double getMin() {
@@ -30,23 +39,21 @@ public class Qualifier {
 	this.max = max;
     }
 
-    public ParameterName getParamName() {
-	return paramName;
-    }
-
-    public void setParamName(ParameterName paramName) {
-	this.paramName = paramName;
-    }
-
     public Qualifier() {
 	super();
     }
 
-    public Qualifier(ParameterName parameterName, double min, double max) {
+    public Qualifier(int qual_id, String paramName, double min, double max) {
 	super();
-	this.paramName = parameterName;
+	this.qualId = qual_id;
+	this.paramName = paramName;
 	this.min = min;
 	this.max = max;
+    }
+
+    @Override
+    public String toString() {
+	return "Qualifier [qual_id=" + qualId + ", paramName=" + paramName + ", min=" + min + ", max=" + max + "]";
     }
 
 }

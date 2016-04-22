@@ -19,6 +19,7 @@ import com.jean.entity.Bait;
 import com.jean.entity.BaitPropertie;
 import com.jean.entity.BaitType;
 import com.jean.entity.DateHolder;
+import com.jean.entity.PondEnvirmoment;
 import com.jean.enums.ParamNames;
 import com.jean.util.BaitSetting;
 import com.jean.util.ParameterName;
@@ -37,6 +38,7 @@ public class BaitDaoTest extends BaseTest {
     private List<DateHolder> dates;
     private List<Integer> idFishes;
     private List<Bait> baits; 
+    private PondEnvirmoment pond;
 
     @Before
     public void init() {
@@ -48,24 +50,28 @@ public class BaitDaoTest extends BaseTest {
 	idFishes.addAll(Arrays.asList(new Integer[] {7}));
 	
 	dates = new ArrayList<DateHolder>();
-	dates.add(new DateHolder(Date.valueOf("2016-07-01"), Date.valueOf("2016-09-30")));
-	dates.add(new DateHolder(Date.valueOf("2016-02-01"), Date.valueOf("2016-04-30")));
+	dates.add(new DateHolder(Date.valueOf("2016-01-01"), Date.valueOf("2016-03-30")));
+	dates.add(new DateHolder(Date.valueOf("2016-09-01"), Date.valueOf("2016-12-30")));
 	
 	qualifiers = new ArrayList<Qualifier>(); 
-	qualifiers.add(new Qualifier(ParameterNamesHolder.getParamName(ParamNames.CLOUD_LEVEL.name()), 23, 50));
-	qualifiers.add(new Qualifier(ParameterNamesHolder.getParamName(ParamNames.DEEP_LEVEL.name()), 1.2, 2));
+	qualifiers.add(new Qualifier(0, ParamNames.ENVIRMOMENT_TEMPERATURE.name(), 0, 12));
 	
 	baitSettings = new ArrayList<BaitSetting>(); 
-	baitSettings.add(new BaitSetting(0, "Color", "Natural", "Use natural colors for the best result", qualifiers));	
+	baitSettings.add(new BaitSetting(0, "Taste", "Meat", "Use meat for the best result", qualifiers));	
 	
-	bait = new Bait(0, "Slizzard", "For superlative fish? for example Yazzz!", baitSettings, idFishes, dates);
+	bait = new Bait(0, "Fat WORM", "For superlative fish? for example Yazzz!", baitSettings, idFishes, dates);
+	
+	pond = new PondEnvirmoment(30.0, 0.0, 11.0, 0.0, 0.0, 3.0, 0.0, 0.0);
     }
 
-    //@Test
-    public void getBaitsForFishByDateTest() throws CustomDfmException, DaoDfmException {
-	baits = baitDao.getBaitsToFishesByDate(fishId, date);
+    @Test
+    public void getBaitsTest() throws CustomDfmException, DaoDfmException {
+	baits = baitDao.getBaits(null, null, null, null, pond);
 	assertTrue(!baits.isEmpty());
-	System.out.println(baits);
+	for(Bait bait : baits){
+	    System.out.println(bait);
+	}
+	
     }
 
     //@Test(expected = DaoDfmException.class)
@@ -94,12 +100,12 @@ public class BaitDaoTest extends BaseTest {
 	System.out.println(baits);
     }*/
 
-    @Test
+    /*@Test
     public void saveBaitTest() throws DaoDfmException, CustomDfmException {
 	generateKey = baitDao.saveBait(bait);
 	assertTrue(generateKey > 0);
 	System.out.println(generateKey);
-    }
+    }*/
 
    // @Test(expected = CustomDfmException.class)
     public void deleteBaitExceptionTest() throws DaoDfmException, CustomDfmException {

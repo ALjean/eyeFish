@@ -11,7 +11,7 @@ public class ParameterNamesHolder {
     static {
 	paramNames = new ArrayList<ParameterName>();
 
-	paramNames.add(new ParameterName(ParamNames.ENVIRONMENT_TEMPERATURE.name(), -50, 60));
+	paramNames.add(new ParameterName(ParamNames.ENVIRMOMENT_TEMPERATURE.name(), -50, 60));
 	paramNames.add(new ParameterName(ParamNames.WATER_TEMPERATURE.name(), 0, 40));
 	paramNames.add(new ParameterName(ParamNames.CLOUD_LEVEL.name(), 0, 100));
 	paramNames.add(new ParameterName(ParamNames.ALGA_LEVEL.name(), 0, 100));

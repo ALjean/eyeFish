@@ -251,38 +251,41 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 
 	String sql =
 
-	"SELECT DISTINCT b.bait_id, b.bait_name, b.description, bs.setting_name, bs.setting_type, b.description, q.param_name " 
-	+ "FROM "
-	+ "qualifiers AS q " + "INNER JOIN " + "bait_settings AS bs ON bs.setting_id = q.setting_id " 
-	+ "INNER JOIN "
-	+ "baits_to_fishes AS bf ON bf.bait_id = bs.bait_id " + "INNER JOIN " 
-	+ "baits_to_seasons AS b_seas ON b_seas.bait_id = bs.bait_id "
-	+ "INNER JOIN " 
-	+ "baits AS b ON b.bait_id = bf.bait_id " + "WHERE " + "( "
-	+ "q.param_name = 'CLOUD_LEVEL' AND (? BETWEEN q.min_level AND q.max_level) " 
-	+ "OR "
-	+ "q.param_name = 'DEEP_LEVEL' AND (? BETWEEN q.min_level AND q.max_level) " 
-	+ "OR "
-	+ "q.param_name = 'ENVIRONMENT_TEMPERATURE' AND (? BETWEEN q.min_level AND q.max_level) " 
-	+ "OR "
-	+ "q.param_name = 'WATER_TEMPERATURE' AND (? BETWEEN q.min_level AND q.max_level) " 
-	+ "OR "
-	+ "q.param_name = 'ALGA_LEVEL' AND (? BETWEEN q.min_level AND q.max_level) " 
-	+ "OR "
-	+ "q.param_name = 'RAIN_LEVEL' AND (? BETWEEN q.min_level AND q.max_level) " 
-	+ "OR "
-	+ "q.param_name = 'WIND_SPEED' AND (? BETWEEN q.min_level AND q.max_level) " 
-	+ "OR "
-	+ "q.param_name = 'PRESSURE' AND (? BETWEEN q.min_level AND q.max_level)" 
-	+ ") " 
-	+ "AND "
-	+ "(bf.fish_id = ? OR ? IS NULL) " 
-	+ "AND "
-	+ "(b.bait_id = ? OR ? IS NULL) " 
-	+ "AND "
-	+ "(b.bait_name = ? OR ? IS NULL) " 
-	+ "AND "
-	+ "((? BETWEEN b_seas.start_period AND b_seas.end_period) OR ? IS NULL)";
+	"SELECT DISTINCT b.bait_id, b.bait_name, b.description, bs.setting_id, bs.setting_name, bs.setting_type, bs.description, q.qual_id, q.param_name, q.min_level, q.max_level "
+		+ "FROM " 
+		+ "qualifiers AS q " + "INNER JOIN " + "bait_settings AS bs ON bs.setting_id = q.setting_id " 
+		+ "INNER JOIN "
+		+ "baits_to_fishes AS bf ON bf.bait_id = bs.bait_id "
+		+ "INNER JOIN " 
+		+ "baits_to_seasons AS b_seas ON b_seas.bait_id = bs.bait_id "
+		+ "INNER JOIN " 
+		+ "baits AS b ON b.bait_id = bf.bait_id " 
+		+ "WHERE " 
+		+ "( "
+		+ "q.param_name = 'CLOUD_LEVEL' AND (? BETWEEN q.min_level AND q.max_level) " 
+		+ "OR "
+		+ "q.param_name = 'DEEP_LEVEL' AND (? BETWEEN q.min_level AND q.max_level) " 
+		+ "OR "
+		+ "q.param_name = 'ENVIRMOMENT_TEMPERATURE' AND (? BETWEEN q.min_level AND q.max_level) "
+		+ "OR "
+		+ "q.param_name = 'WATER_TEMPERATURE' AND (? BETWEEN q.min_level AND q.max_level) " 
+		+ "OR "
+		+ "q.param_name = 'ALGA_LEVEL' AND (? BETWEEN q.min_level AND q.max_level) " 
+		+ "OR "
+		+ "q.param_name = 'RAIN_LEVEL' AND (? BETWEEN q.min_level AND q.max_level) " 
+		+ "OR "
+		+ "q.param_name = 'WIND_SPEED' AND (? BETWEEN q.min_level AND q.max_level) " 
+		+ "OR "
+		+ "q.param_name = 'PRESSURE' AND (? BETWEEN q.min_level AND q.max_level)" 
+		+ ") "
+		+ "AND " 
+		+ "(bf.fish_id = ? OR ? IS NULL) " 
+		+ "AND "
+		+ "(b.bait_id = ? OR ? IS NULL) " 
+		+ "AND "
+		+ "(b.bait_name = ? OR ? IS NULL) "
+		+ "AND "
+		+ "((? BETWEEN b_seas.start_period AND b_seas.end_period) OR ? IS NULL)";
 
 	List<Bait> baits = new ArrayList<>();
 
@@ -330,21 +333,62 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 	    }
 
 	    ResultSet rs = preparedStatement.executeQuery();
-	    
-	    Bait bait = new Bait();	
-	    BaitSetting baitSetting = new BaitSetting();
-	    
+
+	    Bait tempBait = null;
+	    BaitSetting tempSetting = null;
+
 	    while (rs.next()) {
-		bait.setBaitId(rs.getInt("b.bait_id"));
-		bait.setBaitName(rs.getString("b.bait_name"));
-		bait.setDescription(rs.getString("b.description"));
+
+		Bait bait = null;
+		BaitSetting baitSetting = null;
+		Qualifier qualifier = new Qualifier();
+
+		qualifier.setQuaId(rs.getInt("q.qual_id"));
+		qualifier.setParamName(rs.getString("q.param_name"));
+		qualifier.setMin(rs.getDouble("q.min_level"));
+		qualifier.setMax(rs.getDouble("q.max_level"));
+
+		if (tempSetting == null || tempSetting.getSettingId() != rs.getInt("bs.setting_id")) {
+		    baitSetting = new BaitSetting();
+		    baitSetting.getQualifers().add(qualifier);
+		    baitSetting.setSettingId(rs.getInt("bs.setting_id"));
+		    baitSetting.setSettingName(rs.getString("bs.setting_name"));
+		    baitSetting.setSettingType(rs.getString("bs.setting_type"));
+		    baitSetting.setDescription(rs.getString("bs.description"));
+		    tempSetting = baitSetting;
+		} else {
+		    tempSetting.getQualifers().add(qualifier);
+		}
+
+		if (tempBait == null || tempBait.getBaitId() != rs.getInt("b.bait_id")) {
+		    bait = new Bait();
+		    bait.getBaitSetting().add(baitSetting);
+		    bait.setBaitId(rs.getInt("b.bait_id"));
+		    bait.setBaitName(rs.getString("b.bait_name"));
+		    bait.setDescription(rs.getString("b.description"));
+		    tempBait = bait;
+		} else {
+		    if (baitSetting != null) {
+			tempBait.getBaitSetting().add(baitSetting);
+		    } else {
+			tempBait.getBaitSetting().add(tempSetting);
+		    }
+		}
+
+		if (bait != null) {
+		    baits.add(bait);
+		} 
+
 	    }
+
+	  
 
 	} catch (SQLException e) {
 	    throw new DaoDfmException("Some problem with fetching list of baits " + "Message: " + e.getMessage(), e);
 	}
+	
+	  return baits;
 
-	return baits;
     }
 
     @Override
@@ -429,7 +473,7 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 
     private void setQulifierStatement(int settingId, Qualifier qualifier, PreparedStatement statement) throws SQLException {
 	statement.setInt(1, settingId);
-	statement.setString(2, qualifier.getParameterName().getParamName());
+	statement.setString(2, qualifier.getParamName());
 	statement.setDouble(3, qualifier.getMin());
 	statement.setDouble(4, qualifier.getMax());
     }

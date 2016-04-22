@@ -79,6 +79,12 @@ public class Bait {
 	this.dates = dates;
     }
 
+    @Override
+    public String toString() {
+	return "Bait [baitId=" + baitId + ", baitName=" + baitName + ", description=" + description + ", baitSetting=" + baitSetting + ", fishId="
+		+ fishId + ", dates=" + dates + "]";
+    }
+
    
 
 }

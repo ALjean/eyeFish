@@ -1,5 +1,6 @@
 package com.jean.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.jean.entity.Bait;
@@ -54,7 +55,7 @@ public class BaitSetting {
     }
 
     public BaitSetting() {
-	super();
+	this.qualifers = new ArrayList<Qualifier>();
     }
 
     public BaitSetting(int settingId, String settingType, String settingName, String description, List<Qualifier> qualifers) {
@@ -66,4 +67,11 @@ public class BaitSetting {
 	this.qualifers = qualifers;
     }
 
+    @Override
+    public String toString() {
+	return "BaitSetting [settingId=" + settingId + ", settingType=" + settingType + ", settingName=" + settingName + ", description="
+		+ description + ", qualifers=" + qualifers + "]";
+    }
+
+    
 }
