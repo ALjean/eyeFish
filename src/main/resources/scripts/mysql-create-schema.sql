@@ -1,8 +1,8 @@
--- MySQL dump 10.15  Distrib 10.0.16-MariaDB, for Win64 (AMD64)
+-- MySQL dump 10.16  Distrib 10.1.13-MariaDB, for Win64 (AMD64)
 --
 -- Host: localhost    Database: eye_fish_project
 -- ------------------------------------------------------
--- Server version	10.0.16-MariaDB
+-- Server version	10.1.13-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -30,8 +30,8 @@ CREATE TABLE `bait_settings` (
   `description` varchar(1000) COLLATE utf16_bin NOT NULL,
   PRIMARY KEY (`setting_id`),
   KEY `FK_bait_settings_baits` (`bait_id`),
-  CONSTRAINT `FK_bait_settings_baits` FOREIGN KEY (`bait_id`) REFERENCES `baits` (`bait_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
+  CONSTRAINT `FK_bait_settings_baits` FOREIGN KEY (`bait_id`) REFERENCES `baits` (`bait_id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `bait_settings` (
 
 LOCK TABLES `bait_settings` WRITE;
 /*!40000 ALTER TABLE `bait_settings` DISABLE KEYS */;
-INSERT INTO `bait_settings` VALUES (3,60,'Natural','Color','Use natural colors for the best result'),(5,62,'Natural','Color','Use natural colors for the best result'),(6,63,'Natural','Color','Use natural colors for the best result'),(8,4,'Sweet','Taste','If you have hot weather'),(11,67,'Meat','Taste','Use meat for the best result'),(12,68,'Meat','Taste','Use meat for the best result'),(13,69,'Meat','Taste','Use meat for the best result'),(14,70,'Meat','Taste','Use meat for the best result'),(15,71,'Meat','Taste','Use meat for the best result');
+INSERT INTO `bait_settings` VALUES (3,60,'Natural','Color','Use natural colors for the best result'),(8,4,'Sweet','Taste','If you have hot weather'),(11,67,'Meat','Taste','Use meat for the best result'),(32,88,'Red','Color','Use for the best result');
 /*!40000 ALTER TABLE `bait_settings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -56,7 +56,7 @@ CREATE TABLE `baits` (
   `bait_name` varchar(50) COLLATE utf16_bin DEFAULT NULL,
   `description` varchar(8000) COLLATE utf16_bin NOT NULL,
   PRIMARY KEY (`bait_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +65,7 @@ CREATE TABLE `baits` (
 
 LOCK TABLES `baits` WRITE;
 /*!40000 ALTER TABLE `baits` DISABLE KEYS */;
-INSERT INTO `baits` VALUES (1,'Worm','For most biggest calm fish'),(2,'Maggot','For white calm fish'),(3,'Bloodwarm','For white calm fish on winter period'),(4,'Corn','Traditional bait for calm fish'),(7,'Castmaster','Best for pike'),(55,'Boil','Best for carp'),(60,'Slizzard','For superlative fish? for example Yazzz!'),(62,'Slizzard','For superlative fish? for example Yazzz!'),(63,'Slizzard','For superlative fish? for example Yazzz!'),(67,'Fat WORM','For superlative fish? for example Yazzz!'),(68,'Fat WORM','For superlative fish? for example Yazzz!'),(69,'Fat WORM','For superlative fish? for example Yazzz!'),(70,'Fat WORM','For superlative fish? for example Yazzz!'),(71,'Fat WORM','For superlative fish? for example Yazzz!');
+INSERT INTO `baits` VALUES (4,'CORNS','Traditional bait for calm fish'),(60,'Slizzard','For superlative fish? for example Yazzz!'),(67,'Fat WORM','For superlative fish? for example Yazzz!'),(88,'Castmaster','For real predator!');
 /*!40000 ALTER TABLE `baits` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,7 +86,7 @@ CREATE TABLE `baits_to_fishes` (
   KEY `FK_bindings_baits_to_fishes_bait` (`bait_id`),
   CONSTRAINT `FK_bindings_baits_to_fishes_bait` FOREIGN KEY (`bait_id`) REFERENCES `baits` (`bait_id`) ON DELETE CASCADE,
   CONSTRAINT `FK_bindings_baits_to_fishes_fish` FOREIGN KEY (`fish_id`) REFERENCES `fishes` (`fish_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,7 +95,7 @@ CREATE TABLE `baits_to_fishes` (
 
 LOCK TABLES `baits_to_fishes` WRITE;
 /*!40000 ALTER TABLE `baits_to_fishes` DISABLE KEYS */;
-INSERT INTO `baits_to_fishes` VALUES (1,7,1,'\0'),(2,7,2,'\0'),(3,7,4,'\0'),(5,13,7,'\0'),(7,7,62,'\0'),(8,7,63,'\0'),(10,7,67,'\0'),(11,7,68,'\0'),(12,7,69,'\0'),(13,7,70,'\0'),(14,7,71,'\0');
+INSERT INTO `baits_to_fishes` VALUES (3,7,4,'\0'),(10,7,67,'\0'),(15,7,60,'\0'),(32,13,88,'\0');
 /*!40000 ALTER TABLE `baits_to_fishes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,7 +114,7 @@ CREATE TABLE `baits_to_seasons` (
   PRIMARY KEY (`id`),
   KEY `baits_to_seasons_ibfk_1` (`bait_id`),
   CONSTRAINT `baits_to_seasons_ibfk_1` FOREIGN KEY (`bait_id`) REFERENCES `baits` (`bait_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,7 +123,7 @@ CREATE TABLE `baits_to_seasons` (
 
 LOCK TABLES `baits_to_seasons` WRITE;
 /*!40000 ALTER TABLE `baits_to_seasons` DISABLE KEYS */;
-INSERT INTO `baits_to_seasons` VALUES (1,2,'2016-03-21','2016-09-30'),(2,1,'2016-07-21','2016-10-18'),(3,4,'2016-06-22','2016-08-31'),(4,62,'2016-07-01','2016-09-30'),(5,62,'2016-02-01','2016-04-30'),(6,63,'2016-07-01','2016-09-30'),(7,63,'2016-02-01','2016-04-30'),(10,67,'2016-01-01','2016-03-30'),(11,67,'2016-09-01','2016-12-30'),(12,68,'2016-01-01','2016-03-30'),(13,68,'2016-09-01','2016-12-30'),(14,69,'2016-01-01','2016-03-30'),(15,69,'2016-09-01','2016-12-30'),(16,70,'2016-01-01','2016-03-30'),(17,70,'2016-09-01','2016-12-30'),(18,71,'2016-01-01','2016-03-30'),(19,71,'2016-09-01','2016-12-30');
+INSERT INTO `baits_to_seasons` VALUES (3,4,'2016-06-22','2016-08-31'),(10,67,'2016-01-01','2016-03-30'),(11,67,'2016-09-01','2016-12-30'),(20,60,'2016-04-25','2016-06-25'),(53,88,'2016-04-01','2016-07-30'),(54,88,'2016-02-01','2016-03-25');
 /*!40000 ALTER TABLE `baits_to_seasons` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -171,15 +171,15 @@ DROP TABLE IF EXISTS `fish_settings`;
 CREATE TABLE `fish_settings` (
   `setting_id` int(11) NOT NULL AUTO_INCREMENT,
   `fish_id` int(11) NOT NULL,
-  `param_name_id` int(11) NOT NULL,
+  `param_name` varchar(50) COLLATE utf16_bin NOT NULL,
   `min_range` double NOT NULL,
   `max_range` double NOT NULL,
   `nibble_level` double NOT NULL,
   PRIMARY KEY (`setting_id`),
   KEY `fish_id` (`fish_id`),
-  KEY `FK_fishes_nibble_properties_parameters_names` (`param_name_id`),
-  CONSTRAINT `FK_fishes_nibble_properties_parameters_names` FOREIGN KEY (`param_name_id`) REFERENCES `parameters_names` (`param_name_id`),
-  CONSTRAINT `fish_settings_ibfk_1` FOREIGN KEY (`fish_id`) REFERENCES `fishes` (`fish_id`)
+  KEY `FK_fish_settings_parameters_names` (`param_name`),
+  CONSTRAINT `FK_fish_settings_parameters_names` FOREIGN KEY (`param_name`) REFERENCES `parameters_names` (`parameters_name`),
+  CONSTRAINT `fish_settings_ibfk_1` FOREIGN KEY (`fish_id`) REFERENCES `fishes` (`fish_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -189,7 +189,7 @@ CREATE TABLE `fish_settings` (
 
 LOCK TABLES `fish_settings` WRITE;
 /*!40000 ALTER TABLE `fish_settings` DISABLE KEYS */;
-INSERT INTO `fish_settings` VALUES (38,7,3,-50,-4,0),(39,7,3,-5,12,15.5),(40,7,3,12,16,21.2),(41,7,3,17,20,38.23),(42,7,3,21,26,88.3),(43,7,3,20,26,88.3),(44,7,3,27,31,52.3),(45,7,3,32,36,21.8),(46,7,3,37,48,5.4),(53,7,5,710,725,5.2),(54,7,5,726,740,38.9),(55,7,5,741,752,86.3),(56,7,5,753,765,26.3),(70,13,3,-50,-4,0),(71,13,3,-4,12,45.3),(72,13,3,13,16,80.2),(73,13,3,17,20,89.23),(74,13,3,21,26,75.3),(76,13,3,27,31,33.3),(77,13,3,32,36,15.8),(78,13,3,37,48,5.4),(85,13,5,710,725,5.2),(86,13,5,726,740,23.87),(87,13,5,741,752,26.3),(88,13,5,753,765,96.3);
+INSERT INTO `fish_settings` VALUES (38,7,'ENVIRMOMENT_TEMPERATURE',-50,-4,0),(39,7,'ENVIRMOMENT_TEMPERATURE',-5,12,15.5),(40,7,'ENVIRMOMENT_TEMPERATURE',12,16,21.2),(41,7,'ENVIRMOMENT_TEMPERATURE',17,20,38.23),(42,7,'ENVIRMOMENT_TEMPERATURE',21,26,88.3),(43,7,'ENVIRMOMENT_TEMPERATURE',20,26,88.3),(44,7,'ENVIRMOMENT_TEMPERATURE',27,31,52.3),(45,7,'ENVIRMOMENT_TEMPERATURE',32,36,21.8),(46,7,'ENVIRMOMENT_TEMPERATURE',37,48,5.4),(53,7,'PRESSURE',710,725,5.2),(54,7,'PRESSURE',726,740,38.9),(55,7,'PRESSURE',741,752,86.3),(56,7,'PRESSURE',753,765,26.3),(70,13,'ENVIRMOMENT_TEMPERATURE',-50,-4,0),(71,13,'ENVIRMOMENT_TEMPERATURE',-4,12,45.3),(72,13,'ENVIRMOMENT_TEMPERATURE',13,16,80.2),(73,13,'ENVIRMOMENT_TEMPERATURE',17,20,89.23),(74,13,'ENVIRMOMENT_TEMPERATURE',21,26,75.3),(76,13,'ENVIRMOMENT_TEMPERATURE',27,31,33.3),(77,13,'ENVIRMOMENT_TEMPERATURE',32,36,15.8),(78,13,'ENVIRMOMENT_TEMPERATURE',37,48,5.4),(85,13,'PRESSURE',710,725,5.2),(86,13,'PRESSURE',726,740,23.87),(87,13,'PRESSURE',741,752,26.3),(88,13,'PRESSURE',753,765,96.3);
 /*!40000 ALTER TABLE `fish_settings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -344,9 +344,9 @@ CREATE TABLE `qualifiers` (
   PRIMARY KEY (`qual_id`),
   KEY `FK_qualifiers_bait_settings` (`setting_id`),
   KEY `FK_qualifiers_parameters_names` (`param_name`),
-  CONSTRAINT `FK_qualifiers_bait_settings` FOREIGN KEY (`setting_id`) REFERENCES `bait_settings` (`setting_id`),
+  CONSTRAINT `FK_qualifiers_bait_settings` FOREIGN KEY (`setting_id`) REFERENCES `bait_settings` (`setting_id`) ON DELETE CASCADE,
   CONSTRAINT `FK_qualifiers_parameters_names` FOREIGN KEY (`param_name`) REFERENCES `parameters_names` (`parameters_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -355,7 +355,7 @@ CREATE TABLE `qualifiers` (
 
 LOCK TABLES `qualifiers` WRITE;
 /*!40000 ALTER TABLE `qualifiers` DISABLE KEYS */;
-INSERT INTO `qualifiers` VALUES (3,3,'CLOUD_LEVEL',23,50),(4,3,'DEEP_LEVEL',1.2,2),(7,5,'CLOUD_LEVEL',10,25),(8,5,'DEEP_LEVEL',3,3.5),(9,6,'CLOUD_LEVEL',27,35),(10,6,'DEEP_LEVEL',0.5,6),(13,8,'ENVIRMOMENT_TEMPERATURE',25,35),(15,11,'ENVIRMOMENT_TEMPERATURE',0,12),(16,12,'ENVIRMOMENT_TEMPERATURE',0,12),(17,13,'ENVIRMOMENT_TEMPERATURE',0,12),(18,14,'ENVIRMOMENT_TEMPERATURE',0,12),(19,15,'ENVIRMOMENT_TEMPERATURE',0,12);
+INSERT INTO `qualifiers` VALUES (3,3,'CLOUD_LEVEL',23,50),(4,3,'DEEP_LEVEL',1.2,2),(13,8,'ENVIRMOMENT_TEMPERATURE',25,35),(15,11,'ENVIRMOMENT_TEMPERATURE',0,12),(52,32,'ENVIRMOMENT_TEMPERATURE',0,12),(53,32,'CLOUD_LEVEL',30,65);
 /*!40000 ALTER TABLE `qualifiers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -448,4 +448,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-22 14:46:35
+-- Dump completed on 2016-04-28 15:53:10
