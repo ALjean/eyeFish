@@ -33,4 +33,11 @@ public class DateHolder {
 	this.end_period = end_period;
     }
 
+	@Override
+	public String toString() {
+		return "DateHolder [start_period=" + start_period + ", end_period=" + end_period + "]";
+	}
+    
+    
+
 }

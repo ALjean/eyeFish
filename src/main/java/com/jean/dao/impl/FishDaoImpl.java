@@ -7,8 +7,10 @@ import com.jean.entity.*;
 import com.jean.Constants;
 import com.jean.enums.FishTypes;
 import com.jean.enums.ParamNames;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.jean.util.Log;
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -22,7 +24,7 @@ import java.util.List;
 @Repository
 public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
-    private static final Logger log = LoggerFactory.getLogger(FishDaoImpl.class);
+    private static final Logger log = Logger.getLogger(Log.class);
 
 
     public void save(Fish fish) throws DaoDfmException {
