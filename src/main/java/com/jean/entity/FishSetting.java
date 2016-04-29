@@ -5,65 +5,79 @@ package com.jean.entity;
  */
 public class FishSetting {
 
-    private int id;
-    private int fishId;
-    private ParameterName paramName;
-    private double minValue;
-    private double maxValue;
-    private float nibbleLevel;
+	private int id;
+	private int fishId;
+	private String paramName;
+	private double minValue;
+	private double maxValue;
+	private float nibbleLevel;
 
-    public int getId() {
-	return id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setId(int id) {
-	this.id = id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public int getFishId() {
-	return fishId;
-    }
+	public int getFishId() {
+		return fishId;
+	}
 
-    public void setFishId(int fishId) {
-	this.fishId = fishId;
-    }
+	public void setFishId(int fishId) {
+		this.fishId = fishId;
+	}
 
-    public ParameterName getParamName() {
-	return paramName;
-    }
+	public String getParamName() {
+		return paramName;
+	}
 
-    public void setParamName(ParameterName paramName) {
-	this.paramName = paramName;
-    }
+	public void setParamName(String paramName) {
+		this.paramName = paramName;
+	}
 
-    public double getMinValue() {
-	return minValue;
-    }
+	public double getMinValue() {
+		return minValue;
+	}
 
-    public void setMinValue(double minValue) {
-	this.minValue = minValue;
-    }
+	public void setMinValue(double minValue) {
+		this.minValue = minValue;
+	}
 
-    public double getMaxValue() {
-	return maxValue;
-    }
+	public double getMaxValue() {
+		return maxValue;
+	}
 
-    public void setMaxValue(double maxValue) {
-	this.maxValue = maxValue;
-    }
+	public void setMaxValue(double maxValue) {
+		this.maxValue = maxValue;
+	}
 
-    public float getNibbleLevel() {
-	return nibbleLevel;
-    }
+	public float getNibbleLevel() {
+		return nibbleLevel;
+	}
 
-    public void setNibbleLevel(float nibbleLevel) {
-	this.nibbleLevel = nibbleLevel;
-    }
+	public void setNibbleLevel(float nibbleLevel) {
+		this.nibbleLevel = nibbleLevel;
+	}
 
-    @Override
-    public String toString() {
-	return "FishSetting [id=" + id + ", fishId=" + fishId + ", paramName=" + paramName + ", minValue=" + minValue + ", maxValue=" + maxValue
-		+ ", nibbleLevel=" + nibbleLevel + "]";
-    }
+	public FishSetting() {
+		super();
+	}
+
+	public FishSetting(int id, int fishId, String paramName, double minValue, double maxValue, float nibbleLevel) {
+		super();
+		this.id = id;
+		this.fishId = fishId;
+		this.paramName = paramName;
+		this.minValue = minValue;
+		this.maxValue = maxValue;
+		this.nibbleLevel = nibbleLevel;
+	}
+
+	@Override
+	public String toString() {
+		return "FishSetting [id=" + id + ", fishId=" + fishId + ", paramName=" + paramName + ", minValue=" + minValue
+				+ ", maxValue=" + maxValue + ", nibbleLevel=" + nibbleLevel + "]";
+	}
 
 }

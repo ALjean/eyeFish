@@ -13,11 +13,11 @@ import java.util.List;
 public interface FishDao {
 
 
-    void save(Fish fish) throws DaoDfmException;
+    Integer saveFish(Fish fish) throws DaoDfmException;
 
-    Fish get(int id) throws DaoDfmException;
+    List<Fish> getFishes(int id) throws DaoDfmException;
 
-    Fish update(Fish fish);
+    void update(Fish fish);
 
     void delete(int id) throws DaoDfmException;
 

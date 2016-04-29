@@ -43,7 +43,7 @@ public class FishDaoTest extends BaseTest {
             nibbleStateParams.add(nibbleStateParam);
         }*/
 
-        fish.setFishParams(nibbleStateParams);
+        fish.setFishSetting(nibbleStateParams);
 
         id = 3;
         temp = 10;

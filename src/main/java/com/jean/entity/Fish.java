@@ -8,85 +8,84 @@ import java.util.List;
 
 public class Fish {
 
-    private int id;
-    private String name;
-    private String description;
-    private FishTypes fishType;
-    private LiveArea livingArea;
-    private DaysActivity daysActivity;
-    private List<FishSetting> fishParams;
-    private List<NibblePeriod> nibbles;
+	private int id;
+	private String name;
+	private String description;
+	private FishTypes fishType;
+	private LiveArea livingArea;
+	private DaysActivity daysActivity;
+	private List<FishSetting> fishSetting;
+	private List<NibblePeriod> nibbles;
 
+	public int getId() {
+		return id;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public FishTypes getFishType() {
+		return fishType;
+	}
 
-    public FishTypes getFishType() {
-        return fishType;
-    }
+	public void setFishType(FishTypes fishType) {
+		this.fishType = fishType;
+	}
 
-    public void setFishType(FishTypes fishType) {
-        this.fishType = fishType;
-    }
+	public LiveArea getLivingArea() {
+		return livingArea;
+	}
 
-    public LiveArea getLivingArea() {
-        return livingArea;
-    }
+	public void setLivingArea(LiveArea livingArea) {
+		this.livingArea = livingArea;
+	}
 
-    public void setLivingArea(LiveArea livingArea) {
-        this.livingArea = livingArea;
-    }
+	public List<FishSetting> getFishSetting() {
+		return fishSetting;
+	}
 
-    public List<FishSetting> getFishParams() {
-        return fishParams;
-    }
+	public void setFishSetting(List<FishSetting> fishSetting) {
+		this.fishSetting = fishSetting;
+	}
 
-    public void setFishParams(List<FishSetting> fishParams) {
-        this.fishParams = fishParams;
-    }
+	public List<NibblePeriod> getNibbles() {
+		return nibbles;
+	}
 
-    public List<NibblePeriod> getNibbles() {
-        return nibbles;
-    }
+	public void setNibbles(List<NibblePeriod> nibbles) {
+		this.nibbles = nibbles;
+	}
 
-    public void setNibbles(List<NibblePeriod> nibbles) {
-        this.nibbles = nibbles;
-    }
+	public DaysActivity getDaysActivity() {
+		return daysActivity;
+	}
 
-    public DaysActivity getDaysActivity() {
-        return daysActivity;
-    }
+	public void setDaysActivity(DaysActivity daysActivity) {
+		this.daysActivity = daysActivity;
+	}
 
-    public void setDaysActivity(DaysActivity daysActivity) {
-        this.daysActivity = daysActivity;
-    }
+	@Override
+	public String toString() {
+		return "Fish [id=" + id + ", name=" + name + ", description=" + description + ", fishType=" + fishType
+				+ ", livingArea=" + livingArea + ", daysActivity=" + daysActivity + ", fishSetting=" + fishSetting
+				+ ", nibbles=" + nibbles + "]";
+	}
 
-    @Override
-    public String toString() {
-	return "Fish [id=" + id + ", name=" + name + ", description=" + description + ", fishType=" + fishType + ", livingArea=" + livingArea
-		+ ", daysActivity=" + daysActivity + ", fishParams=" + fishParams + ", nibbles=" + nibbles + "]";
-    }
-    
-    
 }
