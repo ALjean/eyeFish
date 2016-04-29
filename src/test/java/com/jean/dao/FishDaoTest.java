@@ -4,6 +4,11 @@ import com.jean.CustomDfmException;
 import com.jean.DaoDfmException;
 import com.jean.entity.Fish;
 import com.jean.entity.FishSetting;
+import com.jean.enums.DaysActivity;
+import com.jean.enums.FishTypes;
+import com.jean.enums.LiveArea;
+import com.jean.enums.ParamNames;
+
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -20,62 +25,10 @@ import java.util.List;
 @Component
 public class FishDaoTest extends BaseTest {
 
-    private Fish fish;
+	private Fish fish;
 
-    private int id;
-    private int temp;
-
-    @Before
-    public void init() throws CustomDfmException {
-
-        fish = new Fish();
-        fish.setName("TestTaskName");
-        fish.setDescription("Test Description JUNIT");
-
-        List<FishSetting> nibbleStateParams = new ArrayList<>();
-
-
-     /*   for(int i = 0; i < 10; i++){
-            FishSetting nibbleStateParam = new FishSetting();
-            nibbleStateParam.setMaxValue(20 + i);
-            nibbleStateParam.setMinValue(15 - i);
-            nibbleStateParam.setNibble(0.75f);
-            nibbleStateParams.add(nibbleStateParam);
-        }*/
-
-        fish.setFishSetting(nibbleStateParams);
-
-        id = 3;
-        temp = 10;
-
-    }
-
-    @Test
-    @Ignore
-    public void createFishTest() throws CustomDfmException, DaoDfmException {
-        fishDao.save(fish);
-        System.out.println("Test 1");
-    }
-
-    @Test
-    @Ignore
-    public void readFishTest() throws CustomDfmException,DaoDfmException {
-        Fish t= fishDao.get(id);
-//        assertEquals(t.getName(), "TestTaskName");
-        System.out.println("Test 2");
-    }
-
-    @Test
-    @Ignore
-    public void deleteFishTest() throws DaoDfmException, CustomDfmException {
-        fishDao.delete(15);
-        System.out.println("---------------");
-    }
-
-    @Test
-    @Ignore
-    public void getFishByTempForNibbleTest() throws CustomDfmException, DaoDfmException {
-        Fish fish = fishDao.getFishByTempForNibble(temp, id);
-        System.out.println("Test 3");
-    }
+	@Before
+	public void init() throws CustomDfmException {
+		
+	}
 }

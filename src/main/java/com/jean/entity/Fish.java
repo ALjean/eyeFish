@@ -81,6 +81,23 @@ public class Fish {
 		this.daysActivity = daysActivity;
 	}
 
+	public Fish(int id, String name, String description, FishTypes fishType, LiveArea livingArea,
+			DaysActivity daysActivity, List<FishSetting> fishSetting, List<NibblePeriod> nibbles) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.fishType = fishType;
+		this.livingArea = livingArea;
+		this.daysActivity = daysActivity;
+		this.fishSetting = fishSetting;
+		this.nibbles = nibbles;
+	}
+
+	public Fish() {
+		super();
+	}
+
 	@Override
 	public String toString() {
 		return "Fish [id=" + id + ", name=" + name + ", description=" + description + ", fishType=" + fishType

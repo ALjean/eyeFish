@@ -24,8 +24,6 @@ import java.util.List;
 @Repository
 public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
-	private static final Logger log = Logger.getLogger(Log.class);
-
 	@Override
 	public Integer saveFish(Fish fish) throws DaoDfmException {
 
@@ -36,11 +34,13 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 		Connection connection = null;
 		PreparedStatement statement = null;
 
-		int fishId;
+		int fishId = 0;
 
 		try {
 			connection = getConnection();
 			statement = connection.prepareStatement(insertIntoFishes, Statement.RETURN_GENERATED_KEYS);
+			
+			Log.startDaoLog("saveFish", fish.toString());
 
 			statement.setString(1, fish.getName());
 			statement.setString(2, fish.getDescription());
@@ -51,6 +51,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
 			fishId = getGeneratedKey(statement);
 
+			statement = connection.prepareStatement(insertIntoFishSettings);
 			for (FishSetting fishSetting : fish.getFishSetting()) {
 				statement.setInt(1, fishId);
 				statement.setString(2, fishSetting.getParamName());
@@ -59,13 +60,28 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 				statement.setDouble(5, fishSetting.getNibbleLevel());
 				statement.executeUpdate();
 			}
-
+			
+			statement = connection.prepareStatement(insertIntoNibblePeriods);
+			for (NibblePeriod nibblePeriod : fish.getNibbles()){
+				statement.setInt(1, fishId);
+				statement.setDate(2, nibblePeriod.getStartPeriod());
+				statement.setDate(3, nibblePeriod.getEndPeriod());
+				statement.setDouble(4, nibblePeriod.getNibbleLevel());
+				statement.executeUpdate();
+			}
+			connection.commit();
+			
+			Log.startDaoLog("saveFish", "fishId is " + fishId);
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			rollback(connection);
+			Log.daoException("saveFish", e.getMessage());
+		}finally{
+			closePreparedStatement(statement);
+			closeConnection(connection);
 		}
 
-		return null;
+		return fishId;
 	}
 
 	@Override

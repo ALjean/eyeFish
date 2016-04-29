@@ -1,6 +1,6 @@
 package com.jean.entity;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * Created by jean on 12.03.16.

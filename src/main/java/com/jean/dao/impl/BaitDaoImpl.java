@@ -36,8 +36,8 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 
 		Connection connection = getConnection();
 		PreparedStatement statement = null;
-		int baitId;
-		int settingId;
+		int baitId = 0;
+		int settingId = 0;
 
 		try {
 			Log.startDaoLog("saveBait", bait.toString());
