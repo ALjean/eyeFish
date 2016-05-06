@@ -18,14 +18,14 @@ public class FishServiceImpl implements FishService {
     private FishDao fishDao;
 
 
-    @Override
-    public Fish get(int id) throws CustomDfmException, DaoDfmException {
-        return fishDao.get(id);
-    }
+//    @Override
+//    public Fish get(int id) throws CustomDfmException, DaoDfmException {
+//        return fishDao.get(id);
+//    }
 
     @Override
     public boolean create(Fish fish) throws CustomDfmException, DaoDfmException {
-        fishDao.save(fish);
+        fishDao.saveFish(fish);
         return false;
     }
 

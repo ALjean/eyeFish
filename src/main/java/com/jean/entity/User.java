@@ -1,11 +1,18 @@
 package com.jean.entity;
 
 import com.jean.config.security.SocialMediaService;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by jean on 10.01.16.
  */
-public class User {
+public class User implements UserDetails {
 
     private int id;
     private String email;
@@ -31,6 +38,16 @@ public class User {
         this.email = email;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        /*impl only one role*/
+
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(role));
+        return authorities;
+    }
+
+    @Override
     public String getPassword() {
         return password;
     }
@@ -70,6 +87,33 @@ public class User {
     public void setSocialService(SocialMediaService socialService) {
         this.socialService = socialService;
     }
+
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
 
     @Override
     public String toString() {

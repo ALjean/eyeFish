@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -31,11 +30,11 @@ public class FishController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Fish get(@PathVariable int id) throws CustomDfmException, DaoDfmException {
-        return fishService.get(id);
+        return  null; // fishService.get(id);
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public List<Fish> getAll(){
+    public List<Fish> getAll() {
         return fishService.getAll();
     }
 
@@ -45,7 +44,7 @@ public class FishController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    public void update(@RequestBody Fish fish){
+    public void update(@RequestBody Fish fish) {
         fishService.update(fish);
     }
 
@@ -54,7 +53,6 @@ public class FishController {
         InputStream stream = file.getInputStream();
 
         documentParser.parse(stream);
-
 
 
     }

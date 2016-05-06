@@ -6,7 +6,7 @@ import com.jean.DaoDfmException;
 import com.jean.dao.WeatherDao;
 import com.jean.entity.Fish;
 import com.jean.entity.Weather;
-import com.jean.servlet.model.FishDto;
+
 import com.jean.service.FishAnalyzerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class FishAnalyzerServiceImpl implements FishAnalyzerService {
     private WeatherDao weatherDao;
 
     @Override
-    public FishDto getCurrentFishState(Weather weather) {
+    public Fish getCurrentFishState(Weather weather) {
 
 	return null;
     }

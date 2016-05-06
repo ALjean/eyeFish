@@ -1,20 +1,14 @@
 package com.jean.dao.impl;
 
-import com.jean.CustomDfmException;
 import com.jean.DaoDfmException;
 import com.jean.dao.FishDao;
 import com.jean.entity.*;
-import com.jean.Constants;
-import com.jean.enums.FishTypes;
-import com.jean.enums.ParamNames;
 import com.jean.util.Log;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggerFactory;
+
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

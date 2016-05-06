@@ -1,10 +1,7 @@
 package com.jean.dao;
 
-import com.jean.CustomDfmException;
 import com.jean.DaoDfmException;
 import com.jean.entity.Fish;
-
-import java.sql.SQLException;
 import java.util.List;
 
 /**

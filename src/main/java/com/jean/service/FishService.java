@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface FishService {
 
-    Fish get(int id) throws CustomDfmException, DaoDfmException;
+//    Fish get(int id) throws CustomDfmException, DaoDfmException;
     boolean create(Fish fish) throws CustomDfmException, DaoDfmException;
     void update(Fish fish);
     void remove(int id) throws CustomDfmException, DaoDfmException;

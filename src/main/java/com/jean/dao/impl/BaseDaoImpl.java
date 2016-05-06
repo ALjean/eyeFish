@@ -1,18 +1,13 @@
 package com.jean.dao.impl;
 
-import com.jean.CustomDfmException;
 import com.jean.DaoDfmException;
 import com.jean.config.PoolConnectionFactory;
 import com.jean.dao.BaseDao;
-import com.jean.util.Log;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

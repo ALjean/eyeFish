@@ -9,12 +9,8 @@ import com.jean.DaoDfmException;
 
 import com.jean.dao.BaitDao;
 import com.jean.entity.Bait;
-import com.jean.entity.BaitPropertieType;
-import com.jean.entity.BaitType;
 import com.jean.entity.DateHolder;
-import com.jean.entity.ParameterName;
 import com.jean.entity.PondEnvirmoment;
-import com.jean.entity.RangeHolder;
 import com.jean.util.BaitSetting;
 import com.jean.util.Log;
 import com.jean.util.Qualifier;

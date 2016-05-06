@@ -1,6 +1,6 @@
 package com.jean.config.security;
 
-import com.jean.config.security.jwt.JwtUserFactory;
+
 import com.jean.entity.User;
 import com.jean.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +24,7 @@ public class RepositoryUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("No user found with email: " + email);
         }
 
-        return JwtUserFactory.create(user);
+//        return JwtUserFactory.create(user);
+        return user;
     }
 }

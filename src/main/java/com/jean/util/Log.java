@@ -1,10 +1,12 @@
 package com.jean.util;
 
-import org.apache.log4j.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Log {
 
-	private static Logger log = Logger.getLogger(Log.class);
+	private static Logger log = LoggerFactory.getLogger(Log.class);
 
 	public static void startDaoLog(String methodName, String params) {
 		log.info("Statrting DAO method: " + methodName + ". With parameters: " + params);
