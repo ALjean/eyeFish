@@ -59,6 +59,7 @@ public class BaitDaoTest extends BaseTest {
 
 		baitSettings = new ArrayList<BaitSetting>();
 		baitSettings.add(new BaitSetting(0, "Color", "Red", "Use for the best result", qualifiers));
+		baitSettings.add(new BaitSetting(0, "Color", "White", "Use for the best result", qualifiers));
 
 		bait = new Bait(0, "Castmaster", "For real predator!", baitSettings, idFishes, dates);
 
@@ -69,15 +70,22 @@ public class BaitDaoTest extends BaseTest {
 	public void getBaitsByPondParamsTest() throws CustomDfmException, DaoDfmException {
 		baits = baitDao.getBaitsByPondParams(null, null, null, 7, pond);
 		assertTrue(!baits.isEmpty());
+		System.out.println("\n Get baits by pond params: \n");
 		for (Bait bait : baits) {
 			System.out.println(bait);
 		}
 	}
-	
+
 	@Test
-	public void getBaits() throws DaoDfmException, CustomDfmException{
+	public void getBaits() throws DaoDfmException, CustomDfmException {
 		baits = baitDao.getBaits(null, null, null, null);
 		assertTrue(baits.size() > 2);
+
+		System.out.println("\n All baits: \n");
+		for (Bait bait : baits) {
+			System.out.println(bait);
+		}
+
 		baits = baitDao.getBaits(60, null, null, null);
 		assertTrue(baits.size() == 1);
 		baits = baitDao.getBaits(23, " ", 23, null);
@@ -88,6 +96,7 @@ public class BaitDaoTest extends BaseTest {
 	public void saveBaitTest() throws DaoDfmException, CustomDfmException {
 		generateKey = baitDao.saveBait(bait);
 		assertTrue(generateKey > 0);
+		System.out.println("\n Primary key for new bait: \n");
 		System.out.println(generateKey);
 	}
 
@@ -107,7 +116,6 @@ public class BaitDaoTest extends BaseTest {
 		baitDao.updateBait(bait);
 		List<Bait> baitsUpdate = baitDao.getBaits(4, null, null, null);
 		assertTrue(baitsUpdate.get(0).getBaitName().equals("CORNS"));
-		
 	}
 
 }

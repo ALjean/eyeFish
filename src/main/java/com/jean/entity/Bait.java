@@ -10,7 +10,6 @@ public class Bait {
     private int baitId;
     private String baitName;
     private String description;
-
     private List<BaitSetting> baitSetting;
     private List<Integer> fishId;
     private List<DateHolder> dates;

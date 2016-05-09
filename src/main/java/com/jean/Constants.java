@@ -16,11 +16,7 @@ public interface Constants {
 
     int MULTIPLIER = 1000;
 
-
-
     String NIBBLE_DATA_TYPE = "nibbleDataType";
-
-
     String FISH_TYPE_PREDATOR = "PREDATOR";
     String FISH_TYPE_CALM = "CALM";
     

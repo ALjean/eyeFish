@@ -8,7 +8,6 @@ import com.jean.service.FishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -30,13 +29,13 @@ public class FishServiceImpl implements FishService {
     }
 
     @Override
-    public void update(Fish fish) {
-            fishDao.update(fish);
+    public void update(Fish fish) throws DaoDfmException {
+            fishDao.updateFish(fish);
     }
 
     @Override
-    public void remove(int id) throws CustomDfmException, DaoDfmException {
-        fishDao.delete(id);
+    public void remove(List<Integer> ids) throws CustomDfmException, DaoDfmException {
+        fishDao.deleteFish(ids);
     }
 
     @Override

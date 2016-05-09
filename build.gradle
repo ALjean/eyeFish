@@ -1,28 +1,13 @@
 apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'eclipse'
-apply plugin: 'org.akhikhl.gretty'
 
-
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'org.akhikhl.gretty:gretty:+'
-    }
-}
 
 repositories {
     mavenCentral()
 }
 
 
-gretty {
-    port = 8085
-    contextPath = '/'
-    servletContainer = 'jetty9'
-}
 
 
 //noinspection GroovyAssignabilityCheck
@@ -36,12 +21,13 @@ dependencies {
     compile group: 'org.springframework.security', name: 'spring-security-web', version: springSecurityVer
 
     /*spring social*/
-    compile group: 'org.springframework.social', name: 'spring-social-config', version: '1.1.4.RELEASE'
-    compile group: 'org.springframework.social', name: 'spring-social-core', version: '1.1.4.RELEASE'
-    compile group: 'org.springframework.social', name: 'spring-social-security', version: '1.1.4.RELEASE'
-    compile group: 'org.springframework.social', name: 'spring-social-web', version: '1.1.4.RELEASE'
+//    compile group: 'org.springframework.social', name: 'spring-social-config', version: '1.1.4.RELEASE'
+//    compile group: 'org.springframework.social', name: 'spring-social-core', version: '1.1.4.RELEASE'
+//    compile group: 'org.springframework.social', name: 'spring-social-security', version: '1.1.4.RELEASE'
+//    compile group: 'org.springframework.social', name: 'spring-social-web', version: '1.1.4.RELEASE'
+//
+//    compile group: 'org.springframework.social', name: 'spring-social-facebook', version: '2.0.3.RELEASE'
 
-    compile group: 'org.springframework.social', name: 'spring-social-facebook', version: '2.0.3.RELEASE'
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.6.0'
 
 

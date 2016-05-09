@@ -2,11 +2,10 @@ package com.jean.dao.impl;
 
 import com.jean.DaoDfmException;
 import com.jean.config.PoolConnectionFactory;
-import com.jean.dao.BaseDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,8 +16,8 @@ import java.sql.Statement;
 /**
  * Created by stas on 30.05.15.
  */
-@Component
-public class BaseDaoImpl implements BaseDao {
+@Repository
+public class BaseDaoImpl {
 
 	@Autowired
 	@Qualifier("getConnectionFactory")

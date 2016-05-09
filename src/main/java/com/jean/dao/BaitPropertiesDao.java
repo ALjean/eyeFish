@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface BaitPropertiesDao {
 
-    public Integer saveBaitPropertie(BaitPropertie baitPropertie) throws DaoDfmException;
+    Integer saveBaitPropertie(BaitPropertie baitPropertie) throws DaoDfmException;
 
-    public List<BaitPropertie> getBaitPropertiesForBait(Bait bait);
+    List<BaitPropertie> getBaitPropertiesForBait(Bait bait);
 
 }

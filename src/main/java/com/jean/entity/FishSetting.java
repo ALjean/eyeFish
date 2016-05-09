@@ -10,7 +10,7 @@ public class FishSetting {
 	private String paramName;
 	private double minValue;
 	private double maxValue;
-	private float nibbleLevel;
+	private double nibbleLevel;
 
 	public int getId() {
 		return id;
@@ -52,11 +52,11 @@ public class FishSetting {
 		this.maxValue = maxValue;
 	}
 
-	public float getNibbleLevel() {
+	public double getNibbleLevel() {
 		return nibbleLevel;
 	}
 
-	public void setNibbleLevel(float nibbleLevel) {
+	public void setNibbleLevel(double nibbleLevel) {
 		this.nibbleLevel = nibbleLevel;
 	}
 
@@ -64,7 +64,7 @@ public class FishSetting {
 		super();
 	}
 
-	public FishSetting(int id, int fishId, String paramName, double minValue, double maxValue, float nibbleLevel) {
+	public FishSetting(int id, int fishId, String paramName, double minValue, double maxValue, double nibbleLevel) {
 		super();
 		this.id = id;
 		this.fishId = fishId;

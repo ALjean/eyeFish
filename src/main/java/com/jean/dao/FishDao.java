@@ -9,17 +9,13 @@ import java.util.List;
  */
 public interface FishDao {
 
+	Integer saveFish(Fish fish) throws DaoDfmException;
 
-    Integer saveFish(Fish fish) throws DaoDfmException;
+	List<Fish> getFishes(Integer fishId, String fishName, String fishType, String dayActivity, String livingArea)
+			throws DaoDfmException;
 
-    List<Fish> getFishes(int id) throws DaoDfmException;
+	void updateFish(Fish fish) throws DaoDfmException;
 
-    void update(Fish fish);
-
-    void delete(int id) throws DaoDfmException;
-
-    List<Fish> getAllWeather() throws DaoDfmException;
-
-    Fish getFishByTempForNibble(int temp, int fishId) throws DaoDfmException;
+	Integer deleteFish(List<Integer> listId) throws DaoDfmException;
 
 }

@@ -1,5 +1,6 @@
 package com.jean;
 
+import com.jean.config.TestConfiguration;
 import com.jean.config.context.AppConfig;
 import com.jean.config.property.DataBaseProperties;
 import com.jean.dao.*;
@@ -24,7 +25,6 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 @Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = AppConfig.class, loader = AnnotationConfigContextLoader.class)
-@ActiveProfiles("test")
 public class BaseTest {
 
     @Autowired

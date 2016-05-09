@@ -30,7 +30,7 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 		String sqlInsertToBindingToFishes = "INSERT INTO baits_to_fishes (bait_id, fish_id) VALUES (?, ?)";
 		String sqlInsertToBindingToSeasons = "INSERT INTO baits_to_seasons (bait_id, start_period, end_period) VALUES (?, ?, ?)";
 
-		Connection connection = getConnection();
+		Connection connection = null;
 		PreparedStatement statement = null;
 		int baitId = 0;
 		int settingId = 0;
@@ -38,6 +38,8 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 		try {
 			Log.startDaoLog("saveBait", bait.toString());
 
+			connection = getConnection();
+			
 			statement = connection.prepareStatement(sqlInsertBaits, Statement.RETURN_GENERATED_KEYS);
 			setBaitStatement(bait, statement);
 			statement.executeUpdate();
@@ -59,7 +61,7 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 					setQulifierStatement(settingId, qualifier, statement);
 					statement.executeUpdate();
 
-					if (i == baitSetting.getQualifers().size()) {
+					if (i == baitSetting.getQualifers().size() - 1) {
 						statement = connection.prepareStatement(sqlInsertBaitSettings, Statement.RETURN_GENERATED_KEYS);
 					}
 				}
@@ -304,8 +306,8 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 
 				Bait bait = null;
 				BaitSetting baitSetting = null;
+				
 				Qualifier qualifier = new Qualifier();
-
 				qualifier.setQuaId(rs.getInt("q.qual_id"));
 				qualifier.setParamName(rs.getString("q.param_name"));
 				qualifier.setMin(rs.getDouble("q.min_level"));
@@ -333,9 +335,7 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 				} else {
 					if (baitSetting != null) {
 						tempBait.getBaitSetting().add(baitSetting);
-					} else {
-						tempBait.getBaitSetting().add(tempSetting);
-					}
+					} 
 				}
 
 				if (bait != null) {
@@ -403,7 +403,7 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 					statement.executeUpdate();
 					closePreparedStatement(statement);
 
-					if (i == baitSetting.getQualifers().size()) {
+					if (i == baitSetting.getQualifers().size() - 1) {
 						statement = connection.prepareStatement(sqlInsertBaitSettings);
 					}
 				}

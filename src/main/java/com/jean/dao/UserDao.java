@@ -1,6 +1,5 @@
 package com.jean.dao;
 
-import com.jean.CustomDfmException;
 import com.jean.DaoDfmException;
 import com.jean.entity.User;
 
