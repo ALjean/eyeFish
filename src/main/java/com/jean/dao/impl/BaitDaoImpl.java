@@ -39,14 +39,14 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 			Log.startDaoLog("saveBait", bait.toString());
 
 			connection = getConnection();
-			
+
 			statement = connection.prepareStatement(sqlInsertBaits, Statement.RETURN_GENERATED_KEYS);
 			setBaitStatement(bait, statement);
 			statement.executeUpdate();
 			baitId = getGeneratedKey(statement);
+			closePreparedStatement(statement);
 
 			statement = connection.prepareStatement(sqlInsertBaitSettings, Statement.RETURN_GENERATED_KEYS);
-
 			for (BaitSetting baitSetting : bait.getBaitSetting()) {
 
 				setBaitSetting(baitId, baitSetting, statement);
@@ -54,25 +54,26 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 				settingId = getGeneratedKey(statement);
 
 				statement = connection.prepareStatement(sqlInsertQulifers);
-
 				for (int i = 0; baitSetting.getQualifers().size() > i; i++) {
-
 					Qualifier qualifier = baitSetting.getQualifers().get(i);
 					setQulifierStatement(settingId, qualifier, statement);
-					statement.executeUpdate();
-
-					if (i == baitSetting.getQualifers().size() - 1) {
-						statement = connection.prepareStatement(sqlInsertBaitSettings, Statement.RETURN_GENERATED_KEYS);
-					}
+					statement.addBatch();
 				}
+				statement.executeBatch();
+				closePreparedStatement(statement);
+
+				statement = connection.prepareStatement(sqlInsertBaitSettings, Statement.RETURN_GENERATED_KEYS);
 			}
+			closePreparedStatement(statement);
 
 			statement = connection.prepareStatement(sqlInsertToBindingToFishes);
 			for (Integer fishId : bait.getFishId()) {
 				statement.setInt(1, baitId);
 				statement.setInt(2, fishId);
-				statement.executeUpdate();
+				statement.addBatch();
 			}
+			statement.executeBatch();
+			closePreparedStatement(statement);
 
 			statement = connection.prepareStatement(sqlInsertToBindingToSeasons);
 			for (DateHolder dates : bait.getDates()) {
@@ -81,6 +82,9 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 				statement.setDate(3, dates.getEnd_period());
 				statement.executeUpdate();
 			}
+			statement.executeBatch();
+			closePreparedStatement(statement);
+
 			connection.commit();
 
 			Log.endDaoLog("saveBait", "baitId is " + baitId);
@@ -91,7 +95,6 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 			throw new DaoDfmException("Some problem with save bait. " + "Message: " + e.getMessage(), e);
 		} finally {
 			closeConnection(connection);
-			closePreparedStatement(statement);
 		}
 
 		return baitId;
@@ -109,7 +112,7 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 						+ "baits_to_fishes AS bf ON bf.bait_id = bs.bait_id " + "INNER JOIN "
 						+ "baits_to_seasons AS b_seas ON b_seas.bait_id = bs.bait_id " + "INNER JOIN "
 						+ "baits AS b ON b.bait_id = bf.bait_id " + "WHERE " + "(bf.fish_id = ? OR ? IS NULL) " + "AND "
-						+ "(b.bait_id = ? OR ? IS NULL) " + "AND " + "(b.bait_name = ? OR ? IS NULL) " + "AND "
+						+ "(b.bait_id = ? OR ? IS NULL) " + "AND " + "(b.bait_name LIKE ? OR ? IS NULL) " + "AND "
 						+ "((? BETWEEN b_seas.start_period AND b_seas.end_period) OR ? IS NULL)";
 
 		List<Bait> baits = new ArrayList<>();
@@ -240,7 +243,7 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 						+ "q.param_name = 'WIND_SPEED' AND (? BETWEEN q.min_level AND q.max_level) " + "OR "
 						+ "q.param_name = 'PRESSURE' AND (? BETWEEN q.min_level AND q.max_level)" + ") " + "AND "
 						+ "(bf.fish_id = ? OR ? IS NULL) " + "AND " + "(b.bait_id = ? OR ? IS NULL) " + "AND "
-						+ "(b.bait_name = ? OR ? IS NULL) " + "AND "
+						+ "(b.bait_name LIKE ? OR ? IS NULL) " + "AND "
 						+ "((? BETWEEN b_seas.start_period AND b_seas.end_period) OR ? IS NULL)";
 
 		List<Bait> baits = new ArrayList<>();
@@ -282,8 +285,8 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 			}
 
 			if (!StringUtils.isEmpty(baitName)) {
-				preparedStatement.setString(13, baitName);
-				preparedStatement.setString(14, baitName);
+				preparedStatement.setString(13, baitName.replace("*", "%"));
+				preparedStatement.setString(14, baitName.replace("*", "%"));
 			} else {
 				preparedStatement.setNull(13, Types.CHAR);
 				preparedStatement.setNull(14, Types.CHAR);
@@ -306,7 +309,7 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 
 				Bait bait = null;
 				BaitSetting baitSetting = null;
-				
+
 				Qualifier qualifier = new Qualifier();
 				qualifier.setQuaId(rs.getInt("q.qual_id"));
 				qualifier.setParamName(rs.getString("q.param_name"));
@@ -335,13 +338,12 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 				} else {
 					if (baitSetting != null) {
 						tempBait.getBaitSetting().add(baitSetting);
-					} 
+					}
 				}
 
 				if (bait != null) {
 					baits.add(bait);
 				}
-
 			}
 
 			Log.endDaoLog("getBaitsByPondParameters", "fetch size is " + baits.size());
@@ -392,48 +394,52 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 				closePreparedStatement(statement);
 
 				statement = connection.prepareStatement(sqlInsertQulifers);
-
 				for (int i = 0; baitSetting.getQualifers().size() > i; i++) {
-
 					Qualifier qualifier = baitSetting.getQualifers().get(i);
 					statement.setString(1, qualifier.getParamName());
 					statement.setDouble(2, qualifier.getMin());
 					statement.setDouble(3, qualifier.getMax());
 					statement.setDouble(4, baitSetting.getSettingId());
-					statement.executeUpdate();
-					closePreparedStatement(statement);
-
-					if (i == baitSetting.getQualifers().size() - 1) {
-						statement = connection.prepareStatement(sqlInsertBaitSettings);
-					}
+					statement.addBatch();
 				}
+				statement.executeBatch();
+				closePreparedStatement(statement);
+
+				statement = connection.prepareStatement(sqlInsertBaitSettings);
 			}
+			closePreparedStatement(statement);
 
 			statement = connection.prepareStatement(sqlInsertToBindingToFishes);
 			for (Integer fishId : bait.getFishId()) {
 				statement.setInt(1, fishId);
 				statement.setInt(2, bait.getBaitId());
-				statement.executeUpdate();
+				statement.addBatch();
 			}
+			statement.executeBatch();
+			closePreparedStatement(statement);
 
 			statement = connection.prepareStatement(sqlInsertToBindingToSeasons);
 			for (DateHolder dates : bait.getDates()) {
 				statement.setDate(1, dates.getStart_period());
 				statement.setDate(2, dates.getEnd_period());
 				statement.setInt(3, bait.getBaitId());
-				statement.executeUpdate();
+				statement.addBatch();
 			}
+			statement.executeBatch();
+			closePreparedStatement(statement);
+
 			connection.commit();
 
 			Log.endDaoLog("updateBait", "baitId is " + bait.getBaitId());
 
-		} catch (SQLException e) {
+		} catch (
+
+		SQLException e) {
 			rollback(connection);
 			Log.daoException("saveBait", e.getMessage());
 			throw new DaoDfmException("Some problem with save bait. " + "Message: " + e.getMessage(), e);
 		} finally {
 			closeConnection(connection);
-			closePreparedStatement(statement);
 		}
 	}
 
@@ -444,9 +450,14 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 
 		int[] result = null;
 
-		Connection connection = getConnection();
+		Connection connection = null;
+		PreparedStatement statement = null;
 		try {
-			PreparedStatement statement = connection.prepareStatement(sql);
+
+			Log.startDaoLog("deleteBait", "listId size: " + listId.size());
+
+			connection = getConnection();
+			statement = connection.prepareStatement(sql);
 
 			for (Integer baitId : listId) {
 				statement.setInt(1, baitId);
@@ -454,6 +465,9 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 			}
 			result = statement.executeBatch();
 			connection.commit();
+
+			Log.endDaoLog("deleteBait", "listId size: " + listId.size());
+
 			if (result != null) {
 				return 1;
 			} else {
@@ -461,7 +475,12 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 			}
 
 		} catch (SQLException e) {
-			throw new DaoDfmException("SQLEror: " + e.getMessage());
+			rollback(connection);
+			Log.daoException("deleteBait", e.getMessage());
+			throw new DaoDfmException("Some problem with deleting list of baits " + "Message: " + e.getMessage(), e);
+		} finally {
+			closePreparedStatement(statement);
+			closeConnection(connection);
 		}
 
 	}

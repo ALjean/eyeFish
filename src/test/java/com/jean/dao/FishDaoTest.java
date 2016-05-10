@@ -13,7 +13,6 @@ import com.jean.enums.LiveArea;
 import com.jean.enums.ParamNames;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.springframework.stereotype.Component;
@@ -148,7 +147,7 @@ public class FishDaoTest extends BaseTest {
 	
 	@Test
 	public void updateFish() throws DaoDfmException{
-		List<Fish> fishes = fishDao.getFishes(40, null, null, null, null);
+		List<Fish> fishes = fishDao.getFishes(43, null, null, null, null);
 		Fish fish = fishes.get(0);
 		fish.setName("Yaz");
 		fish.getFishSetting().get(0).setNibbleLevel(100);
@@ -160,7 +159,7 @@ public class FishDaoTest extends BaseTest {
 	@Test
 	public void deleteFish() throws DaoDfmException{
 
-		int result = fishDao.deleteFish(Arrays.asList(new Integer[] { 41, 42 }));
+		int result = fishDao.deleteFish(Arrays.asList(new Integer[] { 44, 45 }));
 		assertTrue(result == 1);
 	}
 

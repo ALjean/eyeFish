@@ -1,6 +1,5 @@
 package com.jean;
 
-import com.jean.config.TestConfiguration;
 import com.jean.config.context.AppConfig;
 import com.jean.config.property.DataBaseProperties;
 import com.jean.dao.*;

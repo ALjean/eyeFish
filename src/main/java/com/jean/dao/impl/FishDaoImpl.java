@@ -5,7 +5,6 @@ import com.jean.dao.FishDao;
 import com.jean.entity.*;
 import com.jean.util.Log;
 
-
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -28,6 +27,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 		String insertIntoNibblePeriods = "INSERT INTO nibble_periods (fish_id, start_period, end_period, nibble_level) VALUES (?, ?, ?, ?)";
 		String insertIntoDaysActivity = "INSERT INTO days_activity (fish_id, activity_name) VALUES (?, ?)";
 		String insertIntoLivingAreas = "INSERT INTO living_areas (fish_id, area_name) VALUES (?, ?)";
+
 		Connection connection = null;
 		PreparedStatement statement = null;
 
@@ -53,8 +53,10 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 				statement.setDouble(3, fishSetting.getMinValue());
 				statement.setDouble(4, fishSetting.getMaxValue());
 				statement.setDouble(5, fishSetting.getNibbleLevel());
-				statement.executeUpdate();
+				statement.addBatch();
 			}
+			statement.executeBatch();
+			closePreparedStatement(statement);
 
 			statement = connection.prepareStatement(insertIntoNibblePeriods);
 			for (NibblePeriod nibblePeriod : fish.getNibbles()) {
@@ -62,22 +64,29 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 				statement.setDate(2, nibblePeriod.getStartPeriod());
 				statement.setDate(3, nibblePeriod.getEndPeriod());
 				statement.setDouble(4, nibblePeriod.getNibbleLevel());
-				statement.executeUpdate();
+				statement.executeBatch();
 			}
+			statement.executeBatch();
+			closePreparedStatement(statement);
 
 			statement = connection.prepareStatement(insertIntoDaysActivity);
 			for (DayActivity activityName : fish.getDaysActivity()) {
 				statement.setInt(1, fishId);
 				statement.setString(2, activityName.getActivityName());
-				statement.executeUpdate();
+				statement.executeBatch();
 			}
+			statement.executeBatch();
+			closePreparedStatement(statement);
 
 			statement = connection.prepareStatement(insertIntoLivingAreas);
 			for (LivingArea areaName : fish.getLivingArea()) {
 				statement.setInt(1, fishId);
 				statement.setString(2, areaName.getAreaName());
-				statement.executeUpdate();
+				statement.executeBatch();
 			}
+			statement.executeBatch();
+			closePreparedStatement(statement);
+
 			connection.commit();
 
 			Log.endDaoLog("saveFish", "fishId is " + fishId);
@@ -87,7 +96,6 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 			Log.daoException("saveFish", e.getMessage());
 			throw new DaoDfmException("Some problem with save fish " + "Message: " + e.getMessage(), e);
 		} finally {
-			closePreparedStatement(statement);
 			closeConnection(connection);
 		}
 
@@ -280,53 +288,59 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 			statement.setString(3, fish.getFishType());
 			statement.setInt(4, fish.getId());
 			statement.executeUpdate();
+			closePreparedStatement(statement);
 
 			statement = connection.prepareStatement(sqlInsertFishSetting);
-
 			for (FishSetting setting : fish.getFishSetting()) {
-
 				statement.setString(1, setting.getParamName());
 				statement.setDouble(2, setting.getMinValue());
 				statement.setDouble(3, setting.getMaxValue());
 				statement.setDouble(4, setting.getNibbleLevel());
 				statement.setInt(5, setting.getId());
-				statement.executeUpdate();
+				statement.addBatch();
 			}
+			statement.executeBatch();
+			closePreparedStatement(statement);
 
 			statement = connection.prepareStatement(sqlInsertNibblePeriod);
-
 			for (NibblePeriod period : fish.getNibbles()) {
-
 				statement.setDate(1, period.getStartPeriod());
 				statement.setDate(2, period.getEndPeriod());
 				statement.setDouble(3, period.getNibbleLevel());
 				statement.setInt(4, period.getId());
-				statement.executeUpdate();
+				statement.addBatch();
 			}
+			statement.executeBatch();
+			closePreparedStatement(statement);
 
 			statement = connection.prepareStatement(sqlInsertLivingArea);
-
 			for (LivingArea area : fish.getLivingArea()) {
 				statement.setString(1, area.getAreaName());
 				statement.setInt(2, area.getId());
-				statement.executeUpdate();
+				statement.addBatch();
 			}
+			statement.executeBatch();
+			closePreparedStatement(statement);
 
 			statement = connection.prepareStatement(sqlInsertDayActivity);
-
 			for (DayActivity activity : fish.getDaysActivity()) {
-
 				statement.setString(1, activity.getActivityName());
 				statement.setInt(2, activity.getId());
-				statement.executeUpdate();
+				statement.addBatch();
 			}
+			statement.executeBatch();
+			closePreparedStatement(statement);
 
 			connection.commit();
+
+			Log.endDaoLog("updateFish", "update fish with id: " + fish.getId());
 
 		} catch (SQLException e) {
 			rollback(connection);
 			Log.daoException("updateFish", e.getMessage());
 			throw new DaoDfmException("Some problem with fetching list of fishes " + "Message: " + e.getMessage(), e);
+		} finally {
+			closeConnection(connection);
 		}
 
 	}
@@ -339,9 +353,12 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 		int[] result = null;
 
 		Connection connection = getConnection();
-		try {
+		PreparedStatement statement = null;
 
-			PreparedStatement statement = connection.prepareStatement(sql);
+		try {
+			Log.startDaoLog("deleteFish", "listId size: " + listId.size());
+
+			statement = connection.prepareStatement(sql);
 
 			for (Integer baitId : listId) {
 				statement.setInt(1, baitId);
@@ -349,6 +366,9 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 			}
 			result = statement.executeBatch();
 			connection.commit();
+
+			Log.endDaoLog("deleteFish", "listId size: " + listId.size());
+
 			if (result != null) {
 				return 1;
 			} else {
@@ -356,7 +376,12 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 			}
 
 		} catch (SQLException e) {
-			throw new DaoDfmException("SQLEror: " + e.getMessage());
+			rollback(connection);
+			Log.daoException("deleteFish", e.getMessage());
+			throw new DaoDfmException("Some problem with deleting list of fishes " + "Message: " + e.getMessage(), e);
+		} finally {
+			closePreparedStatement(statement);
+			closeConnection(connection);
 		}
 
 	}

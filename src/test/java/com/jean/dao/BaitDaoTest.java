@@ -102,20 +102,18 @@ public class BaitDaoTest extends BaseTest {
 
 	@Test
 	public void deleteBaitTest() throws DaoDfmException, CustomDfmException {
-		List<Integer> list = new ArrayList<Integer>();
-		list.add(87);
-		int result = baitDao.deleteBait(list);
+		int result = baitDao.deleteBait((Arrays.asList(new Integer[] { 110, 111 })));
 		assertTrue(result != 0);
 	}
 
 	@Test
 	public void updateBaitTest() throws DaoDfmException, CustomDfmException {
-		List<Bait> baits = baitDao.getBaits(4, null, null, null);
+		List<Bait> baits = baitDao.getBaits(67, null, null, null);
 		Bait bait = baits.get(0);
-		bait.setBaitName("CORNS");
+		bait.setBaitName("FAT FAT WORM");
 		baitDao.updateBait(bait);
-		List<Bait> baitsUpdate = baitDao.getBaits(4, null, null, null);
-		assertTrue(baitsUpdate.get(0).getBaitName().equals("CORNS"));
+		List<Bait> baitsUpdate = baitDao.getBaits(67, null, null, null);
+		assertTrue(baitsUpdate.get(0).getBaitName().equals("FAT FAT WORM"));
 	}
 
 }
