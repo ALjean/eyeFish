@@ -3,7 +3,6 @@ package com.jean.config.context;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jean.config.PoolConnectionFactory;
 import com.jean.config.property.DataBaseProperties;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,10 +62,5 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         converters.add(mappingJackson2HttpMessageConverter());
     }
 
-
-    @Bean
-    public PoolConnectionFactory getConnectionFactory(){
-        return new PoolConnectionFactory();
-    }
 
 }
