@@ -13,6 +13,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.sql.DataSource;
@@ -24,9 +25,9 @@ import java.util.List;
  */
 @Configuration
 @EnableScheduling
-//@EnableWebMvc
-@ComponentScan({"com.jean.*", "com.jean.servlet.controller.*"})
-@PropertySource("classpath:application.properties")
+@EnableWebMvc
+@ComponentScan({"com.jean.*"})
+@PropertySource("classpath:properties/app.properties")
 public class AppConfig extends WebMvcConfigurerAdapter {
 
 

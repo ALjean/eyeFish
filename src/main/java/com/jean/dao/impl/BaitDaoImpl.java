@@ -31,9 +31,9 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 		String sqlInsertToBindingToSeasons = "INSERT INTO baits_to_seasons (bait_id, start_period, end_period) VALUES (?, ?, ?)";
 
 		Connection connection = null;
-		PreparedStatement statement = null;
+		PreparedStatement statement;
 		int baitId = 0;
-		int settingId = 0;
+		int settingId;
 
 		try {
 			Log.startDaoLog("saveBait", bait.toString());

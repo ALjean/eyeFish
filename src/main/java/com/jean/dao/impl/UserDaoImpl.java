@@ -6,8 +6,7 @@ import com.jean.dao.UserDao;
 import com.jean.entity.User;
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
@@ -20,7 +19,7 @@ import java.sql.SQLException;
 @Repository
 public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
-    private static final Logger log = LoggerFactory.getLogger(UserDaoImpl.class);
+    private static final Logger log = Logger.getLogger(UserDaoImpl.class);
 
     @Override
     public User getUserByEmail(String email) throws DaoDfmException {

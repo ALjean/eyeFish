@@ -5,8 +5,7 @@ import com.jean.dao.WeatherDao;
 import com.jean.entity.Weather;
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
@@ -22,7 +21,7 @@ import java.util.List;
 @Repository
 public class WeatherDaoImpl extends BaseDaoImpl implements WeatherDao {
 
-    private static final Logger log = LoggerFactory.getLogger(FishDaoImpl.class);
+    private static final Logger log = Logger.getLogger(FishDaoImpl.class);
 
     @Override
     public void save(Weather weather) throws DaoDfmException {

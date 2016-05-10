@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import com.jean.DaoDfmException;
@@ -46,18 +47,18 @@ public class BaitDaoTest extends BaseTest {
 		key = KEY_MESSAGE.STYRO_POP_UP.toString();
 		date = Date.valueOf("2016-06-22");
 
-		idFishes = new ArrayList<Integer>();
-		idFishes.addAll(Arrays.asList(new Integer[] { 13 }));
+		idFishes = new ArrayList<>();
+		idFishes.addAll(Collections.singletonList(13));
 
-		dates = new ArrayList<DateHolder>();
+		dates = new ArrayList<>();
 		dates.add(new DateHolder(Date.valueOf("2016-04-01"), Date.valueOf("2016-07-30")));
 		dates.add(new DateHolder(Date.valueOf("2016-02-01"), Date.valueOf("2016-03-25")));
 
-		qualifiers = new ArrayList<Qualifier>();
+		qualifiers = new ArrayList<>();
 		qualifiers.add(new Qualifier(0, ParamNames.ENVIRMOMENT_TEMPERATURE.name(), 0, 12));
 		qualifiers.add(new Qualifier(0, ParamNames.CLOUD_LEVEL.name(), 30, 65));
 
-		baitSettings = new ArrayList<BaitSetting>();
+		baitSettings = new ArrayList<>();
 		baitSettings.add(new BaitSetting(0, "Color", "Red", "Use for the best result", qualifiers));
 		baitSettings.add(new BaitSetting(0, "Color", "White", "Use for the best result", qualifiers));
 
@@ -102,7 +103,7 @@ public class BaitDaoTest extends BaseTest {
 
 	@Test
 	public void deleteBaitTest() throws DaoDfmException, CustomDfmException {
-		int result = baitDao.deleteBait((Arrays.asList(new Integer[] { 110, 111 })));
+		int result = baitDao.deleteBait((Arrays.asList(110, 111)));
 		assertTrue(result != 0);
 	}
 

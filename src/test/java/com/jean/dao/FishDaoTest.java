@@ -40,21 +40,21 @@ public class FishDaoTest extends BaseTest {
 	@Before
 	public void init() throws CustomDfmException {
 
-		fishSettings = new ArrayList<FishSetting>();
+		fishSettings = new ArrayList<>();
 		fishSettings.add(new FishSetting(0, 0, ParamNames.ENVIRMOMENT_TEMPERATURE.name(), 0.0, 7.0, 23.5));
 		fishSettings.add(new FishSetting(0, 0, ParamNames.ENVIRMOMENT_TEMPERATURE.name(), 8.0, 12.0, 57.23));
 		fishSettings.add(new FishSetting(0, 0, ParamNames.ENVIRMOMENT_TEMPERATURE.name(), 13.8, 19.0, 77.23));
 
-		nibblePeriods = new ArrayList<NibblePeriod>();
+		nibblePeriods = new ArrayList<>();
 		nibblePeriods.add(new NibblePeriod(0, 0, Date.valueOf("2016-05-23"), Date.valueOf("2016-06-01"), 0.0));
 		nibblePeriods.add(new NibblePeriod(0, 0, Date.valueOf("2016-06-02"), Date.valueOf("2016-09-01"), 53.45));
 		nibblePeriods.add(new NibblePeriod(0, 0, Date.valueOf("2016-09-02"), Date.valueOf("2016-12-31"), 89.32));
 
-		daysActivity = new ArrayList<DayActivity>();
+		daysActivity = new ArrayList<>();
 		daysActivity.add(new DayActivity(0, 0, DaysActivity.MORNING.name()));
 		daysActivity.add(new DayActivity(0, 0, DaysActivity.MORNING.name()));
 
-		livingAreas = new ArrayList<LivingArea>();
+		livingAreas = new ArrayList<>();
 		livingAreas.add(new LivingArea(0, 0, LiveArea.MIDDLE.name()));
 		livingAreas.add(new LivingArea(0, 0, LiveArea.TOP.name()));
 

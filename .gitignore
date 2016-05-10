@@ -4,5 +4,6 @@ eyeFish.iml
 /gradle
 /out
 /build
-/node_modules
+/logs
+
 
