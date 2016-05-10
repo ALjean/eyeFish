@@ -23,10 +23,10 @@ import java.util.List;
  * Created by stas on 30.05.15.
  */
 @Configuration
-@EnableScheduling
 @EnableWebMvc
 @ComponentScan({"com.jean.*"})
 @PropertySource("classpath:properties/app.properties")
+@EnableScheduling
 public class AppConfig extends WebMvcConfigurerAdapter {
 
 

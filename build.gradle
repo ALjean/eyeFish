@@ -7,9 +7,6 @@ repositories {
     mavenCentral()
 }
 
-
-
-
 //noinspection GroovyAssignabilityCheck
 dependencies {
     compile group: 'org.springframework', name: 'spring-webmvc', version: springVer
@@ -46,7 +43,7 @@ dependencies {
 
 task deploy(type: Copy, dependsOn: war) {
     from 'build/libs/'
-    into '/home/jean/Work/Soft/apache-tomcat-9.0.0.M1/webapps'
+    into '/home/stas/Work/Tomcats/apache-tomcat-8.0.33/webapps'
 //    into jbossHome + '/standalone/deployments/'
 }
 
