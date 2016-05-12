@@ -10,14 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class AnalyzerController {
 
 
-
     @RequestMapping(value = "/locationWeathers", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void weathersForLocation(String city){
+    public void weathersForLocation(String city) {
         //return list weather from curent day
     }
 
     @RequestMapping(value = "/graphDataByOneDay", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void getGraphDataByOneDay(int idFish, int weatherId){
+    public void getGraphDataByOneDay(int idFish, int weatherId) {
         // return data for graphicViews
     }
 

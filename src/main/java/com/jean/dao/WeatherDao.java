@@ -16,6 +16,6 @@ public interface WeatherDao {
     void save(Weather weather) throws DaoDfmException;
 
     List<Weather> getAllWeather() throws DaoDfmException;
-    
-    List<Weather> getLimitWeatherByDate(Date date)throws DaoDfmException;
+
+    List<Weather> getLimitWeatherByDate(Date date) throws DaoDfmException;
 }

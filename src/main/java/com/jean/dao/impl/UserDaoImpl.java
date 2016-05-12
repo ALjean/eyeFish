@@ -43,6 +43,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
             log.info("get user by email: " + user.toString());
 
         } catch (SQLException e){
+            log.error("Same problem when find user by email");
             throw new DaoDfmException("Same problem when find user by email", e);
         }
 

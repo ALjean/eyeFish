@@ -16,6 +16,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthenticationController {
@@ -50,8 +52,11 @@ public class AuthenticationController {
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> repealAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest){
+    public ResponseEntity<?> repealAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest, HttpServletRequest httpRequest){
+        String token = httpRequest.getHeader("Authorization");
+        if(token != null){
 
+        }
         return null;
 
     }

@@ -4,6 +4,7 @@ import com.jean.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.apache.log4j.Logger;
 import org.springframework.mobile.device.Device;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -18,6 +19,8 @@ import java.util.Map;
 @Component
 public class JwtTokenUtil {
 
+    private static final Logger log = Logger.getLogger(JwtTokenUtil.class);
+
     private static final String CLAIM_KEY_USERNAME = "sub";
     private static final String CLAIM_KEY_AUDIENCE = "audience";
     private static final String CLAIM_KEY_CREATED = "created";
@@ -31,7 +34,7 @@ public class JwtTokenUtil {
     private String secret = "Authorization";
 
 
-    private Long expiration = 648800l;
+    private final Long expiration = 648800L;
 
     public String getUsernameFromToken(String token) {
         String username;
@@ -39,6 +42,7 @@ public class JwtTokenUtil {
             final Claims claims = getClaimsFromToken(token);
             username = claims.getSubject();
         } catch (Exception e) {
+            log.info("User name with " + token + " not found", e);
             username = null;
         }
         return username;
@@ -80,6 +84,7 @@ public class JwtTokenUtil {
 
     private Claims getClaimsFromToken(String token) {
         Claims claims;
+
         try {
             claims = Jwts.parser()
                     .setSigningKey(secret)
@@ -154,10 +159,6 @@ public class JwtTokenUtil {
             refreshedToken = null;
         }
         return refreshedToken;
-
-
-
-
 
 
     }

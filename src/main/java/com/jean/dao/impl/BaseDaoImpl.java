@@ -27,8 +27,7 @@ public class BaseDaoImpl {
 
     private Connection connection;
 
-    protected Connection getConnection() throws DaoDfmException {
-
+    Connection getConnection() throws DaoDfmException {
         try {
 
             if (connection == null || connection.isClosed()) {
@@ -41,35 +40,22 @@ public class BaseDaoImpl {
             throw new DaoDfmException("No connection to base", e);
         }
 
-
         return connection;
     }
 
-    protected void closeConnection(Connection connection) throws DaoDfmException {
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                log.error("Can't close connection ", e);
-                throw new DaoDfmException("Can't close connection ", e);
-            }
-        }
+    void close(ResultSet resultSet, PreparedStatement statement, Connection connection) {
+        closeResultSet(resultSet);
+        closePreparedStatement(statement);
+        closeConnection(connection);
 
     }
 
-    protected void closePreparedStatement(PreparedStatement statement) throws DaoDfmException {
-
-        if (statement != null) {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                log.error("Can't close statement ", e);
-                throw new DaoDfmException("Can't close statement ", e);
-            }
-        }
+    void close(PreparedStatement statement, Connection connection) {
+        closePreparedStatement(statement);
+        closeConnection(connection);
     }
 
-    protected void rollback(Connection connection) throws DaoDfmException {
+    void rollback(Connection connection) throws DaoDfmException {
         try {
             connection.rollback();
         } catch (SQLException e) {
@@ -78,7 +64,7 @@ public class BaseDaoImpl {
         }
     }
 
-    protected int getGeneratedKey(Statement preparedStatement) throws DaoDfmException {
+    int getGeneratedKey(Statement preparedStatement) throws DaoDfmException {
         int result;
         try {
             ResultSet keySet = preparedStatement.getGeneratedKeys();
@@ -91,5 +77,40 @@ public class BaseDaoImpl {
 
         return result;
 
+    }
+
+    void closePreparedStatement(PreparedStatement statement) {
+
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                log.error("Can't close statement ", e);
+            }
+        }
+    }
+
+    private void closeConnection(Connection connection) {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                log.error("Can't close connection ", e);
+            }
+        }
+
+    }
+
+    private void closeResultSet(ResultSet resultSet) {
+
+        if (resultSet != null) {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                log.error("Can't close statement ", e);
+//                TODO  why need ignore, check it?
+//                throw new DaoDfmException("Can't close statement ", e);
+            }
+        }
     }
 }

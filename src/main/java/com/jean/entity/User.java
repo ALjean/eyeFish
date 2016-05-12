@@ -1,6 +1,8 @@
 package com.jean.entity;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.jean.config.security.SocialMediaService;
+import com.jean.entity.views.Views;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,11 +17,21 @@ import java.util.List;
 public class User implements UserDetails {
 
     private int id;
+
+    @JsonView(Views.Public.class)
     private String email;
+
     private String password;
+
+    @JsonView(Views.Public.class)
     private String firstName;
+
+    @JsonView(Views.Public.class)
     private String lastName;
+
+    @JsonView(Views.Public.class)
     private String role;
+
     private SocialMediaService socialService;
 
     public int getId() {

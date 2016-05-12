@@ -12,8 +12,7 @@ public interface FishDao {
 
     Integer saveFish(Fish fish) throws DaoDfmException;
 
-    List<Fish> getFishes(Integer fishId, String fishName, String fishType, String dayActivity, String livingArea)
-            throws DaoDfmException;
+    List<Fish> getFishes(Integer fishId, String fishName, String fishType, String dayActivity, String livingArea) throws DaoDfmException;
 
     void updateFish(Fish fish) throws DaoDfmException;
 

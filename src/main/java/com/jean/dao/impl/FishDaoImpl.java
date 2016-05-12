@@ -96,7 +96,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 			Log.daoException("saveFish", e.getMessage());
 			throw new DaoDfmException("Some problem with save fish " + "Message: " + e.getMessage(), e);
 		} finally {
-			closeConnection(connection);
+			close(statement, connection);
 		}
 
 		return fishId;
@@ -121,7 +121,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 		List<Fish> fishes = new ArrayList<>();
 
 		Connection connection = null;
-
+		ResultSet rs = null;
 		PreparedStatement statement = null;
 
 		try {
@@ -171,7 +171,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 				statement.setNull(10, Types.VARCHAR);
 			}
 
-			ResultSet rs = statement.executeQuery();
+			rs = statement.executeQuery();
 
 			Fish fish = null;
 			while (rs.next()) {
@@ -259,8 +259,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 			Log.daoException("getFishes", e.getMessage());
 			throw new DaoDfmException("Some problem with fetching list of fishes " + "Message: " + e.getMessage(), e);
 		} finally {
-			closePreparedStatement(statement);
-			closeConnection(connection);
+			close(rs, statement, connection);
 		}
 
 		return fishes;
@@ -340,7 +339,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 			Log.daoException("updateFish", e.getMessage());
 			throw new DaoDfmException("Some problem with fetching list of fishes " + "Message: " + e.getMessage(), e);
 		} finally {
-			closeConnection(connection);
+			close(statement, connection);
 		}
 
 	}
@@ -380,15 +379,13 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 			Log.daoException("deleteFish", e.getMessage());
 			throw new DaoDfmException("Some problem with deleting list of fishes " + "Message: " + e.getMessage(), e);
 		} finally {
-			closePreparedStatement(statement);
-			closeConnection(connection);
+			close(statement, connection);
 		}
 
 	}
 
 	private FishSetting fetchFishSettinsFromRs(ResultSet rs) throws SQLException {
 		FishSetting fishSetting = new FishSetting();
-		fishSetting = new FishSetting();
 		fishSetting.setId(rs.getInt("fs.setting_id"));
 		fishSetting.setFishId(rs.getInt("fs.fish_id"));
 		fishSetting.setParamName(rs.getString("fs.param_name"));

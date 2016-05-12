@@ -45,6 +45,7 @@ public class WeatherDaoImpl extends BaseDaoImpl implements WeatherDao {
             log.info(result != 0 ? "Weather saved" : "Weather didn't save");
 
         } catch (SQLException e) {
+            log.error("some problem with save weather");
             throw new DaoDfmException("some problem with save weather", e);
         }
 
@@ -65,6 +66,7 @@ public class WeatherDaoImpl extends BaseDaoImpl implements WeatherDao {
             log.info(weathers.size() > 0 ? "Weather list: " + weathers.size() : "Weather result is zero");
 
         } catch (SQLException e) {
+            log.error("some problem when get List Weather");
             throw new DaoDfmException("some problem when get List Weather", e);
         }
 
@@ -87,6 +89,7 @@ public class WeatherDaoImpl extends BaseDaoImpl implements WeatherDao {
             }
 
         } catch (SQLException e) {
+            log.error("some problem when get List Weather");
             throw new DaoDfmException("some problem when get List Weather", e);
         }
 

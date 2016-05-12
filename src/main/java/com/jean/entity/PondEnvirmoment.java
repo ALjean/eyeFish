@@ -2,14 +2,14 @@ package com.jean.entity;
 
 public class PondEnvirmoment {
 
-    Double cloudLevel;
-    Double rainLevel;
-    Double envirmomentTemp;
-    Double waterTemp;
-    Double pressure;
-    Double deepLevel;
-    Double algalevel;
-    Double windSpeed;
+    private Double cloudLevel;
+    private Double rainLevel;
+    private Double envirmomentTemp;
+    private Double waterTemp;
+    private Double pressure;
+    private Double deepLevel;
+    private Double algalevel;
+    private Double windSpeed;
 
     public Double getCloudLevel() {
 	return cloudLevel;
