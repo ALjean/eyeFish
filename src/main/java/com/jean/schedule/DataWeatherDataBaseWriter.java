@@ -8,6 +8,7 @@ import com.jean.servlet.model.owm.DayWeatherDataOWM;
 import com.jean.servlet.model.owm.GeneralWeatherStateOWM;
 import com.jean.service.WeatherService;
 import com.jean.Constants;
+import com.jean.util.ModelBuilder;
 import com.jean.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -22,7 +23,6 @@ import java.util.List;
  */
 @Component
 public class DataWeatherDataBaseWriter {
-
 
 
     @Autowired
@@ -42,41 +42,32 @@ public class DataWeatherDataBaseWriter {
 
 
     public void parseOwnWeather() throws CustomDfmException, DaoDfmException {
-        GeneralWeatherStateOWM weatherOwm = weatherService.getDayWeatherState();
-
-        List<Weather> weathers = weatherOwmToDtoList(weatherOwm);
-
-        for (Weather weather : weathers) {
-            weatherDao.save(weather);
-        }
-
-    }
-
-    private List<Weather> weatherOwmToDtoList(GeneralWeatherStateOWM weatherOwm) {
+        /*TODO Gen weather*/
         List<Weather> weathers = new ArrayList<>();
+        List<String> cites = initListCities();
+
+//        cites.stream().forEach(city ->{
+//            GeneralWeatherStateOWM weatherOwm = weatherService.getDayWeatherState(city);
+//            weathers.addAll(ModelBuilder.buildWeathers(weatherOwm));
+//        });
 
 
-        List<DayWeatherDataOWM> weatherDataOWMs = weatherOwm.getList();
-        for (DayWeatherDataOWM weatherDataOWM : weatherDataOWMs) {
-            Weather weather = new Weather();
-            weather.setCity(weatherOwm.getCity().getName());
-            weather.setPressure(Utils.millibarToMmHg(weatherDataOWM.getPressure()));
-            weather.setDate(new Date(weatherDataOWM.getDt() * Constants.MULTIPLIER));
 
-            weather.setTempNight(Utils.kelvinToCelsius(weatherDataOWM.getTemp().getNight())); //todo refactoring
-            weather.setTempMorn(Utils.kelvinToCelsius(weatherDataOWM.getTemp().getMorn()));
-            weather.setTempEven(Utils.kelvinToCelsius(weatherDataOWM.getTemp().getEve()));
-            weather.setTempDay(Utils.kelvinToCelsius(weatherDataOWM.getTemp().getDay()));
-
-            weather.setWindSpeed(weatherDataOWM.getSpeed());
-            weather.setWindDeg(weatherDataOWM.getDeg());
-            weather.setHumidity(weatherDataOWM.getHumidity());
-            weather.setClouds(weatherDataOWM.getClouds());
+        weatherDao.save(weathers);
 
 
-            weathers.add(weather);
-        }
-        return weathers;
+
+
     }
 
+
+    private List<String> initListCities() {
+        List<String> list = new ArrayList<>();
+        list.add("Kiev");
+        list.add("Kharkiv");
+        list.add("Lviv");
+        list.add("Zpor");
+        list.add("Kiev");
+        return list;
+    }
 }

@@ -28,29 +28,30 @@ public class WeatherServiceImpl implements WeatherService {
 
     @Override
     @SuppressWarnings("unchecked")
-    public GeneralWeatherStateOWM<HoursWeatherDataOWM> getHoursWeatherState(String city) {
+    public GeneralWeatherStateOWM<HoursWeatherDataOWM> getHoursWeatherState(String lat, String lon) {
 
-        ResponseEntity<GeneralWeatherStateOWM<HoursWeatherDataOWM>> response = new RestTemplate().exchange(urlBuilder(Constants.CITY_PATH, city),
+        ResponseEntity<GeneralWeatherStateOWM<HoursWeatherDataOWM>> response = new RestTemplate().exchange(urlBuilder(lat, lon, Constants.WEATHER),
                 HttpMethod.GET, null, new ParameterizedTypeReference<GeneralWeatherStateOWM<HoursWeatherDataOWM>>() {
-        });
+                });
         return response.getBody();
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public GeneralWeatherStateOWM<DayWeatherDataOWM> getDayWeatherState(String city) {
+    public GeneralWeatherStateOWM<DayWeatherDataOWM> getDayWeatherState(String lat, String lon) {
 
-        ResponseEntity<GeneralWeatherStateOWM<DayWeatherDataOWM>> response = new RestTemplate().exchange(urlBuilder(Constants.DAILY_PATH, city),
+        ResponseEntity<GeneralWeatherStateOWM<DayWeatherDataOWM>> response = new RestTemplate().exchange(urlBuilder(lat, lon, Constants.FORCAST),
                 HttpMethod.GET, null, new ParameterizedTypeReference<GeneralWeatherStateOWM<DayWeatherDataOWM>>() {
                 });
         return response.getBody();
     }
 
-    private URI urlBuilder(String type, String city) {
-        String param = city + "," + weatherApiProperties.getCountryCode();
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(weatherApiProperties.getWeatherUrl() + "/" + type)
-                 .queryParam(Constants.APPID, weatherApiProperties.getAppId()) //todo connect with auth
-                .queryParam(Constants.Q,  param);
+    private URI urlBuilder(String lat, String lon, String state) {
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(weatherApiProperties.getWeatherUrl() + "/" + state)
+                .queryParam(Constants.APPID, weatherApiProperties.getAppId()) //todo connect with auth
+                .queryParam(Constants.LAT, lat)
+                .queryParam(Constants.LON, lon);
 
         return builder.build().encode().toUri();
     }

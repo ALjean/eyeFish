@@ -8,8 +8,11 @@ public interface Constants {
     float KELVIN_VALUE = 273.15f;
     float MILLIBAR_VALUE = 1.33322368f;
     
-    String ID = "id";
-    String Q = "q";
+    String WEATHER = "weather";
+    String FORCAST = "forecast";
+    String LAT = "lat";
+    String LON = "lon";
+
     String APPID = "APPID";
 
     String CITY_PATH =  "city";

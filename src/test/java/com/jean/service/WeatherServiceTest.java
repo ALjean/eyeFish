@@ -13,20 +13,20 @@ public class WeatherServiceTest extends BaseTest {
 
 	@Test
 	public void testGetHoursWeatherStateForCheckListGenericType() {
+		String lat = "40.7143528";
+		String log = "-74.0059731";
 
-		GeneralWeatherStateOWM<HoursWeatherDataOWM> hoursWeatherStateOWM = null;
 
-		hoursWeatherStateOWM = weatherService.getHoursWeatherState();
+		GeneralWeatherStateOWM<HoursWeatherDataOWM> hoursWeatherStateOWM = weatherService.getHoursWeatherState(lat, log);
 		assertTrue(hoursWeatherStateOWM.getList().get(0).getClass().equals(HoursWeatherDataOWM.class));
 	}
 
 	@Test
-
 	public void testGetDayWeatherStateForListCheckListGenericType() {
-		
-		GeneralWeatherStateOWM<DayWeatherDataOWM> dayWeatherStateOWM = null;
-		
-		dayWeatherStateOWM = weatherService.getDayWeatherState();
+		String lat = "40.7143528";
+		String log = "-74.0059731";
+
+		GeneralWeatherStateOWM<DayWeatherDataOWM> dayWeatherStateOWM = weatherService.getDayWeatherState(lat, log);
 		assertTrue(dayWeatherStateOWM.getList().get(0).getClass().equals(DayWeatherDataOWM.class));
 
 	}

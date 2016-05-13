@@ -88,8 +88,8 @@ public class GeneralWeather {
 	}
 
 	public GeneralWeather() {
-		this.dayWeathers = new ArrayList<DayWeather>();
-		this.hourWeathers = new ArrayList<HourWeather>();
+		this.dayWeathers = new ArrayList<>();
+		this.hourWeathers = new ArrayList<>();
 	}
 
 	@Override

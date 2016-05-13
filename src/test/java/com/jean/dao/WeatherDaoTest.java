@@ -50,7 +50,7 @@ public class WeatherDaoTest extends BaseTest {
     @Test
     @Ignore
     public void saveTest() throws CustomDfmException, DaoDfmException {
-        weatherDao.save(weather);
+//        weatherDao.save(weather);
         System.out.println("Test weather save");
     }
 

@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface WeatherDao {
 
-    void save(Weather weather) throws DaoDfmException;
+    void save(List<Weather> weathers) throws DaoDfmException;
 
     List<Weather> getAllWeather() throws DaoDfmException;
 

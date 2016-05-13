@@ -11,13 +11,10 @@ public class WeatherApiProperties {
 
      /* Weather API Settings */
 
-    @Value("${weather.url}")
+    @Value("${weather.openweather.url}")
     private String weatherUrl;
 
-    @Value("${weather.country}")
-    private String countryCode;
-
-    @Value("${weather.id.app}")
+    @Value("${weather.openweather.id.app}")
     private String appId;
 
 
@@ -27,14 +24,6 @@ public class WeatherApiProperties {
 
     public void setWeatherUrl(String weatherUrl) {
         this.weatherUrl = weatherUrl;
-    }
-
-    public String getCountryCode() {
-        return countryCode;
-    }
-
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
     }
 
     public String getAppId() {

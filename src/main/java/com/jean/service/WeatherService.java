@@ -6,8 +6,8 @@ package com.jean.service;
  */
 public interface WeatherService {
 
-    <T> T getHoursWeatherState();
+    <T> T getHoursWeatherState(String lat, String lon);
 
-    <T> T getDayWeatherState();
+    <T> T getDayWeatherState(String lat, String lon);
 }
 
