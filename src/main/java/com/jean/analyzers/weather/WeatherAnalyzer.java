@@ -3,7 +3,7 @@ package com.jean.analyzers.weather;
 
 public interface WeatherAnalyzer {
 
-	double StabilityChecker(float[] temperatureParams);
+	double stabilityChecker(float[] temperatureParams);
 
 	double windChecker(double temperature, double degrees, double speed);
 

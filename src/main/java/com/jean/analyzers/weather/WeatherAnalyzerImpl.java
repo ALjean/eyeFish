@@ -2,13 +2,16 @@ package com.jean.analyzers.weather;
 
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
+
 import com.jean.analyzers.weather.WindDirectionConverter.DirectionMap;
 import com.jean.analyzers.weather.WindDirectionConverter.MinMaxHolder;
 
+@Component
 public class WeatherAnalyzerImpl implements WeatherAnalyzer {
 
     @Override
-    public double StabilityChecker(float[] temperatureParams) {
+    public double stabilityChecker(float[] temperatureParams) {
 
 	// Result should be represented in percent.
 	double result = 0;
@@ -144,7 +147,7 @@ public class WeatherAnalyzerImpl implements WeatherAnalyzer {
 
 	float[] pressureParams = { 740.25f, 742.3f, 743f, 743.4f, 736f };
 
-	System.out.println("Stability of weather are: " + analyzer.StabilityChecker(temperatureParams));
+	System.out.println("Stability of weather are: " + analyzer.stabilityChecker(temperatureParams));
 
 	System.out.println("Pressure activity are: " + analyzer.pressureChecker(pressureParams));
 

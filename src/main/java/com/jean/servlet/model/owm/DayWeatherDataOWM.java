@@ -2,98 +2,106 @@ package com.jean.servlet.model.owm;
 
 import java.util.List;
 
-
 /**
  * Created by Alex on 06.08.15.
  */
 public class DayWeatherDataOWM {
 
-    private long dt;
+	private long dt;
 
-    private float pressure;
+	private float pressure;
 
-    private int humidity;
+	private int humidity;
 
-    private float speed;
+	private float speed;
 
-    private int deg;
+	private double deg;
 
-    private int clouds;
+	private int clouds;
 
-    private TempOWM temp;
+	private double rain;
 
-    private List<WeatherMonitorOWM> weather;
+	private TempOWM temp;
 
-    public long getDt() {
-        return dt;
-    }
+	private List<WeatherMonitorOWM> weather;
 
-    public void setDt(long dt) {
-        this.dt = dt;
-    }
+	public long getDt() {
+		return dt;
+	}
 
-    public float getPressure() {
-        return pressure;
-    }
+	public void setDt(long dt) {
+		this.dt = dt;
+	}
 
-    public void setPressure(float pressure) {
-        this.pressure = pressure;
-    }
+	public float getPressure() {
+		return pressure;
+	}
 
-    public int getHumidity() {
-        return humidity;
-    }
+	public void setPressure(float pressure) {
+		this.pressure = pressure;
+	}
 
-    public void setHumidity(int humidity) {
-        this.humidity = humidity;
-    }
+	public int getHumidity() {
+		return humidity;
+	}
 
-    public float getSpeed() {
-        return speed;
-    }
+	public void setHumidity(int humidity) {
+		this.humidity = humidity;
+	}
 
-    public void setSpeed(float speed) {
-        this.speed = speed;
-    }
+	public float getSpeed() {
+		return speed;
+	}
 
-    public int getDeg() {
-        return deg;
-    }
+	public void setSpeed(float speed) {
+		this.speed = speed;
+	}
 
-    public void setDeg(int deg) {
-        this.deg = deg;
-    }
+	public double getDeg() {
+		return deg;
+	}
 
-    public int getClouds() {
-        return clouds;
-    }
+	public void setDeg(double deg) {
+		this.deg = deg;
+	}
 
-    public void setClouds(int clouds) {
-        this.clouds = clouds;
-    }
+	public int getClouds() {
+		return clouds;
+	}
 
+	public void setClouds(int clouds) {
+		this.clouds = clouds;
+	}
 
-    public TempOWM getTemp() {
-        return temp;
-    }
+	public TempOWM getTemp() {
+		return temp;
+	}
 
-    public void setTemp(TempOWM temp) {
-        this.temp = temp;
-    }
+	public void setTemp(TempOWM temp) {
+		this.temp = temp;
+	}
 
-    public List<WeatherMonitorOWM> getWeather() {
-        return weather;
-    }
+	public List<WeatherMonitorOWM> getWeather() {
+		return weather;
+	}
 
-    public void setWeather(List<WeatherMonitorOWM> weather) {
-        this.weather = weather;
-    }
+	public void setWeather(List<WeatherMonitorOWM> weather) {
+		this.weather = weather;
+	}
 
-    @Override
-    public String toString() {
-	return "DayWeatherDataOWM [dt=" + dt + ", pressure=" + pressure + ", humidity=" + humidity + ", speed=" + speed + ", deg=" + deg
-		+ ", clouds=" + clouds + ", temp=" + temp + ", weather=" + weather + "]";
-    }
+	public double getRain() {
+		return rain;
+	}
 
- 
+	public void setRain(double rain) {
+		this.rain = rain;
+	}
+
+	@Override
+	public String toString() {
+		return "DayWeatherDataOWM [dt=" + dt + ", pressure=" + pressure + ", humidity=" + humidity + ", speed=" + speed
+				+ ", deg=" + deg + ", clouds=" + clouds + ", rain=" + rain + ", temp=" + temp + ", weather=" + weather
+				+ "]";
+	}
+
 }

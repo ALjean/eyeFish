@@ -7,80 +7,90 @@ import java.util.List;
  */
 public class HoursWeatherDataOWM {
 
-    private long dt;
+	private long dt;
 
-    private String dt_txt;
+	private String dt_txt;
 
-    private AverageWeatherParamsOWM main;
+	private AverageWeatherParamsOWM main;
 
-    private List<WeatherMonitorOWM> weather;
+	private List<WeatherMonitorOWM> weather;
 
-    private CloudsOWM clouds;
+	private CloudsOWM clouds;
 
-    private WindOWM wind;
+	private WindOWM wind;
 
-    private SysOWM sys;
+	private RainOWM rain;
 
-    public long getDt() {
-        return dt;
-    }
+	private SysOWM sys;
 
-    public void setDt(long dt) {
-        this.dt = dt;
-    }
+	public long getDt() {
+		return dt;
+	}
 
-    public String getDt_txt() {
-        return dt_txt;
-    }
+	public void setDt(long dt) {
+		this.dt = dt;
+	}
 
-    public void setDt_txt(String dt_txt) {
-        this.dt_txt = dt_txt;
-    }
+	public String getDt_txt() {
+		return dt_txt;
+	}
 
-    public AverageWeatherParamsOWM getMain() {
-        return main;
-    }
+	public void setDt_txt(String dt_txt) {
+		this.dt_txt = dt_txt;
+	}
 
-    public void setMain(AverageWeatherParamsOWM main) {
-        this.main = main;
-    }
+	public AverageWeatherParamsOWM getMain() {
+		return main;
+	}
 
-    public List<WeatherMonitorOWM> getWeather() {
-        return weather;
-    }
+	public void setMain(AverageWeatherParamsOWM main) {
+		this.main = main;
+	}
 
-    public void setWeather(List<WeatherMonitorOWM> weather) {
-        this.weather = weather;
-    }
+	public List<WeatherMonitorOWM> getWeather() {
+		return weather;
+	}
 
-    public CloudsOWM getClouds() {
-        return clouds;
-    }
+	public void setWeather(List<WeatherMonitorOWM> weather) {
+		this.weather = weather;
+	}
 
-    public void setClouds(CloudsOWM clouds) {
-        this.clouds = clouds;
-    }
+	public CloudsOWM getClouds() {
+		return clouds;
+	}
 
-    public WindOWM getWind() {
-        return wind;
-    }
+	public void setClouds(CloudsOWM clouds) {
+		this.clouds = clouds;
+	}
 
-    public void setWind(WindOWM wind) {
-        this.wind = wind;
-    }
+	public WindOWM getWind() {
+		return wind;
+	}
 
-    public SysOWM getSys() {
-        return sys;
-    }
+	public void setWind(WindOWM wind) {
+		this.wind = wind;
+	}
 
-    public void setSys(SysOWM sys) {
-        this.sys = sys;
-    }
+	public SysOWM getSys() {
+		return sys;
+	}
 
-    @Override
-    public String toString() {
-        return "DayHoursWeatherOWM [dt=" + dt + ", dt_txt=" + dt_txt + ", main=" + main + ", weather=" + weather + ", clouds=" + clouds + ", wind="
-                + wind + ", sys=" + sys + "]";
-    }
+	public void setSys(SysOWM sys) {
+		this.sys = sys;
+	}
+
+	public RainOWM getRain() {
+		return rain;
+	}
+
+	public void setRain(RainOWM rain) {
+		this.rain = rain;
+	}
+
+	@Override
+	public String toString() {
+		return "HoursWeatherDataOWM [dt=" + dt + ", dt_txt=" + dt_txt + ", main=" + main + ", weather=" + weather
+				+ ", clouds=" + clouds + ", wind=" + wind + ", rain=" + rain + ", sys=" + sys + "]";
+	}
 
 }
