@@ -47,13 +47,13 @@ public class DataWeatherDataBaseWriter {
         List<String> cites = initListCities();
 
 //        cites.stream().forEach(city ->{
-//            GeneralWeatherStateOWM weatherOwm = weatherService.getDayWeatherState(city);
+//            GeneralWeatherStateOWM weatherOwm = weatherService.getListWeatherState(city);
 //            weathers.addAll(ModelBuilder.buildWeathers(weatherOwm));
 //        });
 
 
 
-        weatherDao.save(weathers);
+//        weatherDao.save(weathers);
 
 
 
