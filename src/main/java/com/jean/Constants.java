@@ -9,6 +9,7 @@ public interface Constants {
     float MILLIBAR_VALUE = 1.33322368f;
     
     String ID = "id";
+    String Q = "q";
     String APPID = "APPID";
 
     String CITY_PATH =  "city";

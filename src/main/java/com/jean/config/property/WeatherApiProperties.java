@@ -14,12 +14,11 @@ public class WeatherApiProperties {
     @Value("${weather.url}")
     private String weatherUrl;
 
-    @Value("${weather.id.city}")
-    private String cityId;
+    @Value("${weather.country}")
+    private String countryCode;
 
     @Value("${weather.id.app}")
     private String appId;
-
 
 
     public String getWeatherUrl() {
@@ -30,12 +29,12 @@ public class WeatherApiProperties {
         this.weatherUrl = weatherUrl;
     }
 
-    public String getCityId() {
-        return cityId;
+    public String getCountryCode() {
+        return countryCode;
     }
 
-    public void setCityId(String cityId) {
-        this.cityId = cityId;
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
     }
 
     public String getAppId() {

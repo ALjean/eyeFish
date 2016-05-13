@@ -28,9 +28,9 @@ public class WeatherServiceImpl implements WeatherService {
 
     @Override
     @SuppressWarnings("unchecked")
-    public GeneralWeatherStateOWM<HoursWeatherDataOWM> getHoursWeatherState() {
+    public GeneralWeatherStateOWM<HoursWeatherDataOWM> getHoursWeatherState(String city) {
 
-        ResponseEntity<GeneralWeatherStateOWM<HoursWeatherDataOWM>> response = new RestTemplate().exchange(urlBuilder(Constants.CITY_PATH),
+        ResponseEntity<GeneralWeatherStateOWM<HoursWeatherDataOWM>> response = new RestTemplate().exchange(urlBuilder(Constants.CITY_PATH, city),
                 HttpMethod.GET, null, new ParameterizedTypeReference<GeneralWeatherStateOWM<HoursWeatherDataOWM>>() {
         });
         return response.getBody();
@@ -38,18 +38,19 @@ public class WeatherServiceImpl implements WeatherService {
 
     @Override
     @SuppressWarnings("unchecked")
-    public GeneralWeatherStateOWM<DayWeatherDataOWM> getDayWeatherState() {
+    public GeneralWeatherStateOWM<DayWeatherDataOWM> getDayWeatherState(String city) {
 
-        ResponseEntity<GeneralWeatherStateOWM<DayWeatherDataOWM>> response = new RestTemplate().exchange(urlBuilder(Constants.DAILY_PATH),
+        ResponseEntity<GeneralWeatherStateOWM<DayWeatherDataOWM>> response = new RestTemplate().exchange(urlBuilder(Constants.DAILY_PATH, city),
                 HttpMethod.GET, null, new ParameterizedTypeReference<GeneralWeatherStateOWM<DayWeatherDataOWM>>() {
                 });
         return response.getBody();
     }
 
-    private URI urlBuilder(String type) {
+    private URI urlBuilder(String type, String city) {
+        String param = city + "," + weatherApiProperties.getCountryCode();
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(weatherApiProperties.getWeatherUrl() + "/" + type)
                  .queryParam(Constants.APPID, weatherApiProperties.getAppId()) //todo connect with auth
-                .queryParam(Constants.ID, weatherApiProperties.getCityId());
+                .queryParam(Constants.Q,  param);
 
         return builder.build().encode().toUri();
     }
