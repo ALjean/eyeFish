@@ -1,4 +1,6 @@
-package com.jean.servlet.model.owm;
+package com.jean.servlet.model.owm.hours;
+
+import com.jean.servlet.model.owm.*;
 
 import java.util.List;
 

@@ -1,4 +1,6 @@
-package com.jean.servlet.model.owm;
+package com.jean.servlet.model.owm.detail;
+
+import com.jean.servlet.model.owm.WeatherMonitorOWM;
 
 import java.util.List;
 

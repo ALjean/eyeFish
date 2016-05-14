@@ -1,9 +1,10 @@
 package com.jean.service.impl;
 
 import com.jean.config.property.WeatherApiProperties;
-import com.jean.servlet.model.owm.DayWeatherDataOWM;
+import com.jean.servlet.model.owm.current.CurrentWeatherOWM;
+import com.jean.servlet.model.owm.detail.DayWeatherDataOWM;
 import com.jean.servlet.model.owm.GeneralWeatherStateOWM;
-import com.jean.servlet.model.owm.HoursWeatherDataOWM;
+import com.jean.servlet.model.owm.hours.HoursWeatherDataOWM;
 import com.jean.service.WeatherService;
 import com.jean.Constants;
 
@@ -28,21 +29,26 @@ public class WeatherServiceImpl implements WeatherService {
 
     @Override
     @SuppressWarnings("unchecked")
-    public GeneralWeatherStateOWM<HoursWeatherDataOWM> getCurrentWeatherState(String lat, String lon) {
+    public GeneralWeatherStateOWM<DayWeatherDataOWM> getDetailWeatherState(String lat, String lon) {
 
-        ResponseEntity<GeneralWeatherStateOWM<HoursWeatherDataOWM>> response = new RestTemplate().exchange(urlBuilder(lat, lon, Constants.WEATHER),
-                HttpMethod.GET, null, new ParameterizedTypeReference<GeneralWeatherStateOWM<HoursWeatherDataOWM>>() {
-                });
+        ResponseEntity<GeneralWeatherStateOWM<DayWeatherDataOWM>> response = new RestTemplate().exchange(urlBuilder(lat, lon, Constants.DAILY),
+                HttpMethod.GET, null, new ParameterizedTypeReference<GeneralWeatherStateOWM<DayWeatherDataOWM>>() {});
         return response.getBody();
     }
 
+    public CurrentWeatherOWM getCurrentWeatherState(String lat, String lon) {
+        ResponseEntity<CurrentWeatherOWM> response = new RestTemplate().exchange(urlBuilder(lat, lon, Constants.WEATHER),
+                HttpMethod.GET, null, new ParameterizedTypeReference<CurrentWeatherOWM>() {});
+        return response.getBody();
+    }
+
+
     @Override
     @SuppressWarnings("unchecked")
-    public GeneralWeatherStateOWM<DayWeatherDataOWM> getListWeatherState(String lat, String lon) {
+    public GeneralWeatherStateOWM<HoursWeatherDataOWM> getListWeatherState(String lat, String lon) {
 
-        ResponseEntity<GeneralWeatherStateOWM<DayWeatherDataOWM>> response = new RestTemplate().exchange(urlBuilder(lat, lon, Constants.FORCAST),
-                HttpMethod.GET, null, new ParameterizedTypeReference<GeneralWeatherStateOWM<DayWeatherDataOWM>>() {
-                });
+        ResponseEntity<GeneralWeatherStateOWM<HoursWeatherDataOWM>> response = new RestTemplate().exchange(urlBuilder(lat, lon, Constants.FORCAST),
+                HttpMethod.GET, null, new ParameterizedTypeReference<GeneralWeatherStateOWM<HoursWeatherDataOWM>>() {});
         return response.getBody();
     }
 

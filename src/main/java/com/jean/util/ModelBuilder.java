@@ -2,7 +2,7 @@ package com.jean.util;
 
 import com.jean.Constants;
 import com.jean.entity.Weather;
-import com.jean.servlet.model.owm.DayWeatherDataOWM;
+import com.jean.servlet.model.owm.detail.DayWeatherDataOWM;
 import com.jean.servlet.model.owm.GeneralWeatherStateOWM;
 
 import java.util.ArrayList;

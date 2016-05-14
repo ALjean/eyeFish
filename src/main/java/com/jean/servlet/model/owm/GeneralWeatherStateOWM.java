@@ -1,5 +1,7 @@
 package com.jean.servlet.model.owm;
 
+import com.jean.servlet.model.owm.hours.CityOWM;
+
 import java.util.List;
 
 public class GeneralWeatherStateOWM<T> {

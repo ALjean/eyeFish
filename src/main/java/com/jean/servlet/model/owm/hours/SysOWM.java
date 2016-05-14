@@ -1,4 +1,4 @@
-package com.jean.servlet.model.owm;
+package com.jean.servlet.model.owm.hours;
 
 /**
  * Created by Alex on 06.08.15.
