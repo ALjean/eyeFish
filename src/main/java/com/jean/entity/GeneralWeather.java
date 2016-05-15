@@ -5,8 +5,7 @@ import java.util.List;
 
 public class GeneralWeather {
 
-	private int id;
-	private int cityId;
+	private long cityId;
 	private String cityName;
 	private double coordLon;
 	private double coordLat;
@@ -15,19 +14,11 @@ public class GeneralWeather {
 	private List<DayWeather> dayWeathers;
 	private List<HourWeather> hourWeathers;
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getCityId() {
+	public long getCityId() {
 		return cityId;
 	}
 
-	public void setCityId(int cityId) {
+	public void setCityId(long cityId) {
 		this.cityId = cityId;
 	}
 
@@ -86,16 +77,19 @@ public class GeneralWeather {
 	public void setHourWeathers(List<HourWeather> hourWeathers) {
 		this.hourWeathers = hourWeathers;
 	}
+	
+	
 
 	public GeneralWeather() {
-		this.dayWeathers = new ArrayList<>();
-		this.hourWeathers = new ArrayList<>();
+		this.dayWeathers = new ArrayList<DayWeather>();
+		this.hourWeathers = new ArrayList<HourWeather>();
 	}
 
 	@Override
 	public String toString() {
-		return "GeneralWeather [id=" + id + ", cityId=" + cityId + ", cityName=" + cityName + ", coordLon=" + coordLon
-				+ ", coordLat=" + coordLat + ", country=" + country + ", messageCount=" + messageCount + "]";
+		return "GeneralWeather [cityId=" + cityId + ", cityName=" + cityName + ", coordLon=" + coordLon + ", coordLat="
+				+ coordLat + ", country=" + country + ", messageCount=" + messageCount + ", dayWeathers=" + dayWeathers
+				+ ", hourWeathers=" + hourWeathers + "]";
 	}
 
 }

@@ -11,7 +11,7 @@ import com.jean.analyzers.weather.WindDirectionConverter.MinMaxHolder;
 public class WeatherAnalyzerImpl implements WeatherAnalyzer {
 
     @Override
-    public double stabilityChecker(float[] temperatureParams) {
+    public double stabilityChecker(double[] temperatureParams) {
 
 	// Result should be represented in percent.
 	double result = 0;
@@ -20,7 +20,7 @@ public class WeatherAnalyzerImpl implements WeatherAnalyzer {
 	int countDay = 1;
 
 	// General temperature changes during period of compute.
-	float generalChange = Math.abs((temperatureParams[temperatureParams.length - 1] - temperatureParams[0]));
+	double generalChange = Math.abs((temperatureParams[temperatureParams.length - 1] - temperatureParams[0]));
 
 	for (int i = 0; i < temperatureParams.length - 1; i++) {
 
@@ -32,7 +32,7 @@ public class WeatherAnalyzerImpl implements WeatherAnalyzer {
 	     * Changes which had happened between different days (for example)
 	     * or two different values of temperature.
 	     */
-	    float dayChange = Math.abs(temperatureParams[i + 1] - temperatureParams[i]);
+	    double dayChange = Math.abs(temperatureParams[i + 1] - temperatureParams[i]);
 
 	    /*
 	     * If changes during the day have critical character, we must
@@ -120,11 +120,11 @@ public class WeatherAnalyzerImpl implements WeatherAnalyzer {
     }
 
     @Override
-    public double pressureChecker(float[] pressureParams) {
+    public double pressureChecker(double[] pressureParams) {
 
 	double result = 0;
 
-	float generalChange = pressureParams[pressureParams.length - 1] - pressureParams[0];
+	double generalChange = pressureParams[pressureParams.length - 1] - pressureParams[0];
 
 	if (Math.abs(generalChange) > ConstantsAnalyzer.CRITICAL_PRESSURE_CHANGES) {
 	    return ConstantsAnalyzer.CRITICAL_PRESSURE_CHANGES / 2;
@@ -143,9 +143,9 @@ public class WeatherAnalyzerImpl implements WeatherAnalyzer {
 
 	WeatherAnalyzer analyzer = new WeatherAnalyzerImpl();
 
-	float[] temperatureParams = { 32.5f, 32.8f, 33f, 33.5f, 31.2f };
+	double[] temperatureParams = { 32.5, 32.8, 33, 33.5, 31.2 };
 
-	float[] pressureParams = { 740.25f, 742.3f, 743f, 743.4f, 736f };
+	double[] pressureParams = { 740.25, 742.3, 743, 743.4, 736 };
 
 	System.out.println("Stability of weather are: " + analyzer.stabilityChecker(temperatureParams));
 

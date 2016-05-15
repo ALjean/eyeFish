@@ -8,6 +8,8 @@ public class DayWeather {
 	private Timestamp currentDate;
 	private String sunRise;
 	private String sunDown;
+	private double tempMin;
+	private double tempMax;
 	private double tempDay;
 	private double tempNight;
 	private double tempEvening;
@@ -31,8 +33,8 @@ public class DayWeather {
 		return currentDate;
 	}
 
-	public void setCurrentDate(Timestamp currentDate) {
-		this.currentDate = currentDate;
+	public void setCurrentDate(long time) {
+		this.currentDate = new Timestamp(time);
 	}
 
 	public String getSunRise() {
@@ -81,6 +83,22 @@ public class DayWeather {
 
 	public void setTempMorning(double tempMorning) {
 		this.tempMorning = tempMorning;
+	}
+
+	public double getTempMin() {
+		return tempMin;
+	}
+
+	public void setTempMin(double tempMin) {
+		this.tempMin = tempMin;
+	}
+
+	public double getTempMax() {
+		return tempMax;
+	}
+
+	public void setTempMax(double tempMax) {
+		this.tempMax = tempMax;
 	}
 
 	public double getPressure() {
