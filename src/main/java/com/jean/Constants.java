@@ -10,7 +10,7 @@ public interface Constants {
     
     String WEATHER = "weather";
     String FORCAST = "forecast";
-    String DAILY = WEATHER + "/" + "daily";
+    String DAILY = FORCAST + "/" + "daily";
 
     String LAT = "lat";
     String LON = "lon";

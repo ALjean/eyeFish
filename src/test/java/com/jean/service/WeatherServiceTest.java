@@ -16,8 +16,8 @@ public class WeatherServiceTest extends BaseTest {
 		String lat = "40.7143528";
 		String log = "74.0059731";
 
-		GeneralWeatherStateOWM<HoursWeatherDataOWM> hoursWeatherStateOWM = weatherService.getDetailWeatherState(lat, log);
-		assertTrue(hoursWeatherStateOWM.getList().get(0).getClass().equals(HoursWeatherDataOWM.class));
+		GeneralWeatherStateOWM<DayWeatherDataOWM> hoursWeatherStateOWM = weatherService.getDetailWeatherState(lat, log);
+		assertTrue(hoursWeatherStateOWM.getList().get(0).getClass().equals(DayWeatherDataOWM.class));
 	}
 
 	@Test
@@ -34,8 +34,9 @@ public class WeatherServiceTest extends BaseTest {
 		String lat = "40.7143528";
 		String log = "74.0059731";
 
-		GeneralWeatherStateOWM<DayWeatherDataOWM> dayWeatherStateOWM = weatherService.getListWeatherState(lat, log);
-		assertTrue(dayWeatherStateOWM.getList().get(0).getClass().equals(DayWeatherDataOWM.class));
+		GeneralWeatherStateOWM<HoursWeatherDataOWM> dayWeatherStateOWM = weatherService.getListWeatherState(lat, log);
+		assertTrue((dayWeatherStateOWM.getList().get(0)).getClass().equals(HoursWeatherDataOWM.class));
+//		assertTrue(hoursWeatherStateOWM.getList().get(0).getClass().equals(HoursWeatherDataOWM.class));
 
 	}
 
