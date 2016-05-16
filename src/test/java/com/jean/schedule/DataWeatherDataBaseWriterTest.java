@@ -15,7 +15,7 @@ public class DataWeatherDataBaseWriterTest extends BaseTest {
     @Test
     @Ignore
     public void parseOwnWeatherTest() throws CustomDfmException, DaoDfmException {
-        dataWeatherDataBaseWriter.parseOwnWeather();
+//        dataWeatherDataBaseWriter.parseOwnWeather();
         System.out.println("Test Writer API");
     }
 

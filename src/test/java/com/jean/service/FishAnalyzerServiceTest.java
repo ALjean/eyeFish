@@ -33,7 +33,7 @@ public class FishAnalyzerServiceTest extends BaseTest {
     @Test
     @Ignore
     public void getBehaviorFishByDayTest() throws CustomDfmException ,DaoDfmException {
-        fishAnalyzerService.getBehaviorFishByDay(fish, date);
+//        fishAnalyzerService.getBehaviorFishByDay(fish, date);
         System.out.println("-------------");
     }
 }

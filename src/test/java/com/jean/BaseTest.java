@@ -3,12 +3,10 @@ package com.jean;
 import com.jean.config.context.AppConfig;
 import com.jean.config.property.DataBaseProperties;
 import com.jean.dao.*;
-import com.jean.schedule.DataWeatherDataBaseWriter;
-import com.jean.service.FishAnalyzerService;
 import com.jean.service.UserService;
 import com.jean.service.WeatherService;
 import com.jean.analyzers.fish.BehaviorAnalyzer;
-import com.jean.analyzers.fish.FishAnalyzer;
+
 
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +32,8 @@ public class BaseTest {
 	@Autowired
 	protected FishDao fishDao;
 
-	@Autowired
-	protected WeatherDao weatherDao;
+//	@Autowired
+//	protected WeatherDao weatherDao;
 
 	@Autowired
 	protected UserDao userDao;

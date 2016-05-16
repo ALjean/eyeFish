@@ -16,16 +16,14 @@ import com.jean.util.MapperOWM;
 
 public class BehaviorAnalyzerTest extends BaseTest {
 
-	private GeneralWeatherStateOWM<DayWeatherDataOWM> dayWeatherOWM = null;
-	private GeneralWeatherStateOWM<HoursWeatherDataOWM> hourWeatherOWM = null;
 	private GeneralWeather generalWeather = null;
-	private String lat = "40.7143528";
-	private String lon = "74.0059731";
 
 	@Before
-	public void inint() {
-		dayWeatherOWM = weatherService.getDetailWeatherState(lat, lon);
-		hourWeatherOWM = weatherService.getListWeatherState(lat, lon);
+	public void init() {
+		String lat = "40.7143528";
+		String lon = "74.0059731";
+		GeneralWeatherStateOWM<DayWeatherDataOWM> dayWeatherOWM = weatherService.getDetailWeatherState(lat, lon);
+		GeneralWeatherStateOWM<HoursWeatherDataOWM> hourWeatherOWM = weatherService.getListWeatherState(lat, lon);
 		generalWeather = MapperOWM.parseOWM(dayWeatherOWM, hourWeatherOWM);
 	}
 
