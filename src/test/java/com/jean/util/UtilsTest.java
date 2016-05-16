@@ -2,7 +2,6 @@ package com.jean.util;
 
 import static org.junit.Assert.*;
 import com.jean.BaseTest;
-import com.jean.entity.GeneralWeather;
 import com.jean.servlet.model.owm.GeneralWeatherStateOWM;
 import com.jean.servlet.model.owm.detail.DayWeatherDataOWM;
 import com.jean.servlet.model.owm.hours.HoursWeatherDataOWM;
@@ -37,13 +36,4 @@ public class UtilsTest extends BaseTest {
 		System.out.println(result);
 	}
 
-	@Test
-	public void parseOWMTest() {
-
-		GeneralWeather generalWeather = MapperOWM.parseOWM(dayWeatherOWM, hourWeatherOWM);
-		assertTrue(generalWeather != null);
-		
-		System.out.println(generalWeather);
-		
-	}
 }

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jean.entity.DayWeather;
-import com.jean.entity.GeneralWeather;
+import com.jean.entity.GeneralDayWeather;
+import com.jean.entity.GeneralHourWeather;
 import com.jean.entity.HourWeather;
 import com.jean.servlet.model.owm.GeneralWeatherStateOWM;
 import com.jean.servlet.model.owm.detail.DayWeatherDataOWM;
@@ -12,18 +13,16 @@ import com.jean.servlet.model.owm.hours.HoursWeatherDataOWM;
 
 public class MapperOWM {
 
-	public static GeneralWeather parseOWM(GeneralWeatherStateOWM<DayWeatherDataOWM> dayWeatherOWM,
-			GeneralWeatherStateOWM<HoursWeatherDataOWM> hourWeatherOWM) {
+	public static GeneralDayWeather buildModelDayWeather(GeneralWeatherStateOWM<DayWeatherDataOWM> dayWeatherOWM) {
 
-		GeneralWeather generalWeather = new GeneralWeather();
+		GeneralDayWeather generalDayWeather = new GeneralDayWeather();
 		List<DayWeather> dayWeathers = new ArrayList<DayWeather>();
-		List<HourWeather> hourWeathers = new ArrayList<HourWeather>();
 
-		generalWeather.setCityId((dayWeatherOWM.getCity().getId()));
-		generalWeather.setCityName(dayWeatherOWM.getCity().getName());
-		generalWeather.setCountry(dayWeatherOWM.getCity().getCountry());
-		generalWeather.setCoordLat(dayWeatherOWM.getCity().getCoord().getLat());
-		generalWeather.setCoordLon(dayWeatherOWM.getCity().getCoord().getLon());
+		generalDayWeather.setCityId((dayWeatherOWM.getCity().getId()));
+		generalDayWeather.setCityName(dayWeatherOWM.getCity().getName());
+		generalDayWeather.setCountry(dayWeatherOWM.getCity().getCountry());
+		generalDayWeather.setCoordLat(dayWeatherOWM.getCity().getCoord().getLat());
+		generalDayWeather.setCoordLon(dayWeatherOWM.getCity().getCoord().getLon());
 
 		for (DayWeatherDataOWM dayWeatherDataOWM : dayWeatherOWM.getList()) {
 
@@ -32,14 +31,14 @@ public class MapperOWM {
 			dayWeather.setClouds(dayWeatherDataOWM.getClouds());
 			dayWeather.setCurrentDate(dayWeatherDataOWM.getDt());
 			dayWeather.setHumidity(dayWeatherDataOWM.getHumidity());
-			dayWeather.setPressure(dayWeatherDataOWM.getPressure());
+			dayWeather.setPressure(Utils.millibarToMmHg(dayWeatherDataOWM.getPressure()));
 			dayWeather.setRainVolume(dayWeatherDataOWM.getRain());
-			dayWeather.setTempDay(dayWeatherDataOWM.getTemp().getDay());
-			dayWeather.setTempEvening(dayWeatherDataOWM.getTemp().getEve());
-			dayWeather.setTempMorning(dayWeatherDataOWM.getTemp().getMorn());
-			dayWeather.setTempNight(dayWeatherDataOWM.getTemp().getNight());
-			dayWeather.setTempMin(dayWeatherDataOWM.getTemp().getMin());
-			dayWeather.setTempMax(dayWeatherDataOWM.getTemp().getMax());
+			dayWeather.setTempDay(Utils.kelvinToCelsius(dayWeatherDataOWM.getTemp().getDay()));
+			dayWeather.setTempEvening(Utils.kelvinToCelsius(dayWeatherDataOWM.getTemp().getEve()));
+			dayWeather.setTempMorning(Utils.kelvinToCelsius(dayWeatherDataOWM.getTemp().getMorn()));
+			dayWeather.setTempNight(Utils.kelvinToCelsius(dayWeatherDataOWM.getTemp().getNight()));
+			dayWeather.setTempMin(Utils.kelvinToCelsius(dayWeatherDataOWM.getTemp().getMin()));
+			dayWeather.setTempMax(Utils.kelvinToCelsius(dayWeatherDataOWM.getTemp().getMax()));
 			dayWeather.setWindDeg(dayWeatherDataOWM.getDeg());
 			dayWeather.setWindSpeed(dayWeatherDataOWM.getSpeed());
 			dayWeather.setClouds(dayWeatherDataOWM.getClouds());
@@ -47,7 +46,22 @@ public class MapperOWM {
 			dayWeathers.add(dayWeather);
 		}
 
-		generalWeather.getDayWeathers().addAll(dayWeathers);
+		generalDayWeather.getDayWeathers().addAll(dayWeathers);
+
+		return generalDayWeather;
+
+	}
+
+	public static GeneralHourWeather buildModelHourWeather(GeneralWeatherStateOWM<HoursWeatherDataOWM> hourWeatherOWM) {
+
+		GeneralHourWeather generalHourWeather = new GeneralHourWeather();
+		List<HourWeather> hourWeathers = new ArrayList<HourWeather>();
+
+		generalHourWeather.setCityId((hourWeatherOWM.getCity().getId()));
+		generalHourWeather.setCityName(hourWeatherOWM.getCity().getName());
+		generalHourWeather.setCountry(hourWeatherOWM.getCity().getCountry());
+		generalHourWeather.setCoordLat(hourWeatherOWM.getCity().getCoord().getLat());
+		generalHourWeather.setCoordLon(hourWeatherOWM.getCity().getCoord().getLon());
 
 		for (HoursWeatherDataOWM hoursWeatherDataOWM : hourWeatherOWM.getList()) {
 
@@ -55,10 +69,10 @@ public class MapperOWM {
 
 			hourWeather.setClouds(hoursWeatherDataOWM.getClouds().getAll());
 			hourWeather.setDateText(hoursWeatherDataOWM.getDt_txt());
-			hourWeather.setGeneralTemp(hoursWeatherDataOWM.getMain().getTemp());
-			hourWeather.setTempMin(hoursWeatherDataOWM.getMain().getTemp_min());
-			hourWeather.setTempMax(hoursWeatherDataOWM.getMain().getTemp_max());
-			hourWeather.setPressure(hoursWeatherDataOWM.getMain().getPressure());
+			hourWeather.setGeneralTemp(Utils.kelvinToCelsius(hoursWeatherDataOWM.getMain().getTemp()));
+			hourWeather.setTempMin(Utils.kelvinToCelsius(hoursWeatherDataOWM.getMain().getTemp_min()));
+			hourWeather.setTempMax(Utils.kelvinToCelsius(hoursWeatherDataOWM.getMain().getTemp_max()));
+			hourWeather.setPressure(Utils.millibarToMmHg(hoursWeatherDataOWM.getMain().getPressure()));
 			hourWeather.setHumadity(hoursWeatherDataOWM.getMain().getPressure());
 			hourWeather.setRainVolume(hoursWeatherDataOWM.getRain().getVolume());
 			hourWeather.setSeaLevel(hoursWeatherDataOWM.getMain().getSea_level());
@@ -68,10 +82,10 @@ public class MapperOWM {
 			hourWeathers.add(hourWeather);
 
 		}
-		
-		generalWeather.getHourWeathers().addAll(hourWeathers);
 
-		return generalWeather;
+		generalHourWeather.getHourWeathers().addAll(hourWeathers);
+
+		return generalHourWeather;
 
 	}
 }

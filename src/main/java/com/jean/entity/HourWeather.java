@@ -2,7 +2,6 @@ package com.jean.entity;
 
 public class HourWeather {
 
-	private int id;
 	private String dateText;
 	private double clouds;
 	private double humadity;
@@ -14,14 +13,6 @@ public class HourWeather {
 	private double windDeg;
 	private double windSpeed;
 	private double rainVolume;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getDateText() {
 		return dateText;
@@ -113,10 +104,10 @@ public class HourWeather {
 
 	@Override
 	public String toString() {
-		return "HourWeather [id=" + id + ", dateText=" + dateText + ", clouds=" + clouds + ", humadity=" + humadity
-				+ ", pressure=" + pressure + ", seaLevel=" + seaLevel + ", generalTemp=" + generalTemp + ", tempMin="
-				+ tempMin + ", tempMax=" + tempMax + ", windDeg=" + windDeg + ", windSpeed=" + windSpeed
-				+ ", rainVolume=" + rainVolume + "]";
+		return "HourWeather [dateText=" + dateText + ", clouds=" + clouds + ", humadity=" + humadity + ", pressure="
+				+ pressure + ", seaLevel=" + seaLevel + ", generalTemp=" + generalTemp + ", tempMin=" + tempMin
+				+ ", tempMax=" + tempMax + ", windDeg=" + windDeg + ", windSpeed=" + windSpeed + ", rainVolume="
+				+ rainVolume + "]";
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.jean.analyzers.weather;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BehaviorDTO {
@@ -15,12 +16,7 @@ public class BehaviorDTO {
 	}
 
 	public BehaviorDTO() {
-		super();
-	}
-
-	public BehaviorDTO(List<ConrolPointHolder> controlPoints) {
-		super();
-		this.controlPoints = controlPoints;
+		this.controlPoints = new ArrayList<ConrolPointHolder>();
 	}
 
 	@Override

@@ -89,6 +89,10 @@ public class HoursWeatherDataOWM {
 		this.rain = rain;
 	}
 
+	public HoursWeatherDataOWM() {
+		this.rain = new RainOWM();
+	}
+
 	@Override
 	public String toString() {
 		return "HoursWeatherDataOWM [dt=" + dt + ", dt_txt=" + dt_txt + ", main=" + main + ", weather=" + weather

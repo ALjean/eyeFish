@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 
 public class DayWeather {
 
-	private int id;
 	private Timestamp currentDate;
 	private String sunRise;
 	private String sunDown;
@@ -20,14 +19,6 @@ public class DayWeather {
 	private double humidity;
 	private double clouds;
 	private double rainVolume;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public Timestamp getCurrentDate() {
 		return currentDate;
@@ -151,10 +142,11 @@ public class DayWeather {
 
 	@Override
 	public String toString() {
-		return "DayWeather [id=" + id + ", currentDate=" + currentDate + ", sunRise=" + sunRise + ", sunDown=" + sunDown
-				+ ", tempDay=" + tempDay + ", tempNight=" + tempNight + ", tempEvening=" + tempEvening
-				+ ", tempMorning=" + tempMorning + ", pressure=" + pressure + ", windDeg=" + windDeg + ", windSpeed="
-				+ windSpeed + ", humidity=" + humidity + ", clouds=" + clouds + ", rainVolume=" + rainVolume + "]";
+		return "DayWeather [currentDate=" + currentDate + ", sunRise=" + sunRise + ", sunDown=" + sunDown + ", tempMin="
+				+ tempMin + ", tempMax=" + tempMax + ", tempDay=" + tempDay + ", tempNight=" + tempNight
+				+ ", tempEvening=" + tempEvening + ", tempMorning=" + tempMorning + ", pressure=" + pressure
+				+ ", windDeg=" + windDeg + ", windSpeed=" + windSpeed + ", humidity=" + humidity + ", clouds=" + clouds
+				+ ", rainVolume=" + rainVolume + "]";
 	}
 
 }
