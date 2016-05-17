@@ -1,6 +1,7 @@
 package com.jean.util;
 
 import com.jean.Constants;
+import com.jean.servlet.model.Coordinates;
 
 /**
  * Created by stas on 18.07.15.
@@ -19,5 +20,14 @@ public class Utils {
     private static float round(float number) {
         float tmp = number * 100;
         return (float) (int) ((tmp - (int) tmp) >= 0.5f ? tmp + 1 : tmp) / 100;
+    }
+
+    public static boolean isPointCircle(float lon, float lat, Coordinates coordinates){
+        float hashLon = coordinates.getLongitude();
+        float hashLat = coordinates.getLatitude();
+        int R = 5;
+
+        return Math.pow((lon-hashLon), 2) + Math.pow((lat-hashLat), 2) == Math.pow(R, 2);
+
     }
 }

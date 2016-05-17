@@ -8,9 +8,11 @@ import com.jean.service.WeatherService;
 import com.jean.analyzers.fish.BehaviorAnalyzer;
 
 
+import com.jean.util.RedisCacheStore;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -24,6 +26,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ActiveProfiles("test")
+@EnableRedisRepositories
 // @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 // //create context after each method
 @ContextConfiguration(classes = AppConfig.class, loader = AnnotationConfigWebContextLoader.class)
@@ -31,9 +34,6 @@ public class BaseTest {
 
 	@Autowired
 	protected FishDao fishDao;
-
-//	@Autowired
-//	protected WeatherDao weatherDao;
 
 	@Autowired
 	protected UserDao userDao;
@@ -49,6 +49,9 @@ public class BaseTest {
 
 	@Autowired
 	protected UserService userService;
+
+	@Autowired
+	protected RedisCacheStore redisStore;
 
 	@Autowired
 	protected DataBaseProperties dataBaseProperties;
