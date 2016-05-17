@@ -100,7 +100,7 @@ public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {
 			}
 
 			for (NibblePeriod period : fish.getNibbles()) {
-
+				
 			}
 
 			pointHolder.setTime(hourWeather.getDateText().substring(10).trim());

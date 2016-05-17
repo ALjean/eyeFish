@@ -61,6 +61,7 @@ public class RedisCacheStore<T> {
     }
 
     private String genKey(Coordinates coordinates){
+		return null;
 
     }
 
