@@ -53,7 +53,7 @@ public class BehaviorAnalyzerTest extends BaseTest {
 	public void getFishBehavior() {
 
 		BehaviorDTO behaviorDTO = behaviorAnalyzer.getFishBehavior(generalHourWeather, fish.get(0), 82.03,
-				"2016-05-17");
+				"2016-05-18");
 
 		System.out.println("\n" + behaviorDTO + "\n");
 	}

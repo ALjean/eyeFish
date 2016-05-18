@@ -1,6 +1,7 @@
 package com.jean.util;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.jean.entity.DayWeather;
@@ -27,7 +28,8 @@ public class MapperOWM {
 		for (DayWeatherDataOWM dayWeatherDataOWM : dayWeatherOWM.getList()) {
 
 			DayWeather dayWeather = new DayWeather();
-
+			
+			dayWeather.setCurrentDate(dayWeatherDataOWM.getDt());
 			dayWeather.setClouds(dayWeatherDataOWM.getClouds());
 			dayWeather.setCurrentDate(dayWeatherDataOWM.getDt());
 			dayWeather.setHumidity(dayWeatherDataOWM.getHumidity());
@@ -67,6 +69,7 @@ public class MapperOWM {
 
 			HourWeather hourWeather = new HourWeather();
 
+			hourWeather.setDate(new Date(hoursWeatherDataOWM.getDt()));
 			hourWeather.setClouds(hoursWeatherDataOWM.getClouds().getAll());
 			hourWeather.setDateText(hoursWeatherDataOWM.getDt_txt());
 			hourWeather.setGeneralTemp(Utils.kelvinToCelsius(hoursWeatherDataOWM.getMain().getTemp()));

@@ -1,7 +1,10 @@
 package com.jean.entity;
 
+import java.util.Date;
+
 public class HourWeather {
 
+	private Date date;
 	private String dateText;
 	private double clouds;
 	private double humadity;
@@ -13,6 +16,14 @@ public class HourWeather {
 	private double windDeg;
 	private double windSpeed;
 	private double rainVolume;
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
 	public String getDateText() {
 		return dateText;
@@ -104,10 +115,10 @@ public class HourWeather {
 
 	@Override
 	public String toString() {
-		return "HourWeather [dateText=" + dateText + ", clouds=" + clouds + ", humadity=" + humadity + ", pressure="
-				+ pressure + ", seaLevel=" + seaLevel + ", generalTemp=" + generalTemp + ", tempMin=" + tempMin
-				+ ", tempMax=" + tempMax + ", windDeg=" + windDeg + ", windSpeed=" + windSpeed + ", rainVolume="
-				+ rainVolume + "]";
+		return "HourWeather [date=" + date + ", dateText=" + dateText + ", clouds=" + clouds + ", humadity=" + humadity
+				+ ", pressure=" + pressure + ", seaLevel=" + seaLevel + ", generalTemp=" + generalTemp + ", tempMin="
+				+ tempMin + ", tempMax=" + tempMax + ", windDeg=" + windDeg + ", windSpeed=" + windSpeed
+				+ ", rainVolume=" + rainVolume + "]";
 	}
 
 }
