@@ -7,6 +7,7 @@ import com.jean.servlet.model.Coordinates;
  * Created by stas on 18.07.15.
  */
 public class Utils {
+
     public static float kelvinToCelsius(float kelvinTemp) {
         float c = (kelvinTemp - Constants.KELVIN_VALUE) * 1;
 
@@ -22,12 +23,12 @@ public class Utils {
         return (float) (int) ((tmp - (int) tmp) >= 0.5f ? tmp + 1 : tmp) / 100;
     }
 
-    public static boolean isPointCircle(float lon, float lat, Coordinates coordinates){
-        float hashLon = coordinates.getLongitude();
-        float hashLat = coordinates.getLatitude();
+    public static boolean isPointCircle(double lon, double lat, Coordinates coordinates){
+        double hashLon = coordinates.getLongitude();
+        double hashLat = coordinates.getLatitude();
         int R = 5;
 
-        return Math.pow((lon-hashLon), 2) + Math.pow((lat-hashLat), 2) == Math.pow(R, 2);
+        return Math.pow((lon-hashLon), 2) + Math.pow((lat-hashLat), 2) <= Math.pow(R, 2);
 
     }
 }

@@ -5,5 +5,5 @@ package com.jean.servlet.model;
  */
 public interface RedisStoreEntry {
 
-    String generateRedisHashKey();
+    Coordinates generateRedisHashKey(String redisKey);
 }

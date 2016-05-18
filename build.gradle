@@ -13,6 +13,8 @@ dependencies {
     compile group: 'org.springframework', name: 'spring-test', version: springVer
 
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21'
+    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.21'
+
 
     /*spring security*/
     compile group: 'org.springframework.security', name: 'spring-security-core', version: springSecurityVer
@@ -31,7 +33,7 @@ dependencies {
 
 
     compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
-    compile group: 'log4j', name: 'log4j', version: '1.2.17'
+//    compile group: 'log4j', name: 'log4j', version: '1.2.17'
 
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.6.0'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.6.0'

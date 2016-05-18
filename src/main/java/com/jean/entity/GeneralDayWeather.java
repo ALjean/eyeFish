@@ -1,11 +1,13 @@
 package com.jean.entity;
 
+import com.jean.servlet.model.Coordinates;
 import com.jean.servlet.model.RedisStoreEntry;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GeneralDayWeather  implements RedisStoreEntry{
+public class GeneralDayWeather  implements RedisStoreEntry, Serializable{
 
 	private long cityId;
 	private String cityName;
@@ -83,7 +85,10 @@ public class GeneralDayWeather  implements RedisStoreEntry{
 	}
 
 	@Override
-	public String generateRedisHashKey() {
-		return Double.toString(coordLon) + "-" + Double.toString(coordLat);
+	public Coordinates generateRedisHashKey(String redisKey) {
+		Coordinates coordinates = new Coordinates(redisKey);
+		coordinates.setLatitude(coordLat);
+		coordinates.setLongitude(coordLon);
+		return coordinates;
 	}
 }
