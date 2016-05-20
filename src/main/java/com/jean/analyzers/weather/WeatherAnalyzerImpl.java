@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.jean.analyzers.weather.WindDirectionConverter.DirectionMap;
+import com.jean.analyzers.weather.WindDirectionConverter.Direction;
 import com.jean.analyzers.weather.WindDirectionConverter.MinMaxHolder;
 
 @Component
@@ -30,7 +30,6 @@ public class WeatherAnalyzerImpl implements WeatherAnalyzer {
 				result += 0.01;
 			} else if (dayChange > ConstantsAnalyzer.MAX_TEMP_CHANGES_PER_DAY) {
 				result = 0;
-				countDay = 0;
 			} else {
 				result += dayChange * ConstantsAnalyzer.PERCENT_TEMPERATURE_CHANGES;
 			}
@@ -47,38 +46,30 @@ public class WeatherAnalyzerImpl implements WeatherAnalyzer {
 	@Override
 	public double windChecker(double temperature, double degrees, double speed) {
 
-		WindDirectionConverter windConverter = WindDirectionConverter.getInstance();
+		WindDirectionConverter windConverter = new WindDirectionConverter();
+		Direction direction = windConverter.getDirection(degrees);
+		double result = 0;
 
-		Map<Integer, MinMaxHolder> bofortScale = windConverter.getBofortScale();
-
-		double result = 1;
-
-		if (speed > bofortScale.get(5).getStartValue()) {
+		if (speed > ConstantsAnalyzer.CRITICAL_WIND_SPEED) {
 			result = 6.25;
-		} else if (speed >= bofortScale.get(0).getStartValue() && speed <= bofortScale.get(2).getEndValue()) {
-			result = 0.0;
-		} else {
+		}
 
-			DirectionMap directionMap = WindDirectionConverter.getInstance().getDirectionObject(degrees);
+		if (speed > 3.5 && temperature > ConstantsAnalyzer.CRITICAL_HIGH_TEMP
+				&& (direction.getWay().equals("N") || direction.getWay().equals("NNE")
+						|| direction.getWay().equals("NE") || direction.getWay().equals("NNW"))) {
 
-			String direction = directionMap.getDirection();
-
-			if (temperature > ConstantsAnalyzer.CRITICAL_HIGH_TEMP
-					&& (direction.equals("N") | direction.equalsIgnoreCase("NNE") | direction.equalsIgnoreCase("NE")
-							| direction.equalsIgnoreCase("NNW"))) {
-
-				if (speed > bofortScale.get(3).getStartValue() && speed < bofortScale.get(3).getEndValue()) {
-					result = 70.23;
-				}
-				if (speed > bofortScale.get(4).getStartValue() && speed < bofortScale.get(4).getEndValue()) {
-					result = 80.52;
-				}
-				if (speed > bofortScale.get(5).getStartValue() && speed < bofortScale.get(5).getEndValue()) {
-					result = 90.52;
-				}
-			} else {
-				result = directionMap.getActivity();
+			if (speed > 7) {
+				result = 90.5;
 			}
+			if (speed > 5) {
+				result = 80.5;
+			}
+			if (speed > 3.5) {
+				result = 70.5;
+			}
+
+		} else {
+			result = direction.getActivity();
 		}
 
 		return result;
@@ -104,7 +95,6 @@ public class WeatherAnalyzerImpl implements WeatherAnalyzer {
 				result += 0.01;
 			} else if (dayChange > ConstantsAnalyzer.MAX_PRESSURE_CHANGES_PER_DAY) {
 				result = 0;
-				countDay = 0;
 			} else {
 				result += dayChange * ConstantsAnalyzer.PERCENT_PRESSURE_CHANGES;
 			}

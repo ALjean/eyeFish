@@ -13,10 +13,12 @@ import org.junit.Before;
 import com.jean.BaseTest;
 import com.jean.DaoDfmException;
 import com.jean.analyzers.weather.BehaviorDTO;
+import com.jean.entity.DayWeather;
 import com.jean.entity.Fish;
 import com.jean.entity.GeneralDayWeather;
 import com.jean.entity.GeneralHourWeather;
 import com.jean.entity.HourWeather;
+import com.jean.enums.DaysActivity;
 import com.jean.servlet.model.owm.GeneralWeatherStateOWM;
 import com.jean.servlet.model.owm.detail.DayWeatherDataOWM;
 import com.jean.servlet.model.owm.hours.HoursWeatherDataOWM;
@@ -42,8 +44,9 @@ public class BehaviorAnalyzerTest extends BaseTest {
 
 	@Test
 	public void getGeneralActivityLevel() {
+		List<DayWeather> weathers = generalDayWeather.getDayWeathers();
 		double result = 0;
-		result = behaviorAnalyzer.getGeneralActivityLevel(generalDayWeather);
+		result = behaviorAnalyzer.getGeneralActivityLevel(weathers);
 		assertTrue(result > 0);
 		System.out.println("\n" + result + "\n");
 
@@ -51,10 +54,18 @@ public class BehaviorAnalyzerTest extends BaseTest {
 
 	@Test
 	public void getFishBehavior() {
-
+		
+		/*
+		 * for (HourWeather hourWeather : generalHourWeather.getHourWeathers())
+		 * { String s = hourWeather.getDateText().substring(0, 10).trim(); if
+		 * (hourWeather.getDateText().substring(0,
+		 * 10).trim().equalsIgnoreCase(currentDate)) {
+		 * hourWeathers.add(hourWeather); } }
+		 */
+/*
 		BehaviorDTO behaviorDTO = behaviorAnalyzer.getFishBehavior(generalHourWeather, fish.get(0), 82.03,
 				"2016-05-18");
 
-		System.out.println("\n" + behaviorDTO + "\n");
+		System.out.println("\n" + behaviorDTO + "\n");*/
 	}
 }
