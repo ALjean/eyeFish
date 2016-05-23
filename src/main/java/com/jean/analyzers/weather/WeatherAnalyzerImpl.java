@@ -48,13 +48,10 @@ public class WeatherAnalyzerImpl implements WeatherAnalyzer {
 
 		WindDirectionConverter windConverter = new WindDirectionConverter();
 		Direction direction = windConverter.getDirection(degrees);
+		
 		double result = 0;
 
-		if (speed > ConstantsAnalyzer.CRITICAL_WIND_SPEED) {
-			result = 6.25;
-		}
-
-		if (speed > 3.5 && temperature > ConstantsAnalyzer.CRITICAL_HIGH_TEMP
+		if (temperature > ConstantsAnalyzer.CRITICAL_HIGH_TEMP
 				&& (direction.getWay().equals("N") || direction.getWay().equals("NNE")
 						|| direction.getWay().equals("NE") || direction.getWay().equals("NNW"))) {
 
@@ -91,7 +88,7 @@ public class WeatherAnalyzerImpl implements WeatherAnalyzer {
 
 			double dayChange = Math.abs(pressureParams[i + 1] - pressureParams[i]);
 
-			if (dayChange > 0 && dayChange < ConstantsAnalyzer.MIN_PRESSURE_CHABGES_PER_DAY) {
+			if (dayChange > 0 && dayChange < ConstantsAnalyzer.MIN_TEMP_CHANGES_PER_DAY) {
 				result += 0.01;
 			} else if (dayChange > ConstantsAnalyzer.MAX_PRESSURE_CHANGES_PER_DAY) {
 				result = 0;
@@ -106,22 +103,6 @@ public class WeatherAnalyzerImpl implements WeatherAnalyzer {
 		} else {
 			return Math.abs((result / countDay) - 100);
 		}
-	}
-
-	public static void main(String[] args) {
-
-		WeatherAnalyzer analyzer = new WeatherAnalyzerImpl();
-
-		double[] temperatureParams = { 32.5, 12.8, 33, 48.5, 31.2 };
-
-		double[] pressureParams = { 740.25, 742.3, 743, 743.4, 736 };
-
-		System.out.println("Stability of weather are: " + analyzer.stabilityChecker(temperatureParams));
-
-		System.out.println("Pressure activity are: " + analyzer.pressureChecker(pressureParams));
-
-		System.out.println("Wind activity is " + analyzer.windChecker(32, 348, 5.6));
-
 	}
 
 }

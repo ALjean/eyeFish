@@ -1,27 +1,27 @@
 package com.jean.analyzers.weather;
 
-import com.jean.analyzers.weather.WindDirectionConverter.Direction;
-import com.jean.analyzers.weather.WindDirectionConverter.MinMaxHolder;
-
 /**
  * Created by jean on 07.12.15.
  */
 public interface ConstantsAnalyzer {
 
-	double MIN_TEMP_CHANGES_PER_DAY = 1.5;
-	double MAX_TEMP_CHANGES_PER_DAY = 2.5;
+	double MIN_TEMP_CHANGES_PER_DAY = 3.5;
+	double MAX_TEMP_CHANGES_PER_DAY = 3.5;
 	double CRITICAL_TEMP_CHANGES_ALL_PERIOD = 5.5;
 	double CRITICAL_HIGH_TEMP = 28.5;
 
-	double MIN_PRESSURE_CHABGES_PER_DAY = 1.5;
+	double MAX_PRESSURE_CHANGES_FOR_STABILITY = 2;
 	double MAX_PRESSURE_CHANGES_PER_DAY = 2.5;
-	double CRITICAL_PRESSURE_CHANGES_ALL_PERIOD = 5.5;
+	double CRITICAL_PRESSURE_CHANGES_ALL_PERIOD = 14;
 
 	double PERCENT_PRESSURE_CHANGES = 18.18;
 	double PERCENT_TEMPERATURE_CHANGES = 22.22;
 
-	double CRITICAL_WIND_SPEED = 7.1;
-	double MIN_WIND_SPEED = 1.5;
+	double CRITICAL_WIND_SPEED = 7.9;
+	double MIN_WIND_SPEED = 3.3;
+	
+	double HIGH_PRESSURE_LEVEL = 759.0;
+	double LOW_PRESSURE_LEVEL = 744.00;
 	
 	double WIND_NIBBLE_N = 6.5;
 	double WIND_NIBBLE_NNE = 8.32;
