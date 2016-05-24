@@ -1,142 +1,78 @@
 package com.jean.analyzers.fish;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
-
 import com.jean.analyzers.weather.BehaviorDTO;
-import com.jean.analyzers.weather.ConrolPointHolder;
 import com.jean.analyzers.weather.ConstantsAnalyzer;
-import com.jean.analyzers.weather.WeatherAnalyzer;
-import com.jean.entity.DayActivity;
+import com.jean.analyzers.weather.WeatherChecker;
 import com.jean.entity.DayWeather;
 import com.jean.entity.Fish;
-import com.jean.entity.FishSetting;
-import com.jean.entity.GeneralDayWeather;
-import com.jean.entity.GeneralHourWeather;
+
 import com.jean.entity.HourWeather;
-import com.jean.entity.NibblePeriod;
-import com.jean.enums.DaysActivity;
-import com.jean.enums.ParamNames;
+import com.mysql.fabric.xmlrpc.base.Array;
 
 @Component
 public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {
 
 	@Autowired
-	private WeatherAnalyzer weatherAnalyzer;
-
-	private Map<String, String> daysActivityHolder;
+	private WeatherChecker weatherChecker;
 
 	@Override
 	public double getGeneralActivityLevel(List<DayWeather> dayWeathers) {
 
-		double stabilityNibbleValue;
-		double pressureNibbleValue;
-		double windNibbleValue;
+		double point = 0;
+		double[] pressures = new double[dayWeathers.size() - 1];
+		double[] temps = new double[dayWeathers.size() - 1];
+		double[] rains = new double[dayWeathers.size() - 1];
 
-		double resultNibble;
-
-		int count = dayWeathers.size();
-
-		double[] listTemps = new double[count];
-		double[] listPressure = new double[count];
-
-		for (int i = 0; i < dayWeathers.size(); i++) {
-
+		for (int i = 0; i < dayWeathers.size() - 1; i++) {
 			DayWeather dayWeather = dayWeathers.get(i);
-
-			listTemps[i] = dayWeather.getTempDay();
-			listPressure[i] = dayWeather.getPressure();
+			pressures[i] = dayWeather.getPressure();
+			temps[i] = dayWeather.getTempDay();
+			rains[i] = dayWeather.getRainVolume();
 		}
 
-		double currentTemp = dayWeathers.get(count - 1).getTempDay();
-		double currentDegrees = dayWeathers.get(count - 1).getWindDeg();
-		double currentSpeed = dayWeathers.get(count - 1).getWindSpeed();
+		if (weatherChecker.isStabilityPress(pressures)) {
 
-		stabilityNibbleValue = weatherAnalyzer.stabilityChecker(listTemps);
-		pressureNibbleValue = weatherAnalyzer.pressureChecker(listPressure);
-		windNibbleValue = weatherAnalyzer.windChecker(currentTemp, currentDegrees, currentSpeed);
+			if (weatherChecker.isPressHigh(pressures)) {
+				point += ConstantsAnalyzer.HIGH_PRESSURE_POINT;
+			}
+			if (weatherChecker.isPressLow(pressures)) {
+				point += ConstantsAnalyzer.LOW_PRESSURE_POINT;
+			}
+			if (weatherChecker.isRisePressure(pressures)) {
+				point += ConstantsAnalyzer.RISE_PRESSURE_POINT;
+			} else {
+				point += ConstantsAnalyzer.DOWN_PRESSURE_POINT;
+			}
+		} else {
+			point += ConstantsAnalyzer.UNSTABILITY_PRESSURE_POINT;
+		}
+		if (point == 0) {
+			point = ConstantsAnalyzer.STABILITY_PRESSURE_POINT;
+		}
 
-		resultNibble = (stabilityNibbleValue + pressureNibbleValue + windNibbleValue) / 3;
+		if (weatherChecker.isStabilityTemp(temps)) {
+			point += ConstantsAnalyzer.STABILITY_TEMP_POINT;
+		}
+		if (!weatherChecker.isLongRain(rains)) {
+			if (weatherChecker.isRainHelp(rains[rains.length - 1], temps)) {
+				point += ConstantsAnalyzer.RAIN_HELP_POINT;
+			}
+		}
+		if (weatherChecker.isWindHelp(temps[temps.length - 1], dayWeathers.get(dayWeathers.size() - 1).getWindDeg(),
+				dayWeathers.get(dayWeathers.size() - 1).getWindSpeed())) {
+			point += ConstantsAnalyzer.WIND_HELP_POINT;
+		}
 
-		return resultNibble;
+		return point;
+
 	}
 
 	@Override
 	public BehaviorDTO getFishBehavior(List<HourWeather> hourWeathers, Fish fish, double generalNibble) {
-
-		BehaviorDTO behaviorDTO = new BehaviorDTO();
-
-		int delimiter = 3;
-
-		for (HourWeather hourWeather : hourWeathers) {
-
-			ConrolPointHolder pointHolder = new ConrolPointHolder();
-			double resultNibble = generalNibble;
-
-			for (FishSetting fishSetting : fish.getFishSetting()) {
-				resultNibble += checkFishSetting(fishSetting, hourWeather.getGeneralTemp(), hourWeather.getPressure());
-			}
-
-			for (NibblePeriod nibblePeriod : fish.getNibbles()) {
-				resultNibble += checkNibblePeriod(nibblePeriod, hourWeather.getDate());
-			}
-
-			pointHolder.setNibbleLevel(resultNibble / delimiter);
-			pointHolder.setMessage("Some text");
-			behaviorDTO.getControlPoints().add(pointHolder);
-		}
-
-		return behaviorDTO;
-	}
-
-	private double checkFishSetting(FishSetting fishSetting, double temp, double pressure) {
-
-		double nibble = 0.0;
-
-		if (fishSetting.getParamName().equals(ParamNames.ENVIRMOMENT_TEMPERATURE.name())
-				&& (fishSetting.getMinValue() <= temp && temp <= fishSetting.getMaxValue())) {
-			nibble += fishSetting.getNibbleLevel();
-		}
-		if (fishSetting.getParamName().equals(ParamNames.PRESSURE.name())
-				&& (fishSetting.getMinValue() <= pressure && pressure <= fishSetting.getMaxValue())) {
-			nibble += fishSetting.getNibbleLevel();
-		}
-		return nibble;
-	}
-
-	private double checkNibblePeriod(NibblePeriod nibblePeriod, Date date) {
-
-		if (date.after(nibblePeriod.getEndPeriod()) && date.before(nibblePeriod.getEndPeriod())) {
-			return nibblePeriod.getNibbleLevel();
-		} else {
-			return 0;
-		}
-
-	}
-
-	public BehaviorAnalyzerImpl() {
-		this.daysActivityHolder = new HashMap<String, String>();
-
-		daysActivityHolder.put("21:00:00", DaysActivity.NIGHT.name());
-		daysActivityHolder.put("00:00:00", DaysActivity.NIGHT.name());
-		daysActivityHolder.put("03:00:00", DaysActivity.NIGHT.name());
-
-		daysActivityHolder.put("06:00:00", DaysActivity.MORNING.name());
-		daysActivityHolder.put("09:00:00", DaysActivity.MORNING.name());
-
-		daysActivityHolder.put("12:00:00", DaysActivity.DAY.name());
-		daysActivityHolder.put("15:00:00", DaysActivity.DAY.name());
-
-		daysActivityHolder.put("18:00:00", DaysActivity.EVENING.name());
+		return null;
 
 	}
 

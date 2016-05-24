@@ -46,7 +46,7 @@ public class BehaviorAnalyzerTest extends BaseTest {
 	public void getGeneralActivityLevel() {
 		List<DayWeather> weathers = generalDayWeather.getDayWeathers();
 		double result = 0;
-		result = behaviorAnalyzer.getGeneralActivityLevel(weathers);
+		result = behaviorAnalyzer.getGeneralActivityLevel(weathers.subList(0, 4));
 		assertTrue(result > 0);
 		System.out.println("\n" + result + "\n");
 
