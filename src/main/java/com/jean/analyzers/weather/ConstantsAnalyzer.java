@@ -35,6 +35,7 @@ public interface ConstantsAnalyzer {
 	double LIGHT_RAIN_POINT = -10;
 	double HEAVY_RAIN_POINT = -20;
 	double WIND_POINT = -10;
+	double DAY_ACTIVITY_POINT = 85;
 	
 	
 

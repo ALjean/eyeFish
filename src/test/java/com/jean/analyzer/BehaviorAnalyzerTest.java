@@ -46,7 +46,7 @@ public class BehaviorAnalyzerTest extends BaseTest {
 	public void getGeneralActivityLevel() {
 		List<DayWeather> weathers = generalDayWeather.getDayWeathers();
 		double result = 0;
-		result = behaviorAnalyzer.getGeneralActivityLevel(weathers.subList(0, 4));
+		result = behaviorAnalyzer.getGeneralActivityLevel(weathers);
 		assertTrue(result > 0);
 		System.out.println("\n" + result + "\n");
 
@@ -54,18 +54,17 @@ public class BehaviorAnalyzerTest extends BaseTest {
 
 	@Test
 	public void getFishBehavior() {
-		
-		/*
-		 * for (HourWeather hourWeather : generalHourWeather.getHourWeathers())
-		 * { String s = hourWeather.getDateText().substring(0, 10).trim(); if
-		 * (hourWeather.getDateText().substring(0,
-		 * 10).trim().equalsIgnoreCase(currentDate)) {
-		 * hourWeathers.add(hourWeather); } }
-		 */
-/*
-		BehaviorDTO behaviorDTO = behaviorAnalyzer.getFishBehavior(generalHourWeather, fish.get(0), 82.03,
-				"2016-05-18");
 
-		System.out.println("\n" + behaviorDTO + "\n");*/
+		List<HourWeather> hourWeathers = new ArrayList<HourWeather>();
+		
+		for (HourWeather hourWeather : generalHourWeather.getHourWeathers()) {
+			if (hourWeather.getDateText().substring(0, 10).trim().equalsIgnoreCase("2016-05-26")) {
+				hourWeathers.add(hourWeather);
+			}
+		}
+
+		BehaviorDTO behaviorDTO = behaviorAnalyzer.getFishBehavior(hourWeathers, fish.get(0), 35);
+
+		System.out.println("\n" + behaviorDTO + "\n");
 	}
 }
