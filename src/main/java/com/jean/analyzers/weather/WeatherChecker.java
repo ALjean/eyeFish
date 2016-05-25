@@ -2,20 +2,12 @@ package com.jean.analyzers.weather;
 
 public interface WeatherChecker {
 
-	boolean isStabilityTemp(double[] temp);
+	double isRain(double rain);
 
-	boolean isStabilityPress(double[] press);
+	double checkWind(double degrees, double speed);
 
-	boolean isPressHigh(double[] press);
+	double checkTemperature(double[] temps);
 
-	boolean isPressLow(double[] press);
-
-	boolean isRisePressure(double[] press);
-
-	boolean isWindHelp(double temp, double degrees, double speed);
-	
-	boolean isRainHelp(double rainVolume, double[] temp);
-
-	boolean isLongRain(double[] rains);
+	double checkPressure(double[] press);
 
 }

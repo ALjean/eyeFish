@@ -2,188 +2,95 @@ package com.jean.analyzers.weather;
 
 import org.springframework.stereotype.Component;
 
-import com.jean.util.Utils;
-
 @Component
 public class WeatherCheckerImpl implements WeatherChecker {
 
 	@Override
-	public boolean isStabilityTemp(double[] temp) {
+	public double isRain(double rain) {
 
-		boolean result = false;
-		int count = 0;
-
-		for (int i = 0; i < temp.length - 1; i++) {
-			double changeRange = Math.abs(temp[i + 1] - temp[i]);
-			if (changeRange == 0 || changeRange <= ConstantsAnalyzer.MAX_TEMP_CHANGES_PER_DAY) {
-				count++;
-			}
-		}
-		if (count == temp.length - 1) {
-			result = true;
-		}
-		return result;
-	}
-
-	
-	@Override
-	public boolean isStabilityPress(double[] press) {
-
-		boolean result = false;
-		int count = 0;
-
-		for (int i = 0; i < press.length - 1; i++) {
-			double changeRange = Math.abs(press[i + 1] - press[i]);
-			if (changeRange == 0 || changeRange <= ConstantsAnalyzer.MAX_PRESSURE_CHANGES_PER_DAY) {
-				count++;
-			}
-		}
-		if (count == press.length - 1) {
-			result = true;
+		double result = 0;
+		if (rain >= ConstantsAnalyzer.MAX_RAIN_VOLUME) {
+			result = ConstantsAnalyzer.HEAVY_RAIN_POINT;
+		} else if (rain > ConstantsAnalyzer.MIN_RAIN_VOLUME && rain <= ConstantsAnalyzer.MIN_RAIN_VOLUME) {
+			result = ConstantsAnalyzer.LIGHT_RAIN_POINT;
 		}
 		return result;
 	}
 
 	@Override
-	public boolean isPressHigh(double[] press) {
+	public double checkWind(double degrees, double speed) {
 
-		boolean result = false;
-		int count = 0;
-
-		for (int i = 0; i < press.length - 1; i++) {
-			double changeRange = Math.abs(press[i + 1] - press[i]);
-			if (changeRange == 0 || changeRange <= ConstantsAnalyzer.MAX_PRESSURE_CHANGES_FOR_STABILITY) {
-				count++;
-			}
-		}
-		if (count == press.length - 1) {
-			count = 0;
-			for (int i = 0; i < press.length; i++) {
-				if (press[i] >= ConstantsAnalyzer.HIGH_PRESSURE_LEVEL) {
-					count++;
-				}
-			}
-		}
-		if (count == press.length) {
-			result = true;
-		}
-		return result;
-	}
-
-
-	@Override
-	public boolean isPressLow(double[] press) {
-
-		boolean result = false;
-		int count = 0;
-
-		for (int i = 0; i < press.length - 1; i++) {
-			double changeRange = Math.abs(press[i + 1] - press[i]);
-			if (changeRange == 0 || changeRange <= ConstantsAnalyzer.MAX_PRESSURE_CHANGES_FOR_STABILITY) {
-				count++;
-			}
-		}
-		if (count == press.length - 1) {
-			count = 0;
-			for (int i = 0; i < press.length; i++) {
-				if (press[i] <= ConstantsAnalyzer.LOW_PRESSURE_LEVEL) {
-					count++;
-				}
-			}
-		}
-		if (count == press.length) {
-			result = true;
-		}
-		return result;
-	}
-
-
-	@Override
-	public boolean isRisePressure(double[] press) {
-
-		boolean result = false;
-		int count = 0;
-
-		for (int i = 0; i < press.length - 1; i++) {
-			double changeRange = Math.abs(press[i + 1] - press[i]);
-			if (changeRange == 0 || changeRange >= ConstantsAnalyzer.MAX_PRESSURE_CHANGES_FOR_STABILITY && changeRange <= ConstantsAnalyzer.MAX_PRESSURE_CHANGES_PER_DAY) {
-				count++;
-			}
-		}
-		if (count == press.length - 1) {
-			if (press[press.length - 1] - press[0] > 0) {
-				result = true;
-			}
-		}
-		return result;
-	}
-
-
-	@Override
-	public boolean isWindHelp(double temperature, double degrees, double speed) {
-
-		boolean result = false;
-		String direction = Utils.getDirection(degrees);
+		double result = 0;
 
 		if (speed > ConstantsAnalyzer.CRITICAL_WIND_SPEED) {
-			return result;
-		} else if (speed > ConstantsAnalyzer.MAX_WIND_SPEED && temperature > ConstantsAnalyzer.CRITICAL_HIGH_TEMP
-				&& (direction.equals("N") || direction.equals("NNE") || direction.equals("NE")
-						|| direction.equals("NNW"))) {
-			result = true;
+			result = ConstantsAnalyzer.WIND_POINT;
 		}
+		return result;
+	}
 
+
+	@Override
+	public double checkTemperature(double[] temps) {
+
+		double result = 0;
+
+		if (isStability(temps, ConstantsAnalyzer.MAX_TEMP_CHANGES_PER_DAY)) {
+			result = ConstantsAnalyzer.STABILITY_TEMP_POINT;
+		} else {
+			result = ConstantsAnalyzer.UNSTABILITY_TEMP_POINT;
+		}
 		return result;
 	}
 
 	@Override
-	public boolean isRainHelp(double rainVolume, double[] temp) {
+	public double checkPressure(double[] press) {
 
-		boolean result = false;
-		int count = 0;
+		double result = 0;
+		int countHigh = 0;
+		int countLow = 0;
 
-		if (rainVolume <= ConstantsAnalyzer.MAX_RAIN_VOLUME) {
-
-			for (int i = 0; i < temp.length - 1; i++) {
-				if (temp[i] >= ConstantsAnalyzer.CRITICAL_HIGH_TEMP) {
-					count++;
+		if (isStability(press, ConstantsAnalyzer.MAX_PRESSURE_CHANGES_PER_DAY)) {
+			if (isStability(press, ConstantsAnalyzer.MAX_PRESSURE_CHANGES_FOR_STABILITY)) {
+				for (int i = 0; i < press.length; i++) {
+					if (press[i] >= ConstantsAnalyzer.HIGH_PRESSURE_LEVEL) {
+						countHigh++;
+					} else if (press[i] >= ConstantsAnalyzer.LOW_PRESSURE_LEVEL) {
+						countLow++;
+					}
+				}
+				if (countHigh == press.length) {
+					result = ConstantsAnalyzer.HIGH_PRESSURE_POINT;
+				} else if (countLow == press.length) {
+					result = ConstantsAnalyzer.LOW_PRESSURE_POINT;
+				} else if (result == 0) {
+					result = ConstantsAnalyzer.STABILITY_PRESSURE_POINT;
+				}
+			} else {
+				if (press[press.length - 1] - press[0] > 0) {
+					result = ConstantsAnalyzer.RISE_PRESSURE_POINT;
+				} else {
+					result = ConstantsAnalyzer.DOWN_PRESSURE_POINT;
 				}
 			}
-			if (count == temp.length - 1) {
-				result = true;
-			}
+		} else {
+			result = ConstantsAnalyzer.UNSTABILITY_PRESSURE_POINT;
 		}
 		return result;
 	}
 
-	@Override
-	public boolean isLongRain(double[] rains) {
-
+	private boolean isStability(double[] params, double constantValue) {
 		boolean result = false;
 		int count = 0;
 
-		for (int i = 0; i < rains.length; i++) {
-			if (rains[i] > ConstantsAnalyzer.MIN_RAIN_VOLUME) {
+		for (int i = 0; i < params.length - 1; i++) {
+			double changeRange = Math.abs(params[i + 1] - params[i]);
+			if (changeRange == 0 || changeRange <= constantValue) {
 				count++;
 			}
 		}
-		if (count == rains.length) {
+		if (count == params.length - 1) {
 			result = true;
 		}
-		
 		return result;
 	}
-
-	public static void main(String[] args) {
-		WeatherChecker checker = new WeatherCheckerImpl();
-		double[] press = new double[] { 744, 743, 741 };
-		double[] temps = new double[] { 29, 30, 37, 22 };
-
-		System.out.println("Is pressure stability: " + checker.isStabilityPress(press));
-		System.out.println("Is pressure stability low: " + checker.isPressLow(press));
-		System.out.println("Is pressure stability high: " + checker.isPressHigh(press));
-		System.out.println("Is pressure rise: " + checker.isRisePressure(press));
-		System.out.println("Is rain help: " + checker.isRainHelp(2.3, temps));
-	}
-
 }

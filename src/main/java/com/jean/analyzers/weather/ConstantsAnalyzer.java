@@ -19,22 +19,23 @@ public interface ConstantsAnalyzer {
 	double LOW_PRESSURE_LEVEL = 744.00;
 	
 	double MAX_RAIN_VOLUME = 3.3;
-	double MIN_RAIN_VOLUME = 0.3; 
+	double MIN_RAIN_VOLUME = 0.3;
+
+	double HIGH_PRESSURE_POINT = 70;
+	double LOW_PRESSURE_POINT = 60;
 	
-	
-	
-	double HIGH_PRESSURE_POINT = 55;
-	double LOW_PRESSURE_POINT = 45;
-	
-	double RISE_PRESSURE_POINT = 45;
+	double RISE_PRESSURE_POINT = 60;
 	double DOWN_PRESSURE_POINT = 70;
 	
-	double STABILITY_PRESSURE_POINT = 70;
-	double UNSTABILITY_PRESSURE_POINT = 10;
+	double STABILITY_PRESSURE_POINT = 80;
+	double UNSTABILITY_PRESSURE_POINT = 25;
 	
 	double STABILITY_TEMP_POINT = 10;
-	double RAIN_HELP_POINT = 10;
-	double WIND_HELP_POINT = 10;
+	double UNSTABILITY_TEMP_POINT = -20;
+	double LIGHT_RAIN_POINT = -10;
+	double HEAVY_RAIN_POINT = -20;
+	double WIND_POINT = -10;
+	
 	
 
 
