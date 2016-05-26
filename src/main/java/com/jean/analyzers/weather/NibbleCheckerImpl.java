@@ -2,9 +2,12 @@ package com.jean.analyzers.weather;
 
 import org.springframework.stereotype.Component;
 
-@Component
-public class WeatherCheckerImpl implements WeatherChecker {
+import com.jean.enums.PressureStates;
 
+@Component
+public class NibbleCheckerImpl implements NibbleChecker {
+
+	
 	@Override
 	public double isRain(double rain) {
 
@@ -18,7 +21,7 @@ public class WeatherCheckerImpl implements WeatherChecker {
 	}
 
 	@Override
-	public double checkWind(double degrees, double speed) {
+	public double isWind(double degrees, double speed) {
 
 		double result = 0;
 
@@ -28,29 +31,15 @@ public class WeatherCheckerImpl implements WeatherChecker {
 		return result;
 	}
 
-
 	@Override
-	public double checkTemperature(double[] temps) {
+	public GeneralNibbleState checkPressure(double[] press) {
 
-		double result = 0;
-
-		if (isStability(temps, ConstantsAnalyzer.MAX_TEMP_CHANGES_PER_DAY)) {
-			result = ConstantsAnalyzer.STABILITY_TEMP_POINT;
-		} else {
-			result = ConstantsAnalyzer.UNSTABILITY_TEMP_POINT;
-		}
-		return result;
-	}
-
-	@Override
-	public double checkPressure(double[] press) {
-
-		double result = 0;
+		GeneralNibbleState pressureState = new GeneralNibbleState();
 		int countHigh = 0;
 		int countLow = 0;
 
-		if (isStability(press, ConstantsAnalyzer.MAX_PRESSURE_CHANGES_PER_DAY)) {
-			if (isStability(press, ConstantsAnalyzer.MAX_PRESSURE_CHANGES_FOR_STABILITY)) {
+		if (isStability(press, ConstantsAnalyzer.MAX_PRESSURE_CHANGES)) {
+			if (isStability(press, ConstantsAnalyzer.MIN_PRESSURE_CHANGES)) {
 				for (int i = 0; i < press.length; i++) {
 					if (press[i] >= ConstantsAnalyzer.HIGH_PRESSURE_LEVEL) {
 						countHigh++;
@@ -59,23 +48,29 @@ public class WeatherCheckerImpl implements WeatherChecker {
 					}
 				}
 				if (countHigh == press.length) {
-					result = ConstantsAnalyzer.HIGH_PRESSURE_POINT;
+					pressureState.setNibbleLevel(ConstantsAnalyzer.HIGH_PRESSURE_POINT);
+					pressureState.setMessage(PressureStates.IS_STABILITY_HIGH.name());
 				} else if (countLow == press.length) {
-					result = ConstantsAnalyzer.LOW_PRESSURE_POINT;
-				} else if (result == 0) {
-					result = ConstantsAnalyzer.STABILITY_PRESSURE_POINT;
+					pressureState.setNibbleLevel(ConstantsAnalyzer.LOW_PRESSURE_POINT);
+					pressureState.setMessage(PressureStates.IS_STABILITY_LOW.name());
+				} else if (pressureState.getNibbleLevel() == 0) {
+					pressureState.setNibbleLevel(ConstantsAnalyzer.STABILITY_PRESSURE_POINT);
+					pressureState.setMessage(PressureStates.IS_STABILITY.name());
 				}
 			} else {
 				if (press[press.length - 1] - press[0] > 0) {
-					result = ConstantsAnalyzer.RISE_PRESSURE_POINT;
+					pressureState.setNibbleLevel(ConstantsAnalyzer.RISE_PRESSURE_POINT);
+					pressureState.setMessage(PressureStates.IS_RISE.name());
 				} else {
-					result = ConstantsAnalyzer.DOWN_PRESSURE_POINT;
+					pressureState.setNibbleLevel(ConstantsAnalyzer.DOWN_PRESSURE_POINT);
+					pressureState.setMessage(PressureStates.IS_DOWN.name());
 				}
 			}
 		} else {
-			result = ConstantsAnalyzer.UNSTABILITY_PRESSURE_POINT;
+			pressureState.setNibbleLevel(ConstantsAnalyzer.UNSTABILITY_PRESSURE_POINT);
+			pressureState.setMessage(PressureStates.IS_UNSTABILITY.name());
 		}
-		return result;
+		return pressureState;
 	}
 
 	private boolean isStability(double[] params, double constantValue) {

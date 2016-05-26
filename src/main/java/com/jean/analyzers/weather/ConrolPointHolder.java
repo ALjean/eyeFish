@@ -1,11 +1,18 @@
 package com.jean.analyzers.weather;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+
 public class ConrolPointHolder {
 
 	private String time;
-	
+
 	private double nibbleLevel;
-	
+
 	private String message;
 
 	public String getTime() {
@@ -32,10 +39,6 @@ public class ConrolPointHolder {
 		this.message = message;
 	}
 
-	public ConrolPointHolder() {
-		super();
-	}
-
 	public ConrolPointHolder(String time, double nibbleLevel, String message) {
 		super();
 		this.time = time;
@@ -43,10 +46,13 @@ public class ConrolPointHolder {
 		this.message = message;
 	}
 
+	public ConrolPointHolder() {
+		super();
+	}
+
 	@Override
 	public String toString() {
 		return "ConrolPointHolder [time=" + time + ", nibbleLevel=" + nibbleLevel + ", message=" + message + "]";
 	}
-	
-	
+
 }

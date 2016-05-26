@@ -15,16 +15,12 @@ import org.junit.Test;
 
 import com.jean.BaseTest;
 import com.jean.CustomDfmException;
-import com.jean.analyzers.weather.ConstantsAnalyzer.KEY_MESSAGE;
 import com.jean.entity.Bait;
-import com.jean.entity.BaitPropertie;
-import com.jean.entity.BaitType;
+
 import com.jean.entity.DateHolder;
 import com.jean.entity.PondEnvirmoment;
 import com.jean.enums.ParamNames;
 import com.jean.util.BaitSetting;
-import com.jean.util.ParameterName;
-import com.jean.util.ParameterNamesHolder;
 import com.jean.util.Qualifier;
 
 public class BaitDaoTest extends BaseTest {
@@ -44,7 +40,6 @@ public class BaitDaoTest extends BaseTest {
 	@Before
 	public void init() {
 		fishId = 7;
-		key = KEY_MESSAGE.STYRO_POP_UP.toString();
 		date = Date.valueOf("2016-06-22");
 
 		idFishes = new ArrayList<>();

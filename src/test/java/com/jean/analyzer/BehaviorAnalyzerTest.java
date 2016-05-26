@@ -13,6 +13,7 @@ import org.junit.Before;
 import com.jean.BaseTest;
 import com.jean.DaoDfmException;
 import com.jean.analyzers.weather.BehaviorDTO;
+import com.jean.analyzers.weather.GeneralNibbleState;
 import com.jean.entity.DayWeather;
 import com.jean.entity.Fish;
 import com.jean.entity.GeneralDayWeather;
@@ -43,28 +44,20 @@ public class BehaviorAnalyzerTest extends BaseTest {
 	}
 
 	@Test
-	public void getGeneralActivityLevel() {
-		List<DayWeather> weathers = generalDayWeather.getDayWeathers();
-		double result = 0;
-		result = behaviorAnalyzer.getGeneralActivityLevel(weathers);
-		assertTrue(result > 0);
-		System.out.println("\n" + result + "\n");
-
-	}
-
-	@Test
 	public void getFishBehavior() {
 
 		List<HourWeather> hourWeathers = new ArrayList<HourWeather>();
 		
 		for (HourWeather hourWeather : generalHourWeather.getHourWeathers()) {
-			if (hourWeather.getDateText().substring(0, 10).trim().equalsIgnoreCase("2016-05-26")) {
+			if (hourWeather.getDateText().substring(0, 10).trim().equalsIgnoreCase("2016-05-27")) {
 				hourWeathers.add(hourWeather);
 			}
 		}
 
-		BehaviorDTO behaviorDTO = behaviorAnalyzer.getFishBehavior(hourWeathers, fish.get(0), 35);
+		GeneralNibbleState nibbleState = behaviorAnalyzer.getGeneralNibble(hourWeathers);
+		BehaviorDTO behaviorDTO = behaviorAnalyzer.getFishBehavior(hourWeathers, fish.get(0), nibbleState);
 
+		System.out.println("\n" + nibbleState + "\n");
 		System.out.println("\n" + behaviorDTO + "\n");
 	}
 }

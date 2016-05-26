@@ -3,6 +3,7 @@ package com.jean.dao.impl;
 import com.jean.DaoDfmException;
 import com.jean.dao.FishDao;
 import com.jean.entity.*;
+import com.jean.enums.PressureStates;
 import com.jean.util.Log;
 
 import org.springframework.stereotype.Repository;
@@ -11,6 +12,7 @@ import org.springframework.util.StringUtils;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by stas on 30.05.15.
@@ -22,7 +24,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 	@Override
 	public Integer saveFish(Fish fish) throws DaoDfmException {
 
-		String insertIntoFishes = "INSERT INTO fishes (fish_name, description, fish_type) VALUES (?, ?, ?)";
+		String insertIntoFishes = "INSERT INTO fishes (fish_name, description, fish_type, is_stability, is_high, is_low, is_rise, is_down) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		String insertIntoFishSettings = "INSERT INTO fish_settings (fish_id, param_name, min_range, max_range, nibble_level) VALUES (?, ?, ?, ?, ?)";
 		String insertIntoNibblePeriods = "INSERT INTO nibble_periods (fish_id, start_period, end_period, nibble_level) VALUES (?, ?, ?, ?)";
 		String insertIntoDaysActivity = "INSERT INTO days_activity (fish_id, activity_name) VALUES (?, ?)";
@@ -42,6 +44,11 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 			statement.setString(1, fish.getName());
 			statement.setString(2, fish.getDescription());
 			statement.setString(3, fish.getFishType());
+			statement.setDouble(4, fish.getPressureStates().get(PressureStates.IS_STABILITY));
+			statement.setDouble(5, fish.getPressureStates().get(PressureStates.IS_STABILITY_HIGH));
+			statement.setDouble(6, fish.getPressureStates().get(PressureStates.IS_STABILITY_LOW));
+			statement.setDouble(7, fish.getPressureStates().get(PressureStates.IS_RISE));
+			statement.setDouble(8, fish.getPressureStates().get(PressureStates.IS_DOWN));
 			statement.executeUpdate();
 
 			fishId = getGeneratedKey(statement);
@@ -109,7 +116,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 		String sql =
 
 				"SELECT DISTINCT "
-						+ "f.fish_id, f.fish_name, f.description, f.fish_type, d.fish_id, d.activity_id, d.activity_name,l.fish_id, l.area_id, l.area_name, fs.fish_id,  fs.setting_id, fs.param_name, fs.min_range, fs.max_range, fs.nibble_level, n.period_id, n.fish_id, n.start_period, n.end_period, n.nibble_level "
+						+ "f.fish_id, f.fish_name, f.description, f.fish_type, f.is_stability, f.is_high, f.is_low, f.is_rise, f.is_down, d.fish_id, d.activity_id, d.activity_name,l.fish_id, l.area_id, l.area_name, fs.fish_id,  fs.setting_id, fs.param_name, fs.min_range, fs.max_range, fs.nibble_level, n.period_id, n.fish_id, n.start_period, n.end_period, n.nibble_level "
 						+ "FROM " + "fishes AS f " + "INNER JOIN " + "fish_settings AS fs ON f.fish_id = fs.fish_id "
 						+ "INNER JOIN " + "days_activity AS d ON d.fish_id = f.fish_id " + "INNER JOIN "
 						+ "living_areas AS l ON l.fish_id = f.fish_id " + "INNER JOIN "
@@ -184,6 +191,12 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 					fish.setName(rs.getString("f.fish_name"));
 					fish.setFishType(rs.getString("f.fish_type"));
 					fish.setDescription(rs.getString("f.description"));
+					Map<String, Double> maps = fish.getPressureStates();
+					maps.put(PressureStates.IS_STABILITY.name(), rs.getDouble("f.is_stability"));
+					maps.put(PressureStates.IS_STABILITY_HIGH.name(), rs.getDouble("f.is_high"));
+					maps.put(PressureStates.IS_STABILITY_LOW.name(), rs.getDouble("f.is_low"));
+					maps.put(PressureStates.IS_RISE.name(), rs.getDouble("f.is_rise"));
+					maps.put(PressureStates.IS_DOWN.name(), rs.getDouble("f.is_down"));
 					toAdd = true;
 				}
 
@@ -268,7 +281,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 	@Override
 	public void updateFish(Fish fish) throws DaoDfmException {
 
-		String sqlInsertFish = "UPDATE fishes SET fish_name = ?, description = ?, fish_type = ? WHERE fish_id = ?";
+		String sqlInsertFish = "UPDATE fishes SET fish_name = ?, description = ?, fish_type = ?, is_stability = ?, is_high = ?, is_low = ?, is_rise = ?, is_down = ? WHERE fish_id = ?";
 		String sqlInsertFishSetting = "UPDATE fish_settings SET param_name = ?, min_range = ?, max_range = ?, nibble_level = ? WHERE setting_id = ?";
 		String sqlInsertNibblePeriod = "UPDATE nibble_periods SET start_period = ?, end_period = ?, nibble_level = ? WHERE period_id = ?";
 		String sqlInsertLivingArea = "UPDATE living_areas SET area_name = ? WHERE area_id = ?";
@@ -285,7 +298,12 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 			statement.setString(1, fish.getName());
 			statement.setString(2, fish.getDescription());
 			statement.setString(3, fish.getFishType());
-			statement.setInt(4, fish.getId());
+			statement.setDouble(4, fish.getPressureStates().get(PressureStates.IS_STABILITY));
+			statement.setDouble(5, fish.getPressureStates().get(PressureStates.IS_STABILITY_HIGH));
+			statement.setDouble(6, fish.getPressureStates().get(PressureStates.IS_STABILITY_LOW));
+			statement.setDouble(7, fish.getPressureStates().get(PressureStates.IS_RISE));
+			statement.setDouble(8, fish.getPressureStates().get(PressureStates.IS_DOWN));
+			statement.setInt(9, fish.getId());
 			statement.executeUpdate();
 			closePreparedStatement(statement);
 

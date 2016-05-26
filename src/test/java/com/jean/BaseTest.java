@@ -2,6 +2,7 @@ package com.jean;
 
 import com.jean.config.context.AppConfig;
 import com.jean.config.property.DataBaseProperties;
+import com.jean.config.property.MessagesProperties;
 import com.jean.dao.*;
 import com.jean.service.UserService;
 import com.jean.service.WeatherService;
@@ -55,4 +56,7 @@ public class BaseTest {
 
 	@Autowired
 	protected DataBaseProperties dataBaseProperties;
+	
+	@Autowired
+	protected MessagesProperties messagesProperties;
 }

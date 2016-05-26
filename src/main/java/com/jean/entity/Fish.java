@@ -1,7 +1,11 @@
 package com.jean.entity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import com.jean.enums.PressureStates;
 
 public class Fish {
 
@@ -9,6 +13,7 @@ public class Fish {
 	private String name;
 	private String description;
 	private String fishType;
+	private Map<String, Double> pressureStates;
 	private List<LivingArea> livingArea;
 	private List<DayActivity> daysActivity;
 	private List<FishSetting> fishSetting;
@@ -44,6 +49,22 @@ public class Fish {
 
 	public void setFishType(String fishType) {
 		this.fishType = fishType;
+	}
+
+	public Map<String, Double> getPressureStates() {
+		return pressureStates;
+	}
+
+	public void setPressureStates(Map<String, Double> pressureStates) {
+		this.pressureStates = pressureStates;
+	}
+
+	public List<NibblePeriod> getNibblePeriods() {
+		return nibblePeriods;
+	}
+
+	public void setNibblePeriods(List<NibblePeriod> nibblePeriods) {
+		this.nibblePeriods = nibblePeriods;
 	}
 
 	public List<LivingArea> getLivingArea() {
@@ -83,6 +104,13 @@ public class Fish {
 		this.livingArea = new ArrayList<LivingArea>();
 		this.fishSetting = new ArrayList<FishSetting>();
 		this.nibblePeriods = new ArrayList<NibblePeriod>();
+		this.pressureStates = new HashMap<String, Double>();
+
+		pressureStates.put(PressureStates.IS_STABILITY.name(), null);
+		pressureStates.put(PressureStates.IS_STABILITY_LOW.name(), null);
+		pressureStates.put(PressureStates.IS_STABILITY_HIGH.name(), null);
+		pressureStates.put(PressureStates.IS_DOWN.name(), null);
+		pressureStates.put(PressureStates.IS_RISE.name(), null);
 	}
 
 	public Fish(int id, String name, String description, String fishType, List<LivingArea> livingArea,
@@ -101,8 +129,8 @@ public class Fish {
 	@Override
 	public String toString() {
 		return "Fish [id=" + id + ", name=" + name + ", description=" + description + ", fishType=" + fishType
-				+ ", livingArea=" + livingArea + ", daysActivity=" + daysActivity + ", fishSetting=" + fishSetting
-				+ ", nibblePeriods=" + nibblePeriods + "]";
+				+ ", pressureStates=" + pressureStates + ", livingArea=" + livingArea + ", daysActivity=" + daysActivity
+				+ ", fishSetting=" + fishSetting + ", nibblePeriods=" + nibblePeriods + "]";
 	}
 
 }
