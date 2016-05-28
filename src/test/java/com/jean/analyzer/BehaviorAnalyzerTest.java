@@ -35,29 +35,27 @@ public class BehaviorAnalyzerTest extends BaseTest {
 	public void init() throws DaoDfmException {
 		String lat = "50";
 		String lon = "36.25";
-		GeneralWeatherStateOWM<DayWeatherDataOWM> dayWeatherOWM = weatherService.getDetailWeatherState(lat, lon);
+		//GeneralWeatherStateOWM<DayWeatherDataOWM> dayWeatherOWM = weatherService.getDetailWeatherState(lat, lon);
 		GeneralWeatherStateOWM<HoursWeatherDataOWM> hourWeatherOWM = weatherService.getListWeatherState(lat, lon);
 
-		generalDayWeather = MapperOWM.buildModelDayWeather(dayWeatherOWM);
+		//generalDayWeather = MapperOWM.buildModelDayWeather(dayWeatherOWM);
 		generalHourWeather = MapperOWM.buildModelHourWeather(hourWeatherOWM);
 		fish = fishDao.getFishes(7, null, null, null, null);
 	}
 
 	@Test
-	public void getFishBehavior() {
+	public void getFishBehavior() throws DaoDfmException {
 
 		List<HourWeather> hourWeathers = new ArrayList<HourWeather>();
 		
 		for (HourWeather hourWeather : generalHourWeather.getHourWeathers()) {
-			if (hourWeather.getDateText().substring(0, 10).trim().equalsIgnoreCase("2016-05-27")) {
+			if (hourWeather.getDateText().substring(0, 10).trim().equalsIgnoreCase("2016-05-28")) {
 				hourWeathers.add(hourWeather);
 			}
 		}
+		
+		BehaviorDTO behaviorDTO = behaviorAnalyzer.getFishBehavior(hourWeathers, fish.get(0));
 
-		GeneralNibbleState nibbleState = behaviorAnalyzer.getGeneralNibble(hourWeathers);
-		BehaviorDTO behaviorDTO = behaviorAnalyzer.getFishBehavior(hourWeathers, fish.get(0), nibbleState);
-
-		System.out.println("\n" + nibbleState + "\n");
 		System.out.println("\n" + behaviorDTO + "\n");
 	}
 }

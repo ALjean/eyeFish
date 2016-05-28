@@ -43,7 +43,7 @@ public class NibbleCheckerImpl implements NibbleChecker {
 				for (int i = 0; i < press.length; i++) {
 					if (press[i] >= ConstantsAnalyzer.HIGH_PRESSURE_LEVEL) {
 						countHigh++;
-					} else if (press[i] >= ConstantsAnalyzer.LOW_PRESSURE_LEVEL) {
+					} else if (press[i] <= ConstantsAnalyzer.LOW_PRESSURE_LEVEL) {
 						countLow++;
 					}
 				}

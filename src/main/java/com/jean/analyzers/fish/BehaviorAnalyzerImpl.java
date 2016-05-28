@@ -10,6 +10,9 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.jean.DaoDfmException;
+import com.jean.analyzers.bait.BaitConstructor;
 import com.jean.analyzers.weather.BehaviorDTO;
 import com.jean.analyzers.weather.ConrolPointHolder;
 import com.jean.analyzers.weather.ConstantsAnalyzer;
@@ -25,6 +28,7 @@ import com.jean.entity.HourWeather;
 import com.jean.entity.NibblePeriod;
 import com.jean.enums.DaysActivity;
 import com.jean.enums.ParamNames;
+import com.jean.util.Utils;
 import com.mysql.fabric.xmlrpc.base.Array;
 
 @Component
@@ -33,15 +37,32 @@ public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {
 	@Autowired
 	private NibbleChecker nibbleChecker;
 
-	/*@Autowired
+	@Autowired
 	private MessagesProperties messagesProperties;
+	
+	@Autowired
+	private BaitConstructor baitConstructor;
 
-	private Map<Double, String> messages;*/
+	private static Map<Double, String> messages = new HashMap<Double, String>();
 
 	@Override
-	public BehaviorDTO getFishBehavior(List<HourWeather> hourWeathers, Fish fish, GeneralNibbleState nibbleState) {
+	public BehaviorDTO getFishBehavior(List<HourWeather> hourWeathers, Fish fish) throws DaoDfmException {
 
 		BehaviorDTO behaviorDTO = new BehaviorDTO();
+		GeneralNibbleState nibbleState = getGeneralNibble(hourWeathers);
+		behaviorDTO.setNibbleState(nibbleState);
+
+		messages.put(-10.0, messagesProperties.getSpawning());
+		messages.put(1.0, messagesProperties.getToolow());
+		messages.put(2.0, messagesProperties.getVeryLow());
+		messages.put(3.0, messagesProperties.getLow());
+		messages.put(4.0, messagesProperties.getBelowAvarage());
+		messages.put(5.0, messagesProperties.getAvarage());
+		messages.put(6.0, messagesProperties.getAboveAvarage());
+		messages.put(7.0, messagesProperties.getGood());
+		messages.put(8.0, messagesProperties.getPrettyGood());
+		messages.put(9.0, messagesProperties.getVeryGood());
+		messages.put(10.0, messagesProperties.getPerfect());
 
 		for (HourWeather hourWeather : hourWeathers) {
 
@@ -88,8 +109,8 @@ public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {
 			result += nibbleChecker.isWind(hourWeather.getWindDeg(), hourWeather.getWindSpeed());
 
 			for (NibblePeriod nibblePeriod : fish.getNibbles()) {
-				if (getJavaUtilDate(hourWeather.getDateText()).after(nibblePeriod.getStartPeriod())
-						&& getJavaUtilDate(hourWeather.getDateText()).before(nibblePeriod.getEndPeriod())) {
+				if (Utils.getJavaUtilDate(hourWeather.getDateText()).after(nibblePeriod.getStartPeriod())
+						&& Utils.getJavaUtilDate(hourWeather.getDateText()).before(nibblePeriod.getEndPeriod())) {
 					if (nibblePeriod.getNibbleLevel() == -10) {
 						result = 0;
 					} else {
@@ -98,7 +119,8 @@ public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {
 				}
 			}
 
-			conrolPoint.setMessage("Some text");
+			conrolPoint.setBaits(baitConstructor.getBaits(hourWeather, fish));
+			conrolPoint.setMessage(messages.get(result));
 			conrolPoint.setNibbleLevel(result);
 			conrolPoint.setTime(hourWeather.getDateText().substring(11));
 
@@ -108,51 +130,20 @@ public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {
 
 	}
 
-	@Override
-	public GeneralNibbleState getGeneralNibble(List<HourWeather> hourWeathers) {
+	private GeneralNibbleState getGeneralNibble(List<HourWeather> hourWeathers) {
 
-		GeneralNibbleState nibbleState = new GeneralNibbleState();
+		GeneralNibbleState nibbleState = null;
 		double[] press = new double[hourWeathers.size() - 1];
 
 		for (int i = 0; i < hourWeathers.size() - 1; i++) {
 			HourWeather hourWeather = hourWeathers.get(i);
 			press[i] = hourWeather.getPressure();
 		}
-		return nibbleState = nibbleChecker.checkPressure(press);
+		nibbleState = nibbleChecker.checkPressure(press);
+		return nibbleState;
 	}
 
 	private double perfomanceToCustomer(double result) {
 		return result + (5 * Math.random());
 	}
-
-	private Date getJavaUtilDate(String dateText) {
-		Date date = new Date();
-		try {
-			DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-			date = formatter.parse(dateText.substring(0, 11));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return date;
-	}
-
-	/*public BehaviorAnalyzerImpl() {
-
-		this.messages = new HashMap<Double, String>();
-		messages.put(-10.0, messagesProperties.getSpawning());
-
-		messages.put(1.0, messagesProperties.getToolow());
-		messages.put(2.0, messagesProperties.getVeryLow());
-		messages.put(3.0, messagesProperties.getLow());
-		messages.put(4.0, messagesProperties.getBelowAvarage());
-		messages.put(5.0, messagesProperties.getAvarage());
-		messages.put(6.0, messagesProperties.getAboveAvarage());
-		messages.put(7.0, messagesProperties.getGood());
-		messages.put(8.0, messagesProperties.getPrettyGood());
-		messages.put(9.0, messagesProperties.getVeryGood());
-		messages.put(10.0, messagesProperties.getPerfect());
-
-	}*/
-
 }
