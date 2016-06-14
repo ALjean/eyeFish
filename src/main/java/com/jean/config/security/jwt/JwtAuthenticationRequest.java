@@ -5,7 +5,7 @@ package com.jean.config.security.jwt;
  */
 public class JwtAuthenticationRequest {
 
-    public JwtAuthenticationRequest() {}
+    /*public JwtAuthenticationRequest() {}
 
     private String email;
     private String password;
@@ -24,5 +24,5 @@ public class JwtAuthenticationRequest {
 
     public void setEmail(String email) {
         this.email = email;
-    }
+    }*/
 }

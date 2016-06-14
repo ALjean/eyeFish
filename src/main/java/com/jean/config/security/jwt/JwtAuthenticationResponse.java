@@ -5,7 +5,7 @@ package com.jean.config.security.jwt;
  */
 public class JwtAuthenticationResponse {
 
-    public JwtAuthenticationResponse(String token){
+  /*  public JwtAuthenticationResponse(String token){
         this.token = token;
     }
 
@@ -17,5 +17,5 @@ public class JwtAuthenticationResponse {
 
     public void setToken(String token) {
         this.token = token;
-    }
+    }*/
 }

@@ -1,6 +1,5 @@
 package com.jean.service;
 
-
 import com.jean.servlet.model.owm.current.CurrentWeatherOWM;
 
 /**
@@ -8,14 +7,12 @@ import com.jean.servlet.model.owm.current.CurrentWeatherOWM;
  */
 public interface WeatherService {
 
+	/* weather detail for plase */
+	public CurrentWeatherOWM getCurrentWeatherState(String lat, String lon);
 
-    /*16h path blat!!! */
-    <T> T getDetailWeatherState(String lat, String lon);
+	/* 16h path blat!!! */
+	public <T> T getDayWeatherState(String lat, String lon);
 
-    /*weather detail for plase*/
-    CurrentWeatherOWM getCurrentWeatherState(String lat, String lon);
-
-    /*forcast 5/3h*/
-    <T> T getListWeatherState(String lat, String lon);
+	/* forcast 5/3h */
+	public <T> T getHourWeathers(String lat, String lon);
 }
-

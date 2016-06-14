@@ -16,10 +16,10 @@ import java.util.Map;
 /**
  * Created by jean on 10.04.16.
  */
-@Component
+//@Component
 public class JwtTokenUtil {
 
-    private static final Logger log = Logger.getLogger(JwtTokenUtil.class);
+    /*private static final Logger log = Logger.getLogger(JwtTokenUtil.class);
 
     private static final String CLAIM_KEY_USERNAME = "sub";
     private static final String CLAIM_KEY_AUDIENCE = "audience";
@@ -172,5 +172,5 @@ public class JwtTokenUtil {
                 username.equals(user.getUsername())
                         && !isTokenExpired(token));
 //                        && !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate()));
-    }
+    }*/
 }

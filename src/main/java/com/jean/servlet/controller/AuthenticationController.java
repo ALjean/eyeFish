@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
-@RestController
-@RequestMapping("/auth")
+/*@RestController
+@RequestMapping("/auth")*/
 public class AuthenticationController {
 
-    private String tokenHeader = "Authorization";
+   /* private String tokenHeader = "Authorization";
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -59,7 +59,7 @@ public class AuthenticationController {
         }
         return null;
 
-    }
+    }*/
 
 
 

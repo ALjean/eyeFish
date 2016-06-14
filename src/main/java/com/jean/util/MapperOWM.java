@@ -1,14 +1,17 @@
 package com.jean.util;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.jean.entity.CurrentWeather;
 import com.jean.entity.DayWeather;
 import com.jean.entity.GeneralDayWeather;
 import com.jean.entity.GeneralHourWeather;
 import com.jean.entity.HourWeather;
 import com.jean.servlet.model.owm.GeneralWeatherStateOWM;
+import com.jean.servlet.model.owm.current.CurrentWeatherOWM;
 import com.jean.servlet.model.owm.detail.DayWeatherDataOWM;
 import com.jean.servlet.model.owm.hours.HoursWeatherDataOWM;
 
@@ -28,10 +31,9 @@ public class MapperOWM {
 		for (DayWeatherDataOWM dayWeatherDataOWM : dayWeatherOWM.getList()) {
 
 			DayWeather dayWeather = new DayWeather();
-			
-			dayWeather.setCurrentDate(dayWeatherDataOWM.getDt());
+
+			dayWeather.setCurrentDate(new Date(dayWeatherDataOWM.getDt()));
 			dayWeather.setClouds(dayWeatherDataOWM.getClouds());
-			dayWeather.setCurrentDate(dayWeatherDataOWM.getDt());
 			dayWeather.setHumidity(dayWeatherDataOWM.getHumidity());
 			dayWeather.setPressure(Utils.millibarToMmHg(dayWeatherDataOWM.getPressure()));
 			dayWeather.setRainVolume(dayWeatherDataOWM.getRain());
@@ -44,6 +46,9 @@ public class MapperOWM {
 			dayWeather.setWindDeg(dayWeatherDataOWM.getDeg());
 			dayWeather.setWindSpeed(dayWeatherDataOWM.getSpeed());
 			dayWeather.setClouds(dayWeatherDataOWM.getClouds());
+			dayWeather.setCloudDescription(dayWeatherDataOWM.getWeather().get(0).getDescription());
+			dayWeather.setCloudMain(dayWeatherDataOWM.getWeather().get(0).getMain());
+			dayWeather.setWindDirection(Utils.getDirection(dayWeatherDataOWM.getDeg()));
 
 			dayWeathers.add(dayWeather);
 		}
@@ -81,6 +86,9 @@ public class MapperOWM {
 			hourWeather.setSeaLevel(hoursWeatherDataOWM.getMain().getSea_level());
 			hourWeather.setWindDeg(hoursWeatherDataOWM.getWind().getDeg());
 			hourWeather.setWindSpeed(hoursWeatherDataOWM.getWind().getSpeed());
+			hourWeather.setWindDirection(Utils.getDirection(hoursWeatherDataOWM.getWind().getDeg()));
+			hourWeather.setCloudMain(hoursWeatherDataOWM.getWeather().get(0).getMain());
+			hourWeather.setCloudDescription(hoursWeatherDataOWM.getWeather().get(0).getDescription());
 
 			hourWeathers.add(hourWeather);
 
@@ -89,6 +97,37 @@ public class MapperOWM {
 		generalHourWeather.getHourWeathers().addAll(hourWeathers);
 
 		return generalHourWeather;
+
+	}
+
+	public static CurrentWeather buildModelCurrentWeather(CurrentWeatherOWM currentWeatherOWM) {
+
+		CurrentWeather currentWeather = new CurrentWeather();
+
+		currentWeather.setCityId(currentWeatherOWM.getId());
+		currentWeather.setCityName(currentWeatherOWM.getName());
+		currentWeather.setCloudDescription(currentWeatherOWM.getWeather().get(0).getDescription());
+		currentWeather.setCloudMain(currentWeatherOWM.getWeather().get(0).getMain());
+		currentWeather.setClouds(currentWeatherOWM.getClouds().getAll());
+		currentWeather.setCoordLat(currentWeatherOWM.getCoord().getLat());
+		currentWeather.setCoordLon(currentWeatherOWM.getCoord().getLon());
+		currentWeather.setCountry(currentWeatherOWM.getSys().getCountry());
+		currentWeather.setDate(new Date(currentWeatherOWM.getDt()));
+		currentWeather.setHumidity(currentWeatherOWM.getMain().getHumidity());
+		currentWeather.setPressure(Utils.millibarToMmHg(currentWeatherOWM.getMain().getPressure()));
+		currentWeather.setRainVolume(currentWeatherOWM.getRain().getVolume());
+		currentWeather.setSeaLevel(currentWeatherOWM.getMain().getSea_level());
+		currentWeather.setSunRise(new Timestamp(currentWeatherOWM.getSys().getSunrise()));
+		currentWeather.setSunDown(new Timestamp(currentWeatherOWM.getSys().getSunset()));
+		currentWeather.setTemp(Utils.kelvinToCelsius(currentWeatherOWM.getMain().getTemp()));
+		currentWeather.setTempMin(Utils.kelvinToCelsius(currentWeatherOWM.getMain().getTemp_min()));
+		currentWeather.setTempMax(Utils.kelvinToCelsius(currentWeatherOWM.getMain().getTemp_max()));
+		currentWeather.setTempKf(currentWeatherOWM.getMain().getTemp_kf());
+		currentWeather.setWindDeg(currentWeatherOWM.getWind().getDeg());
+		currentWeather.setWindSpeed(currentWeatherOWM.getWind().getSpeed());
+		currentWeather.setWindDirection(Utils.getDirection(currentWeatherOWM.getWind().getDeg()));
+
+		return currentWeather;
 
 	}
 }

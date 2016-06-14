@@ -1,9 +1,5 @@
 package com.jean.analyzers.fish;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,10 +14,8 @@ import com.jean.analyzers.weather.ConrolPointHolder;
 import com.jean.analyzers.weather.ConstantsAnalyzer;
 import com.jean.analyzers.weather.GeneralNibbleState;
 import com.jean.analyzers.weather.NibbleChecker;
-import com.jean.analyzers.weather.NibbleCheckerImpl.*;
 import com.jean.config.property.MessagesProperties;
 import com.jean.entity.DayActivity;
-import com.jean.entity.DayWeather;
 import com.jean.entity.Fish;
 import com.jean.entity.FishSetting;
 import com.jean.entity.HourWeather;
@@ -29,7 +23,6 @@ import com.jean.entity.NibblePeriod;
 import com.jean.enums.DaysActivity;
 import com.jean.enums.ParamNames;
 import com.jean.util.Utils;
-import com.mysql.fabric.xmlrpc.base.Array;
 
 @Component
 public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {

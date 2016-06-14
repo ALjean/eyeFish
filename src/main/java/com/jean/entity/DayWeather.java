@@ -1,12 +1,16 @@
 package com.jean.entity;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class DayWeather {
 
-	private Timestamp currentDate;
-	private String sunRise;
-	private String sunDown;
+	private Date currentDate;
+	private Timestamp sunRise;
+	private Timestamp sunDown;
+	private String cloudMain;
+	private String cloudDescription;
+	private String windDirection;
 	private double tempMin;
 	private double tempMax;
 	private double tempDay;
@@ -20,28 +24,68 @@ public class DayWeather {
 	private double clouds;
 	private double rainVolume;
 
-	public Timestamp getCurrentDate() {
+	public Date getCurrentDate() {
 		return currentDate;
 	}
 
-	public void setCurrentDate(long time) {
-		this.currentDate = new Timestamp(time);
+	public void setCurrentDate(Date currentDate) {
+		this.currentDate = currentDate;
 	}
 
-	public String getSunRise() {
+	public Timestamp getSunRise() {
 		return sunRise;
 	}
 
-	public void setSunRise(String sunRise) {
+	public void setSunRise(Timestamp sunRise) {
 		this.sunRise = sunRise;
 	}
 
-	public String getSunDown() {
+	public Timestamp getSunDown() {
 		return sunDown;
 	}
 
-	public void setSunDown(String sunDown) {
+	public void setSunDown(Timestamp sunDown) {
 		this.sunDown = sunDown;
+	}
+
+	public String getCloudMain() {
+		return cloudMain;
+	}
+
+	public void setCloudMain(String cloudMain) {
+		this.cloudMain = cloudMain;
+	}
+
+	public String getCloudDescription() {
+		return cloudDescription;
+	}
+
+	public void setCloudDescription(String cloudDescription) {
+		this.cloudDescription = cloudDescription;
+	}
+
+	public String getWindDirection() {
+		return windDirection;
+	}
+
+	public void setWindDirection(String windDirection) {
+		this.windDirection = windDirection;
+	}
+
+	public double getTempMin() {
+		return tempMin;
+	}
+
+	public void setTempMin(double tempMin) {
+		this.tempMin = tempMin;
+	}
+
+	public double getTempMax() {
+		return tempMax;
+	}
+
+	public void setTempMax(double tempMax) {
+		this.tempMax = tempMax;
 	}
 
 	public double getTempDay() {
@@ -74,22 +118,6 @@ public class DayWeather {
 
 	public void setTempMorning(double tempMorning) {
 		this.tempMorning = tempMorning;
-	}
-
-	public double getTempMin() {
-		return tempMin;
-	}
-
-	public void setTempMin(double tempMin) {
-		this.tempMin = tempMin;
-	}
-
-	public double getTempMax() {
-		return tempMax;
-	}
-
-	public void setTempMax(double tempMax) {
-		this.tempMax = tempMax;
 	}
 
 	public double getPressure() {
@@ -142,11 +170,12 @@ public class DayWeather {
 
 	@Override
 	public String toString() {
-		return "DayWeather [currentDate=" + currentDate + ", sunRise=" + sunRise + ", sunDown=" + sunDown + ", tempMin="
-				+ tempMin + ", tempMax=" + tempMax + ", tempDay=" + tempDay + ", tempNight=" + tempNight
-				+ ", tempEvening=" + tempEvening + ", tempMorning=" + tempMorning + ", pressure=" + pressure
-				+ ", windDeg=" + windDeg + ", windSpeed=" + windSpeed + ", humidity=" + humidity + ", clouds=" + clouds
-				+ ", rainVolume=" + rainVolume + "]";
+		return "DayWeather [currentDate=" + currentDate + ", sunRise=" + sunRise + ", sunDown=" + sunDown
+				+ ", cloudMain=" + cloudMain + ", cloudDescription=" + cloudDescription + ", windDirection="
+				+ windDirection + ", tempMin=" + tempMin + ", tempMax=" + tempMax + ", tempDay=" + tempDay
+				+ ", tempNight=" + tempNight + ", tempEvening=" + tempEvening + ", tempMorning=" + tempMorning
+				+ ", pressure=" + pressure + ", windDeg=" + windDeg + ", windSpeed=" + windSpeed + ", humidity="
+				+ humidity + ", clouds=" + clouds + ", rainVolume=" + rainVolume + "]";
 	}
 
 }

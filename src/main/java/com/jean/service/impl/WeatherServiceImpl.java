@@ -29,14 +29,16 @@ public class WeatherServiceImpl implements WeatherService {
 
     @Override
     @SuppressWarnings("unchecked")
-    public GeneralWeatherStateOWM<DayWeatherDataOWM> getDetailWeatherState(String lat, String lon) {
+    public GeneralWeatherStateOWM<DayWeatherDataOWM> getDayWeatherState(String lat, String lon) {
 
         ResponseEntity<GeneralWeatherStateOWM<DayWeatherDataOWM>> response = new RestTemplate().exchange(urlBuilder(lat, lon, Constants.DAILY),
                 HttpMethod.GET, null, new ParameterizedTypeReference<GeneralWeatherStateOWM<DayWeatherDataOWM>>() {});
         return response.getBody();
     }
 
+    @Override
     public CurrentWeatherOWM getCurrentWeatherState(String lat, String lon) {
+    	
         ResponseEntity<CurrentWeatherOWM> response = new RestTemplate().exchange(urlBuilder(lat, lon, Constants.WEATHER),
                 HttpMethod.GET, null, new ParameterizedTypeReference<CurrentWeatherOWM>() {});
         return response.getBody();
@@ -45,7 +47,7 @@ public class WeatherServiceImpl implements WeatherService {
 
     @Override
     @SuppressWarnings("unchecked")
-    public GeneralWeatherStateOWM<HoursWeatherDataOWM> getListWeatherState(String lat, String lon) {
+    public GeneralWeatherStateOWM<HoursWeatherDataOWM> getHourWeathers(String lat, String lon) {
 
         ResponseEntity<GeneralWeatherStateOWM<HoursWeatherDataOWM>> response = new RestTemplate().exchange(urlBuilder(lat, lon, Constants.FORCAST),
                 HttpMethod.GET, null, new ParameterizedTypeReference<GeneralWeatherStateOWM<HoursWeatherDataOWM>>() {});

@@ -6,6 +6,9 @@ public class HourWeather {
 
 	private Date date;
 	private String dateText;
+	private String windDirection;
+	private String cloudMain;
+	private String cloudDescription;
 	private double clouds;
 	private double humadity;
 	private double pressure;
@@ -31,6 +34,30 @@ public class HourWeather {
 
 	public void setDateText(String dateText) {
 		this.dateText = dateText;
+	}
+
+	public String getWindDirection() {
+		return windDirection;
+	}
+
+	public void setWindDirection(String windDirection) {
+		this.windDirection = windDirection;
+	}
+
+	public String getCloudMain() {
+		return cloudMain;
+	}
+
+	public void setCloudMain(String cloudMain) {
+		this.cloudMain = cloudMain;
+	}
+
+	public String getCloudDescription() {
+		return cloudDescription;
+	}
+
+	public void setCloudDescription(String cloudDescription) {
+		this.cloudDescription = cloudDescription;
 	}
 
 	public double getClouds() {
@@ -115,10 +142,11 @@ public class HourWeather {
 
 	@Override
 	public String toString() {
-		return "HourWeather [date=" + date + ", dateText=" + dateText + ", clouds=" + clouds + ", humadity=" + humadity
-				+ ", pressure=" + pressure + ", seaLevel=" + seaLevel + ", generalTemp=" + generalTemp + ", tempMin="
-				+ tempMin + ", tempMax=" + tempMax + ", windDeg=" + windDeg + ", windSpeed=" + windSpeed
-				+ ", rainVolume=" + rainVolume + "]";
+		return "HourWeather [date=" + date + ", dateText=" + dateText + ", windDirection=" + windDirection
+				+ ", cloudMain=" + cloudMain + ", cloudDescription=" + cloudDescription + ", clouds=" + clouds
+				+ ", humadity=" + humadity + ", pressure=" + pressure + ", seaLevel=" + seaLevel + ", generalTemp="
+				+ generalTemp + ", tempMin=" + tempMin + ", tempMax=" + tempMax + ", windDeg=" + windDeg
+				+ ", windSpeed=" + windSpeed + ", rainVolume=" + rainVolume + "]";
 	}
 
 }

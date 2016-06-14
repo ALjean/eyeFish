@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by jean on 10.04.16.
  */
-@RestController
+//@RestController
 public class UserRestController {
 
-
+/*
     private String tokenHeader = "Authorization";
 
     @Autowired
@@ -31,5 +31,5 @@ public class UserRestController {
         String username = jwtTokenUtil.getUsernameFromToken(token);
 
         return (User) userDetailsService.loadUserByUsername(username);
-    }
+    }*/
 }

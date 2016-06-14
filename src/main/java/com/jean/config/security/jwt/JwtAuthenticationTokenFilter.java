@@ -18,9 +18,9 @@ import java.io.IOException;
 /**
  * Created by jean on 10.04.16.
  */
-public class JwtAuthenticationTokenFilter extends UsernamePasswordAuthenticationFilter {
+public class JwtAuthenticationTokenFilter{ //extends UsernamePasswordAuthenticationFilter {
 
-
+/*
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -47,5 +47,5 @@ public class JwtAuthenticationTokenFilter extends UsernamePasswordAuthentication
         }
 
         chain.doFilter(request, response);
-    }
+    }*/
 }

@@ -25,8 +25,8 @@ public class UtilsTest extends BaseTest {
 	@Before
 	public void init() {
 
-		dayWeatherOWM = weatherService.getDetailWeatherState(lat, lon);
-		hourWeatherOWM = weatherService.getListWeatherState(lat, lon);
+		dayWeatherOWM = weatherService.getDayWeatherState(lat, lon);
+		hourWeatherOWM = weatherService.getHourWeathers(lat, lon);
 	}
 
 	@Test

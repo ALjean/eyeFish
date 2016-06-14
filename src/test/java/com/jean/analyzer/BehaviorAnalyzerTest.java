@@ -36,7 +36,7 @@ public class BehaviorAnalyzerTest extends BaseTest {
 		String lat = "50";
 		String lon = "36.25";
 		//GeneralWeatherStateOWM<DayWeatherDataOWM> dayWeatherOWM = weatherService.getDetailWeatherState(lat, lon);
-		GeneralWeatherStateOWM<HoursWeatherDataOWM> hourWeatherOWM = weatherService.getListWeatherState(lat, lon);
+		GeneralWeatherStateOWM<HoursWeatherDataOWM> hourWeatherOWM = weatherService.getHourWeathers(lat, lon);
 
 		//generalDayWeather = MapperOWM.buildModelDayWeather(dayWeatherOWM);
 		generalHourWeather = MapperOWM.buildModelHourWeather(hourWeatherOWM);
@@ -49,7 +49,7 @@ public class BehaviorAnalyzerTest extends BaseTest {
 		List<HourWeather> hourWeathers = new ArrayList<HourWeather>();
 		
 		for (HourWeather hourWeather : generalHourWeather.getHourWeathers()) {
-			if (hourWeather.getDateText().substring(0, 10).trim().equalsIgnoreCase("2016-05-28")) {
+			if (hourWeather.getDateText().substring(0, 10).trim().equalsIgnoreCase("2016-06-09")) {
 				hourWeathers.add(hourWeather);
 			}
 		}
