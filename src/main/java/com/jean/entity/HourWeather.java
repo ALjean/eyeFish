@@ -1,8 +1,9 @@
 package com.jean.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class HourWeather {
+public class HourWeather implements Serializable {
 
 	private Date date;
 	private String dateText;

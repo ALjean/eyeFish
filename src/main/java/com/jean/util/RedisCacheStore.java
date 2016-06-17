@@ -19,44 +19,56 @@ import java.util.stream.Collectors;
 @Component
 public class RedisCacheStore {
 
-    private enum RedisKeys {
-        DayWeather, HourWeather
-    }
+	private enum RedisKeys {
+		DayWeather, HourWeather
+	}
 
-    @Autowired
-    private RedisTemplate<Object, Object> template;
+	@Autowired
+	private RedisTemplate<Object, Object> template;
 
-    public void setDayWeather(GeneralDayWeather generalDayWeather) {
-        template.expire(RedisKeys.DayWeather.name(), 1, TimeUnit.HOURS);
-        template.opsForHash().put(RedisKeys.DayWeather.name(), generalDayWeather.generateRedisHashKey(RedisKeys.DayWeather.name()), generalDayWeather);
-//        template.opsForValue().set(generalDayWeather.generateRedisHashKey(RedisKeys.DayWeather.name()), generalDayWeather, 10, TimeUnit.MINUTES);
+	public void setDayWeather(GeneralDayWeather generalDayWeather) {
+		template.expire(RedisKeys.DayWeather.name(), 1, TimeUnit.HOURS);
+		template.opsForHash().put(RedisKeys.DayWeather.name(),
+				generalDayWeather.generateRedisHashKey(RedisKeys.DayWeather.name()), generalDayWeather);
+	}
 
-    }
+	public void setHourWeather(GeneralHourWeather generalHourWeather) {
+		template.expire(RedisKeys.HourWeather.name(), 1, TimeUnit.HOURS);
+		template.opsForHash().put(RedisKeys.HourWeather.name(),
+				generalHourWeather.generateRedisHashKey(RedisKeys.HourWeather.name()), generalHourWeather);
+	}
 
-    public GeneralDayWeather findDayWeather(Coordinates coordinates) {
+	public GeneralDayWeather findDayWeather(Coordinates coordinates) {
+		return (GeneralDayWeather) template.opsForHash().get(RedisKeys.DayWeather.name(), 
+				findWeatherKey(coordinates, RedisKeys.DayWeather.name()));
+	}
 
-        return (GeneralDayWeather) template.opsForHash().get(RedisKeys.DayWeather.name(), findWeatherKey(coordinates));
-    }
+	public GeneralHourWeather findHourWeather(Coordinates coordinates) {
+		return (GeneralHourWeather) template.opsForHash().get(RedisKeys.HourWeather.name(),
+				findWeatherKey(coordinates, RedisKeys.HourWeather.name()));
+	}
 
-    public void setHourWeather(GeneralHourWeather generalHourWeather) {
-        template.expire(RedisKeys.HourWeather.name(), 1, TimeUnit.HOURS);
-        template.opsForHash().put(RedisKeys.HourWeather.name(), generalHourWeather.generateRedisHashKey(RedisKeys.HourWeather.name()), generalHourWeather);
-    }
+	private Coordinates findWeatherKey(Coordinates coordinates, String redisCoordKey) {
+		Set redisSet = Collections.unmodifiableSet(template.opsForHash().keys(redisCoordKey));
+		Set<Coordinates> keys = new HashSet<>(redisSet);
+		for (Coordinates coord : keys) {
+			if (GeoHashUtil.isNearestPoint(coord.getLatitude(), coord.getLongitude(), coordinates.getLatitude(),
+					coordinates.getLongitude())) {
+				return coord;
+			}
+		}
 
-    public GeneralHourWeather findHourWeather(Coordinates coordinates) {
-        return (GeneralHourWeather) template.opsForHash().get(RedisKeys.HourWeather.name(), findWeatherKey(coordinates));
-    }
+		/*
+		 * Set<Coordinates> foundResult = keys.stream().filter(key ->
+		 * GeoHashUtil.isNearestPoint(key.getLatitude(), key.getLongitude(),
+		 * coordinates.getLatitude(),
+		 * coordinates.getLongitude())).collect(Collectors.toSet());
+		 * 
+		 * return foundResult.size() > 0 ? foundResult.iterator().next() : new
+		 * Coordinates();
+		 */
 
-    private Coordinates findWeatherKey(Coordinates coordinates) {
-        Set redisSet = Collections.unmodifiableSet(template.opsForHash().keys(RedisKeys.HourWeather.name()));
-
-        Set<Coordinates> keys = new HashSet<>(redisSet);
-        Set<Coordinates> foundResult = keys.stream()
-                .filter(key -> Utils.isPointCircle(key.getLongitude(), key.getLatitude(), coordinates))
-                .collect(Collectors.toSet());
-
-        return foundResult.size() > 0 ? foundResult.iterator().next() : new Coordinates();
-
-    }
+		return new Coordinates();
+	}
 
 }

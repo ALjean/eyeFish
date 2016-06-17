@@ -1,9 +1,10 @@
 package com.jean.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class DayWeather {
+public class DayWeather implements Serializable {
 
 	private Date currentDate;
 	private Timestamp sunRise;
