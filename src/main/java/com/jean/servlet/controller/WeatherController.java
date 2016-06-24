@@ -36,7 +36,8 @@ public class WeatherController {
 
 		hourWeather = casheStore.findHourWeather(new Coordinates(Double.parseDouble(lon), Double.parseDouble(lat)));
 		if (hourWeather == null) {
-			GeneralWeatherStateOWM<HoursWeatherDataOWM> hourWeatherOWM = weatherService.getHourWeathers(lat, lon);
+			GeneralWeatherStateOWM<HoursWeatherDataOWM> hourWeatherOWM = new GeneralWeatherStateOWM<HoursWeatherDataOWM>();
+		    hourWeatherOWM = weatherService.getHourWeathers(lat, lon);
 			hourWeather = MapperOWM.buildModelHourWeather(hourWeatherOWM);
 			casheStore.setHourWeather(hourWeather);
 		}

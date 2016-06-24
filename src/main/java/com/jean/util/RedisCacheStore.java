@@ -8,8 +8,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -39,7 +42,7 @@ public class RedisCacheStore {
 	}
 
 	public GeneralDayWeather findDayWeather(Coordinates coordinates) {
-		return (GeneralDayWeather) template.opsForHash().get(RedisKeys.DayWeather.name(), 
+		return (GeneralDayWeather) template.opsForHash().get(RedisKeys.DayWeather.name(),
 				findWeatherKey(coordinates, RedisKeys.DayWeather.name()));
 	}
 
@@ -51,24 +54,23 @@ public class RedisCacheStore {
 	private Coordinates findWeatherKey(Coordinates coordinates, String redisCoordKey) {
 		Set redisSet = Collections.unmodifiableSet(template.opsForHash().keys(redisCoordKey));
 		Set<Coordinates> keys = new HashSet<>(redisSet);
+		TreeMap<Double, Coordinates> distanceMap = new TreeMap<Double, Coordinates>();
+
 		for (Coordinates coord : keys) {
-			if (GeoHashUtil.isNearestPoint(coord.getLatitude(), coord.getLongitude(), coordinates.getLatitude(),
-					coordinates.getLongitude())) {
-				return coord;
-			}
+			double distance = GeoHashUtil.getDistance(coord.getLatitude(), coord.getLongitude(),
+					coordinates.getLatitude(), coordinates.getLongitude());
+			distanceMap.put(distance, coord);
 		}
-
-		/*
-		 * Set<Coordinates> foundResult = keys.stream().filter(key ->
-		 * GeoHashUtil.isNearestPoint(key.getLatitude(), key.getLongitude(),
-		 * coordinates.getLatitude(),
-		 * coordinates.getLongitude())).collect(Collectors.toSet());
-		 * 
-		 * return foundResult.size() > 0 ? foundResult.iterator().next() : new
-		 * Coordinates();
-		 */
-
-		return new Coordinates();
+		if (!distanceMap.isEmpty()) {
+			double shortDistance = distanceMap.firstEntry().getKey();
+			if(shortDistance < 25 ){
+				return distanceMap.firstEntry().getValue();
+			}else{
+				return new Coordinates();
+			}
+		} else {
+			return new Coordinates();
+		}
 	}
 
 }

@@ -19,9 +19,9 @@ public class HoursWeatherDataOWM {
 
 	private CloudsOWM clouds;
 
-	private WindOWM wind;
+	private WindOWM wind = new WindOWM();
 
-	private RainOWM rain;
+	private RainOWM rain = new RainOWM();
 
 	private SysOWM sys;
 
@@ -91,6 +91,7 @@ public class HoursWeatherDataOWM {
 
 	public HoursWeatherDataOWM() {
 		this.rain = new RainOWM();
+		this.wind = new WindOWM();
 	}
 
 	@Override

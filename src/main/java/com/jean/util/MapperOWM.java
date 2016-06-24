@@ -11,6 +11,7 @@ import com.jean.entity.GeneralDayWeather;
 import com.jean.entity.GeneralHourWeather;
 import com.jean.entity.HourWeather;
 import com.jean.servlet.model.owm.GeneralWeatherStateOWM;
+import com.jean.servlet.model.owm.WindOWM;
 import com.jean.servlet.model.owm.current.CurrentWeatherOWM;
 import com.jean.servlet.model.owm.detail.DayWeatherDataOWM;
 import com.jean.servlet.model.owm.hours.HoursWeatherDataOWM;
@@ -71,7 +72,9 @@ public class MapperOWM {
 		generalHourWeather.setCoordLon(hourWeatherOWM.getCity().getCoord().getLon());
 
 		for (HoursWeatherDataOWM hoursWeatherDataOWM : hourWeatherOWM.getList()) {
-
+			if(hoursWeatherDataOWM.getWind() == null){
+				hoursWeatherDataOWM.setWind(new WindOWM());
+			}
 			HourWeather hourWeather = new HourWeather();
 
 			hourWeather.setDate(new Date(hoursWeatherDataOWM.getDt()));
@@ -86,6 +89,7 @@ public class MapperOWM {
 			hourWeather.setSeaLevel(hoursWeatherDataOWM.getMain().getSea_level());
 			hourWeather.setWindDeg(hoursWeatherDataOWM.getWind().getDeg());
 			hourWeather.setWindSpeed(hoursWeatherDataOWM.getWind().getSpeed());
+			
 			hourWeather.setWindDirection(Utils.getDirection(hoursWeatherDataOWM.getWind().getDeg()));
 			hourWeather.setCloudMain(hoursWeatherDataOWM.getWeather().get(0).getMain());
 			hourWeather.setCloudDescription(hoursWeatherDataOWM.getWeather().get(0).getDescription());
