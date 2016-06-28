@@ -13,11 +13,11 @@ import java.io.IOException;
  * Created by jean on 10.04.16.
  */
 
-//@Component
-public class JwtAuthenticationEntryPoint{ //implements AuthenticationEntryPoint {
+@Component
+public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
-    /*@Override
+    @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-    }*/
+    }
 }

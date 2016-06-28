@@ -37,9 +37,8 @@ public class WeatherController {
 	@RequestMapping(value = "/forecast", method = RequestMethod.GET, produces = "application/json")
 	public GeneralHourWeather getHourWeathers(@RequestParam("lat") String lat, @RequestParam("lon") String lon) throws CustomDfmException {
 
-		GeneralHourWeather hourWeather;
 
-		hourWeather = casheStore.findHourWeather(new Coordinates(RedisKeys.HourWeather, Float.parseFloat(lon), Float.parseFloat(lat)));
+		GeneralHourWeather hourWeather = casheStore.findHourWeather(new Coordinates(RedisKeys.HourWeather, Float.parseFloat(lon), Float.parseFloat(lat)));
 		if (hourWeather == null) {
 			GeneralWeatherStateOWM<HoursWeatherDataOWM> hourWeatherOWM = weatherService.getHourWeathers(lat, lon);
 			hourWeather = MapperOWM.buildModelHourWeather(hourWeatherOWM);
@@ -51,10 +50,7 @@ public class WeatherController {
 	@RequestMapping(value = "/daily", method = RequestMethod.GET, produces = "application/json")
 	public GeneralDayWeather getDayWeather(@RequestParam("lat") String lat, @RequestParam("lon") String lon) throws CustomDfmException {
 
-		GeneralDayWeather dayWeather;
-
-
-		dayWeather = casheStore.findDayWeather(new Coordinates(RedisKeys.DayWeather, Float.parseFloat(lon), Float.parseFloat(lat)));
+		GeneralDayWeather dayWeather = casheStore.findDayWeather(new Coordinates(RedisKeys.DayWeather, Float.parseFloat(lon), Float.parseFloat(lat)));
 		if (dayWeather == null) {
 			GeneralWeatherStateOWM<DayWeatherDataOWM> dayWeatherOWM = weatherService.getDayWeatherState(lat, lon);
 			dayWeather = MapperOWM.buildModelDayWeather(dayWeatherOWM);

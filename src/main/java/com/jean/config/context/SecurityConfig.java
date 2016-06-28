@@ -23,12 +23,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * Created by stas on 07.06.15.
  */
 
-/*@Configuration
+@Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)*/
-public class SecurityConfig {//extends WebSecurityConfigurerAdapter {
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-   /* @Autowired
+    @Autowired
     private UserDetailsService userDetailsService;
 
     @Autowired
@@ -69,6 +69,7 @@ public class SecurityConfig {//extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/auth/**").permitAll()
                 .antMatchers("/service/**").permitAll()
+                //TODO create valid patterns
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated();
 
@@ -87,6 +88,6 @@ public class SecurityConfig {//extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder(10);
     }
 
-*/
+
 
 }

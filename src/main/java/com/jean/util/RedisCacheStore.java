@@ -6,6 +6,7 @@ import com.jean.entity.GeneralHourWeather;
 import com.jean.enums.RedisKeys;
 import com.jean.servlet.model.Coordinates;
 import com.jean.servlet.model.RedisStoreEntry;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.SerializationUtils;
@@ -25,6 +26,8 @@ import java.util.*;
 @Component
 public class RedisCacheStore {
 
+	private static Logger log = Logger.getLogger(RedisCacheStore.class);
+
 
 	@Autowired
 	private JedisPool jedisPool;
@@ -43,6 +46,8 @@ public class RedisCacheStore {
 							coordinates.getLatitude(), 500, GeoUnit.KM,
 							GeoRadiusParam.geoRadiusParam().withDist());
 
+			log.info("Found GeoRadiusResponse: " + list.size());
+
 			if(list.size() > 0 ){
 				list.stream().sorted((f1, f2) ->Double.compare(f2.getDistance(), f1.getDistance()));
 				generalHourWeather = (GeneralHourWeather) SerializationUtils.deserialize(list.get(0).getMember());
@@ -50,6 +55,7 @@ public class RedisCacheStore {
 			}
 
 		} catch (JedisException e){
+			log.error("Can't get HourWeather from Redis");
 			throw new CustomDfmException("Can't get HourWeather from Redis", e);
 		}
 
@@ -70,12 +76,15 @@ public class RedisCacheStore {
 							coordinates.getLatitude(), 500, GeoUnit.KM,
 							GeoRadiusParam.geoRadiusParam().withDist());
 
+			log.info("Found GeoRadiusResponse: " + list.size());
+
 			if(list.size() > 0 ){
 				generalDayWeather = (GeneralDayWeather) SerializationUtils.deserialize(list.get(0).getMember());
 			}
 
 
 		} catch (JedisException e){
+			log.error("Can't get DayWeather from Redis");
 			throw new CustomDfmException("Can't get DayWeather from Redis", e);
 		}
 
