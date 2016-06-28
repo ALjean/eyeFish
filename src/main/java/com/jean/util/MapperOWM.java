@@ -21,7 +21,7 @@ public class MapperOWM {
 	public static GeneralDayWeather buildModelDayWeather(GeneralWeatherStateOWM<DayWeatherDataOWM> dayWeatherOWM) {
 
 		GeneralDayWeather generalDayWeather = new GeneralDayWeather();
-		List<DayWeather> dayWeathers = new ArrayList<DayWeather>();
+		List<DayWeather> dayWeathers = new ArrayList<>();
 
 		generalDayWeather.setCityId((dayWeatherOWM.getCity().getId()));
 		generalDayWeather.setCityName(dayWeatherOWM.getCity().getName());
@@ -63,7 +63,7 @@ public class MapperOWM {
 	public static GeneralHourWeather buildModelHourWeather(GeneralWeatherStateOWM<HoursWeatherDataOWM> hourWeatherOWM) {
 
 		GeneralHourWeather generalHourWeather = new GeneralHourWeather();
-		List<HourWeather> hourWeathers = new ArrayList<HourWeather>();
+		List<HourWeather> hourWeathers = new ArrayList<>();
 
 		generalHourWeather.setCityId((hourWeatherOWM.getCity().getId()));
 		generalHourWeather.setCityName(hourWeatherOWM.getCity().getName());

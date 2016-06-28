@@ -10,16 +10,16 @@ public class HourWeather implements Serializable {
 	private String windDirection;
 	private String cloudMain;
 	private String cloudDescription;
-	private double clouds;
-	private double humadity;
-	private double pressure;
-	private double seaLevel;
-	private double generalTemp;
-	private double tempMin;
-	private double tempMax;
-	private double windDeg;
-	private double windSpeed;
-	private double rainVolume;
+	private float clouds;
+	private float humadity;
+	private float pressure;
+	private float seaLevel;
+	private float generalTemp;
+	private float tempMin;
+	private float tempMax;
+	private float windDeg;
+	private float windSpeed;
+	private float rainVolume;
 
 	public Date getDate() {
 		return date;
@@ -61,83 +61,83 @@ public class HourWeather implements Serializable {
 		this.cloudDescription = cloudDescription;
 	}
 
-	public double getClouds() {
+	public float getClouds() {
 		return clouds;
 	}
 
-	public void setClouds(double clouds) {
+	public void setClouds(float clouds) {
 		this.clouds = clouds;
 	}
 
-	public double getHumadity() {
+	public float getHumadity() {
 		return humadity;
 	}
 
-	public void setHumadity(double humadity) {
+	public void setHumadity(float humadity) {
 		this.humadity = humadity;
 	}
 
-	public double getPressure() {
+	public float getPressure() {
 		return pressure;
 	}
 
-	public void setPressure(double pressure) {
+	public void setPressure(float pressure) {
 		this.pressure = pressure;
 	}
 
-	public double getSeaLevel() {
+	public float getSeaLevel() {
 		return seaLevel;
 	}
 
-	public void setSeaLevel(double seaLevel) {
+	public void setSeaLevel(float seaLevel) {
 		this.seaLevel = seaLevel;
 	}
 
-	public double getGeneralTemp() {
+	public float getGeneralTemp() {
 		return generalTemp;
 	}
 
-	public void setGeneralTemp(double generalTemp) {
+	public void setGeneralTemp(float generalTemp) {
 		this.generalTemp = generalTemp;
 	}
 
-	public double getTempMin() {
+	public float getTempMin() {
 		return tempMin;
 	}
 
-	public void setTempMin(double tempMin) {
+	public void setTempMin(float tempMin) {
 		this.tempMin = tempMin;
 	}
 
-	public double getTempMax() {
+	public float getTempMax() {
 		return tempMax;
 	}
 
-	public void setTempMax(double tempMax) {
+	public void setTempMax(float tempMax) {
 		this.tempMax = tempMax;
 	}
 
-	public double getWindDeg() {
+	public float getWindDeg() {
 		return windDeg;
 	}
 
-	public void setWindDeg(double windDeg) {
+	public void setWindDeg(float windDeg) {
 		this.windDeg = windDeg;
 	}
 
-	public double getWindSpeed() {
+	public float getWindSpeed() {
 		return windSpeed;
 	}
 
-	public void setWindSpeed(double windSpeed) {
+	public void setWindSpeed(float windSpeed) {
 		this.windSpeed = windSpeed;
 	}
 
-	public double getRainVolume() {
+	public float getRainVolume() {
 		return rainVolume;
 	}
 
-	public void setRainVolume(double rainVolume) {
+	public void setRainVolume(float rainVolume) {
 		this.rainVolume = rainVolume;
 	}
 

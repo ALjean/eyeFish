@@ -1,5 +1,7 @@
 package com.jean.servlet.controller;
 
+import com.jean.CustomDfmException;
+import com.jean.enums.RedisKeys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,31 +31,34 @@ public class WeatherController {
 	@Autowired
 	private RedisCacheStore casheStore;
 
+
+
+
 	@RequestMapping(value = "/forecast", method = RequestMethod.GET, produces = "application/json")
-	public GeneralHourWeather getHourWeathers(@RequestParam("lat") String lat, @RequestParam("lon") String lon) {
+	public GeneralHourWeather getHourWeathers(@RequestParam("lat") String lat, @RequestParam("lon") String lon) throws CustomDfmException {
 
-		GeneralHourWeather hourWeather = null;
+		GeneralHourWeather hourWeather;
 
-		hourWeather = casheStore.findHourWeather(new Coordinates(Double.parseDouble(lon), Double.parseDouble(lat)));
+		hourWeather = casheStore.findHourWeather(new Coordinates(RedisKeys.HourWeather, Float.parseFloat(lon), Float.parseFloat(lat)));
 		if (hourWeather == null) {
-			GeneralWeatherStateOWM<HoursWeatherDataOWM> hourWeatherOWM = new GeneralWeatherStateOWM<HoursWeatherDataOWM>();
-		    hourWeatherOWM = weatherService.getHourWeathers(lat, lon);
+			GeneralWeatherStateOWM<HoursWeatherDataOWM> hourWeatherOWM = weatherService.getHourWeathers(lat, lon);
 			hourWeather = MapperOWM.buildModelHourWeather(hourWeatherOWM);
-			casheStore.setHourWeather(hourWeather);
+			casheStore.setWeather(hourWeather);
 		}
 		return hourWeather;
 	}
 
 	@RequestMapping(value = "/daily", method = RequestMethod.GET, produces = "application/json")
-	public GeneralDayWeather getDayWeather(@RequestParam("lat") String lat, @RequestParam("lon") String lon) {
+	public GeneralDayWeather getDayWeather(@RequestParam("lat") String lat, @RequestParam("lon") String lon) throws CustomDfmException {
 
-		GeneralDayWeather dayWeather = null;
-		
-		dayWeather = casheStore.findDayWeather((new Coordinates(Double.parseDouble(lon), Double.parseDouble(lat))));
+		GeneralDayWeather dayWeather;
+
+
+		dayWeather = casheStore.findDayWeather(new Coordinates(RedisKeys.DayWeather, Float.parseFloat(lon), Float.parseFloat(lat)));
 		if (dayWeather == null) {
 			GeneralWeatherStateOWM<DayWeatherDataOWM> dayWeatherOWM = weatherService.getDayWeatherState(lat, lon);
 			dayWeather = MapperOWM.buildModelDayWeather(dayWeatherOWM);
-			casheStore.setDayWeather(dayWeather);
+			casheStore.setWeather(dayWeather);
 		}
 		return dayWeather;
 	}

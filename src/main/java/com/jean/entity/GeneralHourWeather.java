@@ -1,5 +1,6 @@
 package com.jean.entity;
 
+import com.jean.enums.RedisKeys;
 import com.jean.servlet.model.Coordinates;
 import com.jean.servlet.model.RedisStoreEntry;
 
@@ -11,8 +12,8 @@ public class GeneralHourWeather implements RedisStoreEntry, Serializable {
 
     private long cityId;
     private String cityName;
-    private double coordLon;
-    private double coordLat;
+    private float coordLon;
+    private float coordLat;
     private String country;
     private double messageCount;
     private List<HourWeather> hourWeathers;
@@ -33,19 +34,19 @@ public class GeneralHourWeather implements RedisStoreEntry, Serializable {
         this.cityName = cityName;
     }
 
-    public double getCoordLon() {
+    public float getCoordLon() {
         return coordLon;
     }
 
-    public void setCoordLon(double coordLon) {
+    public void setCoordLon(float coordLon) {
         this.coordLon = coordLon;
     }
 
-    public double getCoordLat() {
+    public float getCoordLat() {
         return coordLat;
     }
 
-    public void setCoordLat(double coordLat) {
+    public void setCoordLat(float coordLat) {
         this.coordLat = coordLat;
     }
 
@@ -85,10 +86,7 @@ public class GeneralHourWeather implements RedisStoreEntry, Serializable {
     }
 
     @Override
-    public Coordinates generateRedisHashKey(String redisKey) {
-        Coordinates coordinates = new Coordinates(redisKey);
-        coordinates.setLatitude(coordLat);
-        coordinates.setLongitude(coordLon);
-        return coordinates;
+    public Coordinates getRedisCoordinates() {
+        return new Coordinates(RedisKeys.HourWeather, coordLon, coordLat);
     }
 }

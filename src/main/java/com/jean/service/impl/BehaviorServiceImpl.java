@@ -18,7 +18,7 @@ public class BehaviorServiceImpl implements BehaviorService {
 	@Override
 	public BehaviorDTO getFishBehavior(String currentDate, int fishId, double lon, double lat) {
 
-		GeneralHourWeather hourWeather = cacheStore.findHourWeather(new Coordinates(lon, lat));
+//		GeneralHourWeather hourWeather = cacheStore.findHourWeather(new Coordinates(lon, lat));
 		return null;
 	}
 

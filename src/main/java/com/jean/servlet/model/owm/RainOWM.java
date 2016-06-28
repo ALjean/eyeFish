@@ -5,13 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class RainOWM {
 
 	@JsonProperty("3h")
-	private double volume;
+	private float volume;
 
-	public double getVolume() {
+	public float getVolume() {
 		return volume;
 	}
 
-	public void setVolume(double volume) {
+	public void setVolume(float volume) {
 		this.volume = volume;
 	}
 	

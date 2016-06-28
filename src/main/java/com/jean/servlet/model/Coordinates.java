@@ -1,5 +1,7 @@
 package com.jean.servlet.model;
 
+import com.jean.enums.RedisKeys;
+
 import java.io.Serializable;
 
 /**
@@ -7,58 +9,47 @@ import java.io.Serializable;
  */
 public class Coordinates implements Serializable {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 6623918083270584656L;
-	private double longitude;
-	private double latitude;
-	private String redisKey;
+	private float longitude;
+	private float latitude;
+	private RedisKeys redisKeys;
 
-	public Coordinates() {
-		this("NOT_MATTER");
-	}
 
-	public Coordinates(String redisKey) {
-		this.redisKey = redisKey;
-		this.longitude = 0;
-		this.latitude = 0;
-	}
 
-	public Coordinates(double longitude, double latitude) {
+	public Coordinates(RedisKeys redisKeys, float longitude, float latitude) {
 		this.longitude = longitude;
 		this.latitude = latitude;
+		this.redisKeys = redisKeys;
 	}
 
-	public Coordinates(double longitude, double latitude, String redisKey) {
-		super();
-		this.longitude = longitude;
-		this.latitude = latitude;
-		this.redisKey = redisKey;
-	}
 
 	public double getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(double longitude) {
+	public void setLongitude(float longitude) {
 		this.longitude = longitude;
 	}
 
-	public double getLatitude() {
+	public float getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(double latitude) {
+	public void setLatitude(float latitude) {
 		this.latitude = latitude;
 	}
 
-	public String getRedisKey() {
-		return redisKey;
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
 	}
 
-	public void setRedisKey(String redisKey) {
-		this.redisKey = redisKey;
+	public RedisKeys getRedisKeys() {
+		return redisKeys;
+	}
+
+	public void setRedisKeys(RedisKeys redisKeys) {
+		this.redisKeys = redisKeys;
 	}
 
 	@Override

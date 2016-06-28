@@ -46,7 +46,7 @@ public class Utils {
 		return round(c);
 	}
 
-	public static double millibarToMmHg(float millibar) {
+	public static float millibarToMmHg(float millibar) {
 		return millibar / Constants.MILLIBAR_VALUE;
 	}
 

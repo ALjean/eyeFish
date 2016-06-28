@@ -4,18 +4,19 @@ package com.jean.config.context;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jean.config.property.DataBaseProperties;
+import com.jean.config.property.RedisProperties;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -28,13 +29,15 @@ import java.util.List;
 @EnableWebMvc
 @ComponentScan({"com.jean.*"})
 @PropertySource("classpath:properties/app.properties")
-@EnableRedisRepositories
 //@EnableScheduling
 public class AppConfig extends WebMvcConfigurerAdapter {
 
 
     @Autowired
     private DataBaseProperties dataBaseProperties;
+
+    @Autowired
+    private RedisProperties redisProperties;
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
@@ -65,22 +68,9 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         converters.add(mappingJackson2HttpMessageConverter());
     }
 
-
     @Bean
-    public JedisConnectionFactory jedisConnectionFactory() {
-        JedisConnectionFactory jedisConFactory = new JedisConnectionFactory();
-        jedisConFactory.setHostName("localhost");
-        jedisConFactory.setPort(6379);
-        jedisConFactory.setUsePool(true);
-        return jedisConFactory;
+    public JedisPool jedisPool(){
+        return new JedisPool(redisProperties.getHost(), redisProperties.getPort());
     }
-
-    @Bean
-    public RedisTemplate redisTemplate(){
-        RedisTemplate<String, Object> template = new RedisTemplate<>();
-        template.setConnectionFactory(jedisConnectionFactory());
-        return template;
-    }
-
 
 }

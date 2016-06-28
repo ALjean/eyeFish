@@ -2,85 +2,85 @@ package com.jean.entity;
 
 public class PondEnvirmoment {
 
-    private Double cloudLevel;
-    private Double rainLevel;
-    private Double envirmomentTemp;
-    private Double waterTemp;
-    private Double pressure;
-    private Double deepLevel;
-    private Double algalevel;
-    private Double windSpeed;
+    private float cloudLevel;
+    private float rainLevel;
+    private float envirmomentTemp;
+    private float waterTemp;
+    private float pressure;
+    private float deepLevel;
+    private float algalevel;
+    private float windSpeed;
 
-    public Double getCloudLevel() {
-	return cloudLevel;
+    public float getCloudLevel() {
+        return cloudLevel;
     }
 
-    public void setCloudLevel(Double cloudLevel) {
-	this.cloudLevel = cloudLevel;
+    public void setCloudLevel(float cloudLevel) {
+        this.cloudLevel = cloudLevel;
     }
 
-    public Double getRainLevel() {
-	return rainLevel;
+    public float getRainLevel() {
+        return rainLevel;
     }
 
-    public void setRainLevel(Double rainLevel) {
-	this.rainLevel = rainLevel;
+    public void setRainLevel(float rainLevel) {
+        this.rainLevel = rainLevel;
     }
 
-    public Double getEnvirmomentTemp() {
-	return envirmomentTemp;
+    public float getEnvirmomentTemp() {
+        return envirmomentTemp;
     }
 
-    public void setEnvirmomentTemp(Double envirmomentTemp) {
-	this.envirmomentTemp = envirmomentTemp;
+    public void setEnvirmomentTemp(float envirmomentTemp) {
+        this.envirmomentTemp = envirmomentTemp;
     }
 
-    public Double getWaterTemp() {
-	return waterTemp;
+    public float getWaterTemp() {
+        return waterTemp;
     }
 
-    public void setWaterTemp(Double waterTemp) {
-	this.waterTemp = waterTemp;
+    public void setWaterTemp(float waterTemp) {
+        this.waterTemp = waterTemp;
     }
 
-    public Double getPressure() {
-	return pressure;
+    public float getPressure() {
+        return pressure;
     }
 
-    public void setPressure(Double pressure) {
-	this.pressure = pressure;
+    public void setPressure(float pressure) {
+        this.pressure = pressure;
     }
 
-    public Double getDeepLevel() {
-	return deepLevel;
+    public float getDeepLevel() {
+        return deepLevel;
     }
 
-    public void setDeepLevel(Double deepLevel) {
-	this.deepLevel = deepLevel;
+    public void setDeepLevel(float deepLevel) {
+        this.deepLevel = deepLevel;
     }
 
-    public Double getAlgalevel() {
-	return algalevel;
+    public float getAlgalevel() {
+        return algalevel;
     }
 
-    public void setAlgalevel(Double algalevel) {
-	this.algalevel = algalevel;
+    public void setAlgalevel(float algalevel) {
+        this.algalevel = algalevel;
     }
 
-    public Double getWindSpeed() {
-	return windSpeed;
+    public float getWindSpeed() {
+        return windSpeed;
     }
 
-    public void setWindSpeed(Double windSpeed) {
-	this.windSpeed = windSpeed;
+    public void setWindSpeed(float windSpeed) {
+        this.windSpeed = windSpeed;
     }
 
     public PondEnvirmoment() {
 	super();
     }
 
-    public PondEnvirmoment(Double cloudLevel, Double rainLevel, Double envirmomentTemp, Double waterTemp, Double pressure, Double deepLevel,
-	    Double algalevel, Double windSpeed) {
+    public PondEnvirmoment(float cloudLevel, float rainLevel, float envirmomentTemp, float waterTemp, float pressure, float deepLevel,
+	    float algalevel, float windSpeed) {
 	super();
 	this.cloudLevel = cloudLevel;
 	this.rainLevel = rainLevel;

@@ -8,11 +8,11 @@ import com.jean.servlet.model.owm.current.CurrentWeatherOWM;
 public interface WeatherService {
 
 	/* weather detail for plase */
-	public CurrentWeatherOWM getCurrentWeatherState(String lat, String lon);
+	CurrentWeatherOWM getCurrentWeatherState(String lat, String lon);
 
 	/* 16h path blat!!! */
-	public <T> T getDayWeatherState(String lat, String lon);
+	<T> T getDayWeatherState(String lat, String lon);
 
 	/* forcast 5/3h */
-	public <T> T getHourWeathers(String lat, String lon);
+	<T> T getHourWeathers(String lat, String lon);
 }
