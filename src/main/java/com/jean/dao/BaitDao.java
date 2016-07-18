@@ -10,9 +10,9 @@ import com.jean.entity.PondEnvirmoment;
 
 public interface BaitDao {
 
-    List<Bait> getBaits(Integer baitId, String baitName, Integer fishId, Date date) throws DaoDfmException;
+    List<Bait> getBaits(Integer baitId, String baitType, String baitName, Integer fishId, Date date) throws DaoDfmException;
 
-    List<Bait> getBaitsByPondParams(Integer baitId, String baitName, Date date, Integer fishId, PondEnvirmoment pondEnv) throws DaoDfmException;
+    List<Bait> getBaitsByPondParams(String baitType, String baitName, Integer fishId, PondEnvirmoment pondEnv) throws DaoDfmException;
 
     Integer saveBait(Bait bait) throws DaoDfmException;
 

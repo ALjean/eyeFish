@@ -10,29 +10,36 @@ import com.jean.dao.BaitDao;
 import com.jean.entity.Bait;
 import com.jean.entity.Fish;
 import com.jean.entity.HourWeather;
+import com.jean.entity.PeeperDTO;
 import com.jean.entity.PondEnvirmoment;
 import com.jean.util.Utils;
 
 @Component
-public class BaitConstructorImpl implements BaitConstructor{
+public class BaitConstructorImpl implements BaitConstructor {
 
 	@Autowired
 	BaitDao baitDao;
-	
+
 	@Override
-	public List<Bait> getBaits(HourWeather hourWeather, Fish fish) throws DaoDfmException {
-		PondEnvirmoment envirmoment = new PondEnvirmoment(
-				hourWeather.getClouds(), 
-				hourWeather.getRainVolume(), 
-				hourWeather.getGeneralTemp(), 
-				0.0f,
-				hourWeather.getPressure(), 
-				0.0f,
-				0.0f,
-				hourWeather.getWindSpeed());
-		
-		return baitDao.getBaitsByPondParams(null, null, new java.sql.Date(Utils.getJavaUtilDate(hourWeather.getDateText()).getTime()), fish.getId(), envirmoment);
-	
+	public List<Bait> getBaits(int fishId, String baitType, HourWeather hourWeather, PeeperDTO peeperDTO)
+			throws DaoDfmException {
+
+		PondEnvirmoment pondEnv = new PondEnvirmoment();
+
+		if (peeperDTO != null) {
+			pondEnv.setAlgalevel(peeperDTO.getAlgaLevel());
+			pondEnv.setDeepLevel(peeperDTO.getDeepLevel());
+			pondEnv.setTemp(peeperDTO.getWaterTemperature());
+		} else {
+			pondEnv.setTemp(hourWeather.getGeneralTemp());
+		}
+		pondEnv.setDate(hourWeather.getDate());
+		pondEnv.setPressure(hourWeather.getPressure());
+		pondEnv.setCloudLevel(hourWeather.getClouds());
+		pondEnv.setRainLevel(hourWeather.getRainVolume());
+		pondEnv.setWindSpeed(hourWeather.getWindSpeed());
+
+		return baitDao.getBaitsByPondParams(baitType, null, fishId, pondEnv);
 	}
 
 }

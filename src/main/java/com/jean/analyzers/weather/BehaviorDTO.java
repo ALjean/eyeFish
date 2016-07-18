@@ -7,20 +7,16 @@ import com.jean.entity.Bait;
 
 public class BehaviorDTO {
 
-	private List<ConrolPointHolder> controlPoints;
+	private List<NibblePoint> NibblePoints;
 
 	private GeneralNibbleState nibbleState;
 
-	public List<ConrolPointHolder> getControlPoints() {
-		return controlPoints;
+	public List<NibblePoint> getControlPoints() {
+		return NibblePoints;
 	}
 
-	public void setControlPoints(List<ConrolPointHolder> controlPoints) {
-		this.controlPoints = controlPoints;
-	}
-
-	public BehaviorDTO() {
-		this.controlPoints = new ArrayList<ConrolPointHolder>();
+	public void setControlPoints(List<NibblePoint> controlPoints) {
+		this.NibblePoints = controlPoints;
 	}
 
 	public GeneralNibbleState getNibbleState() {
@@ -31,9 +27,13 @@ public class BehaviorDTO {
 		this.nibbleState = nibbleState;
 	}
 
+	public BehaviorDTO() {
+		this.NibblePoints = new ArrayList<NibblePoint>();
+	}
+
 	@Override
 	public String toString() {
-		return "BehaviorDTO [controlPoints=" + controlPoints + ", nibbleState=" + nibbleState + "]";
+		return "BehaviorDTO [controlPoints=" + NibblePoints + ", nibbleState=" + nibbleState + "]";
 	}
 
 }

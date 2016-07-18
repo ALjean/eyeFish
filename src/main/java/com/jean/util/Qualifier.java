@@ -4,8 +4,8 @@ public class Qualifier {
 
     private int qualId;
     private String paramName;
-    private double min;
-    private double max;
+    private float min;
+    private float max;
 
     public int getQuaId() {
 	return qualId;
@@ -23,19 +23,19 @@ public class Qualifier {
 	this.paramName = paramName;
     }
 
-    public double getMin() {
+    public float getMin() {
 	return min;
     }
 
-    public void setMin(double min) {
+    public void setMin(float min) {
 	this.min = min;
     }
 
-    public double getMax() {
+    public float getMax() {
 	return max;
     }
 
-    public void setMax(double max) {
+    public void setMax(float max) {
 	this.max = max;
     }
 
@@ -43,7 +43,7 @@ public class Qualifier {
 	super();
     }
 
-    public Qualifier(int qual_id, String paramName, double min, double max) {
+    public Qualifier(int qual_id, String paramName, float min, float max) {
 	super();
 	this.qualId = qual_id;
 	this.paramName = paramName;

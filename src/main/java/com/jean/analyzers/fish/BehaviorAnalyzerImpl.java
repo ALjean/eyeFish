@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import com.jean.DaoDfmException;
 import com.jean.analyzers.bait.BaitConstructor;
 import com.jean.analyzers.weather.BehaviorDTO;
-import com.jean.analyzers.weather.ConrolPointHolder;
+import com.jean.analyzers.weather.NibblePoint;
 import com.jean.analyzers.weather.ConstantsAnalyzer;
 import com.jean.analyzers.weather.GeneralNibbleState;
 import com.jean.analyzers.weather.NibbleChecker;
@@ -33,8 +33,8 @@ public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {
 	@Autowired
 	private MessagesProperties messagesProperties;
 	
-	@Autowired
-	private BaitConstructor baitConstructor;
+	/*@Autowired
+	private BaitConstructor baitConstructor;*/
 
 	private static Map<Double, String> messages = new HashMap<Double, String>();
 
@@ -60,7 +60,7 @@ public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {
 		for (HourWeather hourWeather : hourWeathers) {
 
 			double result = nibbleState.getNibbleLevel();
-			ConrolPointHolder conrolPoint = new ConrolPointHolder();
+			NibblePoint conrolPoint = new NibblePoint();
 
 			for (FishSetting fishSetting : fish.getFishSetting()) {
 				if (ParamNames.ENVIRMOMENT_TEMPERATURE.name().equals(fishSetting.getParamName())
@@ -112,10 +112,10 @@ public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {
 				}
 			}
 
-			conrolPoint.setBaits(baitConstructor.getBaits(hourWeather, fish));
+			/*conrolPoint.setBaits(baitConstructor.getBaits(hourWeather, fish));
 			conrolPoint.setMessage(messages.get(result));
 			conrolPoint.setNibbleLevel(result);
-			conrolPoint.setTime(hourWeather.getDateText().substring(11));
+			conrolPoint.setTime(hourWeather.getDateText().substring(11));*/
 
 			behaviorDTO.getControlPoints().add(conrolPoint);
 		}

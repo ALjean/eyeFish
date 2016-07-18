@@ -6,8 +6,10 @@ import com.jean.DaoDfmException;
 import com.jean.entity.Bait;
 import com.jean.entity.Fish;
 import com.jean.entity.HourWeather;
+import com.jean.entity.PeeperDTO;
+import com.jean.entity.PondEnvirmoment;
 
 public interface BaitConstructor {
 
-	List<Bait> getBaits(HourWeather hourWeather, Fish fish) throws DaoDfmException;
+	List<Bait> getBaits(int fishId, String baitType, HourWeather hourWeather, PeeperDTO peepperDTO) throws DaoDfmException;
 }

@@ -7,83 +7,92 @@ import com.jean.util.BaitSetting;
 
 public class Bait {
 
-    private int baitId;
-    private String baitName;
-    private String description;
-    private List<BaitSetting> baitSetting;
-    private List<Integer> fishId;
-    private List<DateHolder> dates;
+	private int baitId;
+	private String baitName;
+	private String baitType;
+	private String description;
+	private List<BaitSetting> baitSetting;
+	private List<Integer> fishId;
+	private List<DateHolder> dates;
 
-    public int getBaitId() {
-	return baitId;
-    }
+	public int getBaitId() {
+		return baitId;
+	}
 
-    public void setBaitId(int baitId) {
-	this.baitId = baitId;
-    }
+	public void setBaitId(int baitId) {
+		this.baitId = baitId;
+	}
 
-    public String getBaitName() {
-	return baitName;
-    }
+	public String getBaitType() {
+		return baitType;
+	}
 
-    public void setBaitName(String baitName) {
-	this.baitName = baitName;
-    }
+	public void setBaitType(String baitType) {
+		this.baitType = baitType;
+	}
 
-    public String getDescription() {
-	return description;
-    }
+	public String getBaitName() {
+		return baitName;
+	}
 
-    public void setDescription(String description) {
-	this.description = description;
-    }
+	public void setBaitName(String baitName) {
+		this.baitName = baitName;
+	}
 
-    public List<BaitSetting> getBaitSetting() {
-	return baitSetting;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setBaitSetting(List<BaitSetting> baitSetting) {
-	this.baitSetting = baitSetting;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public List<Integer> getFishId() {
-	return fishId;
-    }
+	public List<BaitSetting> getBaitSetting() {
+		return baitSetting;
+	}
 
-    public void setFishId(List<Integer> fishId) {
-	this.fishId = fishId;
-    }
+	public void setBaitSetting(List<BaitSetting> baitSetting) {
+		this.baitSetting = baitSetting;
+	}
 
-    public List<DateHolder> getDates() {
-	return dates;
-    }
+	public List<Integer> getFishId() {
+		return fishId;
+	}
 
-    public void setDates(List<DateHolder> dates) {
-	this.dates = dates;
-    }
+	public void setFishId(List<Integer> fishId) {
+		this.fishId = fishId;
+	}
 
-    public Bait() {
-	this.baitSetting = new ArrayList<BaitSetting>();
-	this.fishId = new ArrayList<Integer>();
-	this.dates = new ArrayList<DateHolder>();
-    }
+	public List<DateHolder> getDates() {
+		return dates;
+	}
 
-    public Bait(int baitId, String baitName, String description, List<BaitSetting> baitSetting, List<Integer> fishId, List<DateHolder> dates) {
-	super();
-	this.baitId = baitId;
-	this.baitName = baitName;
-	this.description = description;
-	this.baitSetting = baitSetting;
-	this.fishId = fishId;
-	this.dates = dates;
-    }
+	public void setDates(List<DateHolder> dates) {
+		this.dates = dates;
+	}
 
-    @Override
-    public String toString() {
-	return "Bait [baitId=" + baitId + ", baitName=" + baitName + ", description=" + description + ", baitSetting=" + baitSetting + ", fishId="
-		+ fishId + ", dates=" + dates + "]";
-    }
+	public Bait() {
+		this.baitSetting = new ArrayList<BaitSetting>();
+		this.fishId = new ArrayList<Integer>();
+		this.dates = new ArrayList<DateHolder>();
+	}
 
-   
+	public Bait(int baitId, String baitName, String baitType, String description, List<BaitSetting> baitSetting, List<Integer> fishId,
+			List<DateHolder> dates) {
+		super();
+		this.baitId = baitId;
+		this.baitName = baitName;
+		this.baitType = baitType;
+		this.description = description;
+		this.baitSetting = baitSetting;
+		this.fishId = fishId;
+		this.dates = dates;
+	}
+
+	@Override
+	public String toString() {
+		return "Bait [baitId=" + baitId + ", baitName=" + baitName + ", description=" + description + ", baitSetting="
+				+ baitSetting + ", fishId=" + fishId + ", dates=" + dates + "]";
+	}
 
 }

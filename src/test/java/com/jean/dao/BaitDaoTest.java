@@ -57,14 +57,15 @@ public class BaitDaoTest extends BaseTest {
 		baitSettings.add(new BaitSetting(0, "Color", "Red", "Use for the best result", qualifiers));
 		baitSettings.add(new BaitSetting(0, "Color", "White", "Use for the best result", qualifiers));
 
-		bait = new Bait(0, "Castmaster", "For real predator!", baitSettings, idFishes, dates);
+		bait = new Bait(0, "WORM!!!!", "Meat", "For real predator!", baitSettings, idFishes, dates);
 
-		pond = new PondEnvirmoment(30.0f, 0.0f, 11.0f, 0.0f, 0.0f, 3.0f, 0.0f, 0.0f);
+		//pond = new PondEnvirmoment(30.0f, 0.0f, 11.0f, 0.0f, 0.0f, 3.0f, 0.0f, 0.0f);
+		pond = new PondEnvirmoment(date, 30.0f, 0, 11.5f, 0, 0, 0, 3.0f);
 	}
 
 	@Test
 	public void getBaitsByPondParamsTest() throws CustomDfmException, DaoDfmException {
-		baits = baitDao.getBaitsByPondParams(null, null, null, 7, pond);
+		baits = baitDao.getBaitsByPondParams(null, null, 7, pond);
 		assertTrue(!baits.isEmpty());
 		System.out.println("\n Get baits by pond params: \n");
 		for (Bait bait : baits) {
@@ -74,7 +75,7 @@ public class BaitDaoTest extends BaseTest {
 
 	@Test
 	public void getBaits() throws DaoDfmException, CustomDfmException {
-		baits = baitDao.getBaits(null, null, null, null);
+		baits = baitDao.getBaits(null, null, null, null, null);
 		assertTrue(baits.size() > 2);
 
 		System.out.println("\n All baits: \n");
@@ -82,9 +83,9 @@ public class BaitDaoTest extends BaseTest {
 			System.out.println(bait);
 		}
 
-		baits = baitDao.getBaits(60, null, null, null);
+		baits = baitDao.getBaits(60, null, null, null, null);
 		assertTrue(baits.size() == 1);
-		baits = baitDao.getBaits(23, " ", 23, null);
+		baits = baitDao.getBaits(23, " ",null,  23, null);
 		assertTrue(baits.isEmpty());
 	}
 
@@ -104,11 +105,11 @@ public class BaitDaoTest extends BaseTest {
 
 	@Test
 	public void updateBaitTest() throws DaoDfmException, CustomDfmException {
-		List<Bait> baits = baitDao.getBaits(67, null, null, null);
+		List<Bait> baits = baitDao.getBaits(67, null, null, null, null);
 		Bait bait = baits.get(0);
 		bait.setBaitName("FAT FAT WORM");
 		baitDao.updateBait(bait);
-		List<Bait> baitsUpdate = baitDao.getBaits(67, null, null, null);
+		List<Bait> baitsUpdate = baitDao.getBaits(67, null, null, null, null);
 		assertTrue(baitsUpdate.get(0).getBaitName().equals("FAT FAT WORM"));
 	}
 

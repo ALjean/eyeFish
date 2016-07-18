@@ -49,7 +49,7 @@ public class BehaviorAnalyzerTest extends BaseTest {
 		List<HourWeather> hourWeathers = new ArrayList<HourWeather>();
 		
 		for (HourWeather hourWeather : generalHourWeather.getHourWeathers()) {
-			if (hourWeather.getDateText().substring(0, 10).trim().equalsIgnoreCase("2016-06-09")) {
+			if (hourWeather.getDateText().substring(0, 10).trim().equalsIgnoreCase("2016-07-18")) {
 				hourWeathers.add(hourWeather);
 			}
 		}
