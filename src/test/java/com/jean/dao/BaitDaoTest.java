@@ -23,6 +23,8 @@ import com.jean.enums.ParamNames;
 import com.jean.util.BaitSetting;
 import com.jean.util.Qualifier;
 
+import jdk.nashorn.internal.ir.annotations.Ignore;
+
 public class BaitDaoTest extends BaseTest {
 
 	private int fishId;
@@ -64,8 +66,9 @@ public class BaitDaoTest extends BaseTest {
 	}
 
 	@Test
+	@Ignore
 	public void getBaitsByPondParamsTest() throws CustomDfmException, DaoDfmException {
-		baits = baitDao.getBaitsByPondParams(null, null, 7, pond);
+		//baits = baitDao.getBaitsByPondParams(null, null, 7, pond);
 		assertTrue(!baits.isEmpty());
 		System.out.println("\n Get baits by pond params: \n");
 		for (Bait bait : baits) {
