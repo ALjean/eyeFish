@@ -1,6 +1,6 @@
 package com.jean.service;
 
-import com.jean.analyzers.weather.BehaviorDTO;
+import com.jean.analyzers.fish.BehaviorDTO;
 
 public interface BehaviorService {
 

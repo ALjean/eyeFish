@@ -3,7 +3,7 @@ package com.jean.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.jean.analyzers.weather.BehaviorDTO;
+import com.jean.analyzers.fish.BehaviorDTO;
 import com.jean.entity.GeneralHourWeather;
 import com.jean.service.BehaviorService;
 import com.jean.servlet.model.Coordinates;

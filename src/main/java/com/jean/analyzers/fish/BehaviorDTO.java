@@ -1,9 +1,10 @@
-package com.jean.analyzers.weather;
+package com.jean.analyzers.fish;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jean.entity.Bait;
+import com.jean.analyzers.weather.GeneralNibbleState;
+import com.jean.analyzers.weather.NibblePoint;
 
 public class BehaviorDTO {
 

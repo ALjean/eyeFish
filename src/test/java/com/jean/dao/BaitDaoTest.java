@@ -75,6 +75,10 @@ public class BaitDaoTest extends BaseTest {
 			System.out.println(bait);
 		}
 	}
+	
+	public void getOptimalBaitsTest(){
+		//baitDao.getOptimalBaits(7, null, null, pondEnv, date)
+	}
 
 	@Test
 	public void getBaits() throws DaoDfmException, CustomDfmException {

@@ -41,8 +41,11 @@ public class BaitCostructorController {
 	public ResponseEntity<?> getOptimalBaits(
 
 			@RequestParam(value = "baitName", required = false) String baitName,
-			@RequestParam(value = "baitType", required = false) String baitType, @RequestParam("fishId") String fishId,
-			@RequestParam("lon") String lon, @RequestParam("lat") String lat, @RequestParam("date") String date) {
+			@RequestParam(value = "baitType", required = false) String baitType, 
+			@RequestParam("fishId") String fishId,
+			@RequestParam("lon") String lon, 
+			@RequestParam("lat") String lat, 
+			@RequestParam("date") String date) {
 
 		OptimalBaitsDTO optimalBaitsDTO = new OptimalBaitsDTO();
 

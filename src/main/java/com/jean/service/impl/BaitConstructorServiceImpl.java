@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jean.DaoDfmException;
+import com.jean.dao.BaitConstructorDao;
 import com.jean.dao.BaitDao;
 import com.jean.entity.Bait;
 import com.jean.entity.HourWeather;
@@ -16,7 +17,7 @@ import com.jean.service.BaitConstructorService;
 public class BaitConstructorServiceImpl implements BaitConstructorService {
 
 	@Autowired
-	private BaitDao baitDao;
+	private BaitConstructorDao baitDao;
 
 	@Override
 	public List<Bait> getOptimalBaits(int fishId, String baitType, String baitName, HourWeather hourWeather,

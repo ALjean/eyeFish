@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.jean.DaoDfmException;
-import com.jean.analyzers.weather.BehaviorDTO;
 import com.jean.analyzers.weather.NibblePoint;
 import com.jean.analyzers.weather.ConstantsAnalyzer;
 import com.jean.analyzers.weather.GeneralNibbleState;

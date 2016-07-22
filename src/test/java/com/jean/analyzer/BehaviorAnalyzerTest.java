@@ -12,7 +12,7 @@ import org.junit.Before;
 
 import com.jean.BaseTest;
 import com.jean.DaoDfmException;
-import com.jean.analyzers.weather.BehaviorDTO;
+import com.jean.analyzers.fish.BehaviorDTO;
 import com.jean.analyzers.weather.GeneralNibbleState;
 import com.jean.entity.DayWeather;
 import com.jean.entity.Fish;
