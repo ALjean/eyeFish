@@ -44,6 +44,7 @@ public class BehaviorServiceImpl implements BehaviorService {
 		}
 		
 		List<HourWeather> hourWeathers = new ArrayList<HourWeather>();
+		
 		for (HourWeather hourWeather : generalHourWeather.getHourWeathers()) {
 			if (hourWeather.getDateText().substring(0, 10).trim().equals(currentDate)) {
 				hourWeathers.add(hourWeather);

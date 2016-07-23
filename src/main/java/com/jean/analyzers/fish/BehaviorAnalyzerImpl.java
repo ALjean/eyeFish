@@ -110,10 +110,15 @@ public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {
 				}
 			}
 
-			/*conrolPoint.setBaits(baitConstructor.getBaits(hourWeather, fish));
+			if(result > 10){
+				result = 10;
+			}else if(result < 0){
+				result = 0;
+			}
+			
 			conrolPoint.setMessage(messages.get(result));
 			conrolPoint.setNibbleLevel(result);
-			conrolPoint.setTime(hourWeather.getDateText().substring(11));*/
+			conrolPoint.setTime(hourWeather.getDateText().substring(11));
 
 			behaviorDTO.getControlPoints().add(conrolPoint);
 		}

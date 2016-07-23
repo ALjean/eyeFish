@@ -27,8 +27,8 @@ public interface ConstantsAnalyzer {
 	double UNSTABILITY_PRESSURE_POINT = 2;
 
 	double LIGHT_RAIN_POINT = -1;
-	double HEAVY_RAIN_POINT = -2;
-	double WIND_POINT = -1;
+	double HEAVY_RAIN_POINT = -5;
+	double WIND_POINT = -3;
 	double DAY_ACTIVITY_POINT = 1;
 	
 	String SPAWNING_MESSAGE = "Is it spawning now!";
