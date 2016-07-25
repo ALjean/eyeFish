@@ -1,4 +1,4 @@
-package com.jean.util;
+package com.jean.entity;
 
 public class Qualifier {
 

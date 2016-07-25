@@ -9,5 +9,5 @@ import com.jean.entity.PeeperDTO;
 
 public interface BaitConstructorService {
 
-	public List<Bait> getOptimalBaits(int fishId, String baitType, String baitName, HourWeather hourWeather, boolean isPeeperConected) throws DaoDfmException;
+	public List<Bait> getOptimalBaits(int fishId, String baitType, String baitName, HourWeather hourWeather, float deepLevel, float algaLevel) throws DaoDfmException;
 }

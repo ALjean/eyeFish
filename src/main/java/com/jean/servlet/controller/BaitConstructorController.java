@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,7 +29,7 @@ import com.jean.util.RedisCacheStore;
 
 @RestController
 @RequestMapping("/service")
-public class BaitCostructorController {
+public class BaitConstructorController {
 
 	@Autowired
 	private BaitConstructorService baitService;
@@ -37,27 +38,24 @@ public class BaitCostructorController {
 	@Autowired
 	private RedisCacheStore casheStore;
 
-	@RequestMapping(value = "optimal/baits", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "optimal/baits/{fishId}/{date}", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?> getOptimalBaits(
 
-			@RequestParam(value = "baitName", required = false) String baitName,
-			@RequestParam(value = "baitType", required = false) String baitType, 
-			@RequestParam("fishId") String fishId,
+			@PathVariable("date") String date,
+			@PathVariable("fishId") int fishId,
 			@RequestParam("lon") String lon, 
-			@RequestParam("lat") String lat, 
-			@RequestParam("date") String date) {
+			@RequestParam("lat") String lat,
+			@RequestParam("deepLevel") float deeplevel,
+			@RequestParam("algaLevel") float algaLevel,
+			@RequestParam(value = "baitName", required = false) String baitName,
+			@RequestParam(value = "baitType", required = false) String baitType 
+			){
 
 		OptimalBaitsDTO optimalBaitsDTO = new OptimalBaitsDTO();
 
 		try {
-			GeneralHourWeather generalHourWeather = casheStore.findHourWeather(
-					new Coordinates(RedisKeys.HourWeather, Float.parseFloat(lon), Float.parseFloat(lat)));
-			if (generalHourWeather == null) {
-				GeneralWeatherStateOWM<HoursWeatherDataOWM> hourWeatherOWM = weatherService.getHourWeathers(lat, lon);
-				generalHourWeather = MapperOWM.buildModelHourWeather(hourWeatherOWM);
-				casheStore.setWeather(generalHourWeather);
-			}
-
+			GeneralHourWeather generalHourWeather = casheStore.getGeneralHourWeather(lon, lat);
+			
 			List<HourWeather> hourWeathers = new ArrayList<HourWeather>();
 			for (HourWeather hourWeather : generalHourWeather.getHourWeathers()) {
 				if (hourWeather.getDateText().substring(0, 10).trim().equals(date)) {
@@ -67,7 +65,7 @@ public class BaitCostructorController {
 
 			for (HourWeather hourWeather : hourWeathers) {
 				optimalBaitsDTO.getOptimalBaits().put(hourWeather.getDateText().substring(11),
-						baitService.getOptimalBaits(Integer.parseInt(fishId), baitType, baitName, hourWeather, false));
+						baitService.getOptimalBaits(fishId, baitType, baitName, hourWeather, deeplevel, algaLevel));
 			}
 
 		} catch (NumberFormatException e) {

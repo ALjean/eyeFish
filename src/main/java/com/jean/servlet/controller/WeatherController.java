@@ -3,6 +3,8 @@ package com.jean.servlet.controller;
 import com.jean.CustomDfmException;
 import com.jean.enums.RedisKeys;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,31 +34,31 @@ public class WeatherController {
 	private RedisCacheStore casheStore;
 
 	@RequestMapping(value = "/forecast", method = RequestMethod.GET, produces = "application/json")
-	public GeneralHourWeather getHourWeathers(@RequestParam("lat") String lat, @RequestParam("lon") String lon)
-			throws CustomDfmException {
+	public ResponseEntity<?> getHourWeathers(@RequestParam("lat") String lat, @RequestParam("lon") String lon) {
 
-		GeneralHourWeather hourWeather = casheStore
-				.findHourWeather(new Coordinates(RedisKeys.HourWeather, Float.parseFloat(lon), Float.parseFloat(lat)));
-		if (hourWeather == null) {
-			GeneralWeatherStateOWM<HoursWeatherDataOWM> hourWeatherOWM = weatherService.getHourWeathers(lat, lon);
-			hourWeather = MapperOWM.buildModelHourWeather(hourWeatherOWM);
-			casheStore.setWeather(hourWeather);
+		try {
+			return new ResponseEntity<GeneralHourWeather>(casheStore.getGeneralHourWeather(lon, lat), HttpStatus.OK);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);			
+		} catch (CustomDfmException e) {
+			e.printStackTrace();
+			return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
 		}
-		return hourWeather;
 	}
 
 	@RequestMapping(value = "/daily", method = RequestMethod.GET, produces = "application/json")
-	public GeneralDayWeather getDayWeather(@RequestParam("lat") String lat, @RequestParam("lon") String lon)
-			throws CustomDfmException {
+	public ResponseEntity<?> getDayWeather(@RequestParam("lat") String lat, @RequestParam("lon") String lon) {
 
-		GeneralDayWeather dayWeather = casheStore
-				.findDayWeather(new Coordinates(RedisKeys.DayWeather, Float.parseFloat(lon), Float.parseFloat(lat)));
-		if (dayWeather == null) {
-			GeneralWeatherStateOWM<DayWeatherDataOWM> dayWeatherOWM = weatherService.getDayWeatherState(lat, lon);
-			dayWeather = MapperOWM.buildModelDayWeather(dayWeatherOWM);
-			casheStore.setWeather(dayWeather);
+		try {
+			return new ResponseEntity<GeneralDayWeather>(casheStore.getGeneralDayWeather(lon, lat), HttpStatus.OK);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);			
+		} catch (CustomDfmException e) {
+			e.printStackTrace();
+			return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
 		}
-		return dayWeather;
 	}
 
 	// todo

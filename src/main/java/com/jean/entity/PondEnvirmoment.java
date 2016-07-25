@@ -57,8 +57,8 @@ public class PondEnvirmoment {
 		return algalevel;
 	}
 
-	public void setAlgalevel(float algalevel) {
-		this.algalevel = algalevel;
+	public void setAlgalevel(float algaLevel) {
+		this.algalevel = algaLevel;
 	}
 
 	public float getWindSpeed() {

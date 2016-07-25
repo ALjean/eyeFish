@@ -3,14 +3,14 @@ package com.jean.analyzers.weather;
 /**
  * Created by jean on 07.12.15.
  */
-public interface ConstantsAnalyzer {
+public interface BehaviorConstants {
 
 	double CRITICAL_HIGH_TEMP = 28.5;
 
 	double MIN_PRESSURE_CHANGES = 1;
 	double MAX_PRESSURE_CHANGES = 2.5;
 
-	double CRITICAL_WIND_SPEED = 7.9;
+	double CRITICAL_WIND_SPEED = 6;
 	double MAX_WIND_SPEED = 3.3;
 
 	double HIGH_PRESSURE_LEVEL = 759.0;

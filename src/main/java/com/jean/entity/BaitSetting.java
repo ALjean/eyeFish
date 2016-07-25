@@ -1,9 +1,7 @@
-package com.jean.util;
+package com.jean.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.jean.entity.Bait;
 
 public class BaitSetting {
 

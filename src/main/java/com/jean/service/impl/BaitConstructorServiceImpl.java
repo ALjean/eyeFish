@@ -20,8 +20,7 @@ public class BaitConstructorServiceImpl implements BaitConstructorService {
 	private BaitConstructorDao baitDao;
 
 	@Override
-	public List<Bait> getOptimalBaits(int fishId, String baitType, String baitName, HourWeather hourWeather,
-			boolean isPeeperConnected) throws DaoDfmException {
+	public List<Bait> getOptimalBaits(int fishId, String baitType, String baitName, HourWeather hourWeather, float deepLevel, float algaLevel) throws DaoDfmException {
 
 		PondEnvirmoment pondEnv = new PondEnvirmoment();
 
@@ -31,7 +30,9 @@ public class BaitConstructorServiceImpl implements BaitConstructorService {
 		pondEnv.setCloudLevel(hourWeather.getClouds());
 		pondEnv.setRainLevel(hourWeather.getRainVolume());
 		pondEnv.setWindSpeed(hourWeather.getWindSpeed());
-
+		pondEnv.setDeepLevel(deepLevel);
+		pondEnv.setAlgalevel(algaLevel);
+		
 		return baitDao.getOptimalBaits(fishId, baitType, baitName, pondEnv);
 	}
 

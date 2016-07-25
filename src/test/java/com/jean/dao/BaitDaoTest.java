@@ -16,12 +16,11 @@ import org.junit.Test;
 import com.jean.BaseTest;
 import com.jean.CustomDfmException;
 import com.jean.entity.Bait;
-
+import com.jean.entity.BaitSetting;
 import com.jean.entity.DateHolder;
 import com.jean.entity.PondEnvirmoment;
+import com.jean.entity.Qualifier;
 import com.jean.enums.ParamNames;
-import com.jean.util.BaitSetting;
-import com.jean.util.Qualifier;
 
 import jdk.nashorn.internal.ir.annotations.Ignore;
 

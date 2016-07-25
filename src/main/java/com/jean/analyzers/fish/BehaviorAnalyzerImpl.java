@@ -1,5 +1,6 @@
 package com.jean.analyzers.fish;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.jean.DaoDfmException;
 import com.jean.analyzers.weather.NibblePoint;
-import com.jean.analyzers.weather.ConstantsAnalyzer;
+import com.jean.analyzers.weather.BehaviorConstants;
 import com.jean.analyzers.weather.GeneralNibbleState;
 import com.jean.analyzers.weather.NibbleChecker;
 import com.jean.config.property.MessagesProperties;
@@ -30,9 +31,10 @@ public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {
 
 	@Autowired
 	private MessagesProperties messagesProperties;
-	
-	/*@Autowired
-	private BaitConstructor baitConstructor;*/
+
+	/*
+	 * @Autowired private BaitConstructor baitConstructor;
+	 */
 
 	private static Map<Double, String> messages = new HashMap<Double, String>();
 
@@ -40,7 +42,13 @@ public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {
 	public BehaviorDTO getFishBehavior(List<HourWeather> hourWeathers, Fish fish) throws DaoDfmException {
 
 		BehaviorDTO behaviorDTO = new BehaviorDTO();
-		GeneralNibbleState nibbleState = getGeneralNibble(hourWeathers);
+
+		List<Float> press = new ArrayList<Float>();
+		for (HourWeather hourWeather : hourWeathers) {
+			press.add(hourWeather.getPressure());
+		}
+
+		GeneralNibbleState nibbleState = nibbleChecker.checkPressure(press);
 		behaviorDTO.setNibbleState(nibbleState);
 
 		messages.put(-10.0, messagesProperties.getSpawning());
@@ -57,67 +65,66 @@ public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {
 
 		for (HourWeather hourWeather : hourWeathers) {
 
-			double result = nibbleState.getNibbleLevel();
+			double generalResult = nibbleState.getNibbleLevel();
+			double fishSettingResult = 0;
+			double dayActivityResult = 0;
+			double rainResult = 0;
+			double windResult = 0;
+			double periodResult = 0;
+
+			List<Double> results = new ArrayList<Double>();
+
 			NibblePoint conrolPoint = new NibblePoint();
 
 			for (FishSetting fishSetting : fish.getFishSetting()) {
 				if (ParamNames.ENVIRMOMENT_TEMPERATURE.name().equals(fishSetting.getParamName())
 						&& (hourWeather.getGeneralTemp() > fishSetting.getMinValue()
 								&& hourWeather.getGeneralTemp() < fishSetting.getMaxValue())) {
-					result += fishSetting.getNibbleLevel();
-					break;
+					results.add(fishSetting.getNibbleLevel());
 				}
 			}
 
-			for (Map.Entry<String, Double> entry : fish.getPressureStates().entrySet()) {
-				if (entry.getKey().equals(nibbleState.getMessage())) {
-					result += entry.getValue();
-				}
-			}
+			/*
+			 * for (Map.Entry<String, Double> entry :
+			 * fish.getPressureStates().entrySet()) { if
+			 * (entry.getKey().equals(nibbleState.getMessage())) { generalResult
+			 * += entry.getValue(); } }
+			 */
 
 			String time = hourWeather.getDateText().substring(11);
 
 			for (DayActivity dayActivity : fish.getDaysActivity()) {
 				if (dayActivity.getActivityName().equals(DaysActivity.MORNING.name())
 						&& (time.equals("6:00:00") || time.equals("9:00:00"))) {
-					result += ConstantsAnalyzer.DAY_ACTIVITY_POINT;
+					results.add(BehaviorConstants.DAY_ACTIVITY_POINT);
 				}
 				if (dayActivity.getActivityName().equals(DaysActivity.DAY.name())
 						&& (time.equals("9:00:00") || time.equals("12:00:00") || time.equals("15:00:00"))) {
-					result += ConstantsAnalyzer.DAY_ACTIVITY_POINT;
+					results.add(BehaviorConstants.DAY_ACTIVITY_POINT);
 				}
 				if (dayActivity.getActivityName().equals(DaysActivity.EVENING.name())
 						&& (time.equals("18:00:00") || time.equals("21:00:00"))) {
-					result += ConstantsAnalyzer.DAY_ACTIVITY_POINT;
+					results.add(BehaviorConstants.DAY_ACTIVITY_POINT);
 				}
 				if (dayActivity.getActivityName().equals(DaysActivity.NIGHT.name())
 						&& (time.equals("00:00:00") || time.equals("3:00:00"))) {
-					result += ConstantsAnalyzer.DAY_ACTIVITY_POINT;
+					results.add(BehaviorConstants.DAY_ACTIVITY_POINT);
 				}
 			}
 
-			result += nibbleChecker.isRain(hourWeather.getRainVolume());
-			result += nibbleChecker.isWind(hourWeather.getWindDeg(), hourWeather.getWindSpeed());
+			results.add(nibbleChecker.isRain(hourWeather.getRainVolume()));
+
+			results.add(nibbleChecker.isWind(hourWeather.getWindDeg(), hourWeather.getWindSpeed()));
 
 			for (NibblePeriod nibblePeriod : fish.getNibbles()) {
 				if (Utils.getJavaUtilDate(hourWeather.getDateText()).after(nibblePeriod.getStartPeriod())
 						&& Utils.getJavaUtilDate(hourWeather.getDateText()).before(nibblePeriod.getEndPeriod())) {
-					if (nibblePeriod.getNibbleLevel() == -10) {
-						result = 0;
-					} else {
-						result += nibblePeriod.getNibbleLevel();
-					}
+					results.add(nibblePeriod.getNibbleLevel());
 				}
 			}
 
-			if(result > 10){
-				result = 10;
-			}else if(result < 0){
-				result = 0;
-			}
-			
-			conrolPoint.setMessage(messages.get(result));
-			conrolPoint.setNibbleLevel(result);
+			conrolPoint.setMessage(messages.get(generalResult));
+			conrolPoint.setNibbleLevel(generalResult);
 			conrolPoint.setTime(hourWeather.getDateText().substring(11));
 
 			behaviorDTO.getControlPoints().add(conrolPoint);
@@ -126,20 +133,21 @@ public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {
 
 	}
 
-	private GeneralNibbleState getGeneralNibble(List<HourWeather> hourWeathers) {
+	private double prepareResult(List<Double> results, double generalResult) {
 
-		GeneralNibbleState nibbleState = null;
-		double[] press = new double[hourWeathers.size() - 1];
+		double prepareResult = generalResult;
 
-		for (int i = 0; i < hourWeathers.size() - 1; i++) {
-			HourWeather hourWeather = hourWeathers.get(i);
-			press[i] = hourWeather.getPressure();
+		for (Double result : results) {
+			if (prepareResult >= 10) {
+				if (result < 0 && result != -10) {
+					prepareResult += result;
+				}
+			}else{
+				prepareResult += result;
+			}
 		}
-		nibbleState = nibbleChecker.checkPressure(press);
-		return nibbleState;
+		return 0;
+
 	}
 
-	private double perfomanceToCustomer(double result) {
-		return result + (5 * Math.random());
-	}
 }

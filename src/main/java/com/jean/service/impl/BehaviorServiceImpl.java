@@ -32,16 +32,10 @@ public class BehaviorServiceImpl implements BehaviorService {
 	private FishDao fishDao;
 
 	@Override
-	public BehaviorDTO getFishBehavior(String currentDate, int fishId, float lon, float lat)
+	public BehaviorDTO getFishBehavior(String currentDate, int fishId, GeneralHourWeather generalHourWeather)
 			throws DaoDfmException, CustomDfmException {
 
 		Fish fish = fishDao.getFishes(fishId, null, null, null, null).get(0);
-
-		GeneralHourWeather generalHourWeather = casheStore
-				.findHourWeather(new Coordinates(RedisKeys.HourWeather, lon, lat));
-		if(generalHourWeather == null){
-			throw new CustomDfmException("GeneralHourWeather doesn't exist in cache store");
-		}
 		
 		List<HourWeather> hourWeathers = new ArrayList<HourWeather>();
 		

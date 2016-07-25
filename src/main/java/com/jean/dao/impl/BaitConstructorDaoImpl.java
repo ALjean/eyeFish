@@ -15,11 +15,11 @@ import org.springframework.util.StringUtils;
 import com.jean.DaoDfmException;
 import com.jean.dao.BaitConstructorDao;
 import com.jean.entity.Bait;
+import com.jean.entity.BaitSetting;
 import com.jean.entity.PondEnvirmoment;
+import com.jean.entity.Qualifier;
 import com.jean.enums.ParamNames;
-import com.jean.util.BaitSetting;
 import com.jean.util.Log;
-import com.jean.util.Qualifier;
 
 @Repository
 public class BaitConstructorDaoImpl extends BaseDaoImpl implements BaitConstructorDao {
@@ -35,7 +35,7 @@ public class BaitConstructorDaoImpl extends BaseDaoImpl implements BaitConstruct
 			throw new DaoDfmException("List baitId is empty");
 		}
 		for (Integer id : baitsId) {
-			baits.addAll(getBaitsByPondParams(pondEnv, getParameterNames(id, false), id));
+			baits.addAll(getBaitsByPondParams(pondEnv, getParameterNames(id), id));
 		}
 
 		return baits;
@@ -186,7 +186,7 @@ public class BaitConstructorDaoImpl extends BaseDaoImpl implements BaitConstruct
 		return baitsId;
 	}
 
-	private List<String> getParameterNames(int baitId, boolean isPeeperConnected) throws DaoDfmException {
+	private List<String> getParameterNames(int baitId) throws DaoDfmException {
 
 		String sql =
 
@@ -209,14 +209,7 @@ public class BaitConstructorDaoImpl extends BaseDaoImpl implements BaitConstruct
 			rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				String name = rs.getString("q.param_name");
-				if (!isPeeperConnected) {
-					if (!name.equals(ParamNames.DEEP_LEVEL.name()) && !name.equals(ParamNames.ALGA_LEVEL.name())) {
-						names.add(name);
-					} 
-				}else{
-					names.add(name);
-				}
+				names.add(rs.getString("q.param_name"));
 			}
 		} catch (SQLException e) {
 			Log.daoException("getParameterNames", e.getMessage());
