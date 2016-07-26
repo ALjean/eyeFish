@@ -6,6 +6,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class MessagesProperties {
 
+	@Value("${behavior.message.crash}")
+	private String crash;
+
 	@Value("${behavior.message.spawning}")
 	private String spawning;
 
@@ -38,6 +41,14 @@ public class MessagesProperties {
 
 	@Value("${behavior.message.perfect}")
 	private String perfect;
+
+	public String getCrash() {
+		return crash;
+	}
+
+	public void setCrash(String crash) {
+		this.crash = crash;
+	}
 
 	public String getSpawning() {
 		return spawning;

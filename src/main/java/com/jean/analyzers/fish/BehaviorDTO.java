@@ -8,6 +8,10 @@ import com.jean.analyzers.weather.NibblePoint;
 
 public class BehaviorDTO {
 
+	private int fishId;
+
+	private String fishName;
+
 	private List<NibblePoint> NibblePoints;
 
 	private GeneralNibbleState nibbleState;
@@ -32,9 +36,26 @@ public class BehaviorDTO {
 		this.NibblePoints = new ArrayList<NibblePoint>();
 	}
 
+	public int getFishId() {
+		return fishId;
+	}
+
+	public void setFishId(int fishId) {
+		this.fishId = fishId;
+	}
+
+	public String getFishName() {
+		return fishName;
+	}
+
+	public void setFishName(String fishName) {
+		this.fishName = fishName;
+	}
+
 	@Override
 	public String toString() {
-		return "BehaviorDTO [controlPoints=" + NibblePoints + ", nibbleState=" + nibbleState + "]";
+		return "BehaviorDTO [fishId=" + fishId + ", fishName=" + fishName + ", NibblePoints=" + NibblePoints
+				+ ", nibbleState=" + nibbleState + "]";
 	}
 
 }

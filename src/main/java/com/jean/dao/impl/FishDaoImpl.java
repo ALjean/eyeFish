@@ -117,12 +117,20 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 
 				"SELECT DISTINCT "
 						+ "f.fish_id, f.fish_name, f.description, f.fish_type, f.is_stability, f.is_high, f.is_low, f.is_rise, f.is_down, d.fish_id, d.activity_id, d.activity_name,l.fish_id, l.area_id, l.area_name, fs.fish_id,  fs.setting_id, fs.param_name, fs.min_range, fs.max_range, fs.nibble_level, n.period_id, n.fish_id, n.start_period, n.end_period, n.nibble_level "
-						+ "FROM " + "fishes AS f " + "INNER JOIN " + "fish_settings AS fs ON f.fish_id = fs.fish_id "
-						+ "INNER JOIN " + "days_activity AS d ON d.fish_id = f.fish_id " + "INNER JOIN "
-						+ "living_areas AS l ON l.fish_id = f.fish_id " + "INNER JOIN "
-						+ "nibble_periods AS n ON n.fish_id = f.fish_id " + "WHERE 1=1 "
-						+ "AND (f.fish_id = ? OR ? IS NULL) " + "AND (f.fish_name LIKE ? OR ? IS NULL) "
-						+ "AND (f.fish_type LIKE ? OR ? IS NULL) " + "AND (d.activity_name LIKE ? OR ? IS NULL) "
+						+ "FROM " 
+						+ "fishes AS f " 
+						+ "INNER JOIN " 
+						+ "fish_settings AS fs ON f.fish_id = fs.fish_id "
+						+ "INNER JOIN " 
+						+ "days_activity AS d ON d.fish_id = f.fish_id " 
+						+ "INNER JOIN "
+						+ "living_areas AS l ON l.fish_id = f.fish_id " 
+						+ "INNER JOIN "
+						+ "nibble_periods AS n ON n.fish_id = f.fish_id " 
+						+ "AND (f.fish_id = ? OR ? IS NULL) " 
+						+ "AND (f.fish_name LIKE ? OR ? IS NULL) "
+						+ "AND (f.fish_type LIKE ? OR ? IS NULL) " 
+						+ "AND (d.activity_name LIKE ? OR ? IS NULL) "
 						+ "AND (l.area_name LIKE ? OR ? IS NULL) ";
 
 		List<Fish> fishes = new ArrayList<>();

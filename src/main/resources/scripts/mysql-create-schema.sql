@@ -335,7 +335,7 @@ CREATE TABLE `living_areas` (
   PRIMARY KEY (`area_id`),
   KEY `FK_living_areas_fishes` (`fish_id`),
   CONSTRAINT `FK_living_areas_fishes` FOREIGN KEY (`fish_id`) REFERENCES `fishes` (`fish_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -344,7 +344,7 @@ CREATE TABLE `living_areas` (
 
 LOCK TABLES `living_areas` WRITE;
 /*!40000 ALTER TABLE `living_areas` DISABLE KEYS */;
-INSERT INTO `living_areas` VALUES (3,7,'BOTTOM'),(30,30,'MIDDLE'),(31,30,'TOP'),(52,40,'MIDDLE'),(53,40,'TOP'),(58,43,'MIDDLE'),(59,43,'TOP');
+INSERT INTO `living_areas` VALUES (3,7,'BOTTOM'),(30,30,'MIDDLE'),(31,30,'TOP'),(52,40,'MIDDLE'),(53,40,'TOP'),(58,43,'MIDDLE'),(59,43,'TOP'),(60,13,'BOTTOM');
 /*!40000 ALTER TABLE `living_areas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -389,7 +389,7 @@ CREATE TABLE `nibble_periods` (
   PRIMARY KEY (`period_id`),
   KEY `fish_id` (`fish_id`),
   CONSTRAINT `nibble_periods_ibfk_1` FOREIGN KEY (`fish_id`) REFERENCES `fishes` (`fish_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -398,7 +398,7 @@ CREATE TABLE `nibble_periods` (
 
 LOCK TABLES `nibble_periods` WRITE;
 /*!40000 ALTER TABLE `nibble_periods` DISABLE KEYS */;
-INSERT INTO `nibble_periods` VALUES (13,7,'2016-03-04','2016-05-04',-10),(14,7,'2016-05-05','2016-07-27',-1),(15,7,'2016-07-02','2016-10-30',0),(16,7,'2016-11-01','2016-12-31',-10),(53,30,'2016-05-23','2016-06-01',0),(54,30,'2016-06-02','2016-09-01',53.45),(55,30,'2016-09-02','2016-12-31',89.32),(83,40,'2016-05-23','2016-06-01',0),(84,40,'2016-06-02','2016-09-01',53.45),(85,40,'2016-09-02','2016-12-31',89.32);
+INSERT INTO `nibble_periods` VALUES (13,7,'2016-03-04','2016-05-04',-10),(14,7,'2016-05-05','2016-07-27',-1),(15,7,'2016-07-02','2016-10-30',0),(16,7,'2016-11-01','2016-12-31',-10),(53,30,'2016-05-23','2016-06-01',0),(54,30,'2016-06-02','2016-09-01',1),(55,30,'2016-09-02','2016-12-31',2),(83,40,'2016-05-23','2016-06-01',0),(84,40,'2016-06-02','2016-09-01',53.45),(85,40,'2016-09-02','2016-12-31',89.32),(86,13,'2016-09-26','2016-07-26',-10),(87,13,'2016-06-26','2016-08-26',-1);
 /*!40000 ALTER TABLE `nibble_periods` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -576,4 +576,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-23 14:07:57
+-- Dump completed on 2016-07-26 15:12:39

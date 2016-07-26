@@ -19,6 +19,9 @@ public interface BehaviorConstants {
 	double MAX_RAIN_VOLUME = 3.3;
 	double MIN_RAIN_VOLUME = 0.3;
 
+	double CRASH_NIBBLE_POINT = -15;
+	double SPAWNING_POINT = -10;
+	double COUNT_OF_POINT = 10;
 	double HIGH_PRESSURE_POINT = 8;
 	double LOW_PRESSURE_POINT = 6;
 	double RISE_PRESSURE_POINT = 6;

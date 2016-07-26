@@ -14,16 +14,10 @@ import com.jean.dao.FishDao;
 import com.jean.entity.Fish;
 import com.jean.entity.GeneralHourWeather;
 import com.jean.entity.HourWeather;
-import com.jean.enums.RedisKeys;
 import com.jean.service.BehaviorService;
-import com.jean.servlet.model.Coordinates;
-import com.jean.util.RedisCacheStore;
 
 @Service
 public class BehaviorServiceImpl implements BehaviorService {
-
-	@Autowired
-	private RedisCacheStore casheStore;
 
 	@Autowired
 	private BehaviorAnalyzer behaviorAnalyzer;
@@ -34,8 +28,14 @@ public class BehaviorServiceImpl implements BehaviorService {
 	@Override
 	public BehaviorDTO getFishBehavior(String currentDate, int fishId, GeneralHourWeather generalHourWeather)
 			throws DaoDfmException, CustomDfmException {
+		
+		List<Fish> fishes = fishDao.getFishes(fishId, null, null, null, null);
+		
+		if(fishes.isEmpty()){
+			throw new CustomDfmException("Fish didn't found");
+		}
 
-		Fish fish = fishDao.getFishes(fishId, null, null, null, null).get(0);
+		Fish fish = fishes.get(0);
 		
 		List<HourWeather> hourWeathers = new ArrayList<HourWeather>();
 		

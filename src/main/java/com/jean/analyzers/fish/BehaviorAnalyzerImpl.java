@@ -51,6 +51,7 @@ public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {
 		GeneralNibbleState nibbleState = nibbleChecker.checkPressure(press);
 		behaviorDTO.setNibbleState(nibbleState);
 
+		messages.put(-15.0, messagesProperties.getSpawning());
 		messages.put(-10.0, messagesProperties.getSpawning());
 		messages.put(1.0, messagesProperties.getToolow());
 		messages.put(2.0, messagesProperties.getVeryLow());
@@ -66,11 +67,6 @@ public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {
 		for (HourWeather hourWeather : hourWeathers) {
 
 			double generalResult = nibbleState.getNibbleLevel();
-			double fishSettingResult = 0;
-			double dayActivityResult = 0;
-			double rainResult = 0;
-			double windResult = 0;
-			double periodResult = 0;
 
 			List<Double> results = new ArrayList<Double>();
 
@@ -123,31 +119,45 @@ public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {
 				}
 			}
 
-			conrolPoint.setMessage(messages.get(generalResult));
-			conrolPoint.setNibbleLevel(generalResult);
+			double prepareResult = getPrepareResult(results, generalResult);
+			
+			conrolPoint.setMessage(messages.get(prepareResult));
+			conrolPoint.setNibbleLevel(prepareResult);
 			conrolPoint.setTime(hourWeather.getDateText().substring(11));
 
 			behaviorDTO.getControlPoints().add(conrolPoint);
+			behaviorDTO.setFishId(fish.getId());
+			behaviorDTO.setFishName(fish.getName());
 		}
 		return behaviorDTO;
 
 	}
 
-	private double prepareResult(List<Double> results, double generalResult) {
+	private static double getPrepareResult(List<Double> results, double generalResult) {
 
 		double prepareResult = generalResult;
 
 		for (Double result : results) {
-			if (prepareResult >= 10) {
-				if (result < 0 && result != -10) {
+			if (result == BehaviorConstants.SPAWNING_POINT) {
+				prepareResult = result;
+				break;
+			}
+			if (prepareResult < 0) {
+				prepareResult = BehaviorConstants.CRASH_NIBBLE_POINT;
+				break;
+			}
+			if (prepareResult >= BehaviorConstants.COUNT_OF_POINT) {
+				if (result < 0) {
 					prepareResult += result;
 				}
-			}else{
+			} else {
 				prepareResult += result;
+				if (prepareResult > BehaviorConstants.COUNT_OF_POINT) {
+					prepareResult = BehaviorConstants.COUNT_OF_POINT;
+				}
 			}
 		}
-		return 0;
-
+		return prepareResult;
 	}
 
 }
