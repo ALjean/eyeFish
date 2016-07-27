@@ -32,7 +32,7 @@ public class FishController {
 			}
 		} catch (DaoDfmException e) {
 			e.printStackTrace();
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<List<Fish>>(fishes, HttpStatus.OK);
 	}
