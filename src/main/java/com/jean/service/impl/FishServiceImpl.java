@@ -16,30 +16,41 @@ public class FishServiceImpl implements FishService {
     @Autowired
     private FishDao fishDao;
 
+	@Override
+	public List<Fish> getFishes(Integer fishId, String fishName, String fishType, String dayActivity, String livingArea)
+			throws DaoDfmException {
+		
+		return fishDao.getFishes(fishId, fishName, fishType, dayActivity, livingArea);
+	}
 
-//    @Override
-//    public Fish get(int id) throws CustomDfmException, DaoDfmException {
-//        return fishDao.get(id);
-//    }
+	@Override
+	public Integer save(Fish fish) throws CustomDfmException, DaoDfmException {
+		
+		if(fish == null){
+			throw new CustomDfmException("Fish must be not null");
+		}
+		
+		int result = fishDao.saveFish(fish);
+		
+		if(result == 0){
+			throw new DaoDfmException("Fish didn't save.");
+		}else{
+			return result;
+		}
+		
+	}
 
-    @Override
-    public boolean create(Fish fish) throws CustomDfmException, DaoDfmException {
-        fishDao.saveFish(fish);
-        return false;
-    }
+	@Override
+	public void update(Fish fish) throws DaoDfmException {
+		// TODO Auto-generated method stub
+		
+	}
 
-    @Override
-    public void update(Fish fish) throws DaoDfmException {
-            fishDao.updateFish(fish);
-    }
+	@Override
+	public void delete(List<Integer> ids) throws CustomDfmException, DaoDfmException {
+		// TODO Auto-generated method stub
+		
+	}
 
-    @Override
-    public void remove(List<Integer> ids) throws CustomDfmException, DaoDfmException {
-        fishDao.deleteFish(ids);
-    }
 
-    @Override
-    public List<Fish> getAll() {
-        return null;
-    }
 }

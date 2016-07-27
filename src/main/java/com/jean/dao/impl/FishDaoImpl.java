@@ -133,7 +133,7 @@ public class FishDaoImpl extends BaseDaoImpl implements FishDao {
 						+ "AND (d.activity_name LIKE ? OR ? IS NULL) "
 						+ "AND (l.area_name LIKE ? OR ? IS NULL) ";
 
-		List<Fish> fishes = new ArrayList<>();
+		List<Fish> fishes = new ArrayList<Fish>();
 
 		Connection connection = null;
 		ResultSet rs = null;
