@@ -61,7 +61,7 @@ public class BaitDaoTest extends BaseTest {
 		bait = new Bait(0, "WORM!!!!", "Meat", "For real predator!", baitSettings, idFishes, dates);
 
 		//pond = new PondEnvirmoment(30.0f, 0.0f, 11.0f, 0.0f, 0.0f, 3.0f, 0.0f, 0.0f);
-		pond = new PondEnvirmoment(date, 30.0f, 0, 11.5f, 0, 0, 0, 3.0f);
+		//pond = new PondEnvirmoment(date, 30.0f, 0, 11.5f, 0, 0, 0, 3.0f);
 	}
 
 	@Test

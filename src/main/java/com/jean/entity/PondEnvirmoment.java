@@ -5,67 +5,67 @@ import java.sql.Date;
 public class PondEnvirmoment {
 
 	private Date date;
-	private float cloudLevel;
-	private float rainLevel;
-	private float temp;
-	private float pressure;
-	private float deepLevel;
-	private float algalevel;
-	private float windSpeed;
+	private Float cloudLevel;
+	private Float rainLevel;
+	private Float temp;
+	private Float pressure;
+	private Float deepLevel;
+	private Float algalevel;
+	private Float windSpeed;
 
-	public float getCloudLevel() {
+	public Float getCloudLevel() {
 		return cloudLevel;
 	}
 
-	public void setCloudLevel(float cloudLevel) {
+	public void setCloudLevel(Float cloudLevel) {
 		this.cloudLevel = cloudLevel;
 	}
 
-	public float getRainLevel() {
+	public Float getRainLevel() {
 		return rainLevel;
 	}
 
-	public void setRainLevel(float rainLevel) {
+	public void setRainLevel(Float rainLevel) {
 		this.rainLevel = rainLevel;
 	}
 
-	public float getTemp() {
+	public Float getTemp() {
 		return temp;
 	}
 
-	public void setTemp(float envirmomentTemp) {
+	public void setTemp(Float envirmomentTemp) {
 		this.temp = envirmomentTemp;
 	}
 
-	public float getPressure() {
+	public Float getPressure() {
 		return pressure;
 	}
 
-	public void setPressure(float pressure) {
+	public void setPressure(Float pressure) {
 		this.pressure = pressure;
 	}
 
-	public float getDeepLevel() {
+	public Float getDeepLevel() {
 		return deepLevel;
 	}
 
-	public void setDeepLevel(float deepLevel) {
+	public void setDeepLevel(Float deepLevel) {
 		this.deepLevel = deepLevel;
 	}
 
-	public float getAlgalevel() {
+	public Float getAlgalevel() {
 		return algalevel;
 	}
 
-	public void setAlgalevel(float algaLevel) {
+	public void setAlgalevel(Float algaLevel) {
 		this.algalevel = algaLevel;
 	}
 
-	public float getWindSpeed() {
+	public Float getWindSpeed() {
 		return windSpeed;
 	}
 
-	public void setWindSpeed(float windSpeed) {
+	public void setWindSpeed(Float windSpeed) {
 		this.windSpeed = windSpeed;
 	}
 
@@ -78,12 +78,12 @@ public class PondEnvirmoment {
 	}
 
 	public PondEnvirmoment() {
-		super();
+		
 	}
 
-	public PondEnvirmoment(Date date, float cloudLevel, float rainLevel, float temp, float pressure, float deepLevel,
-			float algalevel, float windSpeed) {
-		super();
+	public PondEnvirmoment(Date date, Float cloudLevel, Float rainLevel, Float temp, Float pressure, Float deepLevel,
+			Float algalevel, Float windSpeed) {
+		
 		this.date = date;
 		this.cloudLevel = cloudLevel;
 		this.rainLevel = rainLevel;

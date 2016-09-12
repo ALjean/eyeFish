@@ -1,8 +1,9 @@
 package com.jean.entity;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
 
 public class OptimalBaitsDTO {
 
@@ -26,7 +27,7 @@ public class OptimalBaitsDTO {
 	}
 
 	public OptimalBaitsDTO() {
-		this.optimalBaits = new HashMap<String, List<Bait>>();
+		this.optimalBaits = new LinkedHashMap<String, List<Bait>>();
 	}
 
 	@Override

@@ -45,8 +45,8 @@ public class BaitConstructorController {
 			@PathVariable("fishId") int fishId,
 			@RequestParam("lon") String lon, 
 			@RequestParam("lat") String lat,
-			@RequestParam("deepLevel") float deeplevel,
-			@RequestParam("algaLevel") float algaLevel,
+			@RequestParam(value = "deepLevel", required = false) Float deeplevel,
+			@RequestParam(value = "algaLevel", required = false) Float algaLevel,
 			@RequestParam(value = "baitName", required = false) String baitName,
 			@RequestParam(value = "baitType", required = false) String baitType 
 			){
