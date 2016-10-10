@@ -3,9 +3,10 @@ package com.jean.servlet.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jean.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,7 @@ import com.jean.DaoDfmException;
 import com.jean.analyzers.fish.BehaviorDTO;
 import com.jean.entity.GeneralHourWeather;
 import com.jean.service.BehaviorService;
-import com.jean.util.RedisCacheStore;
+
 
 @RestController
 @RequestMapping("/service")
@@ -28,17 +29,17 @@ public class BehaviorController {
 	private BehaviorService behaviorService;
 
 	@Autowired
-	private RedisCacheStore casheStore;
+	private WeatherService weatherService;
 
 	@RequestMapping(value = "behavior/{date}", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?> getBehavior(@RequestParam("fishId") int[] fishId, @PathVariable("date") String date,
 			@RequestParam("lon") String lon, @RequestParam("lat") String lat) {
 
-		List<BehaviorDTO> behaviorDTOList = new ArrayList<BehaviorDTO>();
+		List<BehaviorDTO> behaviorDTOList = new ArrayList<>();
 
 		try {
 
-			GeneralHourWeather hourWeather = casheStore.getGeneralHourWeather(lon, lat);
+			GeneralHourWeather hourWeather = weatherService.getHourWeathers(lon, lat);
 
 			if (fishId.length == 0) {
 				throw new CustomDfmException("Array of fishId is empty");
@@ -56,7 +57,7 @@ public class BehaviorController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		return new ResponseEntity<List<BehaviorDTO>>(behaviorDTOList, HttpStatus.OK);
+		return new ResponseEntity<>(behaviorDTOList, HttpStatus.OK);
 	}
 
 }
