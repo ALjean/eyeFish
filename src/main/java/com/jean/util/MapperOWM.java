@@ -3,7 +3,9 @@ package com.jean.util;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.jean.entity.CurrentWeather;
 import com.jean.entity.DayWeather;
@@ -71,6 +73,8 @@ public class MapperOWM {
 		generalHourWeather.setCoordLat(hourWeatherOWM.getCity().getCoord().getLat());
 		generalHourWeather.setCoordLon(hourWeatherOWM.getCity().getCoord().getLon());
 
+		Map<java.util.Date, List<HourWeather>> dayHourWeather = new HashMap<>();
+
 		for (HoursWeatherDataOWM hoursWeatherDataOWM : hourWeatherOWM.getList()) {
 			if(hoursWeatherDataOWM.getWind() == null){
 				hoursWeatherDataOWM.setWind(new WindOWM());
@@ -98,6 +102,13 @@ public class MapperOWM {
 
 		}
 
+		hourWeathers.forEach(weather -> {
+			List<HourWeather> list = dayHourWeather.containsKey(weather.getDate()) ? dayHourWeather.get(weather.getDate()) : new ArrayList<>();
+			list.add(weather);
+			dayHourWeather.put(weather.getDate(), list);
+		});
+
+		generalHourWeather.setDayHourWeathers(dayHourWeather);
 		generalHourWeather.getHourWeathers().addAll(hourWeathers);
 
 		return generalHourWeather;

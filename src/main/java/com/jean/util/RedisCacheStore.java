@@ -58,7 +58,7 @@ public class RedisCacheStore {
 		return generalHourWeather;
 	}
 
-	public GeneralDayWeather findDayWeather(Coordinates coordinates) throws CustomDfmException {
+	private GeneralDayWeather findDayWeather(Coordinates coordinates) throws CustomDfmException {
 
 		Jedis jedis = jedisPool.getResource();
 		GeneralDayWeather generalDayWeather = null;
