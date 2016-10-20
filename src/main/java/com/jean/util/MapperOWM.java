@@ -1,11 +1,10 @@
 package com.jean.util;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.sql.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import com.jean.entity.CurrentWeather;
 import com.jean.entity.DayWeather;
@@ -73,7 +72,7 @@ public class MapperOWM {
 		generalHourWeather.setCoordLat(hourWeatherOWM.getCity().getCoord().getLat());
 		generalHourWeather.setCoordLon(hourWeatherOWM.getCity().getCoord().getLon());
 
-		Map<java.util.Date, List<HourWeather>> dayHourWeather = new HashMap<>();
+		Map<LocalDate, List<HourWeather>> dayHourWeather = new HashMap<>();
 
 		for (HoursWeatherDataOWM hoursWeatherDataOWM : hourWeatherOWM.getList()) {
 			if(hoursWeatherDataOWM.getWind() == null){
@@ -103,9 +102,12 @@ public class MapperOWM {
 		}
 
 		hourWeathers.forEach(weather -> {
-			List<HourWeather> list = dayHourWeather.containsKey(weather.getDate()) ? dayHourWeather.get(weather.getDate()) : new ArrayList<>();
+
+
+			LocalDate date = formatingDate(weather.getDateText());
+			List<HourWeather> list = dayHourWeather.containsKey(date) ? dayHourWeather.get(date) : new ArrayList<>();
 			list.add(weather);
-			dayHourWeather.put(weather.getDate(), list);
+			dayHourWeather.put(date, list);
 		});
 
 		generalHourWeather.setDayHourWeathers(dayHourWeather);
@@ -144,5 +146,11 @@ public class MapperOWM {
 
 		return currentWeather;
 
+	}
+
+	private static LocalDate formatingDate(String fullDate){
+		String date = fullDate.split(" ")[0];
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+		return LocalDate.parse(date, formatter);
 	}
 }
