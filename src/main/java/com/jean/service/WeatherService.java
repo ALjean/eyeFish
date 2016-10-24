@@ -1,19 +1,18 @@
 package com.jean.service;
 
-import com.jean.CustomDfmException;
-import com.jean.entity.CurrentWeather;
-import com.jean.entity.GeneralDayWeather;
-import com.jean.entity.GeneralHourWeather;
+import com.jean.servlet.model.owm.current.CurrentWeatherOWM;
 
+/**
+ * Created by stas on 18.07.15.
+ */
 public interface WeatherService {
 
+	/* weather detail for plase */
+	CurrentWeatherOWM getCurrentWeatherState(String lat, String lon);
 
-    /* weather detail for plase */
-    CurrentWeather getCurrentWeatherState(String lat, String lon);
+	/* 16h path blat!!! */
+	<T> T getDayWeatherState(String lat, String lon);
 
-    /* 16h path blat!!! */
-    GeneralDayWeather getDayWeatherState(String lat, String lon) throws CustomDfmException;
-
-    /* forcast 5/3h */
-    GeneralHourWeather getHourWeathers(String lat, String lon) throws CustomDfmException;
+	/* forcast 5/3h */
+	<T> T getHourWeathers(String lat, String lon);
 }

@@ -4,9 +4,12 @@ import com.jean.CustomDfmException;
 import com.jean.entity.GeneralDayWeather;
 import com.jean.entity.GeneralHourWeather;
 import com.jean.enums.RedisKeys;
-import com.jean.service.WeatherApiService;
+import com.jean.service.WeatherService;
 import com.jean.servlet.model.Coordinates;
 import com.jean.servlet.model.RedisStoreEntry;
+import com.jean.servlet.model.owm.GeneralWeatherStateOWM;
+import com.jean.servlet.model.owm.detail.DayWeatherDataOWM;
+import com.jean.servlet.model.owm.hours.HoursWeatherDataOWM;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,9 @@ public class RedisCacheStore {
 
 	@Autowired
 	private JedisPool jedisPool;
+
+	@Autowired
+	private WeatherService weatherService;
 
 	public GeneralHourWeather findHourWeather(Coordinates coordinates) throws CustomDfmException {
 
@@ -87,15 +93,12 @@ public class RedisCacheStore {
 		Jedis jedis = jedisPool.getResource();
 
 		try {
-			if(storeEntry != null){
+			jedis.expire(storeEntry.getRedisCoordinates().getRedisKeys().name(), 3600);
 
-				jedis.expire(storeEntry.getRedisCoordinates().getRedisKeys().name(), 3600);
-
-				byte[] serializableWeather = SerializationUtils.serialize(storeEntry);
-				jedis.geoadd(storeEntry.getRedisCoordinates().getRedisKeys().name().getBytes(),
-						storeEntry.getRedisCoordinates().getLongitude(), storeEntry.getRedisCoordinates().getLatitude(),
-						serializableWeather);
-			}
+			byte[] serializableWeather = SerializationUtils.serialize(storeEntry);
+			jedis.geoadd(storeEntry.getRedisCoordinates().getRedisKeys().name().getBytes(),
+					storeEntry.getRedisCoordinates().getLongitude(), storeEntry.getRedisCoordinates().getLatitude(),
+					serializableWeather);
 
 		} catch (JedisException e) {
 			throw new CustomDfmException("Can't set class" + storeEntry.getClass().getName() + " to Redis", e);
@@ -104,15 +107,26 @@ public class RedisCacheStore {
 
 	public GeneralHourWeather getGeneralHourWeather(String lon, String lat)
 			throws NumberFormatException, CustomDfmException {
-		return findHourWeather(
+		GeneralHourWeather hourWeather = findHourWeather(
 				new Coordinates(RedisKeys.HourWeather, Float.parseFloat(lon), Float.parseFloat(lat)));
+		if (hourWeather == null) {
+			GeneralWeatherStateOWM<HoursWeatherDataOWM> hourWeatherOWM = weatherService.getHourWeathers(lat, lon);
+			hourWeather = MapperOWM.buildModelHourWeather(hourWeatherOWM);
+			setWeather(hourWeather);
+		}
+		return hourWeather;
 	}
 
 	public GeneralDayWeather getGeneralDayWeather(String lon, String lat)
 			throws NumberFormatException, CustomDfmException {
-
-		return findDayWeather(
+		GeneralDayWeather dayWeather = findDayWeather(
 				new Coordinates(RedisKeys.DayWeather, Float.parseFloat(lon), Float.parseFloat(lat)));
+		if (dayWeather == null) {
+			GeneralWeatherStateOWM<DayWeatherDataOWM> dayWeatherOWM = weatherService.getDayWeatherState(lat, lon);
+			dayWeather = MapperOWM.buildModelDayWeather(dayWeatherOWM);
+			setWeather(dayWeather);
+		}
+		return dayWeather;
 	}
 
 }

@@ -1,7 +1,7 @@
 package com.jean.util;
 
+import static org.junit.Assert.*;
 import com.jean.BaseTest;
-import com.jean.CustomDfmException;
 import com.jean.servlet.model.owm.GeneralWeatherStateOWM;
 import com.jean.servlet.model.owm.detail.DayWeatherDataOWM;
 import com.jean.servlet.model.owm.hours.HoursWeatherDataOWM;
@@ -23,10 +23,10 @@ public class UtilsTest extends BaseTest {
 	private String lon = "74.0059731";
 
 	@Before
-	public void init() throws CustomDfmException {
+	public void init() {
 
-		dayWeatherOWM = weatherApiService.getDayWeatherState(lat, lon);
-		hourWeatherOWM = weatherApiService.getHourWeathers(lat, lon);
+		dayWeatherOWM = weatherService.getDayWeatherState(lat, lon);
+		hourWeatherOWM = weatherService.getHourWeathers(lat, lon);
 	}
 
 	@Test

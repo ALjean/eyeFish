@@ -5,7 +5,7 @@ import com.jean.config.property.DataBaseProperties;
 import com.jean.config.property.MessagesProperties;
 import com.jean.dao.*;
 import com.jean.service.UserService;
-import com.jean.service.WeatherApiService;
+import com.jean.service.WeatherService;
 import com.jean.analyzers.fish.BehaviorAnalyzer;
 
 
@@ -44,7 +44,7 @@ public class BaseTest {
 	protected BehaviorAnalyzer behaviorAnalyzer;
 
 	@Autowired
-	protected WeatherApiService weatherApiService;
+	protected WeatherService weatherService;
 
 	@Autowired
 	protected UserService userService;
