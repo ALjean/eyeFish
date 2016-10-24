@@ -5,20 +5,22 @@ import com.jean.servlet.model.Coordinates;
 import com.jean.servlet.model.RedisStoreEntry;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 public class GeneralHourWeather implements RedisStoreEntry, Serializable {
 
-    private long cityId;
+	private static final long serialVersionUID = 1629110154828593180L;
+	
+	private long cityId;
     private String cityName;
     private float coordLon;
     private float coordLat;
     private String country;
     private double messageCount;
-    private Map<LocalDate, List<HourWeather>> dayHourWeathers;
+    private Map<Date, List<HourWeather>> dayHourWeathers;
     private List<HourWeather> hourWeathers;
 
     public long getCityId() {
@@ -77,11 +79,11 @@ public class GeneralHourWeather implements RedisStoreEntry, Serializable {
         this.hourWeathers = hourWeathers;
     }
 
-    public Map<LocalDate, List<HourWeather>> getDayHourWeathers() {
+    public Map<Date, List<HourWeather>> getDayHourWeathers() {
         return dayHourWeathers;
     }
 
-    public void setDayHourWeathers(Map<LocalDate, List<HourWeather>> dayHourWeathers) {
+    public void setDayHourWeathers(Map<Date, List<HourWeather>> dayHourWeathers) {
         this.dayHourWeathers = dayHourWeathers;
     }
 

@@ -101,18 +101,6 @@ public class MapperOWM {
 
 		}
 
-		hourWeathers.forEach(weather -> {
-
-
-			LocalDate date = formatingDate(weather.getDateText());
-			List<HourWeather> list = dayHourWeather.containsKey(date) ? dayHourWeather.get(date) : new ArrayList<>();
-			list.add(weather);
-			dayHourWeather.put(date, list);
-		});
-
-		generalHourWeather.setDayHourWeathers(dayHourWeather);
-		generalHourWeather.getHourWeathers().addAll(hourWeathers);
-
 		return generalHourWeather;
 
 	}
@@ -146,11 +134,5 @@ public class MapperOWM {
 
 		return currentWeather;
 
-	}
-
-	private static LocalDate formatingDate(String fullDate){
-		String date = fullDate.split(" ")[0];
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
-		return LocalDate.parse(date, formatter);
 	}
 }
