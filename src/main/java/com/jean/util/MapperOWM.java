@@ -1,10 +1,11 @@
 package com.jean.util;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
-import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import com.jean.entity.CurrentWeather;
 import com.jean.entity.DayWeather;
@@ -64,7 +65,6 @@ public class MapperOWM {
 	public static GeneralHourWeather buildModelHourWeather(GeneralWeatherStateOWM<HoursWeatherDataOWM> hourWeatherOWM) {
 
 		GeneralHourWeather generalHourWeather = new GeneralHourWeather();
-		List<HourWeather> hourWeathers = new ArrayList<>();
 
 		generalHourWeather.setCityId((hourWeatherOWM.getCity().getId()));
 		generalHourWeather.setCityName(hourWeatherOWM.getCity().getName());
@@ -72,15 +72,16 @@ public class MapperOWM {
 		generalHourWeather.setCoordLat(hourWeatherOWM.getCity().getCoord().getLat());
 		generalHourWeather.setCoordLon(hourWeatherOWM.getCity().getCoord().getLon());
 
-		Map<LocalDate, List<HourWeather>> dayHourWeather = new HashMap<>();
+		Map<Date, List<HourWeather>> dayHourWeathers = new TreeMap<>();
 
 		for (HoursWeatherDataOWM hoursWeatherDataOWM : hourWeatherOWM.getList()) {
 			if(hoursWeatherDataOWM.getWind() == null){
 				hoursWeatherDataOWM.setWind(new WindOWM());
 			}
 			HourWeather hourWeather = new HourWeather();
+			Date currentDate = Utils.parseJsonDateTxt(hoursWeatherDataOWM.getDt_txt());
 
-			hourWeather.setDate(new Date(hoursWeatherDataOWM.getDt()));
+			hourWeather.setDate(Utils.parseJsonDateTxt(hoursWeatherDataOWM.getDt_txt()));
 			hourWeather.setClouds(hoursWeatherDataOWM.getClouds().getAll());
 			hourWeather.setDateText(hoursWeatherDataOWM.getDt_txt());
 			hourWeather.setGeneralTemp(Utils.kelvinToCelsius(hoursWeatherDataOWM.getMain().getTemp()));
@@ -96,10 +97,17 @@ public class MapperOWM {
 			hourWeather.setWindDirection(Utils.getDirection(hoursWeatherDataOWM.getWind().getDeg()));
 			hourWeather.setCloudMain(hoursWeatherDataOWM.getWeather().get(0).getMain());
 			hourWeather.setCloudDescription(hoursWeatherDataOWM.getWeather().get(0).getDescription());
-
-			hourWeathers.add(hourWeather);
-
+			
+			if(!dayHourWeathers.containsKey(currentDate)){
+				List<HourWeather> hourWeathers = new ArrayList<>();
+				hourWeathers.add(hourWeather);
+				dayHourWeathers.put(currentDate, hourWeathers);
+			}else{
+				dayHourWeathers.get(currentDate).add(hourWeather);
+			}
 		}
+		
+		generalHourWeather.setDayHourWeathers(dayHourWeathers);
 
 		return generalHourWeather;
 

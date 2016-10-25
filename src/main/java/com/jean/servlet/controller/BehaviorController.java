@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jean.CustomDfmException;
 import com.jean.DaoDfmException;
-import com.jean.analyzers.fish.BehaviorDTO;
+import com.jean.entity.Behavior;
+import com.jean.entity.BehaviorsDTO;
 import com.jean.entity.GeneralHourWeather;
 import com.jean.service.BehaviorService;
 import com.jean.util.RedisCacheStore;
@@ -30,23 +31,23 @@ public class BehaviorController {
 	@Autowired
 	private RedisCacheStore casheStore;
 
-	@RequestMapping(value = "behavior/{date}", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<?> getBehavior(@RequestParam("fishId") int[] fishId, @PathVariable("date") String date,
+	@RequestMapping(value = "behavior", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<?> getBehavior(@RequestParam("fishIds") List<Integer> fishIds, @RequestParam("dates") List<String> calculatedDates,
 			@RequestParam("lon") String lon, @RequestParam("lat") String lat) {
 
-		List<BehaviorDTO> behaviorDTOList = new ArrayList<BehaviorDTO>();
+		List<BehaviorsDTO> behaviorDTOList = new ArrayList<>();
 
 		try {
 
-			GeneralHourWeather hourWeather = casheStore.getGeneralHourWeather(lon, lat);
+			GeneralHourWeather generalHourWeather = casheStore.getGeneralHourWeather(lon, lat);
 
-			if (fishId.length == 0) {
+			if (fishIds.size() == 0) {
 				throw new CustomDfmException("Array of fishId is empty");
 			}
 
-			for (int i = 0; i < fishId.length; i++) {
-				behaviorDTOList.add(behaviorService.getFishBehavior(date, fishId[i], hourWeather));
-			}
+		
+			behaviorDTOList = behaviorService.getFishBehavior(calculatedDates, fishIds, generalHourWeather);
+			
 
 		} catch (DaoDfmException e) {
 			e.printStackTrace();
@@ -56,7 +57,7 @@ public class BehaviorController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		return new ResponseEntity<List<BehaviorDTO>>(behaviorDTOList, HttpStatus.OK);
+		return new ResponseEntity<List<BehaviorsDTO>>(behaviorDTOList, HttpStatus.OK);
 	}
 
 }

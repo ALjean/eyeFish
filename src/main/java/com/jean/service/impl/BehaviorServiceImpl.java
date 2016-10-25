@@ -9,12 +9,14 @@ import org.springframework.stereotype.Service;
 import com.jean.CustomDfmException;
 import com.jean.DaoDfmException;
 import com.jean.analyzers.fish.BehaviorAnalyzer;
-import com.jean.analyzers.fish.BehaviorDTO;
 import com.jean.dao.FishDao;
+import com.jean.entity.Behavior;
+import com.jean.entity.BehaviorsDTO;
 import com.jean.entity.Fish;
 import com.jean.entity.GeneralHourWeather;
 import com.jean.entity.HourWeather;
 import com.jean.service.BehaviorService;
+import com.jean.util.Utils;
 
 @Service
 public class BehaviorServiceImpl implements BehaviorService {
@@ -26,26 +28,33 @@ public class BehaviorServiceImpl implements BehaviorService {
 	private FishDao fishDao;
 
 	@Override
-	public BehaviorDTO getFishBehavior(String currentDate, int fishId, GeneralHourWeather generalHourWeather)
-			throws DaoDfmException, CustomDfmException {
-		
-		List<Fish> fishes = fishDao.getFishes(fishId, null, null, null, null);
-		
-		if(fishes.isEmpty()){
-			throw new CustomDfmException("Fish didn't found");
-		}
+	public List<BehaviorsDTO> getFishBehavior(List<String> calculatedDates, List<Integer> fishIds,
+			GeneralHourWeather generalHourWeather) throws DaoDfmException, CustomDfmException {
 
-		Fish fish = fishes.get(0);
-		
-		List<HourWeather> hourWeathers = new ArrayList<HourWeather>();
-		
-		for (HourWeather hourWeather : generalHourWeather.getHourWeathers()) {
-			if (hourWeather.getDateText().substring(0, 10).trim().equals(currentDate)) {
-				hourWeathers.add(hourWeather);
+		BehaviorsDTO behaviorsDTO = null;
+		List<BehaviorsDTO> behaviorsDTOList = new ArrayList<>();
+
+		for (int id : fishIds) {
+			Fish fish = fishDao.getFishes(id, null, null, null, null).get(0);
+			behaviorsDTO = new BehaviorsDTO();
+			behaviorsDTO.setFish(fish);
+			behaviorsDTOList.add(behaviorsDTO);
+			for (String currentDate : calculatedDates) {
+				if (behaviorsDTO.getBehaviors().containsKey(currentDate)) {
+					behaviorsDTO.getBehaviors().get(currentDate).add(behaviorAnalyzer.getFishBehavior(
+							generalHourWeather.getDayHourWeathers().get(Utils.parseJsonDateTxt(currentDate)), fish));
+				} else {
+					List<Behavior> behaviors = new ArrayList<Behavior>();
+
+					behaviors.add(behaviorAnalyzer.getFishBehavior(
+							generalHourWeather.getDayHourWeathers().get(Utils.parseJsonDateTxt(currentDate)), fish));
+
+					behaviorsDTO.getBehaviors().put(currentDate, behaviors);
+				}
 			}
 		}
-		
-		return behaviorAnalyzer.getFishBehavior(hourWeathers, fish);
+
+		return behaviorsDTOList;
 
 	}
 

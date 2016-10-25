@@ -1,4 +1,4 @@
-package com.jean.analyzer;
+/*package com.jean.analyzer;
 
 import org.junit.Test;
 import org.springframework.stereotype.Component;
@@ -59,3 +59,4 @@ public class BehaviorAnalyzerTest extends BaseTest {
 		System.out.println("\n" + behaviorDTO + "\n");
 	}
 }
+*/

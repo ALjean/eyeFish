@@ -77,11 +77,11 @@ public class Utils {
 		return result;
 	}
 	
-	public static Date getJavaUtilDate(String dateText) {
+	public static Date parseJsonDateTxt(String dateText) {
 		Date date = new Date();
 		try {
 			DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-			date = formatter.parse(dateText.substring(0, 11));
+			date = formatter.parse(dateText.substring(0, 10).trim());
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

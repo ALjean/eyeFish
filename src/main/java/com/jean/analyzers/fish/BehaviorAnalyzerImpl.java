@@ -14,6 +14,7 @@ import com.jean.analyzers.weather.BehaviorConstants;
 import com.jean.analyzers.weather.GeneralNibbleState;
 import com.jean.analyzers.weather.NibbleChecker;
 import com.jean.config.property.MessagesProperties;
+import com.jean.entity.Behavior;
 import com.jean.entity.DayActivity;
 import com.jean.entity.Fish;
 import com.jean.entity.FishSetting;
@@ -39,9 +40,9 @@ public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {
 	private static Map<Double, String> messages = new HashMap<Double, String>();
 
 	@Override
-	public BehaviorDTO getFishBehavior(List<HourWeather> hourWeathers, Fish fish) throws DaoDfmException {
+	public Behavior getFishBehavior(List<HourWeather> hourWeathers, Fish fish) throws DaoDfmException {
 
-		BehaviorDTO behaviorDTO = new BehaviorDTO();
+		Behavior behaviorDTO = new Behavior();
 
 		List<Float> press = new ArrayList<Float>();
 		for (HourWeather hourWeather : hourWeathers) {
@@ -80,13 +81,6 @@ public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {
 				}
 			}
 
-			/*
-			 * for (Map.Entry<String, Double> entry :
-			 * fish.getPressureStates().entrySet()) { if
-			 * (entry.getKey().equals(nibbleState.getMessage())) { generalResult
-			 * += entry.getValue(); } }
-			 */
-
 			String time = hourWeather.getDateText().substring(11);
 
 			for (DayActivity dayActivity : fish.getDaysActivity()) {
@@ -113,21 +107,19 @@ public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {
 			results.add(nibbleChecker.isWind(hourWeather.getWindDeg(), hourWeather.getWindSpeed()));
 
 			for (NibblePeriod nibblePeriod : fish.getNibbles()) {
-				if (Utils.getJavaUtilDate(hourWeather.getDateText()).after(nibblePeriod.getStartPeriod())
-						&& Utils.getJavaUtilDate(hourWeather.getDateText()).before(nibblePeriod.getEndPeriod())) {
+				if (Utils.parseJsonDateTxt(hourWeather.getDateText()).after(nibblePeriod.getStartPeriod())
+						&& Utils.parseJsonDateTxt(hourWeather.getDateText()).before(nibblePeriod.getEndPeriod())) {
 					results.add(nibblePeriod.getNibbleLevel());
 				}
 			}
 
 			double prepareResult = getPrepareResult(results, generalResult);
-			
+
 			conrolPoint.setMessage(messages.get(prepareResult));
 			conrolPoint.setNibbleLevel(prepareResult);
 			conrolPoint.setTime(hourWeather.getDateText().substring(11));
-
 			behaviorDTO.getControlPoints().add(conrolPoint);
-			behaviorDTO.setFishId(fish.getId());
-			behaviorDTO.setFishName(fish.getName());
+
 		}
 		return behaviorDTO;
 

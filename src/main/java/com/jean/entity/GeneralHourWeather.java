@@ -13,93 +13,80 @@ import java.util.Map;
 public class GeneralHourWeather implements RedisStoreEntry, Serializable {
 
 	private static final long serialVersionUID = 1629110154828593180L;
-	
+
 	private long cityId;
-    private String cityName;
-    private float coordLon;
-    private float coordLat;
-    private String country;
-    private double messageCount;
-    private Map<Date, List<HourWeather>> dayHourWeathers;
-    private List<HourWeather> hourWeathers;
+	private String cityName;
+	private float coordLon;
+	private float coordLat;
+	private String country;
+	private double messageCount;
+	private Map<Date, List<HourWeather>> dayHourWeathers;
 
-    public long getCityId() {
-        return cityId;
-    }
+	public long getCityId() {
+		return cityId;
+	}
 
-    public void setCityId(long cityId) {
-        this.cityId = cityId;
-    }
+	public void setCityId(long cityId) {
+		this.cityId = cityId;
+	}
 
-    public String getCityName() {
-        return cityName;
-    }
+	public String getCityName() {
+		return cityName;
+	}
 
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
-    }
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
 
-    public float getCoordLon() {
-        return coordLon;
-    }
+	public float getCoordLon() {
+		return coordLon;
+	}
 
-    public void setCoordLon(float coordLon) {
-        this.coordLon = coordLon;
-    }
+	public void setCoordLon(float coordLon) {
+		this.coordLon = coordLon;
+	}
 
-    public float getCoordLat() {
-        return coordLat;
-    }
+	public float getCoordLat() {
+		return coordLat;
+	}
 
-    public void setCoordLat(float coordLat) {
-        this.coordLat = coordLat;
-    }
+	public void setCoordLat(float coordLat) {
+		this.coordLat = coordLat;
+	}
 
-    public String getCountry() {
-        return country;
-    }
+	public String getCountry() {
+		return country;
+	}
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
+	public void setCountry(String country) {
+		this.country = country;
+	}
 
-    public double getMessageCount() {
-        return messageCount;
-    }
+	public double getMessageCount() {
+		return messageCount;
+	}
 
-    public void setMessageCount(double messageCount) {
-        this.messageCount = messageCount;
-    }
+	public void setMessageCount(double messageCount) {
+		this.messageCount = messageCount;
+	}
 
-    public List<HourWeather> getHourWeathers() {
-        return hourWeathers;
-    }
+	public Map<Date, List<HourWeather>> getDayHourWeathers() {
+		return dayHourWeathers;
+	}
 
-    public void setHourWeathers(List<HourWeather> hourWeathers) {
-        this.hourWeathers = hourWeathers;
-    }
+	public void setDayHourWeathers(Map<Date, List<HourWeather>> dayHourWeathers) {
+		this.dayHourWeathers = dayHourWeathers;
+	}
 
-    public Map<Date, List<HourWeather>> getDayHourWeathers() {
-        return dayHourWeathers;
-    }
+	@Override
+	public String toString() {
+		return "GeneralHourWeather [cityId=" + cityId + ", cityName=" + cityName + ", coordLon=" + coordLon
+				+ ", coordLat=" + coordLat + ", country=" + country + ", messageCount=" + messageCount
+				+ ", hourWeathers=" + "]";
+	}
 
-    public void setDayHourWeathers(Map<Date, List<HourWeather>> dayHourWeathers) {
-        this.dayHourWeathers = dayHourWeathers;
-    }
-
-    public GeneralHourWeather() {
-        this.hourWeathers = new ArrayList<>();
-    }
-
-    @Override
-    public String toString() {
-        return "GeneralHourWeather [cityId=" + cityId + ", cityName=" + cityName + ", coordLon=" + coordLon
-                + ", coordLat=" + coordLat + ", country=" + country + ", messageCount=" + messageCount
-                + ", hourWeathers=" + hourWeathers + "]";
-    }
-
-    @Override
-    public Coordinates getRedisCoordinates() {
-        return new Coordinates(RedisKeys.HourWeather, coordLon, coordLat);
-    }
+	@Override
+	public Coordinates getRedisCoordinates() {
+		return new Coordinates(RedisKeys.HourWeather, coordLon, coordLat);
+	}
 }

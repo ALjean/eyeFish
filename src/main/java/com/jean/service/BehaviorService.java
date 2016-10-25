@@ -1,12 +1,14 @@
 package com.jean.service;
 
+import java.util.*;
+
 import com.jean.CustomDfmException;
 import com.jean.DaoDfmException;
-import com.jean.analyzers.fish.BehaviorDTO;
+import com.jean.entity.BehaviorsDTO;
 import com.jean.entity.GeneralHourWeather;
 
 public interface BehaviorService {
 
-	public BehaviorDTO getFishBehavior(String currentDate, int fishId, GeneralHourWeather generalHourWeather) throws DaoDfmException, CustomDfmException;
+	public List<BehaviorsDTO> getFishBehavior(List<String> calculatedDates, List<Integer> fishIds, GeneralHourWeather generalHourWeather) throws DaoDfmException, CustomDfmException;
 	
 }
