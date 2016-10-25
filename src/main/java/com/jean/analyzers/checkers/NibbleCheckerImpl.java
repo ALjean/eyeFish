@@ -1,10 +1,12 @@
-package com.jean.analyzers.weather;
+package com.jean.analyzers.checkers;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.jean.BehaviorConstants;
+import com.jean.entity.GeneralNibbleState;
 import com.jean.enums.PressureStates;
 
 @Component

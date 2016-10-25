@@ -1,4 +1,4 @@
-package com.jean.analyzers.weather;
+package com.jean.entity;
 
 public class NibblePoint {
 

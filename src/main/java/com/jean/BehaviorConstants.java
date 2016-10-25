@@ -1,4 +1,4 @@
-package com.jean.analyzers.weather;
+package com.jean;
 
 /**
  * Created by jean on 07.12.15.

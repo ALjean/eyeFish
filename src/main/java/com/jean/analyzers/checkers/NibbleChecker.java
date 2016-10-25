@@ -1,6 +1,8 @@
-package com.jean.analyzers.weather;
+package com.jean.analyzers.checkers;
 
 import java.util.List;
+
+import com.jean.entity.GeneralNibbleState;
 
 public interface NibbleChecker {
 

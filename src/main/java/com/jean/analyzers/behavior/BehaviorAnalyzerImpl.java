@@ -1,4 +1,4 @@
-package com.jean.analyzers.fish;
+package com.jean.analyzers.behavior;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,18 +8,18 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.jean.BehaviorConstants;
 import com.jean.DaoDfmException;
-import com.jean.analyzers.weather.NibblePoint;
-import com.jean.analyzers.weather.BehaviorConstants;
-import com.jean.analyzers.weather.GeneralNibbleState;
-import com.jean.analyzers.weather.NibbleChecker;
+import com.jean.analyzers.checkers.NibbleChecker;
 import com.jean.config.property.MessagesProperties;
 import com.jean.entity.Behavior;
 import com.jean.entity.DayActivity;
 import com.jean.entity.Fish;
 import com.jean.entity.FishSetting;
+import com.jean.entity.GeneralNibbleState;
 import com.jean.entity.HourWeather;
 import com.jean.entity.NibblePeriod;
+import com.jean.entity.NibblePoint;
 import com.jean.enums.DaysActivity;
 import com.jean.enums.ParamNames;
 import com.jean.util.Utils;

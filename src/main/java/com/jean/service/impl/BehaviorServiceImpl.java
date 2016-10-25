@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.jean.CustomDfmException;
 import com.jean.DaoDfmException;
-import com.jean.analyzers.fish.BehaviorAnalyzer;
+import com.jean.analyzers.behavior.BehaviorAnalyzer;
 import com.jean.dao.FishDao;
 import com.jean.entity.Behavior;
 import com.jean.entity.BehaviorsDTO;

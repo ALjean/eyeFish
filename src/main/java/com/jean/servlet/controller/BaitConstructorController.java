@@ -1,4 +1,4 @@
-/*package com.jean.servlet.controller;
+package com.jean.servlet.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,4 +83,3 @@ public class BaitConstructorController {
 
 	}
 }
-*/

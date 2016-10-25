@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.jean.Constants;
+import com.jean.ApplicationConstants;
 import com.jean.servlet.model.Coordinates;
 
 /**
@@ -41,13 +41,13 @@ public class Utils {
 	}
 
 	public static float kelvinToCelsius(float kelvinTemp) {
-		float c = (kelvinTemp - Constants.KELVIN_VALUE) * 1;
+		float c = (kelvinTemp - ApplicationConstants.KELVIN_VALUE) * 1;
 
 		return round(c);
 	}
 
 	public static float millibarToMmHg(float millibar) {
-		return millibar / Constants.MILLIBAR_VALUE;
+		return millibar / ApplicationConstants.MILLIBAR_VALUE;
 	}
 
 	private static float round(float number) {

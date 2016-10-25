@@ -1,4 +1,4 @@
-package com.jean.analyzers.fish;
+package com.jean.analyzers.behavior;
 
 import java.util.List;
 

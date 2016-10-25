@@ -18,6 +18,7 @@ import com.jean.DaoDfmException;
 import com.jean.entity.Behavior;
 import com.jean.entity.BehaviorsDTO;
 import com.jean.entity.GeneralHourWeather;
+import com.jean.service.BaitConstructorService;
 import com.jean.service.BehaviorService;
 import com.jean.util.RedisCacheStore;
 
@@ -27,26 +28,33 @@ public class BehaviorController {
 
 	@Autowired
 	private BehaviorService behaviorService;
+	
+	@Autowired
+	private BaitConstructorService baitConstructorService;
 
 	@Autowired
 	private RedisCacheStore casheStore;
 
 	@RequestMapping(value = "behavior", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<?> getBehavior(@RequestParam("fishIds") List<Integer> fishIds, @RequestParam("dates") List<String> calculatedDates,
-			@RequestParam("lon") String lon, @RequestParam("lat") String lat) {
+	public ResponseEntity<?> getBehavior(@RequestParam("fishIds") List<Integer> fishIds,
+			@RequestParam("dates") List<String> calculatedDates, @RequestParam("lon") String lon,
+			@RequestParam("lat") String lat, @RequestParam("baits") Boolean withBaits) {
 
 		List<BehaviorsDTO> behaviorDTOList = new ArrayList<>();
 
 		try {
 
 			GeneralHourWeather generalHourWeather = casheStore.getGeneralHourWeather(lon, lat);
-
+			
 			if (fishIds.size() == 0) {
 				throw new CustomDfmException("Array of fishId is empty");
 			}
-
-		
+			
 			behaviorDTOList = behaviorService.getFishBehavior(calculatedDates, fishIds, generalHourWeather);
+			
+			if(withBaits){
+				
+			}
 			
 
 		} catch (DaoDfmException e) {

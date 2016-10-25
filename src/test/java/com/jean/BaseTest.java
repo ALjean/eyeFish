@@ -1,14 +1,12 @@
 package com.jean;
 
+import com.jean.analyzers.behavior.BehaviorAnalyzer;
 import com.jean.config.context.AppConfig;
 import com.jean.config.property.DataBaseProperties;
 import com.jean.config.property.MessagesProperties;
 import com.jean.dao.*;
 import com.jean.service.UserService;
 import com.jean.service.WeatherService;
-import com.jean.analyzers.fish.BehaviorAnalyzer;
-
-
 import com.jean.util.RedisCacheStore;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

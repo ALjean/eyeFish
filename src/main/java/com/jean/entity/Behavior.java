@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.jean.analyzers.weather.GeneralNibbleState;
-import com.jean.analyzers.weather.NibblePoint;
-
 public class Behavior {
 
 	private List<NibblePoint> NibblePoints;

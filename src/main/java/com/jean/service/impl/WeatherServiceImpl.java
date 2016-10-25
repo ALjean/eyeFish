@@ -6,7 +6,7 @@ import com.jean.servlet.model.owm.detail.DayWeatherDataOWM;
 import com.jean.servlet.model.owm.GeneralWeatherStateOWM;
 import com.jean.servlet.model.owm.hours.HoursWeatherDataOWM;
 import com.jean.service.WeatherService;
-import com.jean.Constants;
+import com.jean.ApplicationConstants;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -31,7 +31,7 @@ public class WeatherServiceImpl implements WeatherService {
     @SuppressWarnings("unchecked")
     public GeneralWeatherStateOWM<DayWeatherDataOWM> getDayWeatherState(String lat, String lon) {
 
-        ResponseEntity<GeneralWeatherStateOWM<DayWeatherDataOWM>> response = new RestTemplate().exchange(urlBuilder(lat, lon, Constants.DAILY),
+        ResponseEntity<GeneralWeatherStateOWM<DayWeatherDataOWM>> response = new RestTemplate().exchange(urlBuilder(lat, lon, ApplicationConstants.DAILY),
                 HttpMethod.GET, null, new ParameterizedTypeReference<GeneralWeatherStateOWM<DayWeatherDataOWM>>() {});
         return response.getBody();
     }
@@ -39,7 +39,7 @@ public class WeatherServiceImpl implements WeatherService {
     @Override
     public CurrentWeatherOWM getCurrentWeatherState(String lat, String lon) {
     	
-        ResponseEntity<CurrentWeatherOWM> response = new RestTemplate().exchange(urlBuilder(lat, lon, Constants.WEATHER),
+        ResponseEntity<CurrentWeatherOWM> response = new RestTemplate().exchange(urlBuilder(lat, lon, ApplicationConstants.WEATHER),
                 HttpMethod.GET, null, new ParameterizedTypeReference<CurrentWeatherOWM>() {});
         return response.getBody();
     }
@@ -49,7 +49,7 @@ public class WeatherServiceImpl implements WeatherService {
     @SuppressWarnings("unchecked")
     public GeneralWeatherStateOWM<HoursWeatherDataOWM> getHourWeathers(String lat, String lon) {
 
-        ResponseEntity<GeneralWeatherStateOWM<HoursWeatherDataOWM>> response = new RestTemplate().exchange(urlBuilder(lat, lon, Constants.FORCAST),
+        ResponseEntity<GeneralWeatherStateOWM<HoursWeatherDataOWM>> response = new RestTemplate().exchange(urlBuilder(lat, lon, ApplicationConstants.FORCAST),
                 HttpMethod.GET, null, new ParameterizedTypeReference<GeneralWeatherStateOWM<HoursWeatherDataOWM>>() {});
         return response.getBody();
     }
@@ -57,9 +57,9 @@ public class WeatherServiceImpl implements WeatherService {
     private URI urlBuilder(String lat, String lon, String state) {
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(weatherApiProperties.getWeatherUrl() + "/" + state)
-                .queryParam(Constants.APPID, weatherApiProperties.getAppId()) //todo connect with auth
-                .queryParam(Constants.LAT, lat)
-                .queryParam(Constants.LON, lon);
+                .queryParam(ApplicationConstants.APPID, weatherApiProperties.getAppId()) //todo connect with auth
+                .queryParam(ApplicationConstants.LAT, lat)
+                .queryParam(ApplicationConstants.LON, lon);
 
         return builder.build().encode().toUri();
     }
