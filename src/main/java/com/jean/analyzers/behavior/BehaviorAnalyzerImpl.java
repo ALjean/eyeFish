@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.jean.BehaviorConstants;
 import com.jean.DaoDfmException;
 import com.jean.analyzers.checkers.NibbleChecker;
+import com.jean.analyzers.constructors.BaitConstructor;
 import com.jean.config.property.MessagesProperties;
 import com.jean.entity.Behavior;
 import com.jean.entity.DayActivity;
@@ -29,6 +30,9 @@ public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {
 
 	@Autowired
 	private NibbleChecker nibbleChecker;
+	
+	@Autowired
+	private BaitConstructor baitConstructor;
 
 	@Autowired
 	private MessagesProperties messagesProperties;
@@ -40,9 +44,13 @@ public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {
 	private static Map<Double, String> messages = new HashMap<Double, String>();
 
 	@Override
-	public Behavior getFishBehavior(List<HourWeather> hourWeathers, Fish fish) throws DaoDfmException {
+	public Behavior getFishBehavior(List<HourWeather> hourWeathers, Fish fish, boolean withBaits, String date) throws DaoDfmException {
 
 		Behavior behaviorDTO = new Behavior();
+		
+		if(withBaits){
+			behaviorDTO.setBaits(baitConstructor.getBaitsDependsOnWeathers(fish.getId(), java.sql.Date.valueOf(date)));
+		}
 
 		List<Float> press = new ArrayList<Float>();
 		for (HourWeather hourWeather : hourWeathers) {

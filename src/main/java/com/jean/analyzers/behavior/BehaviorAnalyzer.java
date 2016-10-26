@@ -9,5 +9,5 @@ import com.jean.entity.HourWeather;
 
 public interface BehaviorAnalyzer {
 	
-	public Behavior getFishBehavior(List<HourWeather> hourWeathers, Fish fish) throws DaoDfmException;
+	public Behavior getFishBehavior(List<HourWeather> hourWeathers, Fish fish, boolean withBaits, String date) throws DaoDfmException;
 }

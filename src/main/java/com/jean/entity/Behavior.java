@@ -9,6 +9,8 @@ public class Behavior {
 	private List<NibblePoint> NibblePoints;
 
 	private GeneralNibbleState nibbleState;
+	
+	private List<Bait> baits;
 
 	public List<NibblePoint> getControlPoints() {
 		return NibblePoints;
@@ -28,6 +30,14 @@ public class Behavior {
 
 	public Behavior() {
 		this.NibblePoints = new ArrayList<NibblePoint>();
+	}
+	
+	public List<Bait> getBaits() {
+		return baits;
+	}
+
+	public void setBaits(List<Bait> baits) {
+		this.baits = baits;
 	}
 
 	@Override

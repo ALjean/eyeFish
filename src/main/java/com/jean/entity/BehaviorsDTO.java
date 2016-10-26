@@ -10,11 +10,8 @@ public class BehaviorsDTO {
 
 	private Map<String, List<Behavior>> behaviors;
 
-	private Map<String, List<Bait>> baitsList;
-
 	public BehaviorsDTO() {
 		this.behaviors = new LinkedHashMap<String, List<Behavior>>();
-		this.baitsList = new LinkedHashMap<String, List<Bait>>();
 	}
 
 	public Fish getFish() {
@@ -32,13 +29,4 @@ public class BehaviorsDTO {
 	public void setBehaviors(Map<String, List<Behavior>> behaviors) {
 		this.behaviors = behaviors;
 	}
-
-	public Map<String, List<Bait>> getBaitsList() {
-		return baitsList;
-	}
-
-	public void setBaitsList(Map<String, List<Bait>> baitsList) {
-		this.baitsList = baitsList;
-	}
-
 }
