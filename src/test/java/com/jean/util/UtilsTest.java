@@ -2,9 +2,9 @@ package com.jean.util;
 
 import static org.junit.Assert.*;
 import com.jean.BaseTest;
-import com.jean.servlet.model.owm.GeneralWeatherStateOWM;
-import com.jean.servlet.model.owm.detail.DayWeatherDataOWM;
-import com.jean.servlet.model.owm.hours.HoursWeatherDataOWM;
+import com.jean.entity.owm.GeneralWeatherStateOWM;
+import com.jean.entity.owm.detail.DayWeatherDataOWM;
+import com.jean.entity.owm.hour.HoursWeatherDataOWM;
 
 import org.junit.Before;
 import org.junit.Ignore;

@@ -3,7 +3,7 @@ package com.jean.service.impl;
 import com.jean.CustomDfmException;
 import com.jean.DaoDfmException;
 import com.jean.dao.FishDao;
-import com.jean.entity.Fish;
+import com.jean.entity.fish.Fish;
 import com.jean.service.FishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

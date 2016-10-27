@@ -3,9 +3,9 @@ package com.jean.analyzers.behavior;
 import java.util.List;
 
 import com.jean.DaoDfmException;
-import com.jean.entity.Behavior;
-import com.jean.entity.Fish;
-import com.jean.entity.HourWeather;
+import com.jean.entity.analyzing.Behavior;
+import com.jean.entity.fish.Fish;
+import com.jean.entity.weather.HourWeather;
 
 public interface BehaviorAnalyzer {
 	

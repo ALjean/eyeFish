@@ -2,11 +2,11 @@ package com.jean.dao;
 
 import com.jean.CustomDfmException;
 import com.jean.DaoDfmException;
-import com.jean.entity.DayActivity;
-import com.jean.entity.Fish;
-import com.jean.entity.FishSetting;
-import com.jean.entity.LivingArea;
-import com.jean.entity.NibblePeriod;
+import com.jean.entity.fish.DayActivity;
+import com.jean.entity.fish.Fish;
+import com.jean.entity.fish.FishSetting;
+import com.jean.entity.fish.LivingArea;
+import com.jean.entity.fish.NibblePeriod;
 import com.jean.enums.DaysActivity;
 import com.jean.enums.FishTypes;
 import com.jean.enums.LiveArea;

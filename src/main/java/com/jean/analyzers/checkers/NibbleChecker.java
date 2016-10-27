@@ -2,7 +2,7 @@ package com.jean.analyzers.checkers;
 
 import java.util.List;
 
-import com.jean.entity.GeneralNibbleState;
+import com.jean.entity.analyzing.GeneralNibbleState;
 
 public interface NibbleChecker {
 

@@ -4,8 +4,8 @@ import java.util.*;
 
 import com.jean.CustomDfmException;
 import com.jean.DaoDfmException;
-import com.jean.entity.BehaviorsDTO;
-import com.jean.entity.GeneralHourWeather;
+import com.jean.entity.analyzing.BehaviorsDTO;
+import com.jean.entity.weather.GeneralHourWeather;
 
 public interface BehaviorService {
 

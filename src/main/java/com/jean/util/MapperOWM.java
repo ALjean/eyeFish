@@ -7,16 +7,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import com.jean.entity.CurrentWeather;
-import com.jean.entity.DayWeather;
-import com.jean.entity.GeneralDayWeather;
-import com.jean.entity.GeneralHourWeather;
-import com.jean.entity.HourWeather;
-import com.jean.servlet.model.owm.GeneralWeatherStateOWM;
-import com.jean.servlet.model.owm.WindOWM;
-import com.jean.servlet.model.owm.current.CurrentWeatherOWM;
-import com.jean.servlet.model.owm.detail.DayWeatherDataOWM;
-import com.jean.servlet.model.owm.hours.HoursWeatherDataOWM;
+import com.jean.entity.owm.GeneralWeatherStateOWM;
+import com.jean.entity.owm.WindOWM;
+import com.jean.entity.owm.current.CurrentWeatherOWM;
+import com.jean.entity.owm.detail.DayWeatherDataOWM;
+import com.jean.entity.owm.hour.HoursWeatherDataOWM;
+import com.jean.entity.weather.CurrentWeather;
+import com.jean.entity.weather.DayWeather;
+import com.jean.entity.weather.GeneralDayWeather;
+import com.jean.entity.weather.GeneralHourWeather;
+import com.jean.entity.weather.HourWeather;
 
 public class MapperOWM {
 

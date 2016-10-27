@@ -11,11 +11,11 @@ import com.jean.DaoDfmException;
 import com.jean.analyzers.behavior.BehaviorAnalyzer;
 import com.jean.analyzers.constructors.BaitConstructor;
 import com.jean.dao.FishDao;
-import com.jean.entity.Behavior;
-import com.jean.entity.BehaviorsDTO;
-import com.jean.entity.Fish;
-import com.jean.entity.GeneralHourWeather;
-import com.jean.entity.HourWeather;
+import com.jean.entity.analyzing.Behavior;
+import com.jean.entity.analyzing.BehaviorsDTO;
+import com.jean.entity.fish.Fish;
+import com.jean.entity.weather.GeneralHourWeather;
+import com.jean.entity.weather.HourWeather;
 import com.jean.service.BehaviorService;
 import com.jean.util.Utils;
 

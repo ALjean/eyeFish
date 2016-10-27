@@ -1,7 +1,7 @@
 package com.jean.servlet.controller;
 
 import com.jean.DaoDfmException;
-import com.jean.entity.Fish;
+import com.jean.entity.fish.Fish;
 import com.jean.service.FishService;
 
 import java.util.ArrayList;

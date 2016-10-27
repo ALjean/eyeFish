@@ -10,7 +10,7 @@ import org.springframework.util.StringUtils;
 
 import com.jean.DaoDfmException;
 import com.jean.dao.BaitDao;
-import com.jean.entity.Bait;
+import com.jean.entity.bait.Bait;
 import com.jean.service.BaitService;
 
 @Service

@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.jean.ApplicationConstants;
-import com.jean.servlet.model.Coordinates;
+import com.jean.entity.redis.Coordinates;
 
 /**
  * Created by stas on 18.07.15.

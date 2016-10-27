@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import com.jean.DaoDfmException;
-import com.jean.entity.Bait;
+import com.jean.entity.bait.Bait;
 
 public interface BaitService {
 

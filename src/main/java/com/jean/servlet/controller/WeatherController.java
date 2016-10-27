@@ -1,6 +1,14 @@
 package com.jean.servlet.controller;
 
 import com.jean.CustomDfmException;
+import com.jean.entity.owm.GeneralWeatherStateOWM;
+import com.jean.entity.owm.current.CurrentWeatherOWM;
+import com.jean.entity.owm.detail.DayWeatherDataOWM;
+import com.jean.entity.owm.hour.HoursWeatherDataOWM;
+import com.jean.entity.redis.Coordinates;
+import com.jean.entity.weather.CurrentWeather;
+import com.jean.entity.weather.GeneralDayWeather;
+import com.jean.entity.weather.GeneralHourWeather;
 import com.jean.enums.RedisKeys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,16 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jean.entity.CurrentWeather;
-import com.jean.entity.GeneralDayWeather;
-import com.jean.entity.GeneralHourWeather;
 import com.jean.enums.RedisCoordKey;
 import com.jean.service.WeatherService;
-import com.jean.servlet.model.Coordinates;
-import com.jean.servlet.model.owm.GeneralWeatherStateOWM;
-import com.jean.servlet.model.owm.current.CurrentWeatherOWM;
-import com.jean.servlet.model.owm.detail.DayWeatherDataOWM;
-import com.jean.servlet.model.owm.hours.HoursWeatherDataOWM;
 import com.jean.util.MapperOWM;
 import com.jean.util.RedisCacheStore;
 

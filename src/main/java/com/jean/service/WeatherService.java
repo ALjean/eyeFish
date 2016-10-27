@@ -1,6 +1,6 @@
 package com.jean.service;
 
-import com.jean.servlet.model.owm.current.CurrentWeatherOWM;
+import com.jean.entity.owm.current.CurrentWeatherOWM;
 
 /**
  * Created by stas on 18.07.15.

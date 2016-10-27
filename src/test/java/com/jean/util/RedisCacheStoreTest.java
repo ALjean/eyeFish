@@ -2,10 +2,11 @@ package com.jean.util;
 
 import com.jean.BaseTest;
 import com.jean.CustomDfmException;
-import com.jean.entity.GeneralDayWeather;
-import com.jean.entity.GeneralHourWeather;
+import com.jean.entity.redis.Coordinates;
+import com.jean.entity.weather.GeneralDayWeather;
+import com.jean.entity.weather.GeneralHourWeather;
 import com.jean.enums.RedisKeys;
-import com.jean.servlet.model.Coordinates;
+
 import org.junit.Before;
 import org.junit.Test;
 

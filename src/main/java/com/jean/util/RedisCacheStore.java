@@ -1,15 +1,15 @@
 package com.jean.util;
 
 import com.jean.CustomDfmException;
-import com.jean.entity.GeneralDayWeather;
-import com.jean.entity.GeneralHourWeather;
+import com.jean.entity.owm.GeneralWeatherStateOWM;
+import com.jean.entity.owm.detail.DayWeatherDataOWM;
+import com.jean.entity.owm.hour.HoursWeatherDataOWM;
+import com.jean.entity.redis.Coordinates;
+import com.jean.entity.redis.RedisStoreEntry;
+import com.jean.entity.weather.GeneralDayWeather;
+import com.jean.entity.weather.GeneralHourWeather;
 import com.jean.enums.RedisKeys;
 import com.jean.service.WeatherService;
-import com.jean.servlet.model.Coordinates;
-import com.jean.servlet.model.RedisStoreEntry;
-import com.jean.servlet.model.owm.GeneralWeatherStateOWM;
-import com.jean.servlet.model.owm.detail.DayWeatherDataOWM;
-import com.jean.servlet.model.owm.hours.HoursWeatherDataOWM;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
