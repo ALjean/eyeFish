@@ -10,8 +10,7 @@ public class GeoHashUtil {
 	               Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
 	               Math.sin(dLng/2) * Math.sin(dLng/2);
 	    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-	    double dist = ((double) (earthRadius * c));
-		return dist;
+		return earthRadius * c;
 	}
 
 	public static void main(String[] args) {

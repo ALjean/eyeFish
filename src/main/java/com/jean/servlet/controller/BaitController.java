@@ -1,7 +1,5 @@
 package com.jean.servlet.controller;
 
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +25,7 @@ public class BaitController {
 	@RequestMapping(value = "{baitId}", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?> getBaits(@PathVariable("baitId") int baitId) {
 
-		List<Bait> baits = new ArrayList<Bait>();
+		List<Bait> baits;
 
 		try {
 			baits = baitService.getBaits(baitId, null, null, null, null);
@@ -40,7 +38,7 @@ public class BaitController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		return new ResponseEntity<List<Bait>>(baits, HttpStatus.OK);
+		return new ResponseEntity<>(baits, HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
@@ -50,7 +48,7 @@ public class BaitController {
 			@RequestParam(value = "fishId", required = false)Integer fishId, 
 			@RequestParam(value = "date", required = false)String date) {
 
-		List<Bait> baits = new ArrayList<Bait>();
+		List<Bait> baits;
 
 		try {
 			baits = baitService.getBaits(null, baitType, baitName, fishId, date);
@@ -66,6 +64,6 @@ public class BaitController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		return new ResponseEntity<List<Bait>>(baits, HttpStatus.OK);
+		return new ResponseEntity<>(baits, HttpStatus.OK);
 	}
 }

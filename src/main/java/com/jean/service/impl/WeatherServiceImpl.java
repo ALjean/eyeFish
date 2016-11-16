@@ -1,22 +1,21 @@
 package com.jean.service.impl;
 
-import com.jean.config.property.WeatherApiProperties;
+import com.jean.CustomDfmException;
 import com.jean.entity.owm.GeneralWeatherStateOWM;
 import com.jean.entity.owm.current.CurrentWeatherOWM;
 import com.jean.entity.owm.detail.DayWeatherDataOWM;
 import com.jean.entity.owm.hour.HoursWeatherDataOWM;
+import com.jean.entity.weather.GeneralDayWeather;
+import com.jean.entity.weather.GeneralHourWeather;
 import com.jean.service.WeatherService;
-import com.jean.ApplicationConstants;
 
+
+import com.jean.service.WeatherServiceApi;
+import com.jean.util.MapperOWM;
+import com.jean.util.RedisCacheStore;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 
 /**
  * Created by stas on 18.07.15.
@@ -24,43 +23,43 @@ import java.net.URI;
 @Service
 public class WeatherServiceImpl implements WeatherService {
 
+
     @Autowired
-    WeatherApiProperties weatherApiProperties;
+    private WeatherServiceApi weatherServiceApi;
+
+    @Autowired
+    private RedisCacheStore casheStore;
 
     @Override
-    @SuppressWarnings("unchecked")
-    public GeneralWeatherStateOWM<DayWeatherDataOWM> getDayWeatherState(String lat, String lon) {
+    public GeneralHourWeather getGeneralHourWeather(String lon, String lat) throws CustomDfmException {
 
-        ResponseEntity<GeneralWeatherStateOWM<DayWeatherDataOWM>> response = new RestTemplate().exchange(urlBuilder(lat, lon, ApplicationConstants.DAILY),
-                HttpMethod.GET, null, new ParameterizedTypeReference<GeneralWeatherStateOWM<DayWeatherDataOWM>>() {});
-        return response.getBody();
+        GeneralHourWeather hourWeather = casheStore.getGeneralHourWeather(lon, lat);
+
+        if (hourWeather == null) {
+            GeneralWeatherStateOWM<HoursWeatherDataOWM> hourWeatherOWM = weatherServiceApi.getHourWeathers(lat, lon);
+            hourWeather = MapperOWM.buildModelHourWeather(hourWeatherOWM);
+            casheStore.setWeather(hourWeather);
+        }
+
+        return hourWeather;
+    }
+
+    @Override
+    public GeneralDayWeather getGeneralDayWeather(String lon, String lat) throws CustomDfmException {
+
+        GeneralDayWeather dayWeather = casheStore.getGeneralDayWeather(lon, lat);
+
+        if (dayWeather == null) {
+            GeneralWeatherStateOWM<DayWeatherDataOWM> dayWeatherOWM = weatherServiceApi.getDayWeatherState(lat, lon);
+            dayWeather = MapperOWM.buildModelDayWeather(dayWeatherOWM);
+            casheStore.setWeather(dayWeather);
+        }
+
+        return dayWeather;
     }
 
     @Override
     public CurrentWeatherOWM getCurrentWeatherState(String lat, String lon) {
-    	
-        ResponseEntity<CurrentWeatherOWM> response = new RestTemplate().exchange(urlBuilder(lat, lon, ApplicationConstants.WEATHER),
-                HttpMethod.GET, null, new ParameterizedTypeReference<CurrentWeatherOWM>() {});
-        return response.getBody();
-    }
-
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public GeneralWeatherStateOWM<HoursWeatherDataOWM> getHourWeathers(String lat, String lon) {
-
-        ResponseEntity<GeneralWeatherStateOWM<HoursWeatherDataOWM>> response = new RestTemplate().exchange(urlBuilder(lat, lon, ApplicationConstants.FORCAST),
-                HttpMethod.GET, null, new ParameterizedTypeReference<GeneralWeatherStateOWM<HoursWeatherDataOWM>>() {});
-        return response.getBody();
-    }
-
-    private URI urlBuilder(String lat, String lon, String state) {
-
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(weatherApiProperties.getWeatherUrl() + "/" + state)
-                .queryParam(ApplicationConstants.APPID, weatherApiProperties.getAppId()) //todo connect with auth
-                .queryParam(ApplicationConstants.LAT, lat)
-                .queryParam(ApplicationConstants.LON, lon);
-
-        return builder.build().encode().toUri();
+        return weatherServiceApi.getCurrentWeatherState(lat, lon);
     }
 }

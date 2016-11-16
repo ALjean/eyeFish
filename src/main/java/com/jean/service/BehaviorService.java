@@ -9,6 +9,6 @@ import com.jean.entity.weather.GeneralHourWeather;
 
 public interface BehaviorService {
 
-	public List<BehaviorsDTO> getFishBehavior(List<String> calculatedDates, List<Integer> fishIds, GeneralHourWeather generalHourWeather, boolean withBaits) throws DaoDfmException, CustomDfmException;
+	List<BehaviorsDTO> getFishBehavior(List<String> calculatedDates, List<Integer> fishIds, GeneralHourWeather generalHourWeather, boolean withBaits) throws DaoDfmException, CustomDfmException;
 	
 }

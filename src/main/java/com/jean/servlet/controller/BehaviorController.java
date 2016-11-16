@@ -1,6 +1,5 @@
 package com.jean.servlet.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,7 @@ public class BehaviorController {
 			@RequestParam("dates") List<String> calculatedDates, @RequestParam("lon") String lon,
 			@RequestParam("lat") String lat, @RequestParam("baits") Boolean withBaits) {
 
-		List<BehaviorsDTO> behaviorDTOList = new ArrayList<>();
+		List<BehaviorsDTO> behaviorDTOList;
 
 		try {
 
@@ -49,7 +48,7 @@ public class BehaviorController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 
-		return new ResponseEntity<List<BehaviorsDTO>>(behaviorDTOList, HttpStatus.OK);
+		return new ResponseEntity<>(behaviorDTOList, HttpStatus.OK);
 	}
 
 }

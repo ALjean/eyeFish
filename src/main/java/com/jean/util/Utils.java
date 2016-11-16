@@ -19,7 +19,7 @@ public class Utils {
 	private static Map<String, MinMaxHolder> degreesMap;
 
 	static {
-		degreesMap = new HashMap<String, MinMaxHolder>();
+		degreesMap = new HashMap<>();
 
 		degreesMap.put("N", new MinMaxHolder(348.76f, 11.25f));
 		degreesMap.put("NNE", new MinMaxHolder(11.26f, 33.75f));

@@ -3,8 +3,6 @@ package com.jean.servlet.controller;
 import com.jean.DaoDfmException;
 import com.jean.entity.fish.Fish;
 import com.jean.service.FishService;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,7 @@ public class FishController {
 	@RequestMapping(value = "/{fishId}", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?> getFishes(@PathVariable("fishId") Integer fishId) {
 
-		List<Fish> fishes = new ArrayList<Fish>();
+		List<Fish> fishes;
 
 		try {
 			fishes = fishService.getFishes(fishId, null, null, null, null);
@@ -34,7 +32,7 @@ public class FishController {
 			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<List<Fish>>(fishes, HttpStatus.OK);
+		return new ResponseEntity<>(fishes, HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
@@ -43,7 +41,7 @@ public class FishController {
 			@RequestParam(value = "dayActivity", required = false) String dayActivity,
 			@RequestParam(value = "livingArea", required = false) String livingArea) {
 
-		List<Fish> fishes = new ArrayList<Fish>();
+		List<Fish> fishes;
 
 		try {
 			fishes = fishService.getFishes(null, fishName, fishType, dayActivity, livingArea);
@@ -55,6 +53,6 @@ public class FishController {
 			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<List<Fish>>(fishes, HttpStatus.OK);
+		return new ResponseEntity<>(fishes, HttpStatus.OK);
 	}
 }
