@@ -1,0 +1,42 @@
+task createDatabase(type: MySqlTask) {
+    def dbName = ''
+    sql = "CREATE DATABASE IF NOT EXISTS ${dbName}"
+}
+
+task executeSchema(type: MySqlTask, dependsOn: createDatabase) {
+
+}
+
+
+class MySqlTask extends DefaultTask {
+
+    def hostname = 'localhost'
+    def port = 3306
+    def pathToSchema = ''
+    def sql
+    def database
+    def username = 'root'
+    def password = 'password'
+
+
+    @TaskAction
+    def runQuery() {
+
+        def cmd
+        if(database) {
+            cmd = "mysql -u ${username} -p${password} -h ${hostname} -P ${port} ${database} -e "
+        }
+        else {
+//            cmd = "mysql -u ${username} -p${password} -h ${hostname} -P ${port} -e "
+            cmd = "mysql -u ${username} -p${password} ${database} < ${pathToSchema}"
+        }
+
+        if(sql){
+            project.exec {
+                commandLine = cmd.split().toList() + sql
+            }
+        }
+
+    }
+
+}

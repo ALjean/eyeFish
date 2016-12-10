@@ -5,6 +5,8 @@ apply plugin: 'eclipse'
 apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
 
 
+
+
 repositories {
     mavenCentral()
 }
@@ -18,35 +20,60 @@ gretty {
 dependencies {
 
 
-    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21'
-    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.21'
-    compile group: 'org.springframework', name: 'spring-webmvc', version: springVer
-    compile group: 'org.springframework', name: 'spring-test', version: springVer
+    compile group: 'org.slf4j', name: 'slf4j-api', version: slf4jV
+    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: slf4jV
+    compile group: 'org.springframework', name: 'spring-webmvc', version: springV
+    compile group: 'org.springframework', name: 'spring-test', version: springV
     /*spring security*/
-    compile group: 'org.springframework.security', name: 'spring-security-core', version: springSecurityVer
-    compile group: 'org.springframework.security', name: 'spring-security-config', version: springSecurityVer
-    compile group: 'org.springframework.security', name: 'spring-security-web', version: springSecurityVer
-    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.6.0'
-    compile group: 'org.springframework', name: 'spring-jdbc', version: '4.2.4.RELEASE'
-    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.35'
-    compile group: 'redis.clients', name: 'jedis', version: '2.8.1'
-    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.6.0'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.6.0'
-    compile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'org.springframework.security', name: 'spring-security-core', version: securityV
+    compile group: 'org.springframework.security', name: 'spring-security-config', version: securityV
+    compile group: 'org.springframework.security', name: 'spring-security-web', version: securityV
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version: jjwtV
+
+    compile group: 'org.springframework', name: 'spring-jdbc', version: springV
+    compile group: 'mysql', name: 'mysql-connector-java', version: mysqlConnectorV
+    compile group: 'redis.clients', name: 'jedis', version: redisV
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version: servletV
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: jacksonV
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jacksonV
+    compile group: 'junit', name: 'junit', version: junitV
     //apache
-    compile group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.1.1'
+    compile group: 'org.apache.commons', name: 'commons-dbcp2', version: dbcp2V
     // doc parse
-    compile group: 'org.apache.poi', name: 'poi', version: '3.13'
-    compile group: 'org.springframework.mobile', name: 'spring-mobile-device', version: '1.1.5.RELEASE'
+    compile group: 'org.apache.poi', name: 'poi', version: poiV
+    compile group: 'org.springframework.mobile', name: 'spring-mobile-device', version: mobileDeviceV
 
 }
+
+
+task devRun(dependsOn: ':appRunDebug') {
+    def profile = "development"
+
+    doFirst {
+        System.setProperty("spring.profiles.active", profile)
+    }
+
+    doLast {
+        println '------- Run Dev server--------Profile: ' + profile
+    }
+}
+
+
+
 
 
 task deploy(type: Copy, dependsOn: war) {
+    profile = "production"
     from 'build/libs/'
-    into '/home/stas/Work/Tomcats/apache-tomcat-8.0.33/webapps'
-//    into jbossHome + '/standalone/deployments/'
+    into tomcatPath + '/webapps'
 }
 
+/*
+bootRun {
+    systemProperty "spring.profiles.active", "development"
+}*/
+
+/*task development {
+    run { systemProperty "spring.profiles.active", "development" }
+}*/
 
