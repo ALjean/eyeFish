@@ -3,6 +3,10 @@ package com.jean.util;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,14 +41,16 @@ public class Utils {
 		degreesMap.put("WNW", new MinMaxHolder(281.26f, 303.75f));
 		degreesMap.put("NW", new MinMaxHolder(303.76f, 326.25f));
 		degreesMap.put("NNW", new MinMaxHolder(326.26f, 348.75f));
-
 	}
+
 
 	public static float kelvinToCelsius(float kelvinTemp) {
 		float c = (kelvinTemp - ApplicationConstants.KELVIN_VALUE) * 1;
 
 		return round(c);
 	}
+
+
 
 	public static float millibarToMmHg(float millibar) {
 		return millibar / ApplicationConstants.MILLIBAR_VALUE;
@@ -76,7 +82,18 @@ public class Utils {
 		}
 		return result;
 	}
-	
+
+	public static LocalDateTime parseTextDate(String dateText){
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		return LocalDateTime.parse(dateText, formatter);
+	}
+
+	public static LocalDateTime parseTextDate(long dateSeconds){
+		dateSeconds *= 1000; // s > ms
+		return LocalDateTime.ofInstant(Instant.ofEpochMilli(dateSeconds), ZoneId.systemDefault());
+	}
+
+	@Deprecated
 	public static Date parseJsonDateTxt(String dateText) {
 		Date date = new Date();
 		try {
@@ -90,14 +107,4 @@ public class Utils {
 	}
 }
 
-class MinMaxHolder {
 
-	float startValue;
-	float endValue;
-
-	public MinMaxHolder(float startDegree, float endDegree) {
-		super();
-		this.startValue = startDegree;
-		this.endValue = endDegree;
-	}
-}

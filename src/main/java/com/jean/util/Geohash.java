@@ -76,9 +76,5 @@ public class Geohash {
 	private static double middle(double[] range) {
 		return (range[0] + range[1]) / 2;
 	}
-	
-	public static void main(String[] args){
-		System.out.println(Geohash.encodeGeohash(50, 36.25, 10));
-		System.out.println(Geohash.encodeGeohash(49.34, 34.25, 10));
-	}
+
 }

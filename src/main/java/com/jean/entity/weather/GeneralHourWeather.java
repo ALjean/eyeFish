@@ -5,6 +5,7 @@ import com.jean.entity.redis.RedisStoreEntry;
 import com.jean.enums.RedisKeys;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,7 +21,7 @@ public class GeneralHourWeather implements RedisStoreEntry, Serializable {
 	private float coordLat;
 	private String country;
 	private double messageCount;
-	private Map<Date, List<HourWeather>> dayHourWeathers;
+	private Map<LocalDate, List<HourWeather>> dayHourWeathers;
 
 	public long getCityId() {
 		return cityId;
@@ -70,11 +71,11 @@ public class GeneralHourWeather implements RedisStoreEntry, Serializable {
 		this.messageCount = messageCount;
 	}
 
-	public Map<Date, List<HourWeather>> getDayHourWeathers() {
+	public Map<LocalDate, List<HourWeather>> getDayHourWeathers() {
 		return dayHourWeathers;
 	}
 
-	public void setDayHourWeathers(Map<Date, List<HourWeather>> dayHourWeathers) {
+	public void setDayHourWeathers(Map<LocalDate, List<HourWeather>> dayHourWeathers) {
 		this.dayHourWeathers = dayHourWeathers;
 	}
 

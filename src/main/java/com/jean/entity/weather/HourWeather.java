@@ -1,12 +1,12 @@
 package com.jean.entity.weather;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 
 public class HourWeather implements Serializable {
 
-	private Date date;
+	private LocalDateTime date;
 	private String dateText;
 	private String windDirection;
 	private String cloudMain;
@@ -22,11 +22,11 @@ public class HourWeather implements Serializable {
 	private float windSpeed;
 	private float rainVolume;
 
-	public Date getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
 

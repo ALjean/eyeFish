@@ -31,30 +31,30 @@ public class MapperOWM {
 		generalDayWeather.setCoordLat(dayWeatherOWM.getCity().getCoord().getLat());
 		generalDayWeather.setCoordLon(dayWeatherOWM.getCity().getCoord().getLon());
 
-		for (DayWeatherDataOWM dayWeatherDataOWM : dayWeatherOWM.getList()) {
-
+		dayWeatherOWM.getList().forEach(item -> {
 			DayWeather dayWeather = new DayWeather();
 
-			dayWeather.setCurrentDate(new Date(dayWeatherDataOWM.getDt()));
-			dayWeather.setClouds(dayWeatherDataOWM.getClouds());
-			dayWeather.setHumidity(dayWeatherDataOWM.getHumidity());
-			dayWeather.setPressure(Utils.millibarToMmHg(dayWeatherDataOWM.getPressure()));
-			dayWeather.setRainVolume(dayWeatherDataOWM.getRain());
-			dayWeather.setTempDay(Utils.kelvinToCelsius(dayWeatherDataOWM.getTemp().getDay()));
-			dayWeather.setTempEvening(Utils.kelvinToCelsius(dayWeatherDataOWM.getTemp().getEve()));
-			dayWeather.setTempMorning(Utils.kelvinToCelsius(dayWeatherDataOWM.getTemp().getMorn()));
-			dayWeather.setTempNight(Utils.kelvinToCelsius(dayWeatherDataOWM.getTemp().getNight()));
-			dayWeather.setTempMin(Utils.kelvinToCelsius(dayWeatherDataOWM.getTemp().getMin()));
-			dayWeather.setTempMax(Utils.kelvinToCelsius(dayWeatherDataOWM.getTemp().getMax()));
-			dayWeather.setWindDeg(dayWeatherDataOWM.getDeg());
-			dayWeather.setWindSpeed(dayWeatherDataOWM.getSpeed());
-			dayWeather.setClouds(dayWeatherDataOWM.getClouds());
-			dayWeather.setCloudDescription(dayWeatherDataOWM.getWeather().get(0).getDescription());
-			dayWeather.setCloudMain(dayWeatherDataOWM.getWeather().get(0).getMain());
-			dayWeather.setWindDirection(Utils.getDirection(dayWeatherDataOWM.getDeg()));
+
+			dayWeather.setCurrentDate(Utils.parseTextDate(item.getDt()));
+			dayWeather.setClouds(item.getClouds());
+			dayWeather.setHumidity(item.getHumidity());
+			dayWeather.setPressure(Utils.millibarToMmHg(item.getPressure()));
+			dayWeather.setRainVolume(item.getRain());
+			dayWeather.setTempDay(Utils.kelvinToCelsius(item.getTemp().getDay()));
+			dayWeather.setTempEvening(Utils.kelvinToCelsius(item.getTemp().getEve()));
+			dayWeather.setTempMorning(Utils.kelvinToCelsius(item.getTemp().getMorn()));
+			dayWeather.setTempNight(Utils.kelvinToCelsius(item.getTemp().getNight()));
+			dayWeather.setTempMin(Utils.kelvinToCelsius(item.getTemp().getMin()));
+			dayWeather.setTempMax(Utils.kelvinToCelsius(item.getTemp().getMax()));
+			dayWeather.setWindDeg(item.getDeg());
+			dayWeather.setWindSpeed(item.getSpeed());
+			dayWeather.setClouds(item.getClouds());
+			dayWeather.setCloudDescription(item.getWeather().get(0).getDescription());
+			dayWeather.setCloudMain(item.getWeather().get(0).getMain());
+			dayWeather.setWindDirection(Utils.getDirection(item.getDeg()));
 
 			dayWeathers.add(dayWeather);
-		}
+		});
 
 		generalDayWeather.getDayWeathers().addAll(dayWeathers);
 
@@ -72,42 +72,37 @@ public class MapperOWM {
 		generalHourWeather.setCoordLat(hourWeatherOWM.getCity().getCoord().getLat());
 		generalHourWeather.setCoordLon(hourWeatherOWM.getCity().getCoord().getLon());
 
-		Map<Date, List<HourWeather>> dayHourWeathers = new TreeMap<>();
 
-		for (HoursWeatherDataOWM hoursWeatherDataOWM : hourWeatherOWM.getList()) {
-			if(hoursWeatherDataOWM.getWind() == null){
-				hoursWeatherDataOWM.setWind(new WindOWM());
+		WeatherMap map = new WeatherMap();
+
+		hourWeatherOWM.getList().forEach(item ->{
+			if(item.getWind() == null){
+				item.setWind(new WindOWM());
 			}
 			HourWeather hourWeather = new HourWeather();
-			Date currentDate = Utils.parseJsonDateTxt(hoursWeatherDataOWM.getDt_txt());
 
-			hourWeather.setDate(Utils.parseJsonDateTxt(hoursWeatherDataOWM.getDt_txt()));
-			hourWeather.setClouds(hoursWeatherDataOWM.getClouds().getAll());
-			hourWeather.setDateText(hoursWeatherDataOWM.getDt_txt());
-			hourWeather.setGeneralTemp(Utils.kelvinToCelsius(hoursWeatherDataOWM.getMain().getTemp()));
-			hourWeather.setTempMin(Utils.kelvinToCelsius(hoursWeatherDataOWM.getMain().getTemp_min()));
-			hourWeather.setTempMax(Utils.kelvinToCelsius(hoursWeatherDataOWM.getMain().getTemp_max()));
-			hourWeather.setPressure(Utils.millibarToMmHg(hoursWeatherDataOWM.getMain().getPressure()));
-			hourWeather.setHumadity(hoursWeatherDataOWM.getMain().getPressure());
-			hourWeather.setRainVolume(hoursWeatherDataOWM.getRain().getVolume());
-			hourWeather.setSeaLevel(hoursWeatherDataOWM.getMain().getSea_level());
-			hourWeather.setWindDeg(hoursWeatherDataOWM.getWind().getDeg());
-			hourWeather.setWindSpeed(hoursWeatherDataOWM.getWind().getSpeed());
-			
-			hourWeather.setWindDirection(Utils.getDirection(hoursWeatherDataOWM.getWind().getDeg()));
-			hourWeather.setCloudMain(hoursWeatherDataOWM.getWeather().get(0).getMain());
-			hourWeather.setCloudDescription(hoursWeatherDataOWM.getWeather().get(0).getDescription());
-			
-			if(!dayHourWeathers.containsKey(currentDate)){
-				List<HourWeather> hourWeathers = new ArrayList<>();
-				hourWeathers.add(hourWeather);
-				dayHourWeathers.put(currentDate, hourWeathers);
-			}else{
-				dayHourWeathers.get(currentDate).add(hourWeather);
-			}
-		}
+			hourWeather.setDate(Utils.parseTextDate(item.getDt_txt()));
+			hourWeather.setClouds(item.getClouds().getAll());
+			hourWeather.setDateText(item.getDt_txt());
+			hourWeather.setGeneralTemp(Utils.kelvinToCelsius(item.getMain().getTemp()));
+			hourWeather.setTempMin(Utils.kelvinToCelsius(item.getMain().getTemp_min()));
+			hourWeather.setTempMax(Utils.kelvinToCelsius(item.getMain().getTemp_max()));
+			hourWeather.setPressure(Utils.millibarToMmHg(item.getMain().getPressure()));
+			hourWeather.setHumadity(item.getMain().getPressure());
+			hourWeather.setRainVolume(item.getRain().getVolume());
+			hourWeather.setSeaLevel(item.getMain().getSea_level());
+			hourWeather.setWindDeg(item.getWind().getDeg());
+			hourWeather.setWindSpeed(item.getWind().getSpeed());
+
+			hourWeather.setWindDirection(Utils.getDirection(item.getWind().getDeg()));
+			hourWeather.setCloudMain(item.getWeather().get(0).getMain());
+			hourWeather.setCloudDescription(item.getWeather().get(0).getDescription());
+
+			map.put(item.getDt_txt(),hourWeather);
+		});
+
 		
-		generalHourWeather.setDayHourWeathers(dayHourWeathers);
+		generalHourWeather.setDayHourWeathers(map.getMap());
 
 		return generalHourWeather;
 
@@ -125,7 +120,8 @@ public class MapperOWM {
 		currentWeather.setCoordLat(currentWeatherOWM.getCoord().getLat());
 		currentWeather.setCoordLon(currentWeatherOWM.getCoord().getLon());
 		currentWeather.setCountry(currentWeatherOWM.getSys().getCountry());
-		currentWeather.setDate(new Date(currentWeatherOWM.getDt()));
+
+		currentWeather.setDate(Utils.parseTextDate(currentWeatherOWM.getDt()));
 		currentWeather.setHumidity(currentWeatherOWM.getMain().getHumidity());
 		currentWeather.setPressure(Utils.millibarToMmHg(currentWeatherOWM.getMain().getPressure()));
 		currentWeather.setRainVolume(currentWeatherOWM.getRain().getVolume());

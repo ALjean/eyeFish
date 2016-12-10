@@ -2,11 +2,12 @@ package com.jean.entity.weather;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class DayWeather implements Serializable {
 
-	private Date currentDate;
+	private LocalDateTime currentDate;
 	private Timestamp sunRise;
 	private Timestamp sunDown;
 	private String cloudMain;
@@ -25,11 +26,11 @@ public class DayWeather implements Serializable {
 	private double clouds;
 	private double rainVolume;
 
-	public Date getCurrentDate() {
+	public LocalDateTime getCurrentDate() {
 		return currentDate;
 	}
 
-	public void setCurrentDate(Date currentDate) {
+	public void setCurrentDate(LocalDateTime currentDate) {
 		this.currentDate = currentDate;
 	}
 

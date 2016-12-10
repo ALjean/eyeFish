@@ -1,12 +1,13 @@
 package com.jean.entity.weather;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class CurrentWeather {
 
 	private long cityId;
-	private Date date;
+	private LocalDateTime date;
 	private Timestamp sunRise;
 	private Timestamp sunDown;
 	private String cityName;
@@ -36,11 +37,11 @@ public class CurrentWeather {
 		this.cityId = cityId;
 	}
 
-	public Date getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
 
