@@ -24,7 +24,7 @@ public class Coordinates implements Serializable {
 	}
 
 
-	public double getLongitude() {
+	public float getLongitude() {
 		return longitude;
 	}
 
@@ -61,7 +61,7 @@ public class Coordinates implements Serializable {
 
 		Coordinates that = (Coordinates) o;
 
-		return Double.compare(that.longitude, longitude) == 0 && Double.compare(that.latitude, latitude) == 0;
+		return Float.compare(that.longitude, longitude) == 0 && Float.compare(that.latitude, latitude) == 0;
 
 	}
 
@@ -69,9 +69,9 @@ public class Coordinates implements Serializable {
 	public int hashCode() {
 		int result;
 		long temp;
-		temp = Double.doubleToLongBits(longitude);
+		temp = Float.floatToIntBits(longitude);
 		result = (int) (temp ^ (temp >>> 32));
-		temp = Double.doubleToLongBits(latitude);
+		temp = Float.floatToIntBits(latitude);
 		result = 31 * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
