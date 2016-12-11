@@ -1,15 +1,8 @@
 package com.jean.servlet.controller;
 
 import com.jean.CustomDfmException;
-import com.jean.entity.owm.GeneralWeatherStateOWM;
 import com.jean.entity.owm.current.CurrentWeatherOWM;
-import com.jean.entity.owm.detail.DayWeatherDataOWM;
-import com.jean.entity.owm.hour.HoursWeatherDataOWM;
-import com.jean.entity.redis.Coordinates;
 import com.jean.entity.weather.CurrentWeather;
-import com.jean.entity.weather.GeneralDayWeather;
-import com.jean.entity.weather.GeneralHourWeather;
-import com.jean.enums.RedisKeys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -7,12 +7,10 @@ import java.util.*;
 import com.jean.DaoDfmException;
 
 import com.jean.dao.BaitDao;
-import com.jean.entity.analyzing.PondEnvirmoment;
 import com.jean.entity.bait.Bait;
 import com.jean.entity.bait.BaitSetting;
 import com.jean.entity.bait.DateHolder;
 import com.jean.entity.bait.Qualifier;
-import com.jean.enums.ParamNames;
 import com.jean.util.Log;
 
 import org.springframework.stereotype.Repository;

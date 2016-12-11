@@ -6,9 +6,6 @@ import com.jean.entity.owm.GeneralWeatherStateOWM;
 import com.jean.entity.owm.current.CurrentWeatherOWM;
 import com.jean.entity.owm.detail.DayWeatherDataOWM;
 import com.jean.entity.owm.hour.HoursWeatherDataOWM;
-import com.jean.entity.redis.Coordinates;
-import com.jean.entity.weather.GeneralDayWeather;
-import com.jean.entity.weather.GeneralHourWeather;
 import com.jean.service.WeatherServiceApi;
 
 import org.springframework.beans.factory.annotation.Autowired;

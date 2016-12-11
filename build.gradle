@@ -14,6 +14,7 @@ repositories {
 gretty {
     httpPort = 8033
     contextPath = ''
+    managedClassReload = true
 }
 
 //noinspection GroovyAssignabilityCheck

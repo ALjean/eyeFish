@@ -2,7 +2,6 @@ package com.jean.dao.impl;
 
 import com.jean.DaoDfmException;
 import com.jean.dao.FishDao;
-import com.jean.entity.*;
 import com.jean.entity.fish.DayActivity;
 import com.jean.entity.fish.Fish;
 import com.jean.entity.fish.FishSetting;
