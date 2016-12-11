@@ -2,10 +2,7 @@ package com.jean.util;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 import com.jean.entity.owm.GeneralWeatherStateOWM;
 import com.jean.entity.owm.WindOWM;
@@ -80,7 +77,6 @@ public class MapperOWM {
 				item.setWind(new WindOWM());
 			}
 			HourWeather hourWeather = new HourWeather();
-
 			hourWeather.setDate(Utils.parseTextDate(item.getDt_txt()));
 			hourWeather.setClouds(item.getClouds().getAll());
 			hourWeather.setDateText(item.getDt_txt());
@@ -93,12 +89,11 @@ public class MapperOWM {
 			hourWeather.setSeaLevel(item.getMain().getSea_level());
 			hourWeather.setWindDeg(item.getWind().getDeg());
 			hourWeather.setWindSpeed(item.getWind().getSpeed());
-
 			hourWeather.setWindDirection(Utils.getDirection(item.getWind().getDeg()));
 			hourWeather.setCloudMain(item.getWeather().get(0).getMain());
 			hourWeather.setCloudDescription(item.getWeather().get(0).getDescription());
 
-			map.put(item.getDt_txt(),hourWeather);
+			map.put(item.getDt_txt(), hourWeather);
 		});
 
 		
