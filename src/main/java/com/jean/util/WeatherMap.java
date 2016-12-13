@@ -14,7 +14,7 @@ import java.util.TreeMap;
  */
 public class WeatherMap {
 
-    private TreeMap<LocalDate, List<HourWeather>> map;
+    private Map<LocalDate, List<HourWeather>> map;
 
     public WeatherMap(){
         map = new TreeMap<>();
@@ -35,7 +35,8 @@ public class WeatherMap {
         put(dateKey, value);
     }
 
-    public TreeMap<LocalDate, List<HourWeather>> getMap(){
+    public Map<LocalDate, List<HourWeather>> getMap(){
+
         return map;
     }
 

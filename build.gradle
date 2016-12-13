@@ -65,7 +65,7 @@ task devRun(dependsOn: ':appRunDebug') {
 
 
 task deploy(type: Copy, dependsOn: war) {
-    profile = "production"
+    def profile = "production"
     from 'build/libs/'
     into tomcatPath + '/webapps'
 }

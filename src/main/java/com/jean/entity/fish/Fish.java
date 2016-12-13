@@ -14,9 +14,9 @@ public class Fish {
 	private String description;
 	private String fishType;
 	private Map<String, Double> pressureStates;
-	private List<LivingArea> livingArea;
+	private List<LivingArea> livingAreas;
 	private List<DayActivity> daysActivity;
-	private List<FishSetting> fishSetting;
+	private List<FishSetting> fishSettings;
 	private List<NibblePeriod> nibblePeriods;
 
 	public int getId() {
@@ -68,11 +68,11 @@ public class Fish {
 	}
 
 	public List<LivingArea> getLivingArea() {
-		return livingArea;
+		return livingAreas;
 	}
 
-	public void setLivingArea(List<LivingArea> livingArea) {
-		this.livingArea = livingArea;
+	public void setLivingArea(List<LivingArea> livingAreas) {
+		this.livingAreas = livingAreas;
 	}
 
 	public List<DayActivity> getDaysActivity() {
@@ -84,11 +84,11 @@ public class Fish {
 	}
 
 	public List<FishSetting> getFishSetting() {
-		return fishSetting;
+		return fishSettings;
 	}
 
-	public void setFishSetting(List<FishSetting> fishSetting) {
-		this.fishSetting = fishSetting;
+	public void setFishSetting(List<FishSetting> fishSettings) {
+		this.fishSettings = fishSettings;
 	}
 
 	public List<NibblePeriod> getNibbles() {
@@ -100,11 +100,11 @@ public class Fish {
 	}
 
 	public Fish() {
-		this.daysActivity = new ArrayList<DayActivity>();
-		this.livingArea = new ArrayList<LivingArea>();
-		this.fishSetting = new ArrayList<FishSetting>();
-		this.nibblePeriods = new ArrayList<NibblePeriod>();
-		this.pressureStates = new HashMap<String, Double>();
+		this.daysActivity = new ArrayList<>();
+		this.livingAreas = new ArrayList<>();
+		this.fishSettings = new ArrayList<>();
+		this.nibblePeriods = new ArrayList<>();
+		this.pressureStates = new HashMap<>();
 
 		pressureStates.put(PressureStates.IS_STABILITY.name(), null);
 		pressureStates.put(PressureStates.IS_STABILITY_LOW.name(), null);
@@ -113,24 +113,24 @@ public class Fish {
 		pressureStates.put(PressureStates.IS_RISE.name(), null);
 	}
 
-	public Fish(int id, String name, String description, String fishType, List<LivingArea> livingArea,
+	public Fish(int id, String name, String description, String fishType, List<LivingArea> livingAreas,
 			List<DayActivity> daysActivity, List<FishSetting> fishSetting, List<NibblePeriod> nibbles) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.fishType = fishType;
-		this.livingArea = livingArea;
+		this.livingAreas = livingAreas;
 		this.daysActivity = daysActivity;
-		this.fishSetting = fishSetting;
+		this.fishSettings = fishSetting;
 		this.nibblePeriods = nibbles;
 	}
 
 	@Override
 	public String toString() {
 		return "Fish [id=" + id + ", name=" + name + ", description=" + description + ", fishType=" + fishType
-				+ ", pressureStates=" + pressureStates + ", livingArea=" + livingArea + ", daysActivity=" + daysActivity
-				+ ", fishSetting=" + fishSetting + ", nibblePeriods=" + nibblePeriods + "]";
+				+ ", pressureStates=" + pressureStates + ", livingArea=" + livingAreas + ", daysActivity=" + daysActivity
+				+ ", fishSetting=" + fishSettings + ", nibblePeriods=" + nibblePeriods + "]";
 	}
 
 }
