@@ -7,16 +7,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by jean on 10.12.16.
  */
 public class WeatherMap {
 
-    private Map<LocalDate, List<HourWeather>> map;
+    private TreeMap<LocalDate, List<HourWeather>> map;
 
     public WeatherMap(){
-        map = new HashMap<>();
+        map = new TreeMap<>();
     }
 
     public void put(String key, HourWeather value){
@@ -34,7 +35,7 @@ public class WeatherMap {
         put(dateKey, value);
     }
 
-    public Map<LocalDate, List<HourWeather>> getMap(){
+    public TreeMap<LocalDate, List<HourWeather>> getMap(){
         return map;
     }
 
