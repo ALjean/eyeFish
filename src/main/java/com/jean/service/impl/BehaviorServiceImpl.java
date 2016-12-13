@@ -46,12 +46,12 @@ public class BehaviorServiceImpl implements BehaviorService {
 				if (behaviorsDTO.getBehaviors().containsKey(currentDate)) {
 					behaviorsDTO.getBehaviors().get(currentDate)
 							.add(behaviorAnalyzer.getFishBehavior(
-									generalHourWeather.getDayHourWeathers().get(Utils.parseJsonDateTxt(currentDate)),
+									generalHourWeather.getDayHourWeathers().get(Utils.stringToDate(currentDate)),
 									fish, withBaits, currentDate));
 				} else {
 					List<Behavior> behaviors = new ArrayList<Behavior>();
 					behaviors.add(behaviorAnalyzer.getFishBehavior(
-							generalHourWeather.getDayHourWeathers().get(Utils.parseJsonDateTxt(currentDate)), fish,
+							generalHourWeather.getDayHourWeathers().get(Utils.stringToDate(currentDate)), fish,
 							withBaits, currentDate));
 					behaviorsDTO.getBehaviors().put(currentDate, behaviors);
 				}

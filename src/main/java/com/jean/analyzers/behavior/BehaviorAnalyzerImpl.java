@@ -115,8 +115,8 @@ public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {
 			results.add(nibbleChecker.isWind(hourWeather.getWindDeg(), hourWeather.getWindSpeed()));
 
 			for (NibblePeriod nibblePeriod : fish.getNibbles()) {
-				if (Utils.parseJsonDateTxt(hourWeather.getDateText()).after(nibblePeriod.getStartPeriod())
-						&& Utils.parseJsonDateTxt(hourWeather.getDateText()).before(nibblePeriod.getEndPeriod())) {
+				if (Utils.stringToDate(hourWeather.getDateText()).isAfter(nibblePeriod.getStartPeriod().toLocalDate())
+						&& Utils.stringToDate(hourWeather.getDateText()).isBefore(nibblePeriod.getEndPeriod().toLocalDate())) {
 					results.add(nibblePeriod.getNibbleLevel());
 				}
 			}
