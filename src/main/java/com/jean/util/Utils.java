@@ -4,15 +4,18 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import com.jean.ApplicationConstants;
+import com.jean.CustomDfmException;
 import com.jean.entity.redis.Coordinates;
 
 /**
@@ -93,14 +96,12 @@ public class Utils {
 		return LocalDateTime.ofInstant(Instant.ofEpochMilli(dateSeconds), ZoneId.systemDefault());
 	}
 
-	@Deprecated
-	public static Date parseJsonDateTxt(String dateText) {
-		Date date = new Date();
+	public static LocalDate stringToDate(String dateText){
+		LocalDate date = null;
 		try {
-			DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-			date = formatter.parse(dateText.substring(0, 10).trim());
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			date = LocalDate.parse(dateText, formatter);
+		} catch (DateTimeParseException e) {
 			e.printStackTrace();
 		}
 		return date;
