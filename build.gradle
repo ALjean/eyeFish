@@ -30,6 +30,8 @@ dependencies {
     compile group: 'org.springframework.security', name: 'spring-security-core', version: securityV
     compile group: 'org.springframework.security', name: 'spring-security-config', version: securityV
     compile group: 'org.springframework.security', name: 'spring-security-web', version: securityV
+    compile group: 'org.springframework.data', name: 'spring-data-jpa', version: jpaV
+    compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: hibernateV
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: jjwtV
 
     compile group: 'org.springframework', name: 'spring-jdbc', version: springV

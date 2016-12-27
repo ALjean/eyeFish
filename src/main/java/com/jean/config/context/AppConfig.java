@@ -10,17 +10,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Properties;
 
 
 /**
@@ -30,6 +39,8 @@ import java.util.List;
 @EnableWebMvc
 @ComponentScan({"com.jean.*"})
 @PropertySource("classpath:properties/app.properties")
+@EnableJpaRepositories
+@EnableTransactionManagement
 //@EnableScheduling
 public class AppConfig extends WebMvcConfigurerAdapter {
 
@@ -53,14 +64,45 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public DataSource getBasicDataSource(){
-        BasicDataSource basicDataSource = new BasicDataSource();
+        DriverManagerDataSource basicDataSource = new DriverManagerDataSource();
         basicDataSource.setDriverClassName(dataBaseProperties.getDriver());
         basicDataSource.setUrl(dataBaseProperties.getUrl());
         basicDataSource.setUsername(dataBaseProperties.getUserName());
         basicDataSource.setPassword(dataBaseProperties.getPassword());
-        basicDataSource.setInitialSize(dataBaseProperties.getPool());
         return basicDataSource;
     }
+
+    @Bean
+    public EntityManagerFactory entityManagerFactory() {
+
+        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        vendorAdapter.setGenerateDdl(true);
+
+        LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
+
+        factory.setJpaVendorAdapter(vendorAdapter);
+        factory.setJpaProperties(additionalProperties());
+        factory.setPackagesToScan("com.jean.entity");
+        factory.setDataSource(getBasicDataSource());
+        factory.afterPropertiesSet();
+        return factory.getObject();
+    }
+
+    Properties additionalProperties() {
+        Properties properties = new Properties();
+        properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+        return properties;
+    }
+
+
+    @Bean
+    public PlatformTransactionManager transactionManager() {
+        JpaTransactionManager txManager = new JpaTransactionManager();
+        txManager.setEntityManagerFactory(entityManagerFactory());
+        return txManager;
+    }
+
 
 
     @Bean

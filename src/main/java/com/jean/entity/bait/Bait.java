@@ -3,6 +3,7 @@ package com.jean.entity.bait;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Bait {
 
 	private int baitId;
