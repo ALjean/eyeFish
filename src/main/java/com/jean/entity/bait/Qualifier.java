@@ -2,10 +2,9 @@ package com.jean.entity.bait;
 
 import com.jean.entity.BaseEntry;
 
-import javax.persistence.Column;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-
+@Entity
 @Table(name = "qualifiers")
 public class Qualifier extends BaseEntry {
 
@@ -13,6 +12,8 @@ public class Qualifier extends BaseEntry {
     @Column(name = "param_name")
     private String paramName;
 
+    @ManyToOne
+    @JoinColumn(name = "setting_id")
     private BaitSetting baitSetting;
 
     @Column(name = "min_level")
@@ -20,6 +21,8 @@ public class Qualifier extends BaseEntry {
 
     @Column(name = "max_level")
     private float max;
+
+
 
 
     public String getParamName() {
@@ -62,11 +65,6 @@ public class Qualifier extends BaseEntry {
         this.paramName = paramName;
         this.min = min;
         this.max = max;
-    }
-
-    @Override
-    public String toString() {
-        return "Qualifier [qual_id=" + id + ", paramName=" + paramName + ", min=" + min + ", max=" + max + "]";
     }
 
 }

@@ -2,13 +2,18 @@ package com.jean.entity.fish;
 
 import com.jean.entity.BaseEntry;
 
-import javax.persistence.Column;
+import javax.persistence.*;
 
 /**
  * Created by jean on 09.05.16.
  */
+@Entity
+@Table(name = "days_activity")
 public class DayActivity extends BaseEntry {
 
+
+    @ManyToOne
+    @JoinColumn(name = "fish_id")
     private Fish fish;
 
     @Column(name = "activity_name")

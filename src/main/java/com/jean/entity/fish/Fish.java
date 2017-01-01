@@ -1,130 +1,141 @@
 package com.jean.entity.fish;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.jean.entity.BaseEntry;
+import com.jean.entity.bait.Bait;
 import com.jean.enums.PressureStates;
 
+import javax.persistence.*;
+
+
+@Entity
+@Table(name = "fishes")
 public class Fish extends BaseEntry {
 
 
-	private String name;
-	private String description;
-	private String fishType;
-	private Map<String, Double> pressureStates;
-	private List<LivingArea> livingAreas;
-	private List<DayActivity> daysActivity;
-	private List<FishSetting> fishSettings;
-	private List<NibblePeriod> nibblePeriods;
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "fish_type")
+    private String fishType;
 
 
-	public String getName() {
-		return name;
-	}
+    private Map<String, Double> pressureStates;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    @OneToMany(mappedBy = "fish", cascade = CascadeType.ALL)
+    private Set<LivingArea> livingAreas;
 
-	public String getDescription() {
-		return description;
-	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    @OneToMany(mappedBy = "fish", cascade = CascadeType.ALL)
+    private Set<DayActivity> daysActivity;
 
-	public String getFishType() {
-		return fishType;
-	}
+    @OneToMany(mappedBy = "fish", cascade = CascadeType.ALL)
+    private Set<FishSetting> fishSettings;
 
-	public void setFishType(String fishType) {
-		this.fishType = fishType;
-	}
+    @OneToMany(mappedBy = "fish", cascade = CascadeType.ALL)
+    private Set<NibblePeriod> nibblePeriods;
 
-	public Map<String, Double> getPressureStates() {
-		return pressureStates;
-	}
 
-	public void setPressureStates(Map<String, Double> pressureStates) {
-		this.pressureStates = pressureStates;
-	}
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "baits_to_fishes",
+            joinColumns = @JoinColumn(name = "fish_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "bait_id", referencedColumnName = "id"))
+    private List<Bait> baits;
 
-	public List<NibblePeriod> getNibblePeriods() {
-		return nibblePeriods;
-	}
 
-	public void setNibblePeriods(List<NibblePeriod> nibblePeriods) {
-		this.nibblePeriods = nibblePeriods;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public List<LivingArea> getLivingArea() {
-		return livingAreas;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setLivingArea(List<LivingArea> livingAreas) {
-		this.livingAreas = livingAreas;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public List<DayActivity> getDaysActivity() {
-		return daysActivity;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setDaysActivity(List<DayActivity> daysActivity) {
-		this.daysActivity = daysActivity;
-	}
+    public String getFishType() {
+        return fishType;
+    }
 
-	public List<FishSetting> getFishSetting() {
-		return fishSettings;
-	}
+    public void setFishType(String fishType) {
+        this.fishType = fishType;
+    }
 
-	public void setFishSetting(List<FishSetting> fishSettings) {
-		this.fishSettings = fishSettings;
-	}
+    public Map<String, Double> getPressureStates() {
+        return pressureStates;
+    }
 
-	public List<NibblePeriod> getNibbles() {
-		return nibblePeriods;
-	}
+    public void setPressureStates(Map<String, Double> pressureStates) {
+        this.pressureStates = pressureStates;
+    }
 
-	public void setNibbles(List<NibblePeriod> nibbles) {
-		this.nibblePeriods = nibbles;
-	}
+    public Set<LivingArea> getLivingAreas() {
+        return livingAreas;
+    }
 
-	public Fish() {
-		this.daysActivity = new ArrayList<>();
-		this.livingAreas = new ArrayList<>();
-		this.fishSettings = new ArrayList<>();
-		this.nibblePeriods = new ArrayList<>();
-		this.pressureStates = new HashMap<>();
+    public void setLivingAreas(Set<LivingArea> livingAreas) {
+        this.livingAreas = livingAreas;
+    }
 
-		pressureStates.put(PressureStates.IS_STABILITY.name(), null);
-		pressureStates.put(PressureStates.IS_STABILITY_LOW.name(), null);
-		pressureStates.put(PressureStates.IS_STABILITY_HIGH.name(), null);
-		pressureStates.put(PressureStates.IS_DOWN.name(), null);
-		pressureStates.put(PressureStates.IS_RISE.name(), null);
-	}
+    public Set<DayActivity> getDaysActivity() {
+        return daysActivity;
+    }
 
-	public Fish(int id, String name, String description, String fishType, List<LivingArea> livingAreas,
-			List<DayActivity> daysActivity, List<FishSetting> fishSetting, List<NibblePeriod> nibbles) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.fishType = fishType;
-		this.livingAreas = livingAreas;
-		this.daysActivity = daysActivity;
-		this.fishSettings = fishSetting;
-		this.nibblePeriods = nibbles;
-	}
+    public void setDaysActivity(Set<DayActivity> daysActivity) {
+        this.daysActivity = daysActivity;
+    }
 
-	@Override
-	public String toString() {
-		return "Fish [id=" + id + ", name=" + name + ", description=" + description + ", fishType=" + fishType
-				+ ", pressureStates=" + pressureStates + ", livingArea=" + livingAreas + ", daysActivity=" + daysActivity
-				+ ", fishSetting=" + fishSettings + ", nibblePeriods=" + nibblePeriods + "]";
-	}
+    public Set<FishSetting> getFishSettings() {
+        return fishSettings;
+    }
+
+    public void setFishSettings(Set<FishSetting> fishSettings) {
+        this.fishSettings = fishSettings;
+    }
+
+    public Set<NibblePeriod> getNibblePeriods() {
+        return nibblePeriods;
+    }
+
+    public void setNibblePeriods(Set<NibblePeriod> nibblePeriods) {
+        this.nibblePeriods = nibblePeriods;
+    }
+
+    public Fish() {
+        this.daysActivity = new HashSet<>();
+        this.livingAreas = new HashSet<>();
+        this.fishSettings = new HashSet<>();
+        this.nibblePeriods = new HashSet<>();
+        this.pressureStates = new HashMap<>();
+
+        pressureStates.put(PressureStates.IS_STABILITY.name(), null);
+        pressureStates.put(PressureStates.IS_STABILITY_LOW.name(), null);
+        pressureStates.put(PressureStates.IS_STABILITY_HIGH.name(), null);
+        pressureStates.put(PressureStates.IS_DOWN.name(), null);
+        pressureStates.put(PressureStates.IS_RISE.name(), null);
+    }
+
+    public Fish(long id, String name, String description, String fishType, Set<LivingArea> livingAreas,
+                Set<DayActivity> daysActivity, Set<FishSetting> fishSetting, Set<NibblePeriod> nibbles) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.fishType = fishType;
+        this.livingAreas = livingAreas;
+        this.daysActivity = daysActivity;
+        this.fishSettings = fishSetting;
+        this.nibblePeriods = nibbles;
+    }
+
 
 }

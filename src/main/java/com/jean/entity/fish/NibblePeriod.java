@@ -1,32 +1,39 @@
 package com.jean.entity.fish;
 
+import com.jean.entity.BaseEntry;
+
+import javax.persistence.*;
 import java.sql.Date;
 
 /**
  * Created by jean on 12.03.16.
  */
-public class NibblePeriod {
 
-	private int id;
-	private int fishId;
+@Entity
+@Table(name = "nibble-period")
+public class NibblePeriod extends BaseEntry {
+
+
+	@ManyToOne
+	@JoinColumn(name = "fish_id")
+	private Fish fish;
+
+
+	@Column(name = "start_period")
 	private Date startPeriod;
+
+	@Column(name = "end_period")
 	private Date endPeriod;
-	private double nibbleLevel;
 
-	public int getId() {
-		return id;
+	@Column(name = "nibble_level")
+	private float nibbleLevel;
+
+	public Fish getFish() {
+		return fish;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getFishId() {
-		return fishId;
-	}
-
-	public void setFishId(int fishId) {
-		this.fishId = fishId;
+	public void setFish(Fish fish) {
+		this.fish = fish;
 	}
 
 	public Date getStartPeriod() {
@@ -45,31 +52,26 @@ public class NibblePeriod {
 		this.endPeriod = endPeriod;
 	}
 
-	public double getNibbleLevel() {
+	public float getNibbleLevel() {
 		return nibbleLevel;
 	}
 
-	public void setNibbleLevel(double nibbleLevel) {
+	public void setNibbleLevel(float nibbleLevel) {
 		this.nibbleLevel = nibbleLevel;
 	}
 
 	public NibblePeriod() {
-		super();
+
 	}
 
-	public NibblePeriod(int id, int fishId, Date startPeriod, Date endPeriod, double nibbleLevel) {
+	public NibblePeriod(int id, Fish fish, Date startPeriod, Date endPeriod, float nibbleLevel) {
 		super();
 		this.id = id;
-		this.fishId = fishId;
+		this.fish = fish;
 		this.startPeriod = startPeriod;
 		this.endPeriod = endPeriod;
 		this.nibbleLevel = nibbleLevel;
 	}
 
-	@Override
-	public String toString() {
-		return "NibblePeriod [id=" + id + ", fishId=" + fishId + ", startPeriod=" + startPeriod + ", endPeriod="
-				+ endPeriod + ", nibbleLevel=" + nibbleLevel + "]";
-	}
 
 }

@@ -2,11 +2,10 @@ package com.jean.entity.bait;
 
 import com.jean.entity.BaseEntry;
 
-import javax.persistence.Column;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
-
+@Entity
 @Table(name = "bait_settings")
 public class BaitSetting extends BaseEntry {
 
@@ -20,8 +19,22 @@ public class BaitSetting extends BaseEntry {
     @Column(name = "description")
     private String description;
 
+    @ManyToOne
+    @JoinColumn(name = "bait_id")
+    private Bait bait;
+
+
+    @OneToMany(mappedBy = "fish", cascade = CascadeType.ALL)
     private List<Qualifier> qualifers;
 
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getType() {
         return type;
@@ -31,20 +44,20 @@ public class BaitSetting extends BaseEntry {
         this.type = type;
     }
 
-    public String getSettingName() {
-        return name;
-    }
-
-    public void setSettingName(String settingName) {
-        this.name = settingName;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Bait getBait() {
+        return bait;
+    }
+
+    public void setBait(Bait bait) {
+        this.bait = bait;
     }
 
     public List<Qualifier> getQualifers() {

@@ -2,14 +2,23 @@ package com.jean.entity.bait;
 
 import com.jean.entity.BaseEntry;
 
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Date;
 
+@Entity
 @Table(name = "baits_to_seasons")
 public class DateHolder extends BaseEntry {
 
+    @ManyToOne
+    @JoinColumn(name = "bait_id")
     private Bait bait;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "start_period", nullable = false)
     private Date startPeriod;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "end_period", nullable = false)
     private Date endPeriod;
 
 
@@ -40,7 +49,8 @@ public class DateHolder extends BaseEntry {
     public DateHolder() {
     }
 
-    public DateHolder(Date startPeriod, Date endPeriod, Bait bait) {
+    public DateHolder(long id, Date startPeriod, Date endPeriod, Bait bait) {
+        this.id = id;
         this.startPeriod = startPeriod;
         this.endPeriod = endPeriod;
         this.bait = bait;

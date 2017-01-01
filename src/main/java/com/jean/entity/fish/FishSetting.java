@@ -1,31 +1,40 @@
 package com.jean.entity.fish;
 
+import com.jean.entity.BaseEntry;
+
+import javax.persistence.*;
+
 /**
  * Created by Stas on 15.11.2015.
  */
-public class FishSetting {
+@Entity
+@Table(name = "fish_settings")
+public class FishSetting extends BaseEntry {
 
-	private int id;
-	private int fishId;
+
+	@ManyToOne
+	@JoinColumn(name = "fish_id")
+	private Fish fish;
+
+	@Column(name = "param_name")
 	private String paramName;
-	private double minValue;
-	private double maxValue;
-	private double nibbleLevel;
 
-	public int getId() {
-		return id;
+	@Column(name = "min_value")
+	private float minValue;
+
+	@Column(name = "man_value")
+	private float maxValue;
+
+	@Column(name = "nibble_level")
+	private float nibbleLevel;
+
+
+	public Fish getFish() {
+		return fish;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getFishId() {
-		return fishId;
-	}
-
-	public void setFishId(int fishId) {
-		this.fishId = fishId;
+	public void setFish(Fish fish) {
+		this.fish = fish;
 	}
 
 	public String getParamName() {
@@ -36,48 +45,41 @@ public class FishSetting {
 		this.paramName = paramName;
 	}
 
-	public double getMinValue() {
+	public float getMinValue() {
 		return minValue;
 	}
 
-	public void setMinValue(double minValue) {
+	public void setMinValue(float minValue) {
 		this.minValue = minValue;
 	}
 
-	public double getMaxValue() {
+	public float getMaxValue() {
 		return maxValue;
 	}
 
-	public void setMaxValue(double maxValue) {
+	public void setMaxValue(float maxValue) {
 		this.maxValue = maxValue;
 	}
 
-	public double getNibbleLevel() {
+	public float getNibbleLevel() {
 		return nibbleLevel;
 	}
 
-	public void setNibbleLevel(double nibbleLevel) {
+	public void setNibbleLevel(float nibbleLevel) {
 		this.nibbleLevel = nibbleLevel;
 	}
 
 	public FishSetting() {
-		super();
+
 	}
 
-	public FishSetting(int id, int fishId, String paramName, double minValue, double maxValue, double nibbleLevel) {
-		super();
+	public FishSetting(long id, Fish fish, String paramName, float minValue, float maxValue, float nibbleLevel) {
 		this.id = id;
-		this.fishId = fishId;
 		this.paramName = paramName;
 		this.minValue = minValue;
 		this.maxValue = maxValue;
 		this.nibbleLevel = nibbleLevel;
 	}
 
-	@Override
-	public String toString() {
-		return "FishSetting [id=" + id + ", fishId=" + fishId + ", paramName=" + paramName + ", minValue=" + minValue
-				+ ", maxValue=" + maxValue + ", nibbleLevel=" + nibbleLevel + "]";
-	}
 
 }

@@ -1,36 +1,31 @@
 package com.jean.entity.fish;
 
+import com.jean.entity.BaseEntry;
+
+import javax.persistence.*;
+
 /**
  * Created by jean on 09.05.16.
  */
-public class LivingArea {
 
-        private int id;
-        private int fishId;
-        private String areaName;
+@Entity
+@Table(name = "living_area")
+public class LivingArea extends BaseEntry {
 
-    public LivingArea(){}
 
-    public LivingArea(int id, int fishId, String areaName) {
-        this.id = id;
-        this.fishId = fishId;
-        this.areaName = areaName;
+    @ManyToOne
+    @JoinColumn(name = "fish_id")
+    private Fish fish;
+
+    @Column(name = "area_name")
+    private String areaName;
+
+    public Fish getFish() {
+        return fish;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getFishId() {
-        return fishId;
-    }
-
-    public void setFishId(int fishId) {
-        this.fishId = fishId;
+    public void setFish(Fish fish) {
+        this.fish = fish;
     }
 
     public String getAreaName() {
@@ -40,4 +35,15 @@ public class LivingArea {
     public void setAreaName(String areaName) {
         this.areaName = areaName;
     }
+
+    public LivingArea() {
+    }
+
+    public LivingArea(long id, Fish fish, String areaName) {
+        this.id = id;
+        this.fish = fish;
+        this.areaName = areaName;
+    }
+
+
 }

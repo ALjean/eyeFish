@@ -3,12 +3,11 @@ package com.jean.entity.bait;
 import com.jean.entity.BaseEntry;
 import com.jean.entity.fish.Fish;
 
-import javax.persistence.Column;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
 
-
+@Entity
 @Table(name = "baits")
 public class Bait extends BaseEntry {
 
@@ -29,8 +28,15 @@ public class Bait extends BaseEntry {
     private Date endPeriod;
 
 
+    @OneToMany(mappedBy = "bait", cascade = CascadeType.ALL)
     private List<BaitSetting> baitSettings;
+
+
+
+    @ManyToMany(mappedBy = "baits", fetch = FetchType.LAZY)
     private List<Fish> fishes;
+
+    @ManyToMany(mappedBy = "bait", fetch = FetchType.LAZY)
     private List<DateHolder> dates;
 
 
