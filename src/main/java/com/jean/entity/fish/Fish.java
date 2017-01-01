@@ -5,11 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.jean.entity.BaseEntry;
 import com.jean.enums.PressureStates;
 
-public class Fish {
+public class Fish extends BaseEntry {
 
-	private int id;
+
 	private String name;
 	private String description;
 	private String fishType;
@@ -19,13 +20,6 @@ public class Fish {
 	private List<FishSetting> fishSettings;
 	private List<NibblePeriod> nibblePeriods;
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;

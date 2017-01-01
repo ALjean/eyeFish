@@ -1,43 +1,51 @@
 package com.jean.entity.bait;
 
+import com.jean.entity.BaseEntry;
+
+import javax.persistence.Table;
 import java.sql.Date;
 
-public class DateHolder {
+@Table(name = "baits_to_seasons")
+public class DateHolder extends BaseEntry {
 
-    private Date start_period;
-    private Date end_period;
+    private Bait bait;
+    private Date startPeriod;
+    private Date endPeriod;
 
-    public Date getStart_period() {
-	return start_period;
+
+    public Bait getBait() {
+        return bait;
     }
 
-    public void setStart_period(Date start_period) {
-	this.start_period = start_period;
+    public void setBait(Bait bait) {
+        this.bait = bait;
     }
 
-    public Date getEnd_period() {
-	return end_period;
+    public Date getStartPeriod() {
+        return startPeriod;
     }
 
-    public void setEnd_period(Date end_period) {
-	this.end_period = end_period;
+    public void setStartPeriod(Date startPeriod) {
+        this.startPeriod = startPeriod;
+    }
+
+    public Date getEndPeriod() {
+        return endPeriod;
+    }
+
+    public void setEndPeriod(Date endPeriod) {
+        this.endPeriod = endPeriod;
     }
 
     public DateHolder() {
-	super();
     }
 
-    public DateHolder(Date start_period, Date end_period) {
-	super();
-	this.start_period = start_period;
-	this.end_period = end_period;
+    public DateHolder(Date startPeriod, Date endPeriod, Bait bait) {
+        this.startPeriod = startPeriod;
+        this.endPeriod = endPeriod;
+        this.bait = bait;
     }
 
-	@Override
-	public String toString() {
-		return "DateHolder [start_period=" + start_period + ", end_period=" + end_period + "]";
-	}
-    
-    
+
 
 }

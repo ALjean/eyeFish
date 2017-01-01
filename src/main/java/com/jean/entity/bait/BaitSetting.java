@@ -1,75 +1,77 @@
 package com.jean.entity.bait;
 
-import java.util.ArrayList;
+import com.jean.entity.BaseEntry;
+
+import javax.persistence.Column;
+import javax.persistence.Table;
 import java.util.List;
 
-public class BaitSetting {
 
-    private int settingId;
-    private String settingType;
-    private String settingName;
+@Table(name = "bait_settings")
+public class BaitSetting extends BaseEntry {
+
+
+    @Column(name = "setting_type")
+    private String name;
+
+    @Column(name = "setting_type")
+    private String type;
+
+    @Column(name = "description")
     private String description;
 
     private List<Qualifier> qualifers;
 
-    public int getSettingId() {
-	return settingId;
+
+    public String getType() {
+        return type;
     }
 
-    public void setSettingId(int settingId) {
-	this.settingId = settingId;
-    }
-
-    public String getSettingType() {
-	return settingType;
-    }
-
-    public void setSettingType(String settingType) {
-	this.settingType = settingType;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getSettingName() {
-	return settingName;
+        return name;
     }
 
     public void setSettingName(String settingName) {
-	this.settingName = settingName;
+        this.name = settingName;
     }
 
     public String getDescription() {
-	return description;
+        return description;
     }
 
     public void setDescription(String description) {
-	this.description = description;
+        this.description = description;
     }
 
     public List<Qualifier> getQualifers() {
-	return qualifers;
+        return qualifers;
     }
 
     public void setQualifers(List<Qualifier> qualifers) {
-	this.qualifers = qualifers;
+        this.qualifers = qualifers;
     }
 
     public BaitSetting() {
-	this.qualifers = new ArrayList<Qualifier>();
     }
 
-    public BaitSetting(int settingId, String settingType, String settingName, String description, List<Qualifier> qualifers) {
-	super();
-	this.settingId = settingId;
-	this.settingType = settingType;
-	this.settingName = settingName;
-	this.description = description;
-	this.qualifers = qualifers;
+    public BaitSetting(int settingId, String type, String name, String description, List<Qualifier> qualifers) {
+        super();
+        super.id = settingId;
+        this.type = type;
+        this.name = name;
+        this.description = description;
+        this.qualifers = qualifers;
     }
 
     @Override
     public String toString() {
-	return "BaitSetting [settingId=" + settingId + ", settingType=" + settingType + ", settingName=" + settingName + ", description="
-		+ description + ", qualifers=" + qualifers + "]";
+        return "BaitSetting [settingId=" + id + ", type=" + type + ", settingName=" + name + ", description="
+                + description + ", qualifers=" + qualifers + "]";
     }
 
-    
+
 }

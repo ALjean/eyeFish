@@ -1,25 +1,30 @@
 package com.jean.entity.fish;
 
+import com.jean.entity.BaseEntry;
+
+import javax.persistence.Column;
+
 /**
  * Created by jean on 09.05.16.
  */
-public class DayActivity {
+public class DayActivity extends BaseEntry {
 
-    private int id;
-    private int fishId;
+    private Fish fish;
+
+    @Column(name = "activity_name")
     private String activityName;
 
     public DayActivity(){
 
     }
 
-    public DayActivity(int id, int fishId, String activityName) {
+    public DayActivity(int id, Fish fish, String activityName) {
         this.id = id;
-        this.fishId = fishId;
+        this.fish = fish;
         this.activityName = activityName;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -27,12 +32,12 @@ public class DayActivity {
         this.id = id;
     }
 
-    public int getFishId() {
-        return fishId;
+    public Fish getFish() {
+        return fish;
     }
 
-    public void setFishId(int fishId) {
-        this.fishId = fishId;
+    public void setFish(Fish fish) {
+        this.fish = fish;
     }
 
     public String getActivityName() {

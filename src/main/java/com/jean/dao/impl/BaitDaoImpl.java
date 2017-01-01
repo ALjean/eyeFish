@@ -65,19 +65,19 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 			closePreparedStatement(statement);
 
 			statement = connection.prepareStatement(sqlInsertToBindingToFishes);
-			for (Integer fishId : bait.getFishId()) {
+/*			for (Integer fishId : bait.getFishId()) {
 				statement.setInt(1, baitId);
 				statement.setInt(2, fishId);
 				statement.addBatch();
-			}
+			}*/
 			statement.executeBatch();
 			closePreparedStatement(statement);
 
 			statement = connection.prepareStatement(sqlInsertToBindingToSeasons);
 			for (DateHolder dates : bait.getDates()) {
 				statement.setInt(1, baitId);
-				statement.setDate(2, dates.getStart_period());
-				statement.setDate(3, dates.getEnd_period());
+/*				statement.setDate(2, dates.getStart_period());
+				statement.setDate(3, dates.getEnd_period());*/
 				statement.executeUpdate();
 			}
 			statement.executeBatch();
@@ -188,7 +188,7 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 					baitSetting.getQualifers().add(qualifier);
 					baitSetting.setSettingId(rs.getInt("bs.setting_id"));
 					baitSetting.setSettingName(rs.getString("bs.setting_name"));
-					baitSetting.setSettingType(rs.getString("bs.setting_type"));
+					baitSetting.setType(rs.getString("bs.setting_type"));
 					baitSetting.setDescription(rs.getString("bs.description"));
 					tempSetting = baitSetting;
 				} else {
@@ -258,7 +258,7 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 			for (BaitSetting baitSetting : bait.getBaitSetting()) {
 
 				statement.setString(1, baitSetting.getSettingName());
-				statement.setString(2, baitSetting.getSettingType());
+				statement.setString(2, baitSetting.getType());
 				statement.setString(3, baitSetting.getDescription());
 				statement.setInt(4, baitSetting.getSettingId());
 				statement.executeUpdate();
@@ -373,7 +373,7 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 	private void setBaitSetting(int baitId, BaitSetting baitSetting, PreparedStatement statement) throws SQLException {
 		statement.setInt(1, baitId);
 		statement.setString(2, baitSetting.getSettingName());
-		statement.setString(3, baitSetting.getSettingType());
+		statement.setString(3, baitSetting.getType());
 		statement.setString(4, baitSetting.getDescription());
 	}
 
