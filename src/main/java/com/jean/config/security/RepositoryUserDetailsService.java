@@ -1,3 +1,4 @@
+/*
 package com.jean.config.security;
 
 
@@ -28,3 +29,4 @@ public class RepositoryUserDetailsService implements UserDetailsService {
         return user;
     }
 }
+*/

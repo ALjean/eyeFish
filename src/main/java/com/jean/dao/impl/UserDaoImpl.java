@@ -32,12 +32,12 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
-                user.setId(rs.getInt("id"));
-                user.setEmail(rs.getString("email"));
+                user.setId(rs.getLong("id"));
+//                user.setEmail(rs.getString("email"));
                 user.setPassword(rs.getString("password"));
-                user.setFirstName(rs.getString("first_name"));
+/*                user.setFirstName(rs.getString("first_name"));
                 user.setLastName(rs.getString("last_name"));
-                user.setRole(rs.getString("role"));
+                user.setRole(rs.getString("role"));*/
             }
 
             log.info("get user by email: " + user.toString());

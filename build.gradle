@@ -31,6 +31,8 @@ dependencies {
     compile group: 'org.springframework.security', name: 'spring-security-config', version: securityV
     compile group: 'org.springframework.security', name: 'spring-security-web', version: securityV
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: jjwtV
+    /*compile group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.0.7.RELEASE'
+    compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.0.12.RELEASE'*/
 
     compile group: 'org.springframework', name: 'spring-jdbc', version: springV
     compile group: 'mysql', name: 'mysql-connector-java', version: mysqlConnectorV
@@ -41,6 +43,7 @@ dependencies {
     compile group: 'junit', name: 'junit', version: junitV
     //apache
     compile group: 'org.apache.commons', name: 'commons-dbcp2', version: dbcp2V
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: lang3V
     // doc parse
     compile group: 'org.apache.poi', name: 'poi', version: poiV
     compile group: 'org.springframework.mobile', name: 'spring-mobile-device', version: mobileDeviceV
