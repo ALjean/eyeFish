@@ -62,11 +62,17 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         return basicDataSource;
     }
 
+    @Bean
+    public ObjectMapper mapper(){
+        return new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+    }
+
 
     @Bean
     public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        converter.setObjectMapper(new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false));
+        converter.setObjectMapper(mapper());
         return converter;
     }
 

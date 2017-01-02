@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     public User getUserByEmail(String email) {
         User user = null;
         try {
-            user = userDao.getUserByEmail(email);
+            user = userDao.getUserByEmail(email).get();
         } catch (DaoDfmException e) {
             e.printStackTrace();
         }

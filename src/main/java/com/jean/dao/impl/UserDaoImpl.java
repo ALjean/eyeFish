@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 /**
  * Created by jean on 10.01.16.
@@ -22,7 +23,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
     private static final Logger log = Logger.getLogger(UserDaoImpl.class);
 
     @Override
-    public User getUserByEmail(String email) throws DaoDfmException {
+    public Optional<User> getUserByEmail(String email) throws DaoDfmException {
         String sql = "SELECT * FROM users WHERE email = ?";
         User user = new User();
 
@@ -47,6 +48,6 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
             throw new DaoDfmException("Same problem when find user by email", e);
         }
 
-        return user;
+        return Optional.of(user) ;
     }
 }

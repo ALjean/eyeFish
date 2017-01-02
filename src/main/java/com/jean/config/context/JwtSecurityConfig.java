@@ -36,26 +36,24 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
     public static final String TOKEN_BASED_AUTH_ENTRY_POINT = "/api/**";
     public static final String TOKEN_REFRESH_ENTRY_POINT = "/api/auth/token";
 
-    private final RestAuthenticationEntryPoint authenticationEntryPoint;
-    private final AuthenticationSuccessHandler successHandler;
-    private final AuthenticationFailureHandler failureHandler;
-    private final AjaxAuthenticationProvider ajaxAuthenticationProvider;
-    private final JwtAuthenticationProvider jwtAuthenticationProvider;
-    private final TokenExtractor tokenExtractor;
-    private final AuthenticationManager authenticationManager;
-    private final ObjectMapper objectMapper;
-
     @Autowired
-    public JwtSecurityConfig(RestAuthenticationEntryPoint authenticationEntryPoint, ObjectMapper objectMapper, JwtAuthenticationProvider jwtAuthenticationProvider, AuthenticationManager authenticationManager, AuthenticationFailureHandler failureHandler, TokenExtractor tokenExtractor, AuthenticationSuccessHandler successHandler, AjaxAuthenticationProvider ajaxAuthenticationProvider) {
-        this.authenticationEntryPoint = authenticationEntryPoint;
-        this.objectMapper = objectMapper;
-        this.jwtAuthenticationProvider = jwtAuthenticationProvider;
-        this.authenticationManager = authenticationManager;
-        this.failureHandler = failureHandler;
-        this.tokenExtractor = tokenExtractor;
-        this.successHandler = successHandler;
-        this.ajaxAuthenticationProvider = ajaxAuthenticationProvider;
-    }
+    private RestAuthenticationEntryPoint authenticationEntryPoint;
+    @Autowired
+    private AuthenticationSuccessHandler successHandler;
+    @Autowired
+    private AuthenticationFailureHandler failureHandler;
+    @Autowired
+    private AjaxAuthenticationProvider ajaxAuthenticationProvider;
+    @Autowired
+    private JwtAuthenticationProvider jwtAuthenticationProvider;
+    @Autowired
+    private TokenExtractor tokenExtractor;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private ObjectMapper objectMapper;
+
+
 
     protected AjaxLoginProcessingFilter buildAjaxLoginProcessingFilter() throws Exception {
         AjaxLoginProcessingFilter filter = new AjaxLoginProcessingFilter(FORM_BASED_LOGIN_ENTRY_POINT, successHandler, failureHandler, objectMapper);

@@ -2,12 +2,20 @@ package com.jean.servlet.controller;
 
 
 
+import com.jean.config.security.jwt.auth.JwtAuthenticationToken;
+import com.jean.config.security.jwt.model.UserContext;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/auth")
+//@RequestMapping("/auth")
 public class AuthenticationController {
+
+
+    @RequestMapping(value="/api/me", method=RequestMethod.GET)
+    public @ResponseBody UserContext get(JwtAuthenticationToken token) {
+        return (UserContext) token.getPrincipal();
+    }
 
 /*    @Autowired
     private UserDetailsService userDetailsService;
