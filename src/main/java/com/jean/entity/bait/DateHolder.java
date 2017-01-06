@@ -7,6 +7,8 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "baits_to_seasons")
+//@AttributeOverride(name = "id", column = @Column(name = "customer_id",
+//        nullable = false, columnDefinition = "BIGINT UNSIGNED"))
 public class DateHolder extends BaseEntry {
 
     @ManyToOne

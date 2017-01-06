@@ -9,5 +9,5 @@ import com.jean.entity.weather.HourWeather;
 
 public interface BaitConstructor {
 
-	public List<Bait> getBaitsDependsOnWeathers(int fishId, Date date) throws DaoDfmException;
+	List<Bait> getBaitsDependsOnWeathers(long fishId, Date date) throws DaoDfmException;
 }

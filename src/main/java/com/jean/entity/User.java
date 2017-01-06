@@ -7,6 +7,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -14,6 +18,15 @@ import java.util.List;
 /**
  * Created by jean on 10.01.16.
  */
+
+
+
+@Entity
+@Table(name = "users")
+@NamedQueries({
+        @NamedQuery(name="User.findByEmail",
+                query="SELECT u FROM User u WHERE u.email = :email"),
+})
 public class User implements UserDetails {
 
     private int id;

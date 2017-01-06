@@ -13,14 +13,15 @@ import java.util.List;
 @Service
 public class FishServiceImpl implements FishService {
 
-    @Autowired
-    private FishDao fishDao;
+/*    @Autowired
+    private FishDao fishDao;*/
 
 	@Override
 	public List<Fish> getFishes(Integer fishId, String fishName, String fishType, String dayActivity, String livingArea)
 			throws DaoDfmException {
 		
-		return fishDao.getFishes(fishId, fishName, fishType, dayActivity, livingArea);
+//		return fishDao.getFishes(fishId, fishName, fishType, dayActivity, livingArea);
+		return null;
 	}
 
 	@Override
@@ -30,13 +31,14 @@ public class FishServiceImpl implements FishService {
 			throw new CustomDfmException("Fish must be not null");
 		}
 		
-		int result = fishDao.saveFish(fish);
+//		int result = fishDao.saveFish(fish);
 		
-		if(result == 0){
+/*		if(result == 0){
 			throw new DaoDfmException("Fish didn't save.");
 		}else{
 			return result;
-		}
+		}*/
+		return 0;
 		
 	}
 

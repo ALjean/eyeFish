@@ -1,3 +1,4 @@
+/*
 package com.jean.dao.impl;
 
 import com.jean.DaoDfmException;
@@ -13,9 +14,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+*/
 /**
  * Created by stas on 30.05.15.
- */
+ *//*
+
 @Repository
 public class BaseDaoImpl {
 
@@ -114,3 +117,4 @@ public class BaseDaoImpl {
         }
     }
 }
+*/

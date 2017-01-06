@@ -41,25 +41,27 @@ public class FishDaoTest extends BaseTest {
 	public void init() throws CustomDfmException {
 
 		fishSettings = new ArrayList<>();
-		fishSettings.add(new FishSetting(0, 0, ParamNames.ENVIRMOMENT_TEMPERATURE.name(), 0.0, 7.0, 23.5));
+/*		fishSettings.add(new FishSetting(0, 0, ParamNames.ENVIRMOMENT_TEMPERATURE.name(), 0.0, 7.0, 23.5));
 		fishSettings.add(new FishSetting(0, 0, ParamNames.ENVIRMOMENT_TEMPERATURE.name(), 8.0, 12.0, 57.23));
-		fishSettings.add(new FishSetting(0, 0, ParamNames.ENVIRMOMENT_TEMPERATURE.name(), 13.8, 19.0, 77.23));
+		fishSettings.add(new FishSetting(0, 0, ParamNames.ENVIRMOMENT_TEMPERATURE.name(), 13.8, 19.0, 77.23));*/
 
 		nibblePeriods = new ArrayList<>();
+/*
 		nibblePeriods.add(new NibblePeriod(0, 0, Date.valueOf("2016-05-23"), Date.valueOf("2016-06-01"), 0.0));
 		nibblePeriods.add(new NibblePeriod(0, 0, Date.valueOf("2016-06-02"), Date.valueOf("2016-09-01"), 53.45));
 		nibblePeriods.add(new NibblePeriod(0, 0, Date.valueOf("2016-09-02"), Date.valueOf("2016-12-31"), 89.32));
+*/
 
 		daysActivity = new ArrayList<>();
-		daysActivity.add(new DayActivity(0, 0, DaysActivity.MORNING.name()));
-		daysActivity.add(new DayActivity(0, 0, DaysActivity.MORNING.name()));
+/*		daysActivity.add(new DayActivity(0, 0, DaysActivity.MORNING.name()));
+		daysActivity.add(new DayActivity(0, 0, DaysActivity.MORNING.name()));*/
 
 		livingAreas = new ArrayList<>();
-		livingAreas.add(new LivingArea(0, 0, LiveArea.MIDDLE.name()));
-		livingAreas.add(new LivingArea(0, 0, LiveArea.TOP.name()));
+/*		livingAreas.add(new LivingArea(0, 0, LiveArea.MIDDLE.name()));
+		livingAreas.add(new LivingArea(0, 0, LiveArea.TOP.name()));*/
 
-		fish = new Fish(0, "Roach", "Europian Roach", FishTypes.CALM.name(), livingAreas, daysActivity, fishSettings,
-				nibblePeriods);
+//		fish = new Fish(0, "Roach", "Europian Roach", FishTypes.CALM.name(), livingAreas, daysActivity, fishSettings,
+//				nibblePeriods);
 	}
 
 	@Test
@@ -83,10 +85,10 @@ public class FishDaoTest extends BaseTest {
 			System.out.println(fish.getName());
 			System.out.println(fish.getFishType());
 			System.out.println(fish.getDescription());
-			System.out.println(fish.getFishSetting());
-			System.out.println(fish.getNibbles());
+			System.out.println(fish.getFishSettings());
+			System.out.println(fish.getNibblePeriods());
 			System.out.println(fish.getDaysActivity());
-			System.out.println(fish.getLivingArea());
+			System.out.println(fish.getLivingAreas());
 			System.out.println();
 		}
 	}
@@ -150,9 +152,9 @@ public class FishDaoTest extends BaseTest {
 		List<Fish> fishes = fishDao.getFishes(43, null, null, null, null);
 		Fish fish = fishes.get(0);
 		fish.setName("Yaz");
-		fish.getFishSetting().get(0).setNibbleLevel(100);
-		fish.getNibbles().get(0).setNibbleLevel(100);
-		fish.getDaysActivity().get(0).setActivityName(DaysActivity.MORNING.name());
+		/*fish.getFishSettings().get(0).setNibbleLevel(100);
+		fish.getNibblePeriods().get(0).setNibbleLevel(100);
+		fish.getDaysActivity().get(0).setActivityName(DaysActivity.MORNING.name());*/
 		fishDao.updateFish(fish);
 	}
 	

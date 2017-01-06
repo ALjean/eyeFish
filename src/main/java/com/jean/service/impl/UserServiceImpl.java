@@ -15,18 +15,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserDao userDao;
+//    @Autowired
+//    private UserDao userDao;
 
 
     @Override
     public User getUserByEmail(String email) {
         User user = null;
-        try {
+/*        try {
             user = userDao.getUserByEmail(email);
         } catch (DaoDfmException e) {
             e.printStackTrace();
-        }
+        }*/
         return user;
     }
 }

@@ -15,11 +15,11 @@ import com.jean.service.BaitService;
 @Service
 public class BaitServiceImpl implements BaitService {
 
-	@Autowired
-	private BaitDao baitDao;
+//	@Autowired
+//	private BaitDao baitDao;
 
 	@Override
-	public List<Bait> getBaits(Integer baitId, String baitType, String baitName, Integer fishId, String date)
+	public List<Bait> getBaits(Integer baitId, String baitType, String baitName, Long fishId, String date)
 			throws DaoDfmException, IllegalArgumentException {
 
 		Date sqlDate = null;
@@ -28,7 +28,8 @@ public class BaitServiceImpl implements BaitService {
 			sqlDate = java.sql.Date.valueOf(date);
 		}
 
-		return baitDao.getBaits(baitId, baitType, baitName, fishId, sqlDate);
+//		return baitDao.getBaits(baitId, baitType, baitName, fishId, sqlDate);
+		return null;
 	}
 
 	@Override

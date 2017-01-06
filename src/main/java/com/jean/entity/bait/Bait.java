@@ -9,6 +9,12 @@ import java.util.List;
 
 @Entity
 @Table(name = "baits")
+@NamedQueries({
+//        Integer fishId, Date date
+        @NamedQuery(name="Bait.findByParams",
+                query="SELECT b FROM Bait b WHERE b.name = :baitName " +
+                        "AND b.type = :baitType AND b.daysActivity "),
+})
 public class Bait extends BaseEntry {
 
 
@@ -107,7 +113,7 @@ public class Bait extends BaseEntry {
     public Bait() {
     }
 
-    public Bait(int id, String baitName, String baitType, String description, List<BaitSetting> baitSettings, List<Fish> fishes,
+    public Bait(Long id, String baitName, String baitType, String description, List<BaitSetting> baitSettings, List<Fish> fishes,
                 List<DateHolder> dates) {
         this.id = id;
         this.name = baitName;

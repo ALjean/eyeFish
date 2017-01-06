@@ -8,5 +8,5 @@ import com.jean.entity.User;
  */
 public interface UserDao {
 
-    User getUserByEmail(String email) throws DaoDfmException;
+//    User getUserByEmail(String email) throws DaoDfmException;
 }

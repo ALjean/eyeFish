@@ -8,11 +8,15 @@ import com.jean.enums.PressureStates;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table(name = "fishes")
-public class Fish extends BaseEntry {
+@NamedQueries({
 
+        @NamedQuery(name="Fish.findByParams",
+                query="SELECT f FROM Fish f WHERE f.name = :fishName " +
+                        "AND f.fishType = :fishType AND f.daysActivity IN (:dayActivity) AND f.livingAreas IN (:livingArea)"),
+})
+public class Fish extends BaseEntry {
 
     @Column(name = "name")
     private String name;

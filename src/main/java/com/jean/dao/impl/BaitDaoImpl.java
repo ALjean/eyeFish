@@ -1,3 +1,4 @@
+/*
 package com.jean.dao.impl;
 
 import java.sql.*;
@@ -65,19 +66,23 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 			closePreparedStatement(statement);
 
 			statement = connection.prepareStatement(sqlInsertToBindingToFishes);
+*/
 /*			for (Integer fishId : bait.getFishId()) {
 				statement.setInt(1, baitId);
 				statement.setInt(2, fishId);
 				statement.addBatch();
-			}*/
+			}*//*
+
 			statement.executeBatch();
 			closePreparedStatement(statement);
 
 			statement = connection.prepareStatement(sqlInsertToBindingToSeasons);
 			for (DateHolder dates : bait.getDates()) {
 				statement.setInt(1, baitId);
+*/
 /*				statement.setDate(2, dates.getStart_period());
-				statement.setDate(3, dates.getEnd_period());*/
+				statement.setDate(3, dates.getEnd_period());*//*
+
 				statement.executeUpdate();
 			}
 			statement.executeBatch();
@@ -378,3 +383,4 @@ public class BaitDaoImpl extends BaseDaoImpl implements BaitDao {
 	}
 
 }
+*/
