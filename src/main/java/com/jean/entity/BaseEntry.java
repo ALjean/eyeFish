@@ -2,7 +2,6 @@ package com.jean.entity;
 
 
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import java.io.Serializable;

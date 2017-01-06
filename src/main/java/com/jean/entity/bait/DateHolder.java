@@ -3,7 +3,8 @@ package com.jean.entity.bait;
 import com.jean.entity.BaseEntry;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
+
 
 @Entity
 @Table(name = "baits_to_seasons")

@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by jean on 10.01.16.
  */
-
+//TODO ENrty
 
 
 @Entity
@@ -27,9 +27,9 @@ import java.util.List;
         @NamedQuery(name="User.findByEmail",
                 query="SELECT u FROM User u WHERE u.email = :email"),
 })
-public class User implements UserDetails {
+public class User extends BaseEntry {
 
-    private int id;
+
 
     @JsonView(Views.Public.class)
     private String email;
