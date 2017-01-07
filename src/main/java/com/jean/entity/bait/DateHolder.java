@@ -1,6 +1,7 @@
 package com.jean.entity.bait;
 
-import com.jean.entity.BaseEntry;
+import com.jean.entity.BaseEntity;
+import com.jean.entity.BaseEntityAudit;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -8,7 +9,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "baits_to_seasons")
-public class DateHolder extends BaseEntry {
+public class DateHolder extends BaseEntityAudit {
 
     @ManyToOne
     @JoinColumn(name = "bait_id")

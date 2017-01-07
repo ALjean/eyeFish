@@ -1,6 +1,7 @@
 package com.jean.entity.fish;
 
-import com.jean.entity.BaseEntry;
+
+import com.jean.entity.BaseEntityAudit;
 
 import javax.persistence.*;
 
@@ -9,7 +10,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "days_activity")
-public class DayActivity extends BaseEntry {
+public class DayActivity extends BaseEntityAudit {
 
 
     @ManyToOne
@@ -23,19 +24,12 @@ public class DayActivity extends BaseEntry {
 
     }
 
-    public DayActivity(int id, Fish fish, String activityName) {
+    public DayActivity(Long id, Fish fish, String activityName) {
         this.id = id;
         this.fish = fish;
         this.activityName = activityName;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public Fish getFish() {
         return fish;

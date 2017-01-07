@@ -1,8 +1,9 @@
 package com.jean.entity.fish;
 
-import com.jean.entity.BaseEntry;
+import com.jean.entity.BaseEntity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by jean on 09.05.16.
@@ -10,7 +11,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "living_area")
-public class LivingArea extends BaseEntry {
+public class LivingArea extends BaseEntity implements Serializable {
 
 
     @ManyToOne

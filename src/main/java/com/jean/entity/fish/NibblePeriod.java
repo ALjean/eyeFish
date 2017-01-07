@@ -1,6 +1,7 @@
 package com.jean.entity.fish;
 
-import com.jean.entity.BaseEntry;
+
+import com.jean.entity.BaseEntityAudit;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -11,7 +12,7 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "nibble_period")
-public class NibblePeriod extends BaseEntry {
+public class NibblePeriod extends BaseEntityAudit {
 
 
 	@ManyToOne
@@ -64,8 +65,7 @@ public class NibblePeriod extends BaseEntry {
 
 	}
 
-	public NibblePeriod(int id, Fish fish, Date startPeriod, Date endPeriod, float nibbleLevel) {
-		super();
+	public NibblePeriod(Long id, Fish fish, Date startPeriod, Date endPeriod, float nibbleLevel) {
 		this.id = id;
 		this.fish = fish;
 		this.startPeriod = startPeriod;

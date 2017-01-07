@@ -1,6 +1,6 @@
 package com.jean.entity.fish;
 
-import com.jean.entity.BaseEntry;
+import com.jean.entity.BaseEntityAudit;
 
 import javax.persistence.*;
 
@@ -9,7 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "fish_settings")
-public class FishSetting extends BaseEntry {
+public class FishSetting extends BaseEntityAudit {
 
 
 	@ManyToOne

@@ -1,6 +1,7 @@
 package com.jean.entity.bait;
 
-import com.jean.entity.BaseEntry;
+
+import com.jean.entity.BaseEntityAudit;
 import com.jean.entity.fish.Fish;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "baits")
-public class Bait extends BaseEntry {
+public class Bait extends BaseEntityAudit {
 
 
     @Column(name = "bait_name")

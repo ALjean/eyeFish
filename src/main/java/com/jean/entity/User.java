@@ -1,16 +1,6 @@
 package com.jean.entity;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.jean.config.security.SocialMediaService;
-import com.jean.entity.views.Views;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by jean on 10.01.16.
@@ -20,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class User extends BaseEntry {
+public class User extends BaseEntityAudit {
 
 
 
@@ -41,13 +31,6 @@ public class User extends BaseEntry {
 
 //    private SocialMediaService socialService;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getEmail() {
         return email;

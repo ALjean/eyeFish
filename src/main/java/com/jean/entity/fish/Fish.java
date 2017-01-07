@@ -2,15 +2,17 @@ package com.jean.entity.fish;
 
 import java.util.*;
 
-import com.jean.entity.BaseEntry;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.jean.entity.BaseEntity;
+import com.jean.entity.BaseEntityAudit;
 import com.jean.entity.bait.Bait;
-import com.jean.enums.PressureStates;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "fishes")
-public class Fish extends BaseEntry {
+public class Fish extends BaseEntityAudit {
 
     @Column(name = "name")
     private String name;
@@ -22,22 +24,22 @@ public class Fish extends BaseEntry {
     private String fishType;
 
 
-//    private Map<String, Double> pressureStates;
+//    private Map<String, Double> pressureS
 
-    @OneToMany(mappedBy = "fish", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "fish", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<LivingArea> livingAreas;
 
 
-    @OneToMany(mappedBy = "fish", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "fish", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<DayActivity> daysActivity;
 
-    @OneToMany(mappedBy = "fish", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "fish", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<FishSetting> fishSettings;
 
-    @OneToMany(mappedBy = "fish", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "fish", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<NibblePeriod> nibblePeriods;
 
-
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "baits_to_fishes",
             joinColumns = @JoinColumn(name = "fish_id", referencedColumnName = "id"),
@@ -123,7 +125,7 @@ public class Fish extends BaseEntry {
         pressureStates.put(PressureStates.IS_RISE.name(), null);*/
     }
 
-    public Fish(long id, String name, String description, String fishType, Set<LivingArea> livingAreas,
+    public Fish(Long id, String name, String description, String fishType, Set<LivingArea> livingAreas,
                 Set<DayActivity> daysActivity, Set<FishSetting> fishSetting, Set<NibblePeriod> nibbles) {
         this.id = id;
         this.name = name;

@@ -1,12 +1,13 @@
 package com.jean.entity.bait;
 
-import com.jean.entity.BaseEntry;
+
+import com.jean.entity.BaseEntityAudit;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "qualifiers")
-public class Qualifier extends BaseEntry {
+public class Qualifier extends BaseEntityAudit {
 
 
     @Column(name = "param_name")
@@ -60,7 +61,7 @@ public class Qualifier extends BaseEntry {
     public Qualifier() {
     }
 
-    public Qualifier(int id, String paramName, float min, float max) {
+    public Qualifier(Long id, String paramName, float min, float max) {
         this.id = id;
         this.paramName = paramName;
         this.min = min;

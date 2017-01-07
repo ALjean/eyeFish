@@ -23,6 +23,7 @@ public class FishController {
     @Autowired
     private FishService fishService;
 
+
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<?> getFishes() {
 

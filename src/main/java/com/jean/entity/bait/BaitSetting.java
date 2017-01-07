@@ -1,13 +1,13 @@
 package com.jean.entity.bait;
 
-import com.jean.entity.BaseEntry;
+import com.jean.entity.BaseEntity;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "bait_settings")
-public class BaitSetting extends BaseEntry {
+public class BaitSetting extends BaseEntity {
 
 
     @Column(name = "setting_name")
@@ -71,9 +71,8 @@ public class BaitSetting extends BaseEntry {
     public BaitSetting() {
     }
 
-    public BaitSetting(int settingId, String type, String name, String description, List<Qualifier> qualifers) {
-        super();
-        super.id = settingId;
+    public BaitSetting(Long settingId, String type, String name, String description, List<Qualifier> qualifers) {
+        this.id = settingId;
         this.type = type;
         this.name = name;
         this.description = description;

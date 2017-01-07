@@ -30,7 +30,7 @@ public class Behavior {
 	}
 
 	public Behavior() {
-		this.NibblePoints = new ArrayList<NibblePoint>();
+		this.NibblePoints = new ArrayList<>();
 	}
 	
 	public List<Bait> getBaits() {
