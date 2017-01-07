@@ -10,7 +10,7 @@ import java.sql.Date;
  */
 
 @Entity
-@Table(name = "nibble-period")
+@Table(name = "nibble_period")
 public class NibblePeriod extends BaseEntry {
 
 

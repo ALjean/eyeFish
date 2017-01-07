@@ -15,7 +15,7 @@ public class UserDaoTest extends BaseTest {
     @Test
     @Ignore
     public void getUserByEmailTest() throws DaoDfmException {
-        User user = userDao.getUserByEmail("mail@mail.com");
+        User user = null;//userDao.getUserByEmail("mail@mail.com");
         System.out.println(user);
     }
 }

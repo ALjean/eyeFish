@@ -10,12 +10,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "fishes")
-@NamedQueries({
-
-        @NamedQuery(name="Fish.findByParams",
-                query="SELECT f FROM Fish f WHERE f.name = :fishName " +
-                        "AND f.fishType = :fishType AND f.daysActivity IN (:dayActivity) AND f.livingAreas IN (:livingArea)"),
-})
 public class Fish extends BaseEntry {
 
     @Column(name = "name")
@@ -28,7 +22,7 @@ public class Fish extends BaseEntry {
     private String fishType;
 
 
-    private Map<String, Double> pressureStates;
+//    private Map<String, Double> pressureStates;
 
     @OneToMany(mappedBy = "fish", cascade = CascadeType.ALL)
     private Set<LivingArea> livingAreas;
@@ -75,13 +69,13 @@ public class Fish extends BaseEntry {
         this.fishType = fishType;
     }
 
-    public Map<String, Double> getPressureStates() {
+    /*public Map<String, Double> getPressureStates() {
         return pressureStates;
     }
 
     public void setPressureStates(Map<String, Double> pressureStates) {
         this.pressureStates = pressureStates;
-    }
+    }*/
 
     public Set<LivingArea> getLivingAreas() {
         return livingAreas;
@@ -120,13 +114,13 @@ public class Fish extends BaseEntry {
         this.livingAreas = new HashSet<>();
         this.fishSettings = new HashSet<>();
         this.nibblePeriods = new HashSet<>();
-        this.pressureStates = new HashMap<>();
+/*        this.pressureStates = new HashMap<>();
 
         pressureStates.put(PressureStates.IS_STABILITY.name(), null);
         pressureStates.put(PressureStates.IS_STABILITY_LOW.name(), null);
         pressureStates.put(PressureStates.IS_STABILITY_HIGH.name(), null);
         pressureStates.put(PressureStates.IS_DOWN.name(), null);
-        pressureStates.put(PressureStates.IS_RISE.name(), null);
+        pressureStates.put(PressureStates.IS_RISE.name(), null);*/
     }
 
     public Fish(long id, String name, String description, String fishType, Set<LivingArea> livingAreas,

@@ -25,6 +25,7 @@ public class RepositoryUserDetailsService implements UserDetailsService {
         }
 
 //        return JwtUserFactory.create(user);
-        return user;
+//        return user;
+        return null;
     }
 }

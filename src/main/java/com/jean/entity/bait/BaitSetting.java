@@ -10,7 +10,7 @@ import java.util.List;
 public class BaitSetting extends BaseEntry {
 
 
-    @Column(name = "setting_type")
+    @Column(name = "setting_name")
     private String name;
 
     @Column(name = "setting_type")
@@ -24,7 +24,7 @@ public class BaitSetting extends BaseEntry {
     private Bait bait;
 
 
-    @OneToMany(mappedBy = "fish", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "baitSetting", cascade = CascadeType.ALL)
     private List<Qualifier> qualifers;
 
 

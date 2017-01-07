@@ -7,10 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -18,40 +15,37 @@ import java.util.List;
 /**
  * Created by jean on 10.01.16.
  */
-//TODO ENrty
+
 
 
 @Entity
 @Table(name = "users")
-@NamedQueries({
-        @NamedQuery(name="User.findByEmail",
-                query="SELECT u FROM User u WHERE u.email = :email"),
-})
 public class User extends BaseEntry {
 
 
 
-    @JsonView(Views.Public.class)
+    @Column(name = "email")
     private String email;
 
+    @Column(name = "password")
     private String password;
 
-    @JsonView(Views.Public.class)
+    @Column(name = "first_name")
     private String firstName;
 
-    @JsonView(Views.Public.class)
+    @Column(name = "last_name")
     private String lastName;
 
-    @JsonView(Views.Public.class)
+    @Column(name = "role")
     private String role;
 
-    private SocialMediaService socialService;
+//    private SocialMediaService socialService;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -63,16 +57,16 @@ public class User extends BaseEntry {
         this.email = email;
     }
 
-    @Override
+/*    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        /*impl only one role*/
+        *//*impl only one role*//*
 
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(role));
         return authorities;
-    }
+    }*/
 
-    @Override
+//    @Override
     public String getPassword() {
         return password;
     }
@@ -105,21 +99,21 @@ public class User extends BaseEntry {
         this.role = role;
     }
 
-    public SocialMediaService getSocialService() {
+    /*public SocialMediaService getSocialService() {
         return socialService;
     }
 
     public void setSocialService(SocialMediaService socialService) {
         this.socialService = socialService;
-    }
+    }*/
 
 
-    @Override
+//    @Override
     public String getUsername() {
         return email;
     }
 
-    @Override
+/*    @Override
     public boolean isAccountNonExpired() {
         return true;
     }
@@ -137,7 +131,7 @@ public class User extends BaseEntry {
     @Override
     public boolean isEnabled() {
         return true;
-    }
+    }*/
 
 
     @Override

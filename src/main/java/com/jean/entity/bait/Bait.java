@@ -9,12 +9,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "baits")
-@NamedQueries({
-//        Integer fishId, Date date
-        @NamedQuery(name="Bait.findByParams",
-                query="SELECT b FROM Bait b WHERE b.name = :baitName " +
-                        "AND b.type = :baitType AND b.daysActivity "),
-})
 public class Bait extends BaseEntry {
 
 
@@ -39,10 +33,10 @@ public class Bait extends BaseEntry {
 
 
 
-    @ManyToMany(mappedBy = "baits", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "baits")
     private List<Fish> fishes;
 
-    @ManyToMany(mappedBy = "bait", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "bait")
     private List<DateHolder> dates;
 
 
