@@ -2,6 +2,7 @@ package com.jean.servlet.controller;
 
 import java.util.List;
 
+import com.jean.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class BehaviorController {
 	private BehaviorService behaviorService;
 
 	@Autowired
-	private RedisCacheStore casheStore;
+	private WeatherService weatherService;
 
 	@RequestMapping(value = "behavior", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?> getBehavior(@RequestParam("fishIds") List<Integer> fishIds,
@@ -35,7 +36,7 @@ public class BehaviorController {
 
 		try {
 
-			GeneralHourWeather generalHourWeather = casheStore.getGeneralHourWeather(lon, lat);
+			GeneralHourWeather generalHourWeather = weatherService.getGeneralHourWeather(lon, lat);
 			
 			if (fishIds.size() == 0) {
 				throw new CustomDfmException("Array of fishId is empty");
