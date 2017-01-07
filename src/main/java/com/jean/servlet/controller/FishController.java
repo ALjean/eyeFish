@@ -53,7 +53,7 @@ public class FishController {
         return new ResponseEntity<>(savedFish, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(method = RequestMethod.PUT, produces = "application/json")
     public ResponseEntity<?> updateFish(Fish fish) {
         logger.info("Try save fish with ID: " + fish.getId());
 
@@ -62,7 +62,7 @@ public class FishController {
         return new ResponseEntity<>(updatedFish, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = "application/json")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
     public ResponseEntity<?> deleteFish(@PathVariable("id") Long id) {
 
         logger.info("Try remove fish with id: " + id);
