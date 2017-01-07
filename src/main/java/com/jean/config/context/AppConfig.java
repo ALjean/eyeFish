@@ -17,6 +17,7 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -36,7 +37,7 @@ import java.util.Properties;
 @EnableWebMvc
 @ComponentScan({"com.jean.*"})
 @PropertySource("classpath:properties/app.properties")
-@EnableJpaRepositories
+@EnableJpaRepositories(basePackages = {"com.jean.repository"})
 @EnableTransactionManagement
 //@EnableScheduling
 public class AppConfig extends WebMvcConfigurerAdapter {
@@ -87,7 +88,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 
     private Properties additionalProperties() {
         Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", "create");
+        properties.setProperty("hibernate.hbm2ddl.auto", "update");
         properties.setProperty("hibernate.default_schema", "fish_schema");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
         return properties;

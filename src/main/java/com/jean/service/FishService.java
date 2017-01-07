@@ -9,13 +9,16 @@ import java.util.List;
 
 public interface FishService {
 
-	List<Fish> getFishes(Integer fishId, String fishName, String fishType, String dayActivity, String livingArea)
-			throws DaoDfmException;
+	List<Fish> getAllFishes();
 
-	Integer save(Fish fish) throws CustomDfmException, DaoDfmException;
+	Fish getById(Long id);
 
-	void update(Fish fish) throws DaoDfmException;
+	List<Fish> getFishes(Integer fishId, String fishName, String fishType, String dayActivity, String livingArea);
 
-	void delete(List<Integer> ids) throws CustomDfmException, DaoDfmException;
+	Fish save(Fish fish);
+
+	Fish update(Fish fish);
+
+	void delete(Long id);
 
 }

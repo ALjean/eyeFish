@@ -1,15 +1,16 @@
 package com.jean.repository;
 
 import com.jean.entity.bait.Bait;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.repository.Repository;
+
 
 
 import java.util.List;
 
 
-public interface BaitRepository extends Repository<Bait, Integer> {
+public interface BaitRepository extends JpaRepository<Bait, Long> {
 
 
     @Query("SELECT b FROM Bait b WHERE b.name = :baitName AND b.type = :baitType")

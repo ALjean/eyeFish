@@ -4,33 +4,42 @@ import com.jean.CustomDfmException;
 import com.jean.DaoDfmException;
 import com.jean.dao.FishDao;
 import com.jean.entity.fish.Fish;
+import com.jean.repository.FishRepository;
 import com.jean.service.FishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 public class FishServiceImpl implements FishService {
 
-/*    @Autowired
-    private FishDao fishDao;*/
+	@Autowired
+	private FishRepository fishRepository;
+
 
 	@Override
-	public List<Fish> getFishes(Integer fishId, String fishName, String fishType, String dayActivity, String livingArea)
-			throws DaoDfmException {
+	@Transactional
+	public List<Fish> getAllFishes(){
+		return fishRepository.findAll();
+	}
+
+	public Fish getById(Long id){
+		return fishRepository.findOne(id);
+	}
+
+	@Override
+	public List<Fish> getFishes(Integer fishId, String fishName, String fishType, String dayActivity, String livingArea) {
 		
 //		return fishDao.getFishes(fishId, fishName, fishType, dayActivity, livingArea);
 		return null;
 	}
 
 	@Override
-	public Integer save(Fish fish) throws CustomDfmException, DaoDfmException {
-		
-		if(fish == null){
-			throw new CustomDfmException("Fish must be not null");
-		}
-		
+	public Fish save(Fish fish) {
+
+		return fishRepository.save(fish);
 //		int result = fishDao.saveFish(fish);
 		
 /*		if(result == 0){
@@ -38,18 +47,20 @@ public class FishServiceImpl implements FishService {
 		}else{
 			return result;
 		}*/
-		return 0;
+
 		
 	}
 
 	@Override
-	public void update(Fish fish) throws DaoDfmException {
-		// TODO Auto-generated method stub
+	public Fish update(Fish fish){
+//		Fish p = fishRepository.findOne(fish.getId());
+		return fishRepository.save(fish);
 		
 	}
 
 	@Override
-	public void delete(List<Integer> ids) throws CustomDfmException, DaoDfmException {
+	public void delete(Long id) {
+		fishRepository.delete(id);
 		// TODO Auto-generated method stub
 		
 	}
