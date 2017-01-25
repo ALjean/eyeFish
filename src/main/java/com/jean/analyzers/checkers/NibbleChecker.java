@@ -6,9 +6,9 @@ import com.jean.entity.analyzing.GeneralNibbleState;
 
 public interface NibbleChecker {
 
-	double isRain(double rain);
+	float isRain(double rain);
 
-	double isWind(double degrees, double speed);
+	float isWind(double degrees, double speed);
 
 	GeneralNibbleState checkPressure(double[] press);
 	

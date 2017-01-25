@@ -3,7 +3,7 @@ package com.jean.service;
 import com.jean.BaseTest;
 import com.jean.CustomDfmException;
 import com.jean.DaoDfmException;
-import com.jean.entity.fish.Fish;
+import com.jean.dao.entity.fish.Fish;
 
 import org.junit.Before;
 import org.junit.Ignore;

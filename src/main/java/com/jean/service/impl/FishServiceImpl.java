@@ -1,53 +1,64 @@
 package com.jean.service.impl;
 
-import com.jean.CustomDfmException;
-import com.jean.DaoDfmException;
-import com.jean.dao.FishDao;
-import com.jean.entity.fish.Fish;
+//import com.jean.dao.FishDao;
+import com.jean.dao.entity.fish.Fish;
+import com.jean.dao.repository.FishRepository;
 import com.jean.service.FishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 public class FishServiceImpl implements FishService {
 
-    @Autowired
-    private FishDao fishDao;
+	@Autowired
+	private FishRepository fishRepository;
+
 
 	@Override
-	public List<Fish> getFishes(Integer fishId, String fishName, String fishType, String dayActivity, String livingArea)
-			throws DaoDfmException {
-		
-		return fishDao.getFishes(fishId, fishName, fishType, dayActivity, livingArea);
+	@Transactional
+	public List<Fish> getAllFishes(){
+		return fishRepository.findAll();
+	}
+
+	public Fish getById(Long id){
+		return fishRepository.findOne(id);
 	}
 
 	@Override
-	public Integer save(Fish fish) throws CustomDfmException, DaoDfmException {
+	public List<Fish> getFishes(Integer fishId, String fishName, String fishType, String dayActivity, String livingArea) {
 		
-		if(fish == null){
-			throw new CustomDfmException("Fish must be not null");
-		}
+//		return fishDao.getFishes(fishId, fishName, fishType, dayActivity, livingArea);
+		return null;
+	}
+
+	@Override
+	public Fish save(Fish fish) {
+
+		return fishRepository.save(fish);
+//		int result = fishDao.saveFish(fish);
 		
-		int result = fishDao.saveFish(fish);
-		
-		if(result == 0){
+/*		if(result == 0){
 			throw new DaoDfmException("Fish didn't save.");
 		}else{
 			return result;
-		}
+		}*/
+
 		
 	}
 
 	@Override
-	public void update(Fish fish) throws DaoDfmException {
-		// TODO Auto-generated method stub
+	public Fish update(Fish fish){
+//		Fish p = fishRepository.findOne(fish.getId());
+		return fishRepository.save(fish);
 		
 	}
 
 	@Override
-	public void delete(List<Integer> ids) throws CustomDfmException, DaoDfmException {
+	public void delete(Long id) {
+		fishRepository.delete(id);
 		// TODO Auto-generated method stub
 		
 	}

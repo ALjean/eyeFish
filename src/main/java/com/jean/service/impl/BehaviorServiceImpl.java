@@ -3,32 +3,26 @@ package com.jean.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jean.CustomDfmException;
 import com.jean.DaoDfmException;
-import com.jean.analyzers.behavior.BehaviorAnalyzer;
-import com.jean.analyzers.constructors.BaitConstructor;
-import com.jean.dao.FishDao;
-import com.jean.entity.analyzing.Behavior;
+//import com.jean.dao.FishDao;
 import com.jean.entity.analyzing.BehaviorsDTO;
-import com.jean.entity.fish.Fish;
 import com.jean.entity.weather.GeneralHourWeather;
 import com.jean.service.BehaviorService;
-import com.jean.util.Utils;
 
 @Service
 public class BehaviorServiceImpl implements BehaviorService {
 
-	@Autowired
+/*	@Autowired
 	private BehaviorAnalyzer behaviorAnalyzer;
 
 	@Autowired
 	private BaitConstructor baitConstructor;
 
 	@Autowired
-	private FishDao fishDao;
+	private FishDao fishDao;*/
 
 	@Override
 	public List<BehaviorsDTO> getFishBehavior(List<String> calculatedDates, List<Integer> fishIds,
@@ -37,7 +31,7 @@ public class BehaviorServiceImpl implements BehaviorService {
 		BehaviorsDTO behaviorsDTO = null;
 		List<BehaviorsDTO> behaviorsDTOList = new ArrayList<>();
 
-		for (int id : fishIds) {
+		/*for (int id : fishIds) {
 			Fish fish = fishDao.getFishes(id, null, null, null, null).get(0);
 			behaviorsDTO = new BehaviorsDTO();
 			behaviorsDTO.setFish(fish);
@@ -56,7 +50,7 @@ public class BehaviorServiceImpl implements BehaviorService {
 					behaviorsDTO.getBehaviors().put(currentDate, behaviors);
 				}
 			}
-		}
+		}*/
 
 		return behaviorsDTOList;
 

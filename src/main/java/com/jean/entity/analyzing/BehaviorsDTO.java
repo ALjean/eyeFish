@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.jean.entity.fish.Fish;
+import com.jean.dao.entity.fish.Fish;
 
 public class BehaviorsDTO {
 

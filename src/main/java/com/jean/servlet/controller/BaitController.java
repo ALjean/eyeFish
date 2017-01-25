@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jean.DaoDfmException;
-import com.jean.entity.bait.Bait;
+import com.jean.dao.entity.bait.Bait;
 import com.jean.service.BaitService;
 
 @RestController
@@ -45,7 +45,7 @@ public class BaitController {
 	public ResponseEntity<?> getBaits(
 			@RequestParam(value = "baitType", required = false) String baitType,
 			@RequestParam(value = "baitName", required = false)String baitName, 
-			@RequestParam(value = "fishId", required = false)Integer fishId, 
+			@RequestParam(value = "fishId", required = false)Long fishId,
 			@RequestParam(value = "date", required = false)String date) {
 
 		List<Bait> baits;

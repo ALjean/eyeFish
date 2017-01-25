@@ -16,14 +16,13 @@ import com.jean.config.property.MessagesProperties;
 import com.jean.entity.analyzing.Behavior;
 import com.jean.entity.analyzing.GeneralNibbleState;
 import com.jean.entity.analyzing.NibblePoint;
-import com.jean.entity.fish.DayActivity;
-import com.jean.entity.fish.Fish;
-import com.jean.entity.fish.FishSetting;
-import com.jean.entity.fish.NibblePeriod;
+import com.jean.dao.entity.fish.DayActivity;
+import com.jean.dao.entity.fish.Fish;
+import com.jean.dao.entity.fish.FishSetting;
+import com.jean.dao.entity.fish.NibblePeriod;
 import com.jean.entity.weather.HourWeather;
 import com.jean.enums.DaysActivity;
 import com.jean.enums.ParamNames;
-import com.jean.util.Utils;
 
 @Component
 public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {
@@ -77,11 +76,11 @@ public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {
 
 			double generalResult = nibbleState.getNibbleLevel();
 
-			List<Double> results = new ArrayList<Double>();
+			List<Float> results = new ArrayList<>();
 
 			NibblePoint conrolPoint = new NibblePoint();
 
-			for (FishSetting fishSetting : fish.getFishSetting()) {
+			for (FishSetting fishSetting : fish.getFishSettings()) {
 				if (ParamNames.ENVIRMOMENT_TEMPERATURE.name().equals(fishSetting.getParamName())
 						&& (hourWeather.getGeneralTemp() > fishSetting.getMinValue()
 								&& hourWeather.getGeneralTemp() < fishSetting.getMaxValue())) {
@@ -114,7 +113,7 @@ public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {
 
 			results.add(nibbleChecker.isWind(hourWeather.getWindDeg(), hourWeather.getWindSpeed()));
 
-			for (NibblePeriod nibblePeriod : fish.getNibbles()) {
+			for (NibblePeriod nibblePeriod : fish.getNibblePeriods()) {
 				if (hourWeather.getDate().toLocalDate().isAfter(nibblePeriod.getStartPeriod().toLocalDate())
 						&& hourWeather.getDate().toLocalDate().isBefore(nibblePeriod.getEndPeriod().toLocalDate())) {
 					results.add(nibblePeriod.getNibbleLevel());
@@ -133,11 +132,11 @@ public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {
 
 	}
 
-	private static double getPrepareResult(List<Double> results, double generalResult) {
+	private static double getPrepareResult(List<Float> results, double generalResult) {
 
 		double prepareResult = generalResult;
 
-		for (Double result : results) {
+		for (Float result : results) {
 			if (result == BehaviorConstants.SPAWNING_POINT) {
 				prepareResult = result;
 				break;

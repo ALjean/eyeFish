@@ -30,6 +30,8 @@ dependencies {
     compile group: 'org.springframework.security', name: 'spring-security-core', version: securityV
     compile group: 'org.springframework.security', name: 'spring-security-config', version: securityV
     compile group: 'org.springframework.security', name: 'spring-security-web', version: securityV
+    compile group: 'org.springframework.data', name: 'spring-data-jpa', version: jpaV
+    compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: hibernateV
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: jjwtV
     /*compile group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.0.7.RELEASE'
     compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.0.12.RELEASE'*/
@@ -40,6 +42,7 @@ dependencies {
     compile group: 'javax.servlet', name: 'javax.servlet-api', version: servletV
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: jacksonV
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jacksonV
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hibernate4', version: hibernate4V
     compile group: 'junit', name: 'junit', version: junitV
     //apache
     compile group: 'org.apache.commons', name: 'commons-dbcp2', version: dbcp2V

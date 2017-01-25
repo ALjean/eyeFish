@@ -13,9 +13,9 @@ import com.jean.enums.PressureStates;
 public class NibbleCheckerImpl implements NibbleChecker {
 
 	@Override
-	public double isRain(double rain) {
+	public float isRain(double rain) {
 
-		double result = 0;
+		float result = 0;
 		if (rain >= BehaviorConstants.MAX_RAIN_VOLUME) {
 			result = BehaviorConstants.HEAVY_RAIN_POINT;
 		} else if (rain > BehaviorConstants.MIN_RAIN_VOLUME && rain <= BehaviorConstants.MIN_RAIN_VOLUME) {
@@ -25,9 +25,9 @@ public class NibbleCheckerImpl implements NibbleChecker {
 	}
 
 	@Override
-	public double isWind(double degrees, double speed) {
+	public float isWind(double degrees, double speed) {
 
-		double result = 0;
+		float result = 0;
 
 		if (speed > BehaviorConstants.CRITICAL_WIND_SPEED) {
 			result = BehaviorConstants.WIND_POINT;

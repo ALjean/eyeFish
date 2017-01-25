@@ -1,7 +1,7 @@
 package com.jean.service;
 
 
-import com.jean.entity.User;
+import com.jean.dao.entity.User;
 
 /**
  * Created by jean on 10.01.16.

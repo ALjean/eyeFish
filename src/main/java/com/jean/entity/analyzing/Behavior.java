@@ -3,7 +3,7 @@ package com.jean.entity.analyzing;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jean.entity.bait.Bait;
+import com.jean.dao.entity.bait.Bait;
 
 public class Behavior {
 
@@ -30,7 +30,7 @@ public class Behavior {
 	}
 
 	public Behavior() {
-		this.NibblePoints = new ArrayList<NibblePoint>();
+		this.NibblePoints = new ArrayList<>();
 	}
 	
 	public List<Bait> getBaits() {
