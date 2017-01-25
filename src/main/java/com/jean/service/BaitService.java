@@ -1,10 +1,9 @@
 package com.jean.service;
 
 import java.util.List;
-import java.util.Locale;
 
 import com.jean.DaoDfmException;
-import com.jean.entity.bait.Bait;
+import com.jean.dao.entity.bait.Bait;
 
 public interface BaitService {
 

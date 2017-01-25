@@ -3,20 +3,14 @@ package com.jean.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jean.CustomDfmException;
 import com.jean.DaoDfmException;
-import com.jean.analyzers.behavior.BehaviorAnalyzer;
-import com.jean.analyzers.constructors.BaitConstructor;
-import com.jean.dao.FishDao;
-import com.jean.entity.analyzing.Behavior;
+//import com.jean.dao.FishDao;
 import com.jean.entity.analyzing.BehaviorsDTO;
-import com.jean.entity.fish.Fish;
 import com.jean.entity.weather.GeneralHourWeather;
 import com.jean.service.BehaviorService;
-import com.jean.util.Utils;
 
 @Service
 public class BehaviorServiceImpl implements BehaviorService {

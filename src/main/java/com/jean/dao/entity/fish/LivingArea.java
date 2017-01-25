@@ -1,6 +1,6 @@
-package com.jean.entity.fish;
+package com.jean.dao.entity.fish;
 
-import com.jean.entity.BaseEntity;
+import com.jean.dao.entity.BaseEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;

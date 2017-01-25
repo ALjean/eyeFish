@@ -1,7 +1,7 @@
-package com.jean.entity.fish;
+package com.jean.dao.entity.fish;
 
 
-import com.jean.entity.BaseEntityAudit;
+import com.jean.dao.entity.BaseEntityAudit;
 
 import javax.persistence.*;
 import java.sql.Date;

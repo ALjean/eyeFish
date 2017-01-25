@@ -16,14 +16,13 @@ import com.jean.config.property.MessagesProperties;
 import com.jean.entity.analyzing.Behavior;
 import com.jean.entity.analyzing.GeneralNibbleState;
 import com.jean.entity.analyzing.NibblePoint;
-import com.jean.entity.fish.DayActivity;
-import com.jean.entity.fish.Fish;
-import com.jean.entity.fish.FishSetting;
-import com.jean.entity.fish.NibblePeriod;
+import com.jean.dao.entity.fish.DayActivity;
+import com.jean.dao.entity.fish.Fish;
+import com.jean.dao.entity.fish.FishSetting;
+import com.jean.dao.entity.fish.NibblePeriod;
 import com.jean.entity.weather.HourWeather;
 import com.jean.enums.DaysActivity;
 import com.jean.enums.ParamNames;
-import com.jean.util.Utils;
 
 @Component
 public class BehaviorAnalyzerImpl implements BehaviorAnalyzer {

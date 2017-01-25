@@ -1,6 +1,6 @@
-package com.jean.repository;
+package com.jean.dao.repository;
 
-import com.jean.entity.fish.Fish;
+import com.jean.dao.entity.fish.Fish;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

@@ -3,7 +3,6 @@ package com.jean.config.context;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;
 import com.jean.config.property.DataBaseProperties;
 import com.jean.config.property.RedisProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +37,7 @@ import java.util.Properties;
 @EnableWebMvc
 @ComponentScan({"com.jean.*"})
 @PropertySource("classpath:properties/app.properties")
-@EnableJpaRepositories(basePackages = {"com.jean.repository"})
+@EnableJpaRepositories(basePackages = {"com.jean.dao.repository"})
 @EnableTransactionManagement
 //@EnableScheduling
 public class AppConfig extends WebMvcConfigurerAdapter {
@@ -81,7 +80,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 
         factory.setJpaVendorAdapter(vendorAdapter);
         factory.setJpaProperties(additionalProperties());
-        factory.setPackagesToScan("com.jean.entity");
+        factory.setPackagesToScan("com.jean.dao.entity");
         factory.setDataSource(getBasicDataSource());
         factory.afterPropertiesSet();
         return factory.getObject();

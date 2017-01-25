@@ -29,14 +29,14 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @ContextConfiguration(classes = AppConfig.class, loader = AnnotationConfigWebContextLoader.class)
 public class BaseTest {
 
-	@Autowired
+/*	@Autowired
 	protected FishDao fishDao;
 
 	@Autowired
 	protected UserDao userDao;
 
 	@Autowired
-	protected BaitDao baitDao;
+	protected BaitDao baitDao;*/
 	
 	@Autowired
 	protected BehaviorAnalyzer behaviorAnalyzer;

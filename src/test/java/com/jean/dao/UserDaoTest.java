@@ -1,9 +1,8 @@
 package com.jean.dao;
 
 import com.jean.BaseTest;
-import com.jean.CustomDfmException;
 import com.jean.DaoDfmException;
-import com.jean.entity.User;
+import com.jean.dao.entity.User;
 import org.junit.Ignore;
 import org.junit.Test;
 

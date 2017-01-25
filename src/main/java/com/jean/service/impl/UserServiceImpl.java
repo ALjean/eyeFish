@@ -1,11 +1,9 @@
 package com.jean.service.impl;
 
 
-import com.jean.DaoDfmException;
-import com.jean.dao.UserDao;
-import com.jean.entity.User;
+
+import com.jean.dao.entity.User;
 import com.jean.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**

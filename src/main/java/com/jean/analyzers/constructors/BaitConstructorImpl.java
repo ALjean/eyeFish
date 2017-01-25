@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.jean.DaoDfmException;
 
-import com.jean.entity.bait.Bait;
+import com.jean.dao.entity.bait.Bait;
 
 @Component
 public class BaitConstructorImpl implements BaitConstructor {

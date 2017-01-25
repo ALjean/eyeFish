@@ -1,4 +1,4 @@
-package com.jean.entity;
+package com.jean.dao.entity;
 
 
 import org.hibernate.annotations.GenericGenerator;

@@ -4,8 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import com.jean.DaoDfmException;
-import com.jean.entity.bait.Bait;
-import com.jean.entity.weather.HourWeather;
+import com.jean.dao.entity.bait.Bait;
 
 public interface BaitConstructor {
 

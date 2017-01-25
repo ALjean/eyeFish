@@ -2,15 +2,11 @@ package com.jean.dao;
 
 import com.jean.CustomDfmException;
 import com.jean.DaoDfmException;
-import com.jean.entity.fish.DayActivity;
-import com.jean.entity.fish.Fish;
-import com.jean.entity.fish.FishSetting;
-import com.jean.entity.fish.LivingArea;
-import com.jean.entity.fish.NibblePeriod;
-import com.jean.enums.DaysActivity;
-import com.jean.enums.FishTypes;
-import com.jean.enums.LiveArea;
-import com.jean.enums.ParamNames;
+import com.jean.dao.entity.fish.DayActivity;
+import com.jean.dao.entity.fish.Fish;
+import com.jean.dao.entity.fish.FishSetting;
+import com.jean.dao.entity.fish.LivingArea;
+import com.jean.dao.entity.fish.NibblePeriod;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,9 +14,7 @@ import static org.junit.Assert.*;
 import org.springframework.stereotype.Component;
 import com.jean.BaseTest;
 
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -67,7 +61,7 @@ public class FishDaoTest extends BaseTest {
 	@Test
 	public void saveFish() throws DaoDfmException {
 
-		int result = fishDao.saveFish(fish);
+		int result = 0; //fishDao.saveFish(fish);
 		assertTrue("Key must be not 0", result > 0);
 		System.out.println(result);
 	}
@@ -75,7 +69,7 @@ public class FishDaoTest extends BaseTest {
 	@Test
 	public void getAllFishes() throws DaoDfmException {
 
-		List<Fish> fishes = fishDao.getFishes(null, null, null, null, null);
+		List<Fish> fishes = null; //fishDao.getFishes(null, null, null, null, null);
 		assertTrue(!fishes.isEmpty());
 
 		System.out.println(fishes.size() + "\n");
@@ -96,7 +90,7 @@ public class FishDaoTest extends BaseTest {
 	@Test
 	public void getFishById() throws DaoDfmException {
 		int itr = 0;
-		List<Fish> fishes = fishDao.getFishes(7, null, null, null, null);
+		List<Fish> fishes = null; //fishDao.getFishes(7, null, null, null, null);
 		assertTrue("Empty list", !fishes.isEmpty());
 
 		for (Fish fish : fishes) {
@@ -109,7 +103,7 @@ public class FishDaoTest extends BaseTest {
 	@Test
 	public void getFishByName() throws DaoDfmException {
 		int itr = 0;
-		List<Fish> fishes = fishDao.getFishes(null, "**arp", null, null, null);
+		List<Fish> fishes = null; //fishDao.getFishes(null, "**arp", null, null, null);
 		assertTrue("Empty list", !fishes.isEmpty());
 
 		for (Fish fish : fishes) {
@@ -121,7 +115,7 @@ public class FishDaoTest extends BaseTest {
 
 	@Test
 	public void getFishByType() throws DaoDfmException {
-		List<Fish> fishes = fishDao.getFishes(null, null, "***M", null, null);
+		List<Fish> fishes = null; //fishDao.getFishes(null, null, "***M", null, null);
 		assertTrue("Empty list", !fishes.isEmpty());
 
 		for (Fish fish : fishes) {
@@ -131,37 +125,37 @@ public class FishDaoTest extends BaseTest {
 
 	@Test
 	public void getFishByActivity() throws DaoDfmException {
-		List<Fish> fishes = fishDao.getFishes(null, null, null, "***NG", null);
+		List<Fish> fishes = null; //fishDao.getFishes(null, null, null, "***NG", null);
 		assertTrue("Empty list", !fishes.isEmpty());
 	}
 	
 	@Test
 	public void getFishByArea() throws DaoDfmException {
-		List<Fish> fishes = fishDao.getFishes(null, null, null, null, "**OM");
+		List<Fish> fishes = null; //fishDao.getFishes(null, null, null, null, "**OM");
 		assertTrue("Empty list", !fishes.isEmpty());
 	}
 	
 	@Test
 	public void getFishByWrongParams() throws DaoDfmException {
-		List<Fish> fishes = fishDao.getFishes(23, "HJK", null, null, "**RROR");
+		List<Fish> fishes = null; //fishDao.getFishes(23, "HJK", null, null, "**RROR");
 		assertTrue("List is not empty", fishes.isEmpty());
 	}
 	
 	@Test
 	public void updateFish() throws DaoDfmException{
-		List<Fish> fishes = fishDao.getFishes(43, null, null, null, null);
+		List<Fish> fishes = null; //fishDao.getFishes(43, null, null, null, null);
 		Fish fish = fishes.get(0);
 		fish.setName("Yaz");
 		/*fish.getFishSettings().get(0).setNibbleLevel(100);
 		fish.getNibblePeriods().get(0).setNibbleLevel(100);
 		fish.getDaysActivity().get(0).setActivityName(DaysActivity.MORNING.name());*/
-		fishDao.updateFish(fish);
+		//fishDao.updateFish(fish);
 	}
 	
 	@Test
 	public void deleteFish() throws DaoDfmException{
 
-		int result = fishDao.deleteFish(Arrays.asList(new Integer[] { 44, 45 }));
+		int result = 0;// fishDao.deleteFish(Arrays.asList(new Integer[] { 44, 45 }));
 		assertTrue(result == 1);
 	}
 

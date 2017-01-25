@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -16,11 +15,10 @@ import org.junit.Test;
 import com.jean.BaseTest;
 import com.jean.CustomDfmException;
 import com.jean.entity.analyzing.PondEnvirmoment;
-import com.jean.entity.bait.Bait;
-import com.jean.entity.bait.BaitSetting;
-import com.jean.entity.bait.DateHolder;
-import com.jean.entity.bait.Qualifier;
-import com.jean.enums.ParamNames;
+import com.jean.dao.entity.bait.Bait;
+import com.jean.dao.entity.bait.BaitSetting;
+import com.jean.dao.entity.bait.DateHolder;
+import com.jean.dao.entity.bait.Qualifier;
 
 import jdk.nashorn.internal.ir.annotations.Ignore;
 
@@ -51,12 +49,14 @@ public class BaitDaoTest extends BaseTest {
 		dates.add(new DateHolder(Date.valueOf("2016-02-01"), Date.valueOf("2016-03-25")));*/
 
 		qualifiers = new ArrayList<>();
+/*
 		qualifiers.add(new Qualifier(0, ParamNames.ENVIRMOMENT_TEMPERATURE.name(), 0, 12));
 		qualifiers.add(new Qualifier(0, ParamNames.CLOUD_LEVEL.name(), 30, 65));
 
 		baitSettings = new ArrayList<>();
 		baitSettings.add(new BaitSetting(0, "Color", "Red", "Use for the best result", qualifiers));
 		baitSettings.add(new BaitSetting(0, "Color", "White", "Use for the best result", qualifiers));
+*/
 
 //		bait = new Bait(0, "WORM!!!!", "Meat", "For real predator!", baitSettings, idFishes, dates);
 

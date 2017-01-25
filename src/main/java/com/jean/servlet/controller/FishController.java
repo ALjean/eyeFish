@@ -1,6 +1,6 @@
 package com.jean.servlet.controller;
 
-import com.jean.entity.fish.Fish;
+import com.jean.dao.entity.fish.Fish;
 import com.jean.service.FishService;
 
 import java.util.HashSet;

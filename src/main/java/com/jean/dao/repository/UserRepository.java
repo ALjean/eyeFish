@@ -1,6 +1,6 @@
-package com.jean.repository;
+package com.jean.dao.repository;
 
-import com.jean.entity.User;
+import com.jean.dao.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

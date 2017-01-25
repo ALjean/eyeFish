@@ -1,4 +1,6 @@
-package com.jean.entity;
+package com.jean.dao.entity;
+
+import com.jean.dao.entity.BaseEntityAudit;
 
 import javax.persistence.*;
 

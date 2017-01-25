@@ -1,12 +1,10 @@
-package com.jean.entity.fish;
+package com.jean.dao.entity.fish;
 
 import java.util.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.jean.entity.BaseEntity;
-import com.jean.entity.BaseEntityAudit;
-import com.jean.entity.bait.Bait;
+import com.jean.dao.entity.BaseEntityAudit;
+import com.jean.dao.entity.bait.Bait;
 
 import javax.persistence.*;
 
@@ -24,7 +22,19 @@ public class Fish extends BaseEntityAudit {
     private String fishType;
 
 
-//    private Map<String, Double> pressureS
+    /*Map<String, Double> maps = fish.getPressureStates();
+					maps.put(PressureStates.IS_STABILITY.name(), rs.getDouble("f.is_stability"));
+					maps.put(PressureStates.IS_STABILITY_HIGH.name(), rs.getDouble("f.is_high"));
+					maps.put(PressureStates.IS_STABILITY_LOW.name(), rs.getDouble("f.is_low"));
+					maps.put(PressureStates.IS_RISE.name(), rs.getDouble("f.is_rise"));
+					maps.put(PressureStates.IS_DOWN.name(), rs.getDouble("f.is_down"));*/
+
+//    private Map<String, Double> pressures
+
+
+    @OneToMany(mappedBy="fish", fetch = FetchType.EAGER)
+    @MapKeyColumn(name="pressure_type")
+    private Map<String, PressureStates> pressureStates = new HashMap<>();
 
     @OneToMany(mappedBy = "fish", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<LivingArea> livingAreas;
@@ -71,13 +81,13 @@ public class Fish extends BaseEntityAudit {
         this.fishType = fishType;
     }
 
-    /*public Map<String, Double> getPressureStates() {
+    public Map<String, PressureStates> getPressureStates() {
         return pressureStates;
     }
 
-    public void setPressureStates(Map<String, Double> pressureStates) {
+    public void setPressureStates(Map<String, PressureStates> pressureStates) {
         this.pressureStates = pressureStates;
-    }*/
+    }
 
     public Set<LivingArea> getLivingAreas() {
         return livingAreas;
