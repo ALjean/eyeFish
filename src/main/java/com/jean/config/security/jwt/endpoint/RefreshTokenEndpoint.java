@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import com.jean.config.context.JwtSecurityConfig;
-import com.jean.config.security.jwt.UserService;
+
 import com.jean.config.security.jwt.auth.jwt.extractor.TokenExtractor;
 import com.jean.config.security.jwt.auth.jwt.verifier.TokenVerifier;
 import com.jean.config.security.jwt.config.JwtSettings;
@@ -21,7 +21,9 @@ import com.jean.config.security.jwt.model.token.JwtToken;
 import com.jean.config.security.jwt.model.token.JwtTokenFactory;
 import com.jean.config.security.jwt.model.token.RawAccessJwtToken;
 import com.jean.config.security.jwt.model.token.RefreshToken;
-import com.jean.entity.User;
+
+import com.jean.dao.entity.user.User;
+import com.jean.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
@@ -70,11 +72,11 @@ public class RefreshTokenEndpoint {
         }
 
         String subject = refreshToken.getSubject();
-        User user = userService.getByUsername(subject).orElseThrow(() -> new UsernameNotFoundException("User not found: " + subject));
+        User user = userService.getUserByEmail(subject).orElseThrow(() -> new UsernameNotFoundException("User not found: " + subject));
 
         if (user.getRoles() == null) throw new InsufficientAuthenticationException("User has no roles assigned");
         List<GrantedAuthority> authorities = user.getRoles().stream()
-                .map(authority -> new SimpleGrantedAuthority(authority.getRole().authority()))
+                .map(authority -> new SimpleGrantedAuthority(authority.getName()))
                 .collect(Collectors.toList());
 
         UserContext userContext = UserContext.create(user.getUsername(), authorities);

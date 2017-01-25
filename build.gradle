@@ -15,7 +15,8 @@ gretty {
     httpPort = 8033
     contextPath = ''
     loggingLevel = 'INFO'
-//    managedClassReload = true
+    managedClassReload = true
+    scanInterval = 3
 }
 
 //noinspection GroovyAssignabilityCheck

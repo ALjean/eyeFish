@@ -1,8 +1,9 @@
-package com.jean.dao.entity;
+package com.jean.dao.entity.user;
 
 import com.jean.dao.entity.BaseEntityAudit;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by jean on 10.01.16.
@@ -13,8 +14,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "users")
 public class User extends BaseEntityAudit {
-
-
 
     @Column(name = "email")
     private String email;
@@ -28,8 +27,10 @@ public class User extends BaseEntityAudit {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "role")
-    private String role;
+    @Column(name = "roles")
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<Role> roles;
 
 //    private SocialMediaService socialService;
 
@@ -76,15 +77,15 @@ public class User extends BaseEntityAudit {
         this.lastName = lastName;
     }
 
-    public String getRole() {
-        return role;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
-    /*public SocialMediaService getSocialService() {
+/*public SocialMediaService getSocialService() {
         return socialService;
     }
 
@@ -93,7 +94,7 @@ public class User extends BaseEntityAudit {
     }*/
 
 
-//    @Override
+
     public String getUsername() {
         return email;
     }

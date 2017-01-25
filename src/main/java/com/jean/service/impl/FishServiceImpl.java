@@ -20,7 +20,7 @@ public class FishServiceImpl implements FishService {
 	@Override
 	@Transactional
 	public List<Fish> getAllFishes(){
-		return fishRepository.findAll();
+		return fishRepository.findAll().stream();
 	}
 
 	public Fish getById(Long id){

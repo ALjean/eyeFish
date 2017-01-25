@@ -1,3 +1,4 @@
+/*
 package com.jean.dao.impl;
 
 
@@ -14,9 +15,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
+*/
 /**
  * Created by jean on 10.01.16.
- */
+ *//*
+
 @Repository
 public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
@@ -36,9 +39,11 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
                 user.setId(rs.getLong("id"));
 //                user.setEmail(rs.getString("email"));
                 user.setPassword(rs.getString("password"));
+*/
 /*                user.setFirstName(rs.getString("first_name"));
                 user.setLastName(rs.getString("last_name"));
-                user.setRole(rs.getString("role"));*/
+                user.setRole(rs.getString("role"));*//*
+
             }
 
             log.info("get user by email: " + user.toString());
@@ -51,3 +56,4 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
         return Optional.of(user) ;
     }
 }
+*/

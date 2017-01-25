@@ -2,7 +2,7 @@ package com.jean.dao;
 
 import com.jean.BaseTest;
 import com.jean.DaoDfmException;
-import com.jean.dao.entity.User;
+import com.jean.dao.entity.user.User;
 import org.junit.Ignore;
 import org.junit.Test;
 

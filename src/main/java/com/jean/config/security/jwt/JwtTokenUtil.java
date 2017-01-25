@@ -1,6 +1,6 @@
 package com.jean.config.security.jwt;
 
-import com.jean.dao.entity.User;
+import com.jean.dao.entity.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
