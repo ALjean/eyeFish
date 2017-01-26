@@ -1,6 +1,6 @@
 package com.jean.service.impl;
 
-//import com.jean.dao.FishDao;
+
 import com.jean.dao.entity.fish.Fish;
 import com.jean.dao.repository.FishRepository;
 import com.jean.service.FishService;
@@ -20,7 +20,7 @@ public class FishServiceImpl implements FishService {
 	@Override
 	@Transactional
 	public List<Fish> getAllFishes(){
-		return fishRepository.findAll().stream();
+		return fishRepository.findAll();
 	}
 
 	public Fish getById(Long id){
